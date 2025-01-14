@@ -65,7 +65,7 @@ export default function Landing() {
                     </div>
 
                     {/* pricing */}
-                    <Pricing className="w-full px-6 lg:px-0" referral={ref} />
+                    <Pricing className="w-full px-6 lg:px-0.5" referral={ref} />
 
                     {/* cta */}
                     <div className="bg-primary rounded-lg p-16 w-full items-center justify-center flex flex-col space-y-8">
