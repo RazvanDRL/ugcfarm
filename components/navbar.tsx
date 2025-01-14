@@ -12,7 +12,7 @@ import {
 
 export function Navbar() {
     return (
-        <nav className="sticky flex items-center justify-center mx-auto top-0 left-0 right-0 w-full max-w-5xl">
+        <nav className="sticky bg-background flex items-center justify-center mx-auto top-0 left-0 right-0 w-full max-w-5xl">
             <div className="container flex h-20 items-center justify-between px-4">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2">
