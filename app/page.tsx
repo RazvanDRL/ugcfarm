@@ -3,8 +3,12 @@ import { Button } from "@/components/button";
 import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
+import Pricing from "@/components/pricing";
 
 export default function Landing() {
+    const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const ref = params ? params.get('ref') : null;
+
     return (
         <>
             <Navbar />
@@ -58,6 +62,9 @@ export default function Landing() {
                         />
                     </div>
                 </div>
+                <section className="flex flex-col items-center justify-center mt-24">
+                    <Pricing className="w-full px-6 lg:px-0" referral={ref} />
+                </section>
             </main >
             <Footer />
         </>
