@@ -12,8 +12,8 @@ import {
 
 export function Navbar() {
     return (
-        <nav className="sticky flex items-center justify-center mx-auto top-0 left-0 right-0 w-full">
-            <div className="container flex h-20 items-center justify-between md:px-10">
+        <nav className="sticky flex items-center justify-center mx-auto top-0 left-0 right-0 w-full max-w-5xl">
+            <div className="container flex h-20 items-center justify-between px-4">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2">
                     <Image
@@ -37,11 +37,15 @@ export function Navbar() {
                 {/* Desktop buttons - hidden on mobile */}
                 <div className="hidden md:flex md:items-center md:justify-center md:space-x-4">
                     <Button variant="ghost" asChild>
-                        <Link href="/login" className="font-[900] text-primary text-lg">Login</Link>
+                        <Link href="/login">
+                            <span className="font-[900] text-primary">Login</span>
+                        </Link>
                     </Button>
-                    <Button asChild>
-                        <Link href="/signup" className="font-[900] text-lg">Sign up</Link>
-                    </Button>
+                    <Link href="/signup" className="hover:scale-105 transition-all duration-300">
+                        <Button variant="default">
+                            <span className="font-[900]">Sign up</span>
+                        </Button>
+                    </Link>
                 </div>
 
                 {/* Mobile menu */}
