@@ -2,12 +2,13 @@ import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/button";
 import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
+import { Footer } from "@/components/footer";
 
 export default function Landing() {
     return (
         <>
             <Navbar />
-            <main className="mt-20">
+            <main className="mt-20 mb-20">
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-5xl font-[900] text-[#1a1a1a] text-center">
@@ -58,6 +59,7 @@ export default function Landing() {
                     </div>
                 </div>
             </main >
+            <Footer />
         </>
     );
 }
