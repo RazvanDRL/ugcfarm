@@ -99,7 +99,7 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
     return (
         <div className={`${className}`}>
             <div className="max-w-5xl mt-16">
-                <h1 className={cn("text-4xl text-[#1a1a1a] sm:text-5xl font-black mb-8 text-center")}>
+                <h1 className={cn("text-5xl text-[#1a1a1a] sm:text-5xl font-black mb-8 text-center")}>
                     Learn copywriting by <span className="text-primary">actually writing</span>
                 </h1>
                 <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center mb-12">

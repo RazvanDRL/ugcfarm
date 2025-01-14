@@ -4,7 +4,27 @@ import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Smile, Frown } from "lucide-react";
+
+const withoutUGC = [{
+    title: "You without UGC Farm",
+    list: [
+        "Stuck on tutorials instead of actually writing",
+        "Doubting your skills",
+        "Getting generic, one-size-fits-all advice",
+        "Struggling to a land client with an empty portfolio",
+    ]
+}]
+
+const withUGC = [{
+    title: "You with UGC Farm",
+    list: [
+        "Able to put your skills into practice",
+        "Building confidence with every exercise",
+        "Getting personalized feedback that matters",
+        "Landing clients with a professional portfolio",
+    ]
+}]
 
 export default function Landing() {
     const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
@@ -64,6 +84,33 @@ export default function Landing() {
                         />
                     </div>
 
+                    {/* problem agitation */}
+                    <div className="flex flex-col items-center justify-center space-y-8">
+                        <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center">
+                            Don&apos;t pay <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">extra!!</span>
+                        </h2>
+                        {/* 2 cards side by side */}
+                        <div className="mt-16 flex flex-col sm:flex-row items-stretch justify-center gap-6 w-full">
+                            <div className="flex flex-col items-left text-left justify-center p-6 sm:p-8 bg-red-50 rounded-xl w-full sm:w-1/2">
+                                <Frown className="w-8 h-8 sm:w-10 sm:h-10 text-red-500" />
+                                <h3 className="mt-4 text-lg sm:text-xl font-extrabold text-red-500">{withoutUGC[0].title}</h3>
+                                <ul className="mt-4 text-sm sm:text-base font-medium text-red-700 list-disc list-inside">
+                                    {withoutUGC[0].list.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div className="flex flex-col items-top text-left justify-start p-6 sm:p-8 bg-green-50 rounded-xl w-full sm:w-1/2">
+                                <Smile className="w-8 h-8 sm:w-10 sm:h-10 text-green-500" />
+                                <h3 className="mt-4 text-lg sm:text-xl font-extrabold text-green-500">{withUGC[0].title}</h3>
+                                <ul className="mt-4 text-sm sm:text-base font-medium text-green-700 list-disc list-inside">
+                                    {withUGC[0].list.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     {/* pricing */}
                     <Pricing className="w-full px-6 lg:px-0.5" referral={ref} />
 
