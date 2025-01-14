@@ -1,3 +1,4 @@
+"use client"
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/button";
 import Link from "next/link";
@@ -33,7 +34,7 @@ export default function Landing() {
     return (
         <>
             <Navbar />
-            <main className="mt-20 mb-20">
+            <main className="mt-40 mb-20">
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-5xl font-[900] text-[#1a1a1a] text-center">
@@ -87,7 +88,7 @@ export default function Landing() {
                     {/* problem agitation */}
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Don&apos;t pay <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">extra!!</span>
+                            Never pay <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">extra</span> again.
                         </h2>
                         {/* 2 cards side by side */}
                         <div className="mt-16 flex flex-col sm:flex-row items-stretch justify-center gap-6 w-full">
