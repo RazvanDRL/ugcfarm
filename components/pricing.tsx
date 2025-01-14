@@ -42,10 +42,11 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
             title: "Starter",
             emoji: "🌱",
             description: "Convince yourself",
-            price: 0,
+            price: !referral ? 1 : ((10 * 0.7) / 10).toFixed(2),
+            totalPrice: !referral ? 10 : (10 * 0.7).toFixed(2),
             originalPrice: 5,
             features: [
-                "1 exercise with feedback",
+                "10 videos",
                 <Link key="affiliate_starter" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
                 "✕ Portfolio Builder",
                 "✕ Progress tracking",
@@ -59,11 +60,11 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
             title: "Essential",
             emoji: "🚀",
             description: "All you need to get started",
-            price: !referral ? (19 / 35).toFixed(2) : ((19 * 0.7) / 35).toFixed(2),
+            price: !referral ? (19 / 50).toFixed(2) : ((19 * 0.7) / 50).toFixed(2),
             totalPrice: !referral ? 19 : (19 * 0.7).toFixed(2),
             originalPrice: 39,
             features: [
-                "35 exercises",
+                "50 videos",
                 "Personalized AI feedback",
                 "Portfolio builder",
                 "Progress tracking",
@@ -82,7 +83,7 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
             totalPrice: !referral ? 49 : (49 * 0.7).toFixed(2),
             originalPrice: 99,
             features: [
-                <span key="unlimited" className="bg-[#007FFF]/10 px-1 rounded">Unlimited exercises</span>,
+                <span key="unlimited" className="bg-primary/10 px-1 rounded">Unlimited videos</span>,
                 "Personalized AI feedback",
                 "Portfolio builder",
                 "Progress tracking",
@@ -98,10 +99,10 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
     return (
         <div className={`${className}`}>
             <div className="max-w-5xl mt-16">
-                <h1 className={cn("text-4xl sm:text-5xl font-extrabold mb-8 text-center")}>
-                    Learn copywriting by <span className="text-[#007FFF]">actually writing</span>
+                <h1 className={cn("text-4xl text-[#1a1a1a] sm:text-5xl font-black mb-8 text-center")}>
+                    Learn copywriting by <span className="text-primary">actually writing</span>
                 </h1>
-                <p className="text-xl text-muted-foreground text-center mb-12">
+                <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center mb-12">
                     Start learning today. Choose the perfect plan for you.
                 </p>
 
@@ -109,45 +110,43 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                     {plans.map((plan, index) => (
                         <Card key={index} className={cn(
                             "flex flex-col px-6 rounded-xl mb-2",
-                            plan.popular ? "border-[#007FFF] border-2 shadow-lg md:scale-105" : "",
+                            plan.popular ? "border-primary border-2 shadow-lg md:scale-105" : "",
                             "transition-all duration-200 hover:shadow-md relative"
                         )}>
                             {plan.popular && (
-                                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#007FFF] text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">
+                                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground text-xs font-black px-3 py-1 rounded-full">
                                     Popular
                                 </div>
                             )}
                             <CardHeader>
                                 <div className="flex justify-between items-center mb-4">
-                                    <CardTitle className={cn("text-2xl font-bold")}>{plan.title}</CardTitle>
+                                    <CardTitle className={cn("text-2xl font-black text-[#1a1a1a]")}>{plan.title}</CardTitle>
                                     <span className="text-3xl">{plan.emoji}</span>
                                 </div>
-                                <CardDescription className="text-md">{plan.description}</CardDescription>
-                                <div className={cn("text-4xl font-bold")}>
+                                <CardDescription className="text-md font-[500]">{plan.description}</CardDescription>
+                                <div className={cn("text-4xl font-extrabold text-[#1a1a1a]")}>
                                     {/* <span className="line-through mr-2 text-lg font-normal text-muted-foreground">
                                         ${plan.originalPrice}
                                     </span> */}
                                     ${plan.price}
-                                    <span className="text-base font-normal text-muted-foreground">&nbsp;per exercise</span>
+                                    <span className="text-base font-[500] text-muted-foreground">&nbsp;per video</span>
                                 </div>
                                 {plan.totalPrice && (
-                                    <div className={cn("text-4xl font-bold mb-2")}>
-                                        <span className="text-sm font-normal text-muted-foreground/70">&nbsp;total&nbsp;${plan.totalPrice} one-time</span>
-                                    </div>
+                                    <span className="text-sm font-[500] pt-2 text-[#1a1a1a]/60">&nbsp;total&nbsp;${plan.totalPrice} one-time</span>
                                 )}
                             </CardHeader>
                             <CardContent className="flex-grow">
                                 <ul className="space-y-3">
                                     {plan.features.map((feature, idx) => (
-                                        <li key={idx} className="flex items-center">
+                                        <li key={idx} className="flex items-center font-[500]">
                                             {typeof feature === 'string' && feature.startsWith("✕") ? (
                                                 <>
                                                     <span className="mr-2 text-red-500 font-bold">✕</span>
-                                                    <span className="text-gray-500">{feature.substring(2)}</span>
+                                                    <span className="text-[#1a1a1a]/60">{feature.substring(2)}</span>
                                                 </>
                                             ) : (
                                                 <>
-                                                    <Check className="mr-2 h-5 w-5 text-[#007FFF]" />
+                                                    <Check className="mr-2 h-5 w-5 text-primary" />
                                                     {typeof feature === 'string' ? feature : feature}
                                                 </>
                                             )}
@@ -156,7 +155,7 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                                 </ul>
                             </CardContent>
                             <CardFooter className="flex flex-col items-center">
-                                <Button className={cn("w-full text-lg py-6 font-bold", plan.popular ? "bg-[#007FFF] text-white" : "bg-white text-black")} variant={plan.popular ? "default" : "outline"} asChild>
+                                <Button className={cn("w-full text-lg py-6 font-[900]", plan.popular ? "bg-primary text-white" : "bg-white text-[#1a1a1a]")} variant={plan.popular ? "default" : "outline"} asChild>
                                     <Link href={plan.paymentLink ? linkify(plan.paymentLink, user?.id!, user?.email!, referral!) : `https://copy-coach.com/signup`} target="_blank">
                                         {plan.cta}
                                         {plan.popular && (
@@ -164,25 +163,25 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                                         )}
                                     </Link>
                                 </Button>
-                                <p className="mt-3 text-xs text-muted-foreground">
+                                <p className="mt-3 text-xs text-muted-foreground font-[500]">
                                     Access forever (no subscription)
                                 </p>
                             </CardFooter>
                         </Card>
                     ))}
                 </div>
-
-                <div className="mt-12 text-center">
+                {/* enterprise */}
+                {/* <div className="mt-12 text-center">
                     <div className="inline-flex items-center gap-2 mb-4">
-                        <Building2 className="h-6 w-6 text-[#007FFF]" />
+                        <Building2 className="h-6 w-6 text-primary" />
                         <h2 className={cn("text-2xl font-bold")}>Enterprise</h2>
                     </div>
-                    <p className="text-muted-foreground mb-6">
+                    <p className="text-muted-foreground mb-6 font-[500]">
                         Need a custom solution for your team? Let&apos;s talk.
                     </p>
 
-                    <Link href="https://calendly.com/arthurluca/enterprise-plan-copycoach" target="_blank" >
-                        <Button variant="outline" className="">
+                    <Link href="/" target="_blank" >
+                        <Button variant="outline" className="font-[600]">
                             Schedule a call
                             <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
@@ -194,7 +193,7 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                     <Lock className="h-4 w-4 text-gray-400 mr-2" />
                     <span className="text-sm text-gray-500">Secured by</span>
                     <Image src={StripeLogo} alt="Stripe" width={37} height={10} className="ml-1" />
-                </Link>
+                </Link> */}
             </div>
         </div >
     );

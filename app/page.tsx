@@ -4,6 +4,7 @@ import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
+import { ArrowRight } from "lucide-react";
 
 export default function Landing() {
     const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
@@ -31,6 +32,7 @@ export default function Landing() {
                             </Button>
                         </Link>
                     </div>
+
                     {/* videos */}
                     <div className="flex justify-center gap-2 w-full overflow-x-auto px-4 py-8 mx-auto">
                         <VideoPreview
@@ -61,10 +63,23 @@ export default function Landing() {
                             rotation={1}
                         />
                     </div>
-                </div>
-                <section className="flex flex-col items-center justify-center mt-24">
+
+                    {/* pricing */}
                     <Pricing className="w-full px-6 lg:px-0" referral={ref} />
-                </section>
+
+                    {/* cta */}
+                    <div className="bg-primary rounded-lg p-16 w-full items-center justify-center flex flex-col space-y-8">
+                        <h2 className="text-5xl font-[900] text-background text-center">
+                            Ready to get started?
+                        </h2>
+                        <Link href="/pricing">
+                            <Button variant="default" className="hover:scale-[1.05] hover:bg-background/90 bg-background text-primary transition-all duration-300">
+                                Start now
+                                <ArrowRight />
+                            </Button>
+                        </Link>
+                    </div>
+                </div>
             </main >
             <Footer />
         </>
