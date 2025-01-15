@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
 import { ArrowRight, Smile, Frown } from "lucide-react";
 import { ROICalculator } from "@/components/roi-calculator"
+import FlickeringGrid from "@/components/ui/flickering-grid";
 
 const withoutUGC = [{
     title: "You without UGC Farm",
@@ -138,16 +139,28 @@ export default function Landing() {
                     <Pricing id="pricing" className="w-full py-12 px-6 lg:px-0.5" referral={ref} />
 
                     {/* cta */}
-                    <div className="bg-primary rounded-lg p-16 w-full items-center justify-center flex flex-col space-y-8">
-                        <h2 className="text-5xl font-[900] text-background text-center">
-                            Ready to get started?
-                        </h2>
-                        <Link href="/#pricing">
-                            <Button variant="default" className="hover:scale-[1.05] hover:bg-background/90 bg-background text-primary transition-all duration-300">
-                                Start now
-                                <ArrowRight />
-                            </Button>
-                        </Link>
+                    <div className="size-[300px] rounded-lg w-full bg-background overflow-hidden border relative">
+                        <FlickeringGrid
+                            className="z-0 relative inset-0 [mask-image:radial-gradient(450px_circle_at_center,white,transparent)]"
+                            squareSize={4}
+                            gridGap={6}
+                            color="#FF7538"
+                            maxOpacity={0.5}
+                            flickerChance={0.1}
+                            height={500}
+                            width={2000}
+                        />
+                        <div className="absolute inset-0 flex flex-col items-center space-y-8 justify-center z-10">
+                            <h2 className="text-5xl text-primary font-[900] text-center">
+                                Ready to get started?
+                            </h2>
+                            <Link href="/#pricing">
+                                <Button variant="default" className="hover:scale-[1.05] hover:bg-primary/90 bg-primary text-background transition-all duration-300">
+                                    Start now
+                                    <ArrowRight />
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </main >
