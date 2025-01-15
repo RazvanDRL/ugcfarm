@@ -21,15 +21,14 @@ export function Navbar() {
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">
                         <Image
-                            src="/next.svg"
+                            src="/logo.svg"
                             alt="Logo"
-                            width={72}
-                            height={72}
+                            width={120}
+                            height={120}
                             priority
                             loading="eager"
-                            className="w-[50px] h-[50px] md:w-[72px] md:h-[72px]"
+                            className="w-[96px]s md:w-[120px] h-auto"
                         />
-                        <span className="font-black text-lg md:text-xl text-primary">UGCfarm</span>
                     </Link>
 
                     {/* Quick links - hidden on mobile */}

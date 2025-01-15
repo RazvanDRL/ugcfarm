@@ -7,12 +7,17 @@ export function Footer() {
         <footer className="max-w-5xl mx-auto py-8 px-8">
             <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8 md:gap-20">
                 <div className="flex flex-col space-y-4 max-w-xs">
-                    <Image
-                        src="/next.svg"
-                        alt="UGC Farm"
-                        width={72}
-                        height={72}
-                    />
+                    <Link href="/">
+                        <Image
+                            src="/logo.svg"
+                            alt="Logo"
+                            width={120}
+                            height={120}
+                            priority
+                            loading="eager"
+                            className="w-[96px]s md:w-[120px] h-auto"
+                        />
+                    </Link>
                     <p className="text-sm font-medium text-[#1a1a1a]/60">
                         UGC Farm is a platform for farmers to sell their products directly to consumers.
                     </p>
