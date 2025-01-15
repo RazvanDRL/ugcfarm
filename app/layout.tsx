@@ -48,6 +48,11 @@ export const metadata: Metadata = {
     follow: true,
   },
 
+  appleWebApp: {
+    title: "UGC Farm",
+    startupImage: "/logo.svg",
+  },
+
   // verification: {
   //   google: "google-site-verification=1234567890",
   // },
