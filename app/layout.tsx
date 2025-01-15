@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { satoshi } from "@/fonts/satoshi";
 import PlausibleProvider from 'next-plausible'
 import "./globals.css";
+import { PostHogProvider } from "@/components/posthog";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,16 +16,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${satoshi.className}`}>
-        <PlausibleProvider
-          domain="ugc.farm"
-          customDomain="https://plausible.longtoshort.tech"
-          selfHosted={true}
-          enabled={true}
-        >
-          {children}
-        </PlausibleProvider>
-      </body>
+      <PostHogProvider>
+        <body className={`${satoshi.className}`}>
+          <PlausibleProvider
+            domain="ugc.farm"
+            customDomain="https://plausible.longtoshort.tech"
+            selfHosted={true}
+            enabled={true}
+          >
+            {children}
+          </PlausibleProvider>
+        </body>
+      </PostHogProvider>
     </html>
   );
 }
