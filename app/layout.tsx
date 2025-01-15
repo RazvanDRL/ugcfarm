@@ -4,6 +4,7 @@ import PlausibleProvider from 'next-plausible'
 import "./globals.css";
 import { PostHogProvider } from "@/components/posthog";
 import { IntercomScript } from "@/app/components/IntercomScript";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ugc.farm"),
@@ -69,6 +70,7 @@ export default function RootLayout({
             selfHosted={true}
             enabled={true}
           >
+            <Toaster position="top-right" closeButton />
             {children}
           </PlausibleProvider>
         </body>
