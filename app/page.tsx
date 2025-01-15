@@ -44,14 +44,19 @@ export default function Landing() {
                         <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
                             it&apos;s like a gen z marketing team, but way cheaper
                         </p>
-                        <Link href="/pricing">
-                            <Button
-                                variant="default"
-                                className="hover:scale-[1.05] transition-all duration-300"
-                            >
-                                Start now
-                            </Button>
-                        </Link>
+                        <div className="flex flex-col items-center justify-center space-y-2">
+                            <Link href="/pricing">
+                                <Button
+                                    variant="default"
+                                    className="hover:scale-[1.05] transition-all duration-300"
+                                >
+                                    Start now
+                                </Button>
+                            </Link>
+                            {/* <Link href="/demo" className="text-sm opacity-80 font-[600] text-primary flex items-center hover:underline">
+                                See demo <ArrowRight className="ml-1 w-4 h-4" />
+                            </Link> */}
+                        </div>
                     </div>
 
                     {/* videos */}
