@@ -53,7 +53,7 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                 "✕ Full-access to the app",
             ],
             cta: "Start Free",
-            paymentLink: null,
+            paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_1,
             popular: false
         },
         {
@@ -72,7 +72,7 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                 "Full-access to the app",
             ],
             cta: "Get Started",
-            paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID1,
+            paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_2,
             popular: true
         },
         {
@@ -91,7 +91,7 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                 "Full-access to the app",
             ],
             cta: "Go Unlimited",
-            paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID2,
+            paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_3,
             popular: false
         }
     ]
@@ -156,7 +156,7 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                             </CardContent>
                             <CardFooter className="flex flex-col items-center">
                                 <Button className={cn("w-full text-lg py-6 font-[900]", plan.popular ? "bg-primary text-white" : "bg-white text-[#1a1a1a]")} variant={plan.popular ? "default" : "outline"} asChild>
-                                    <Link href={plan.paymentLink ? linkify(plan.paymentLink, user?.id!, user?.email!, referral!) : `https://copy-coach.com/signup`} target="_blank">
+                                    <Link href={linkify(plan.paymentLink!, user?.id!, user?.email!, referral!)} target="_blank">
                                         {plan.cta}
                                         {plan.popular && (
                                             <ArrowRight className="ml-2 h-5 w-5" />
