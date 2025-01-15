@@ -187,13 +187,13 @@ const Pricing: React.FC<PricingProps> = ({ className, user, referral }) => {
                         </Button>
                     </Link>
 
-                </div>
+                </div> */}
 
-                <Link href="https://stripe.com/" rel="noopener noreferrer" target="_blank" className="flex items-center justify-center mt-4 h-10">
+                <Link href="https://stripe.com/" rel="noopener noreferrer" target="_blank" className="flex items-center grayscale justify-center mt-4 h-10">
                     <Lock className="h-4 w-4 text-gray-400 mr-2" />
                     <span className="text-sm text-gray-500">Secured by</span>
                     <Image src={StripeLogo} alt="Stripe" width={37} height={10} className="ml-1" />
-                </Link> */}
+                </Link>
             </div>
         </div >
     );
