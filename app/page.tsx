@@ -6,6 +6,7 @@ import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
 import { ArrowRight, Smile, Frown } from "lucide-react";
+import { ROICalculator } from "@/components/roi-calculator"
 
 const withoutUGC = [{
     title: "You without UGC Farm",
@@ -38,11 +39,10 @@ export default function Landing() {
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Automate TikToks that drive<br />
-                            traffic to your website
+                            Create months of TikTok <br />content in minutes
                         </h1>
                         <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
-                            it&apos;s like a gen z marketing team, but way cheaper
+                            go from 3 videos a month to <span className="underline underline-offset-4 decoration-primary decoration-dashed">3 videos a day</span>
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             <Link href="/#pricing">
@@ -53,9 +53,10 @@ export default function Landing() {
                                     Start now
                                 </Button>
                             </Link>
-                            {/* <Link href="/demo" className="text-sm opacity-80 font-[600] text-primary flex items-center hover:underline">
-                                See demo <ArrowRight className="ml-1 w-4 h-4" />
-                            </Link> */}
+                            <Link href="/demo" className="text-sm opacity-80 font-[600] text-[#1a1a1a]/60 flex items-center hover:underline">
+                                {/* See demo <ArrowRight className="ml-1 w-4 h-4" /> */}
+                                Lock in lifetime pricing before launch
+                            </Link>
                         </div>
                     </div>
 
@@ -90,8 +91,24 @@ export default function Landing() {
                         />
                     </div>
 
+                    {/* calculator   */}
+                    <div className="flex flex-col items-center justify-center space-y-8 py-12">
+                        <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center">
+                            See how much you are saving
+                        </h2>
+                        <ROICalculator />
+                        <Link href="/#pricing">
+                            <Button
+                                variant="default"
+                                className="hover:scale-[1.05] transition-all duration-300"
+                            >
+                                Start saving now
+                            </Button>
+                        </Link>
+                    </div>
+
                     {/* problem agitation */}
-                    <div className="flex flex-col items-center justify-center space-y-8">
+                    <div className="flex flex-col items-center justify-center space-y-8 py-12">
                         <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center">
                             Never pay <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">extra</span> again.
                         </h2>
@@ -118,7 +135,7 @@ export default function Landing() {
                         </div>
                     </div>
                     {/* pricing */}
-                    <Pricing id="pricing" className="w-full px-6 lg:px-0.5" referral={ref} />
+                    <Pricing id="pricing" className="w-full py-12 px-6 lg:px-0.5" referral={ref} />
 
                     {/* cta */}
                     <div className="bg-primary rounded-lg p-16 w-full items-center justify-center flex flex-col space-y-8">

@@ -35,12 +35,12 @@ export function Navbar() {
                     <div className="hidden md:flex items-center space-x-12">
                         <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Pricing</Link>
                         <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Demo</Link>
-                        <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Contact</Link>
+                        <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">FAQ</Link>
                     </div>
 
                     {/* Desktop buttons - hidden on mobile */}
                     <div className="hidden md:flex md:items-center md:justify-center md:space-x-4">
-                        <Button variant="ghost" asChild>
+                        {/* <Button variant="ghost" asChild>
                             <Link href="/login">
                                 <span className="font-[900] text-primary">Login</span>
                             </Link>
@@ -48,6 +48,11 @@ export function Navbar() {
                         <Link href="/signup" className="hover:scale-105 transition-all duration-300">
                             <Button variant="default">
                                 <span className="font-[900]">Sign up</span>
+                            </Button>
+                        </Link> */}
+                        <Link href="/#pricing" className="hover:scale-105 transition-all duration-300">
+                            <Button variant="default">
+                                <span className="font-[900]">Get presale pricing</span>
                             </Button>
                         </Link>
                     </div>
@@ -66,9 +71,9 @@ export function Navbar() {
                                 <div className="flex flex-col space-y-4 mt-4">
                                     <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Pricing</Link>
                                     <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Demo</Link>
-                                    <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Contact</Link>
+                                    <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">FAQ</Link>
                                     <div className="border-t pt-4">
-                                        <Button variant="ghost" asChild className="w-full">
+                                        {/* <Button variant="ghost" asChild className="w-full">
                                             <Link href="/login">
                                                 <span className="font-[900] text-primary">Login</span>
                                             </Link>
@@ -76,6 +81,11 @@ export function Navbar() {
                                         <Button asChild className="w-full mt-2">
                                             <Link href="/signup">
                                                 <span className="font-[900]">Sign up</span>
+                                            </Link>
+                                        </Button> */}
+                                        <Button asChild className="w-full mt-2">
+                                            <Link href="/#pricing">
+                                                <span className="font-[900]">Get presale pricing</span>
                                             </Link>
                                         </Button>
                                     </div>
