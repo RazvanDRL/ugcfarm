@@ -48,11 +48,6 @@ export const metadata: Metadata = {
     follow: true,
   },
 
-  appleWebApp: {
-    title: "UGC Farm",
-    startupImage: "/logo.svg",
-  },
-
   // verification: {
   //   google: "google-site-verification=1234567890",
   // },
@@ -67,6 +62,12 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <IntercomScript />
+        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-title" content="UGC Farm" />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <PostHogProvider>
         <body className={`${satoshi.className}`}>
