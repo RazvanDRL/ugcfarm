@@ -12,9 +12,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://ugc.farm",
   },
-  icons: {
-    icon: "/favicon.ico",
-  },
   openGraph: {
     title: "UGC Farm",
     description: "UGC Farm - AI-powered video generation for your brand",
