@@ -32,7 +32,7 @@ export default function LoginPage() {
             }
         }
         checkUser();
-    }, []);
+    }, [router]);
 
     function isValidEmail(email: string) {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);

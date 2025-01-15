@@ -16,7 +16,7 @@ export default function ThankYouPage() {
                         Thank You!
                     </h1>
                     <p className="text-[#1a1a1a]/60 font-[500]">
-                        Your application has been received. We'll review it and get back to you shortly.
+                        Your application has been received. We&apos;ll review it and get back to you shortly.
                     </p>
                 </div>
 
