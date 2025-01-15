@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { satoshi } from "@/fonts/satoshi";
+import PlausibleProvider from 'next-plausible'
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,8 +15,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${satoshi.className} antialiased`}>
-        {children}
+      <body className={`${satoshi.className}`}>
+        <PlausibleProvider
+          domain="ugc.farm"
+          customDomain="https://plausible.longtoshort.tech"
+          selfHosted={true}
+          enabled={true}
+        >
+          {children}
+        </PlausibleProvider>
       </body>
     </html>
   );
