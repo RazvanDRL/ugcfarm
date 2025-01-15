@@ -34,7 +34,7 @@ export default function Landing() {
     return (
         <>
             <Navbar />
-            <main className="mt-40 mb-20">
+            <main className="mt-40 mb-20 px-8">
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-5xl font-[900] text-[#1a1a1a] text-center">
