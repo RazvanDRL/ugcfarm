@@ -8,6 +8,9 @@ import Pricing from "@/components/pricing";
 import { ArrowRight, Smile, Frown } from "lucide-react";
 import { ROICalculator } from "@/components/roi-calculator"
 import FlickeringGrid from "@/components/ui/flickering-grid";
+import { cn } from "@/lib/utils";
+import Marquee from "@/components/ui/marquee";
+import Image from "next/image";
 
 const withoutUGC = [{
     title: "You without UGC Farm",
@@ -29,6 +32,72 @@ const withUGC = [{
     ]
 }]
 
+const reviews = [
+    {
+        img_url: "/homepage/previews/1.webp",
+        rotation: -1,
+    },
+    {
+        img_url: "/homepage/previews/2.webp",
+        rotation: 1,
+    },
+    {
+        img_url: "/homepage/previews/3.webp",
+        rotation: 1,
+    },
+    {
+        img_url: "/homepage/previews/4.webp",
+        rotation: 2,
+    },
+    {
+        img_url: "/homepage/previews/5.webp",
+        rotation: 1,
+    },
+    {
+        img_url: "/homepage/previews/1.webp",
+        rotation: 1,
+    },
+    {
+        img_url: "/homepage/previews/2.webp",
+        rotation: 1,
+    },
+];
+
+const factor = 1.5;
+
+const firstRow = reviews.slice(0, reviews.length / 2);
+const secondRow = reviews.slice(reviews.length / 2);
+
+const ReviewCard = ({
+    img_url,
+    rotation,
+}: {
+    img_url: string;
+    rotation: number;
+}) => {
+    return (
+        <figure
+            style={{
+                width: `${Math.round(90 * factor)}px`,
+                height: `${Math.round(160 * factor)}px`,
+                transform: `rotate(${rotation}deg)`,
+            }}
+            className={cn(
+                "relative aspect-[9/16] cursor-pointer rounded-2xl overflow-hidden hover:shadow-md border-4 border-white",
+            )}
+        >
+            <div className="relative flex flex-col h-full">
+                <Image
+                    src={img_url}
+                    alt="Preview"
+                    fill
+                    className="rounded-2xl border-4 border-white object-cover"
+                />
+            </div>
+        </figure>
+    );
+};
+
 export default function Landing() {
     const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     const ref = params ? params.get('ref') : null;
@@ -43,7 +112,7 @@ export default function Landing() {
                             Create months of TikTok <br />content in minutes
                         </h1>
                         <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
-                            go from 3 videos a month to <span className="underline underline-offset-4 decoration-primary decoration-dashed">3 videos a day</span>
+                            perfect for busy owners who want to drive clicks to their website
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             <Link href="/#pricing">
@@ -62,7 +131,7 @@ export default function Landing() {
                     </div>
 
                     {/* videos */}
-                    <div className="flex justify-center gap-2 w-full overflow-x-auto px-4 py-8 mx-auto">
+                    {/* <div className="flex justify-center gap-2 w-full overflow-x-auto px-4 py-8 mx-auto">
                         <VideoPreview
                             imageUrl="/homepage/previews/1.webp"
                             alt="Preview 1"
@@ -90,9 +159,25 @@ export default function Landing() {
                             alt="Preview 5"
                             rotation={1}
                         />
+                    </div> */}
+
+                    {/* marquee */}
+                    <div className="relative flex my-12 h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg -rotate-[7deg]">
+                        <Marquee pauseOnHover className="[--duration:20s]">
+                            {firstRow.map((review) => (
+                                <ReviewCard key={review.img_url} {...review} />
+                            ))}
+                        </Marquee>
+                        <Marquee reverse pauseOnHover className="[--duration:20s]">
+                            {secondRow.map((review) => (
+                                <ReviewCard key={review.img_url} {...review} />
+                            ))}
+                        </Marquee>
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
                     </div>
 
-                    {/* calculator   */}
+                    {/* calculator */}
                     <div className="flex flex-col items-center justify-center space-y-8 py-12">
                         <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center">
                             See how much you are saving
