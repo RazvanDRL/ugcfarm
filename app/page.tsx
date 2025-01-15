@@ -45,7 +45,7 @@ export default function Landing() {
                             it&apos;s like a gen z marketing team, but way cheaper
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
-                            <Link href="/pricing">
+                            <Link href="/#pricing">
                                 <Button
                                     variant="default"
                                     className="hover:scale-[1.05] transition-all duration-300"
@@ -118,14 +118,14 @@ export default function Landing() {
                         </div>
                     </div>
                     {/* pricing */}
-                    <Pricing className="w-full px-6 lg:px-0.5" referral={ref} />
+                    <Pricing id="pricing" className="w-full px-6 lg:px-0.5" referral={ref} />
 
                     {/* cta */}
                     <div className="bg-primary rounded-lg p-16 w-full items-center justify-center flex flex-col space-y-8">
                         <h2 className="text-5xl font-[900] text-background text-center">
                             Ready to get started?
                         </h2>
-                        <Link href="/pricing">
+                        <Link href="/#pricing">
                             <Button variant="default" className="hover:scale-[1.05] hover:bg-background/90 bg-background text-primary transition-all duration-300">
                                 Start now
                                 <ArrowRight />
