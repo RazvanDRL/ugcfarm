@@ -8,6 +8,7 @@ import {
     Sheet,
     SheetContent,
     SheetTrigger,
+    SheetTitle,
 } from "@/components/ui/sheet"
 import { DiscountBanner } from "./banner"
 
@@ -15,7 +16,7 @@ export function Navbar() {
     return (
         <>
             <DiscountBanner />
-            <nav className="z-[9999] fixed bg-background flex items-center justify-center mx-auto top-10 left-0 right-0 w-full max-w-5xl">
+            <nav className="z-50 fixed bg-background flex items-center justify-center mx-auto top-10 left-0 right-0 w-full max-w-5xl">
                 <div className="container flex h-20 items-center justify-between px-4">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">
@@ -26,12 +27,13 @@ export function Navbar() {
                             height={72}
                             priority
                             loading="eager"
+                            className="w-[50px] h-[50px] md:w-[72px] md:h-[72px]"
                         />
-                        <span className="font-black text-xl text-primary">UGCfarm</span>
+                        <span className="font-black text-lg md:text-xl text-primary">UGCfarm</span>
                     </Link>
 
-                    {/* Quick links */}
-                    <div className="flex items-center space-x-12">
+                    {/* Quick links - hidden on mobile */}
+                    <div className="hidden md:flex items-center space-x-12">
                         <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Pricing</Link>
                         <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Demo</Link>
                         <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Contact</Link>
@@ -52,22 +54,32 @@ export function Navbar() {
                     </div>
 
                     {/* Mobile menu */}
-                    <div className="md:hidden">
+                    <div className="md:hidden z-[9999]">
                         <Sheet>
                             <SheetTrigger asChild>
                                 <Button variant="ghost" size="icon">
-                                    <Menu className="h-5 w-5" />
+                                    <Menu className="h-6 w-6" />
                                     <span className="sr-only">Toggle menu</span>
                                 </Button>
                             </SheetTrigger>
                             <SheetContent side="right">
+                                <SheetTitle>Quick links</SheetTitle>
                                 <div className="flex flex-col space-y-4 mt-4">
-                                    <Button variant="ghost" asChild>
-                                        <Link href="/login">Login</Link>
-                                    </Button>
-                                    <Button asChild>
-                                        <Link href="/signup">Sign up</Link>
-                                    </Button>
+                                    <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Pricing</Link>
+                                    <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Demo</Link>
+                                    <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Contact</Link>
+                                    <div className="border-t pt-4">
+                                        <Button variant="ghost" asChild className="w-full">
+                                            <Link href="/login">
+                                                <span className="font-[900] text-primary">Login</span>
+                                            </Link>
+                                        </Button>
+                                        <Button asChild className="w-full mt-2">
+                                            <Link href="/signup">
+                                                <span className="font-[900]">Sign up</span>
+                                            </Link>
+                                        </Button>
+                                    </div>
                                 </div>
                             </SheetContent>
                         </Sheet>
