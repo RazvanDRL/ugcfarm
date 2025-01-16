@@ -5,12 +5,13 @@ import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
-import { ArrowRight, Smile, Frown } from "lucide-react";
+import { ArrowRight, Smile, Frown, Star } from "lucide-react";
 import { ROICalculator } from "@/components/roi-calculator"
 import FlickeringGrid from "@/components/ui/flickering-grid";
 import { cn } from "@/lib/utils";
 import Marquee from "@/components/ui/marquee";
 import Image from "next/image";
+import Bento from "@/components/bento";
 
 const withoutUGC = [{
     title: "Traditional agencies",
@@ -109,12 +110,68 @@ export default function Landing() {
             <Navbar />
             <main className="mt-40 mb-20 px-8">
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">
+
+                    {/* social proof */}
+                    <div className="flex w-full justify-around pb-4">
+                        {/* Reviews */}
+                        {/* <div className="flex items-center justify-center gap-[0.5px]">
+                            {[...Array(5)].map((_, index) => (
+                                <Star key={index} className="w-4 h-4 sm:w-5 sm:h-5 fill-primary text-primary" />
+                            ))}
+                            <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
+                                <span className="text-primary">&nbsp;&nbsp;5 stars</span> from 100+ customers
+                            </p>
+                        </div> */}
+
+                        {/* Reviews v2 */}
+                        {/* <div className="flex flex-col items-center justify-center gap-1">
+                            <div className="flex items-center justify-center gap-[0.5px]">
+                                {[...Array(5)].map((_, index) => (
+                                    <Star key={index} className="w-4 h-4 sm:w-5 sm:h-5 fill-primary text-primary" />
+                                ))}
+                            </div>
+                            <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
+                                <span className="text-primary">5 stars</span> from 100+ customers
+                            </p>
+                        </div> */}
+                        <div className="flex flex-col items-center justify-center gap-1">
+                            <div className="flex items-center justify-center gap-[0.5px]">
+                                {[...Array(5)].map((_, index) => (
+                                    <Star key={index} className="w-4 h-4 fill-primary text-primary" />
+                                ))}
+                            </div>
+                            <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
+                                73% of brands overpay for UGC
+                            </p>
+                        </div>
+                        <div className="hidden md:flex flex-col items-center justify-center gap-1">
+                            <div className="flex items-center justify-center gap-[0.5px]">
+                                {[...Array(5)].map((_, index) => (
+                                    <Star key={index} className="w-4 h-4 fill-primary text-primary" />
+                                ))}
+                            </div>
+                            <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
+                                48% of creators miss deadlines
+                            </p>
+                        </div>
+                        <div className="hidden md:flex flex-col items-center justify-center gap-1">
+                            <div className="flex items-center justify-center gap-[0.5px]">
+                                {[...Array(5)].map((_, index) => (
+                                    <Star key={index} className="w-4 h-4 fill-primary text-primary" />
+                                ))}
+                            </div>
+                            <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
+                                Average creator raises prices 3x/year
+                            </p>
+                        </div>
+                    </div>
+
                     <div className="flex flex-col items-center justify-center space-y-8">
-                        <h1 className="text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Create months of Reels <br />content in minutes
+                        <h1 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
+                            Turn Reels into Website Visitors
                         </h1>
-                        <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
-                            perfect for busy owners who want to drive clicks to their website
+                        <p className="text-lg md:text-xl font-[600] text-[#1a1a1a] opacity-60 text-center">
+                            perfect for busy owners who want more sales
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             <Link href="/#pricing">
@@ -181,7 +238,7 @@ export default function Landing() {
 
                     {/* calculator */}
                     <div className="flex flex-col items-center justify-center space-y-8 py-12">
-                        <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center">
+                        <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
                             See how much you are saving
                         </h2>
                         <ROICalculator />
@@ -197,7 +254,7 @@ export default function Landing() {
 
                     {/* problem agitation */}
                     <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
-                        <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center">
+                        <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
                             Never pay <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">extra</span> again.
                         </h2>
                         {/* 2 cards side by side */}
@@ -205,7 +262,7 @@ export default function Landing() {
                             <div className="flex flex-col items-left text-left justify-start p-6 sm:p-8 bg-red-50 rounded-xl w-full sm:w-1/2">
                                 <Frown className="w-8 h-8 sm:w-10 sm:h-10 text-red-500" />
                                 <h3 className="mt-4 text-lg sm:text-xl font-extrabold text-red-500">{withoutUGC[0].title}</h3>
-                                <ul className="mt-4 text-sm sm:text-base font-medium text-red-700 list-disc list-inside">
+                                <ul className="mt-4 text-sm sm:text-base font-[600] text-red-700 list-disc list-inside">
                                     {withoutUGC[0].list.map((item, index) => (
                                         <li key={index}>{item}</li>
                                     ))}
@@ -214,7 +271,7 @@ export default function Landing() {
                             <div className="flex flex-col items-top text-left justify-start p-6 sm:p-8 bg-green-50 rounded-xl w-full sm:w-1/2">
                                 <Smile className="w-8 h-8 sm:w-10 sm:h-10 text-green-500" />
                                 <h3 className="mt-4 text-lg sm:text-xl font-extrabold text-green-500">{withUGC[0].title}</h3>
-                                <ul className="mt-4 text-sm sm:text-base font-medium text-green-700 list-disc list-inside">
+                                <ul className="mt-4 text-sm sm:text-base font-[600] text-green-700 list-disc list-inside">
                                     {withUGC[0].list.map((item, index) => (
                                         <li key={index}>{item}</li>
                                     ))}
@@ -223,6 +280,8 @@ export default function Landing() {
                         </div>
                     </div>
 
+                    {/* features grid (4) */}
+                    <Bento />
                     {/* pricing */}
                     <Pricing id="pricing" className="w-full py-12 px-6 lg:px-0.5" referral={ref} />
 
@@ -239,7 +298,7 @@ export default function Landing() {
                             width={2000}
                         />
                         <div className="absolute inset-0 flex flex-col items-center space-y-8 justify-center z-10">
-                            <h2 className="text-5xl text-primary font-[900] text-center">
+                            <h2 className="text-4xl md:text-5xl text-primary font-[900] text-center">
                                 Ready to get started?
                             </h2>
                             <Link href="/#pricing">

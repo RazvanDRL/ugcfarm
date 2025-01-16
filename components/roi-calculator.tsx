@@ -7,8 +7,8 @@ import { Card, CardContent } from "@/components/ui/card"
 export function ROICalculator() {
     const [videosPerMonth, setVideosPerMonth] = useState([10])
 
-    const AGENCY_COST_PER_VIDEO = 100
-    const OUR_COST_PER_VIDEO = 10
+    const AGENCY_COST_PER_VIDEO = 80
+    const OUR_COST_PER_VIDEO = videosPerMonth[0] <= 10 ? 10 : videosPerMonth[0] <= 50 ? 1.9 : videosPerMonth[0] <= 150 ? 0.98 : 0.86
 
     const agencyCost = videosPerMonth[0] * AGENCY_COST_PER_VIDEO
     const ourCost = videosPerMonth[0] * OUR_COST_PER_VIDEO
@@ -25,7 +25,7 @@ export function ROICalculator() {
                         <Slider
                             value={videosPerMonth}
                             onValueChange={setVideosPerMonth}
-                            max={100}
+                            max={200}
                             min={1}
                             step={1}
                             className="w-full"
@@ -40,12 +40,12 @@ export function ROICalculator() {
 
                         <div className="col-span-2 p-4 rounded-lg bg-green-50">
                             <p className="text-sm text-green-600 font-medium">Our Cost</p>
-                            <p className="text-2xl font-bold text-green-700">${ourCost}</p>
+                            <p className="text-2xl font-bold text-green-700">${ourCost.toFixed(1)}</p>
                         </div>
 
-                        <div className="col-span-4 row-span-1 p-4 rounded-lg bg-blue-50">
-                            <p className="text-sm text-blue-500 font-medium">Your savings with UGC Farm</p>
-                            <p className="text-4xl font-bold text-blue-600">${savings}</p>
+                        <div className="col-span-4 row-span-1 p-4 rounded-lg bg-primary/5">
+                            <p className="text-sm text-primary font-medium">Your savings with UGC Farm</p>
+                            <p className="text-4xl font-bold text-primary">${savings}</p>
                         </div>
                     </div>
                 </div>
