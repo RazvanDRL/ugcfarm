@@ -8,16 +8,16 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: 'CopyCoach Blog - Copywriting Guides for Beginners',
-  description: 'Discover actionable copywriting tactics for beginners. Go from overthinking to marketing clarity today.',
+  title: 'UGC Farm Blog - Advice for creators',
+  description: 'Discover advice for creators on how to make money from their content.',
   openGraph: {
-    title: 'UGC Farm Blog - Copywriting Guides for Beginners',
-    description: 'Discover actionable copywriting tactics for beginners. Go from overthinking to marketing clarity today.',
+    title: 'UGC Farm Blog - Advice for creators',
+    description: 'Discover advice for creators on how to make money from their content.',
     type: 'website',
     url: 'https://ugc-farm.com/blogs',
     images: [
       {
-        url: '/opengraph-image.png', // Add your OG image path here
+        url: '/og-image.png', // Add your OG image path here
         width: 1200,
         height: 630,
         alt: 'UGC Farm Blog',
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'UGC Farm Blog - Copywriting Guides for Beginners',
-    description: 'Discover actionable copywriting tactics for beginners. Go from overthinking to marketing clarity today.',
-    images: ['/opengraph-image.png'], // Add your Twitter card image path here
+    title: 'UGC Farm Blog - Advice for creators',
+    description: 'Discover advice for creators on how to make money from their content.',
+    images: ['/og-image.png'], // Add your Twitter card image path here
   },
 };
 

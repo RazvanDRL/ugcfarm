@@ -86,7 +86,7 @@ export async function generateMetadata(props: Params): Promise<Metadata> {
         return notFound();
     }
 
-    const title = `${post.title} | CopyCoach Blog`;
+    const title = `${post.title} | UGC Farm Blog`;
 
     return {
         title,
