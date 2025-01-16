@@ -62,7 +62,7 @@ export default function LoginPage() {
     }
 
     async function handleLoginWithProvider(provider: "google" | "twitter") {
-
+        setIsLoading(prev => ({ ...prev, [provider]: true }));
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider,
             options: {
@@ -72,6 +72,8 @@ export default function LoginPage() {
 
         if (error) {
             toast.error(error.message);
+            setIsLoading(prev => ({ ...prev, [provider]: false }));
+            return;
         }
     }
 
@@ -103,7 +105,9 @@ export default function LoginPage() {
                                 height={16}
                                 className="mr-2"
                             />
-                            Continue with Google
+                            {isLoading.google ? <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            </> : "Continue with Google"}
                         </Button>
 
                         {/* Twitter Login */}
@@ -120,7 +124,9 @@ export default function LoginPage() {
                                 height={16}
                                 className="mr-2"
                             />
-                            Continue with Twitter
+                            {isLoading.twitter ? <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            </> : "Continue with Twitter"}
                         </Button>
                     </div>
 
@@ -151,9 +157,7 @@ export default function LoginPage() {
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                                 Sending...
                             </>
-                        ) : (
-                            "Login"
-                        )}
+                        ) : "Login"}
                     </Button>
                 </div>
             </main>
