@@ -131,6 +131,9 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                                         ${plan.originalPrice}
                                     </span>
                                     ${plan.price}
+                                    <span className="ml-1 text-base text-muted-foreground font-[500]">
+                                        one-time
+                                    </span>
                                 </div>
                             </CardHeader>
                             <CardContent className="flex-grow">
@@ -161,9 +164,15 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                                         )}
                                     </Link>
                                 </Button>
-                                <p className="mt-3 text-xs text-muted-foreground font-[500]">
-                                    Access forever (no subscription)
-                                </p>
+                                {plan.popular ? (
+                                    <p className="mt-3 text-xs text-primary font-[500] opacity-80">
+                                        Access forever (no subscription)
+                                    </p>
+                                ) : (
+                                    <p className="mt-3 text-xs text-muted-foreground font-[500] opacity-80">
+                                        Access forever (no subscription)
+                                    </p>
+                                )}
                             </CardFooter>
                         </Card>
                     ))}

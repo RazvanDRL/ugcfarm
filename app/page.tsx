@@ -13,22 +13,24 @@ import Marquee from "@/components/ui/marquee";
 import Image from "next/image";
 
 const withoutUGC = [{
-    title: "You without UGC Farm",
+    title: "Traditional agencies",
     list: [
-        "Stuck on tutorials instead of actually writing",
-        "Doubting your skills",
-        "Getting generic, one-size-fits-all advice",
-        "Struggling to a land client with an empty portfolio",
+        "$80-150 per video",
+        "3-day delivery time",
+        "Inconsistent quality",
+        "Communication barriers",
+        "Unscalable",
     ]
 }]
 
 const withUGC = [{
     title: "You with UGC Farm",
     list: [
-        "Able to put your skills into practice",
-        "Building confidence with every exercise",
-        "Getting personalized feedback that matters",
-        "Landing clients with a professional portfolio",
+        "Low video costs",
+        "Instant delivery",
+        "Consistent brand voice",
+        "Zero-effort",
+        "Scaleable",
     ]
 }]
 
@@ -194,13 +196,13 @@ export default function Landing() {
                     </div>
 
                     {/* problem agitation */}
-                    <div className="flex flex-col items-center justify-center space-y-8 py-12">
+                    <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
                         <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center">
                             Never pay <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">extra</span> again.
                         </h2>
                         {/* 2 cards side by side */}
                         <div className="mt-16 flex flex-col sm:flex-row items-stretch justify-center gap-6 w-full">
-                            <div className="flex flex-col items-left text-left justify-center p-6 sm:p-8 bg-red-50 rounded-xl w-full sm:w-1/2">
+                            <div className="flex flex-col items-left text-left justify-start p-6 sm:p-8 bg-red-50 rounded-xl w-full sm:w-1/2">
                                 <Frown className="w-8 h-8 sm:w-10 sm:h-10 text-red-500" />
                                 <h3 className="mt-4 text-lg sm:text-xl font-extrabold text-red-500">{withoutUGC[0].title}</h3>
                                 <ul className="mt-4 text-sm sm:text-base font-medium text-red-700 list-disc list-inside">
@@ -220,6 +222,7 @@ export default function Landing() {
                             </div>
                         </div>
                     </div>
+
                     {/* pricing */}
                     <Pricing id="pricing" className="w-full py-12 px-6 lg:px-0.5" referral={ref} />
 
