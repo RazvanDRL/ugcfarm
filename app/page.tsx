@@ -109,7 +109,7 @@ export default function Landing() {
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Create months of TikTok <br />content in minutes
+                            Create months of Reels <br />content in minutes
                         </h1>
                         <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
                             perfect for busy owners who want to drive clicks to their website
@@ -125,7 +125,7 @@ export default function Landing() {
                             </Link>
                             <Link href="/demo" className="text-sm opacity-80 font-[600] text-[#1a1a1a]/60 flex items-center hover:underline">
                                 {/* See demo <ArrowRight className="ml-1 w-4 h-4" /> */}
-                                Lock in lifetime pricing before launch
+                                Lock in&nbsp;<span className="hover:no-underline underline underline-offset-2 decoration-dashed">lifetime pricing</span>&nbsp;before launch
                             </Link>
                         </div>
                     </div>

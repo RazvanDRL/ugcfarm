@@ -43,53 +43,54 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
             title: "Starter",
             emoji: "🌱",
             description: "Convince yourself",
-            price: !referral ? 1 : ((10 * 0.7) / 10).toFixed(2),
-            totalPrice: !referral ? 10 : (10 * 0.7).toFixed(2),
-            originalPrice: 5,
+            price: !referral ? 19 : (29 * 0.7).toFixed(2),
+            originalPrice: 49,
             features: [
                 "10 videos",
-                <Link key="affiliate_starter" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
-                "✕ Portfolio Builder",
-                "✕ Progress tracking",
-                "✕ Full-access to the app",
+                "$1.90 per video",
+                "10 UGC avatars",
+                "Viral Hook Generator",
+                <Link key="affiliate_essential" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
+                "✕ Schedule videos",
+                "✕ Full analytics",
             ],
             cta: "Start Free",
             paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_1,
             popular: false
         },
         {
-            title: "Essential",
+            title: "Creator",
             emoji: "🚀",
             description: "All you need to get started",
-            price: !referral ? (19 / 50).toFixed(2) : ((19 * 0.7) / 50).toFixed(2),
-            totalPrice: !referral ? 19 : (19 * 0.7).toFixed(2),
-            originalPrice: 39,
+            price: !referral ? 49 : (49 * 0.7).toFixed(2),
+            originalPrice: 99,
             features: [
                 "50 videos",
-                "Personalized AI feedback",
-                "Portfolio builder",
-                "Progress tracking",
+                "$0.98 per video",
+                "90+ UGC avatars",
+                "Viral Hook Generator",
+                "Schedule videos",
+                "Full analytics",
                 <Link key="affiliate_essential" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
-                "Full-access to the app",
             ],
             cta: "Get Started",
             paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_2,
             popular: true
         },
         {
-            title: "Unlimited",
+            title: "Agency",
             emoji: "🏆",
-            description: "Perfect for committed learners",
-            price: !referral ? (49 / 500).toFixed(2) : ((49 * 0.7) / 500).toFixed(2),
-            totalPrice: !referral ? 49 : (49 * 0.7).toFixed(2),
-            originalPrice: 99,
+            description: "Perfect for agencies",
+            price: !referral ? 129 : (129 * 0.7).toFixed(2),
+            originalPrice: 199,
             features: [
-                <span key="unlimited" className="bg-primary/10 px-1 rounded">Unlimited videos</span>,
-                "Personalized AI feedback",
-                "Portfolio builder",
-                "Progress tracking",
-                <Link key="affiliate_unlimited" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
-                "Full-access to the app",
+                "150 videos",
+                "$0.86 per video",
+                "90+ UGC avatars",
+                "Viral Hook Generator",
+                "Schedule videos",
+                "Full analytics",
+                <Link key="affiliate_essential" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
             ],
             cta: "Go Unlimited",
             paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_3,
@@ -100,18 +101,18 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
     return (
         <div id={id} className={`${className}`}>
             <div className="max-w-5xl mt-16">
-                <h1 className={cn("text-5xl text-[#1a1a1a] sm:text-5xl font-black mb-8 text-center")}>
-                    Learn copywriting by <span className="text-primary">actually writing</span>
-                </h1>
+                <h2 className={cn("text-5xl text-[#1a1a1a] sm:text-5xl font-black mb-8 text-center")}>
+                    Presale Pricing
+                </h2>
                 <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center mb-12">
-                    Start learning today. Choose the perfect plan for you.
+                    Lock in these prices forever.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {plans.map((plan, index) => (
                         <Card key={index} className={cn(
                             "flex flex-col px-6 rounded-xl mb-2",
-                            plan.popular ? "border-primary border-2 shadow-lg md:scale-105" : "",
+                            plan.popular ? "border-primary border-2 shadow-lg md:scale-[1.06]" : "opacity-90",
                             "transition-all duration-200 hover:shadow-md relative"
                         )}>
                             {plan.popular && (
@@ -126,15 +127,11 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                                 </div>
                                 <CardDescription className="text-md font-[500]">{plan.description}</CardDescription>
                                 <div className={cn("text-4xl font-extrabold text-[#1a1a1a]")}>
-                                    {/* <span className="line-through mr-2 text-lg font-normal text-muted-foreground">
+                                    <span className="line-through mr-2 text-lg font-normal text-muted-foreground">
                                         ${plan.originalPrice}
-                                    </span> */}
+                                    </span>
                                     ${plan.price}
-                                    <span className="text-base font-[500] text-muted-foreground">&nbsp;per video</span>
                                 </div>
-                                {plan.totalPrice && (
-                                    <span className="text-sm font-[500] pt-2 text-[#1a1a1a]/60">&nbsp;total&nbsp;${plan.totalPrice} one-time</span>
-                                )}
                             </CardHeader>
                             <CardContent className="flex-grow">
                                 <ul className="space-y-3">
