@@ -33,9 +33,9 @@ export function Navbar() {
 
                     {/* Quick links - hidden on mobile */}
                     <div className="hidden md:flex items-center space-x-12">
-                        <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Pricing</Link>
-                        <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Demo</Link>
-                        <Link href="/" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">FAQ</Link>
+                        <Link href="/#pricing" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Pricing</Link>
+                        <Link href="/affiliates" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Affiliates</Link>
+                        <Link href="/#faq" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">FAQ</Link>
                     </div>
 
                     {/* Desktop buttons - hidden on mobile */}
@@ -69,9 +69,9 @@ export function Navbar() {
                             <SheetContent side="right">
                                 <SheetTitle>Quick links</SheetTitle>
                                 <div className="flex flex-col space-y-4 mt-4">
-                                    <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Pricing</Link>
-                                    <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Demo</Link>
-                                    <Link href="/" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">FAQ</Link>
+                                    <Link href="/#pricing" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Pricing</Link>
+                                    <Link href="/affiliates" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Affiliates</Link>
+                                    <Link href="/#faq" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">FAQ</Link>
                                     <div className="border-t pt-4">
                                         {/* <Button variant="ghost" asChild className="w-full">
                                             <Link href="/login">
