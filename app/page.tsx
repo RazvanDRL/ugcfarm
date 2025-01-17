@@ -13,6 +13,7 @@ import Marquee from "@/components/ui/marquee";
 import Image from "next/image";
 import Bento from "@/components/bento";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { FAQ } from "@/components/faq";
 
 const withoutUGC = [{
     title: "Traditional agencies",
@@ -187,7 +188,7 @@ export default function Landing() {
 
                                 </Link>
                             </MagneticButton>
-                            <Link href="/demo" className="text-sm opacity-80 font-[600] text-[#1a1a1a]/60 flex items-center hover:underline">
+                            <Link href="/#pricing" className="text-sm opacity-80 font-[600] text-[#1a1a1a]/60 flex items-center hover:underline">
                                 {/* See demo <ArrowRight className="ml-1 w-4 h-4" /> */}
                                 Lock in&nbsp;<span className="hover:no-underline underline underline-offset-2 decoration-dashed">lifetime pricing</span>&nbsp;before launch
                             </Link>
@@ -287,8 +288,18 @@ export default function Landing() {
 
                     {/* features grid (4) */}
                     <Bento />
+
                     {/* pricing */}
                     <Pricing id="pricing" className="w-full py-12 px-6 lg:px-0.5" referral={ref} />
+
+
+                    {/* faq */}
+                    <div id="faq" className="max-w-3xl w-full mx-auto py-[6rem]">
+                        <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center mb-12">
+                            Frequently asked questions
+                        </h2>
+                        <FAQ />
+                    </div>
 
                     {/* cta */}
                     <div className="size-[300px] rounded-lg w-full bg-background overflow-hidden border relative">

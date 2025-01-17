@@ -36,6 +36,7 @@ export function Navbar() {
                         <Link href="/#pricing" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Pricing</Link>
                         <Link href="/affiliates" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">Affiliates</Link>
                         <Link href="/#faq" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">FAQ</Link>
+                        <Link href="/how-it-works" className="font-[600] hover:underline opacity-70 hover:opacity-100 transition-all duration-300">How it works</Link>
                     </div>
 
                     {/* Desktop buttons - hidden on mobile */}
@@ -72,6 +73,7 @@ export function Navbar() {
                                     <Link href="/#pricing" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Pricing</Link>
                                     <Link href="/affiliates" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">Affiliates</Link>
                                     <Link href="/#faq" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">FAQ</Link>
+                                    <Link href="/how-it-works" className="font-[600] px-4 py-2 hover:bg-accent rounded-md transition-colors">How it works</Link>
                                     <div className="border-t pt-4">
                                         {/* <Button variant="ghost" asChild className="w-full">
                                             <Link href="/login">
