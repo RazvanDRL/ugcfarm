@@ -100,7 +100,7 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
 
     return (
         <div id={id} className={`${className}`}>
-            <div className="max-w-5xl mt-16">
+            <div className="max-w-5xl">
                 <h2 className={cn("text-5xl text-[#1a1a1a] sm:text-5xl font-black mb-8 text-center")}>
                     Presale Pricing
                 </h2>

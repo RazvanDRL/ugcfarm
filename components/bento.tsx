@@ -112,7 +112,7 @@ const features = [
 
 export default function Bento() {
     return (
-        <div className="w-full pt-20">
+        <div className="w-full py-12">
             <h2 className="text-5xl font-[900] text-[#1a1a1a] text-center mb-8">
                 Features
             </h2>            <BentoGrid className="w-full">
