@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import Marquee from "@/components/ui/marquee";
 import Image from "next/image";
 import Bento from "@/components/bento";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 
 const withoutUGC = [{
     title: "Traditional agencies",
@@ -174,14 +175,18 @@ export default function Landing() {
                             perfect for busy owners who want more sales
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
-                            <Link href="/#pricing">
-                                <Button
-                                    variant="default"
-                                    className="hover:scale-[1.05] transition-all duration-300"
-                                >
-                                    Start now
-                                </Button>
-                            </Link>
+                            <MagneticButton>
+                                <Link href="/#pricing">
+
+                                    <Button
+                                        variant="default"
+                                        className="hover:scale-[1.05] transition-all duration-300"
+                                    >
+                                        Start now
+                                    </Button>
+
+                                </Link>
+                            </MagneticButton>
                             <Link href="/demo" className="text-sm opacity-80 font-[600] text-[#1a1a1a]/60 flex items-center hover:underline">
                                 {/* See demo <ArrowRight className="ml-1 w-4 h-4" /> */}
                                 Lock in&nbsp;<span className="hover:no-underline underline underline-offset-2 decoration-dashed">lifetime pricing</span>&nbsp;before launch
