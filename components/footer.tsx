@@ -26,48 +26,31 @@ export function Footer() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-8">
                     <div className="flex flex-col space-y-4">
                         <p className="font-semibold text-[#1a1a1a]">
-                            Products
+                            Quick Links
                         </p>
                         <nav className="flex flex-col space-y-3">
-                            <Link href="/" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                Home
+                            <Link href="/#pricing" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                Pricing
                             </Link>
-                            <Link href="/about" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                About
+                            <Link href="/faq" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                FAQ
                             </Link>
-                            <Link href="/contact" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                Contact
+                            <Link href="/how-it-works" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                How it works
+                            </Link>
+                            <Link href="/affiliates" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                Affiliates
                             </Link>
                         </nav>
                     </div>
 
                     <div className="flex flex-col space-y-4">
-                        <p className="font-semibold text-[#1a1a1a]">
-                            Resources
-                        </p>
+                        <Link href="/blogs" className="font-semibold text-[#1a1a1a] hover:text-primary hover:underline transition-colors">
+                            Blogs
+                        </Link>
                         <nav className="flex flex-col space-y-3">
-                            <Link href="/blog" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                Blog
-                            </Link>
-                            <Link href="/docs" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                Documentation
-                            </Link>
-                            <Link href="/help" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                Help Center
-                            </Link>
-                        </nav>
-                    </div>
-
-                    <div className="flex flex-col space-y-4">
-                        <p className="font-semibold text-[#1a1a1a]">
-                            Legal
-                        </p>
-                        <nav className="flex flex-col space-y-3">
-                            <Link href="/privacy" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                Privacy
-                            </Link>
-                            <Link href="/terms" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                Terms
+                            <Link href="/blogs/what-is-ugc" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                What is UGC?
                             </Link>
                         </nav>
                     </div>
