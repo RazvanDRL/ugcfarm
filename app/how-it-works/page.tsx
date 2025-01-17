@@ -77,7 +77,7 @@ export default function HowItWorks() {
                             Ready to 100x your content creation?
                         </h2>
                         <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-[500]">
-                            Join thousands of brands creating months of UGC in minutes
+                            Start creating months of UGC in minutes
                         </p>
                         <Link href="/#pricing">
                             <Button
