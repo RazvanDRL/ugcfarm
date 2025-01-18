@@ -46,12 +46,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: "weekly",
             priority: 0.9,
         },
-        {
-            url: `${BASE_URL}/#pricing`,
-            lastModified: new Date(),
-            changeFrequency: "weekly",
-            priority: 0.9,
-        },
+        // {
+        //     url: `${BASE_URL}/#pricing`,
+        //     lastModified: new Date(),
+        //     changeFrequency: "weekly",
+        //     priority: 0.9,
+        // },
         {
             url: `${BASE_URL}/author/arthur-luca`,
             lastModified: new Date(),
