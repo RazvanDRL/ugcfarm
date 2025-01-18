@@ -1,3 +1,5 @@
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -63,14 +65,16 @@ const jsonLd = {
 export default function Page() {
     return (
         <>
+            <Navbar />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
-            <div>
+            <div className="flex flex-col min-h-screen items-center justify-center space-y-8 py-12">
                 <h1>Arthur Luca</h1>
                 <p>Arthur Luca is a writer and entrepreneur.</p>
             </div>
+            <Footer />
         </>
     );
 }
