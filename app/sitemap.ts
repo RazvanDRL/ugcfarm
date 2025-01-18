@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return {
             url: `${BASE_URL}/blogs/${post.slug}`,
             lastModified: new Date(post.date),
-            changeFrequency: "daily" as const,
+            changeFrequency: "always" as const,
             priority: 0.8,
         }
     });
@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
             url: `${BASE_URL}/`,
             lastModified: new Date(),
-            changeFrequency: "daily",
+            changeFrequency: "always",
             priority: 1,
         },
         {
@@ -31,26 +31,32 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
             url: `${BASE_URL}/faq`,
             lastModified: new Date(),
-            changeFrequency: "daily",
+            changeFrequency: "weekly",
             priority: 0.9,
         },
         {
             url: `${BASE_URL}/how-it-works`,
             lastModified: new Date(),
-            changeFrequency: "daily",
+            changeFrequency: "weekly",
             priority: 0.9,
         },
         {
             url: `${BASE_URL}/affiliates`,
             lastModified: new Date(),
-            changeFrequency: "daily",
+            changeFrequency: "weekly",
             priority: 0.9,
         },
         {
             url: `${BASE_URL}/#pricing`,
             lastModified: new Date(),
-            changeFrequency: "daily",
+            changeFrequency: "weekly",
             priority: 0.9,
+        },
+        {
+            url: `${BASE_URL}/author/arthur-luca`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.7,
         },
         ...pages,
     ]

@@ -19,7 +19,7 @@ export function Footer() {
                         />
                     </Link>
                     <p className="text-sm font-medium text-[#1a1a1a]/60">
-                        UGC Farm is a platform for farmers to sell their products directly to consumers.
+                        Turn viewers into website visitors with automated UGC content that converts.
                     </p>
                 </div>
 

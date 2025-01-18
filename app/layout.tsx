@@ -8,22 +8,51 @@ import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ugc.farm"),
-  title: "UGC Farm",
-  description: "UGC Farm - AI-powered video generation for your brand",
+  title: {
+    template: "%s | UGC Farm - Automated UGC Content Creation Platform",
+    default: "UGC Farm - Automated UGC Content Creation Platform",
+  },
+  description: "Automate your Reels content to drive real website traffic. Stop waiting for creators, start driving sales. Join smart brands scaling their growth with UGC.FARM",
+  applicationName: "UGC Farm",
+  authors: [{ name: "UGC Farm Team" }],
+  generator: "Next.js",
+  keywords: [
+    "UGC",
+    "user generated content",
+    "content automation",
+    "social media marketing",
+    "Instagram Reels",
+    "TikTok content",
+    "brand growth",
+    "content creation",
+    "social media automation",
+    "digital marketing",
+    "influencer marketing",
+    "content strategy",
+    "social media ROI",
+    "brand awareness",
+    "marketing automation"
+  ],
   alternates: {
     canonical: "https://ugc.farm",
+    languages: {
+      "en-US": "https://ugc.farm",
+    },
   },
   openGraph: {
     title: "UGC Farm",
-    description: "UGC Farm - AI-powered video generation for your brand",
+    description: "Automate your Reels content to drive real website traffic. Stop waiting for creators, start driving sales. Join smart brands scaling their growth with UGC.FARM",
     url: "https://ugc.farm",
     type: "website",
     siteName: "UGC Farm",
+    locale: "en_US",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
+        alt: "UGC Farm - Automated UGC Content Creation Platform",
+        type: "image/png",
       },
     ],
   },
@@ -31,12 +60,16 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "UGC Farm",
-    description: "UGC Farm - AI-powered video generation for your brand",
+    description: "Automate your Reels content to drive real website traffic. Stop waiting for creators, start driving sales. Join smart brands scaling their growth with UGC.FARM",
+    // creator: "@ugcfarm",
+    // site: "@ugcfarm",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
+        alt: "UGC Farm - Automated UGC Content Creation Platform",
+        type: "image/png",
       },
     ],
   },
@@ -44,11 +77,15 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
-
-  // verification: {
-  //   google: "google-site-verification=1234567890",
-  // },
+  category: "technology",
 };
 
 export default function RootLayout({
