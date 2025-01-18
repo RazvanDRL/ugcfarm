@@ -11,7 +11,7 @@ interface FAQ {
     category: string;
 }
 
-const faq: FAQ[] = [
+export const faq: FAQ[] = [
     // Getting Started
     {
         category: "Getting Started",

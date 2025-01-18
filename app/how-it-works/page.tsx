@@ -1,5 +1,3 @@
-"use client"
-
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -7,6 +5,7 @@ import { Card } from "@/components/ui/card"
 import { ClipboardList, Upload, Zap } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import type { Metadata } from 'next'
 
 const steps = [
     {
@@ -32,9 +31,104 @@ const steps = [
     }
 ]
 
+export const metadata: Metadata = {
+    title: "How It Works | AI-Powered UGC Creation",
+    description: "Learn how UGC Farm's AI platform helps you generate professional UGC content 100x faster. Create weeks worth of authentic content in minutes with our innovative technology.",
+    openGraph: {
+        title: "How UGC Farm Works - Generate UGC Content 100x Faster",
+        description: "Discover how our AI-powered platform revolutionizes UGC creation. Create professional, authentic content in minutes instead of weeks.",
+        type: "website",
+        url: "https://ugc.farm/how-it-works",
+        siteName: "UGC Farm",
+        locale: "en_US",
+        images: [
+            {
+                url: "https://ugc.farm/og-image.png", // Create this image
+                width: 1200,
+                height: 630,
+                alt: "UGC Farm Platform Overview",
+                type: "image/jpeg",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "How UGC Farm Works - Generate Content 100x Faster",
+        description: "Discover how our AI-powered platform revolutionizes UGC creation. Create professional, authentic content in minutes instead of weeks.",
+        images: ["https://ugc.farm/og-image.png"],
+    },
+    alternates: {
+        canonical: "https://ugc.farm/how-it-works",
+    },
+    keywords: "UGC creation, AI content generation, UGC platform, content creation tool, UGC Farm process, automated content creation, UGC automation, professional UGC",
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    }
+}
+
+// Add HowTo JSON-LD structured data
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to Generate Professional UGC Content with UGC Farm",
+    description: "Learn how to create professional UGC content 100x faster using UGC Farm's AI-powered platform.",
+    totalTime: "PT5M",
+    step: [
+        {
+            "@type": "HowToStep",
+            name: "Choose Your Plan",
+            text: "Select how many videos you need per month based on your content strategy.",
+            image: "https://ugc.farm/images/step-1.jpg",
+            url: "https://ugc.farm/how-it-works#step1"
+        },
+        {
+            "@type": "HowToStep",
+            name: "Input Your Details",
+            text: "Share your product info & target audience. Upload your own demo footage to use alongside generated content.",
+            image: "https://ugc.farm/images/step-2.jpg",
+            url: "https://ugc.farm/how-it-works#step2"
+        },
+        {
+            "@type": "HowToStep",
+            name: "Generate Content",
+            text: "Get instant, professional UGC videos in minutes - 100x faster than traditional methods.",
+            image: "https://ugc.farm/images/step-3.jpg",
+            url: "https://ugc.farm/how-it-works#step3"
+        }
+    ],
+    tool: [
+        {
+            "@type": "HowToTool",
+            name: "UGC Farm Platform"
+        }
+    ],
+    supply: [
+        {
+            "@type": "HowToSupply",
+            name: "Product Information"
+        },
+        {
+            "@type": "HowToSupply",
+            name: "Demo Footage (optional)"
+        }
+    ]
+}
+
 export default function HowItWorks() {
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <Navbar />
             <main className="mt-40 mb-20 px-8">
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">

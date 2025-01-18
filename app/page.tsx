@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/button";
 import Link from "next/link";
@@ -15,6 +15,8 @@ import Bento from "@/components/bento";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { FAQ } from "@/components/faq";
 import { Card } from "@/components/ui/card"
+import { jsonLd } from './json-ld'
+import { metadata } from './metadata'
 
 const withoutUGC = [{
     title: "Traditional agencies",
@@ -134,6 +136,10 @@ export default function Landing() {
 
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <Navbar />
             <main className="mt-40 mb-20 px-8">
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">

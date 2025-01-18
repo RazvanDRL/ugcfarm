@@ -1,5 +1,3 @@
-"use client"
-
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -8,6 +6,35 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowRight, DollarSign, Users, Zap, Gift } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+
+export const metadata = {
+    title: "Affiliate Program | Earn Up to 40% Commission",
+    description: "Join UGC Farm's affiliate program and earn up to 40% commission on referrals. Enjoy instant payouts, lifetime commissions, and exclusive perks. Apply now!",
+    openGraph: {
+        title: "UGC Farm Affiliate Program - Earn Up to 40% Commission",
+        description: "Partner with UGC Farm and earn generous commissions for every referral. Benefit from lifetime tracking, instant payouts, and exclusive affiliate perks.",
+        type: "website",
+        url: "https://ugc.farm/affiliates",
+        images: [
+            {
+                url: "/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "UGC Farm Affiliate Program",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Join UGC Farm's Affiliate Program - Earn Up to 40% Commission",
+        description: "Partner with UGC Farm and earn generous commissions for every referral. Benefit from lifetime tracking, instant payouts, and exclusive affiliate perks.",
+        images: ["/og-image.png"],
+    },
+    alternates: {
+        canonical: "https://ugc.farm/affiliates",
+    },
+    keywords: "UGC Farm affiliate program, affiliate marketing, commission program, referral program, UGC affiliate, content creator affiliate",
+}
 
 const commission = 30
 
@@ -59,7 +86,7 @@ const tiers = [
     },
     {
         name: "Elite",
-        commission: `${commission + 5}%`,
+        commission: `${commission + 10}%`,
         sales: "51+",
         features: [
             "Dedicated account manager",
@@ -71,14 +98,37 @@ const tiers = [
     },
 ]
 
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "UGC Farm Affiliate Program",
+    description: "Join our affiliate program and earn up to 40% commission for every customer you refer to UGC Farm.",
+    provider: {
+        "@type": "Organization",
+        name: "UGC Farm",
+        url: "https://ugc.farm"
+    },
+    offers: {
+        "@type": "Offer",
+        description: "Earn up to 40% commission on referrals",
+        seller: {
+            "@type": "Organization",
+            name: "UGC Farm"
+        }
+    }
+}
+
 export default function AffiliatesPage() {
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+            />
             <Navbar />
-            <main className="mt-40 mb-20 px-8">
+            <main className="mt-40 mb-20 px-8" role="main">
                 <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">
-                    {/* Hero Section */}
-                    <div className="flex flex-col items-center justify-center space-y-8 text-center">
+                    <section aria-label="Hero section" className="flex flex-col items-center justify-center space-y-8 text-center">
                         <Badge variant="secondary" className="px-4 py-1">
                             Affiliate Program
                         </Badge>
@@ -95,10 +145,9 @@ export default function AffiliatesPage() {
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
                         </Link>
-                    </div>
+                    </section>
 
-                    {/* Features Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-16">
+                    <section aria-label="Features" className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full mt-16">
                         {features.map((feature) => (
                             <Card key={feature.title} className="border-2 hover:scale-[1.02] transition-all duration-300 cursor-pointer">
                                 <CardContent className="pt-6">
@@ -114,10 +163,9 @@ export default function AffiliatesPage() {
                                 </CardContent>
                             </Card>
                         ))}
-                    </div>
+                    </section>
 
-                    {/* Commission Tiers */}
-                    <div className="w-full mt-24">
+                    <section aria-label="Commission Tiers" className="w-full mt-24">
                         <h2 className="text-4xl font-[900] text-center mb-12">
                             Commission Tiers
                         </h2>
@@ -157,10 +205,9 @@ export default function AffiliatesPage() {
                                 </Card>
                             ))}
                         </div>
-                    </div>
+                    </section>
 
-                    {/* CTA Section */}
-                    <div className="mt-24 text-center space-y-8">
+                    <section aria-label="Call to Action" className="mt-24 text-center space-y-8">
                         <h2 className="text-4xl font-[900]">
                             Ready to start earning?
                         </h2>
@@ -173,7 +220,7 @@ export default function AffiliatesPage() {
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
                         </Link>
-                    </div>
+                    </section>
                 </div>
             </main>
             <Footer />
