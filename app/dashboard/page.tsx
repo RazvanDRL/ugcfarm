@@ -1,3 +1,226 @@
-export default function DashboardPage() {
-    return <div>Dashboard</div>
+"use client"
+import { AppSidebar } from "@/components/app-sidebar"
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import {
+    SidebarInset,
+    SidebarProvider,
+    SidebarTrigger,
+} from "@/components/ui/sidebar"
+import { WordSlider } from "@/components/slider"
+import { useState } from "react"
+import { PhotoList } from "@/components/videos"
+import { DemoList } from "@/components/demos"
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+
+
+export default function Page() {
+    const [index, setIndex] = useState(0)
+    const [demoPage, setDemoPage] = useState(1)
+    const [videoPage, setVideoPage] = useState(1)
+    const [sentences, setSentences] = useState([
+        "Customize your own sentences here 1 Customize your own sentences here 1",
+        "Customize your own sentences here 2",
+        "Customize your own sentences here 3",
+        "Customize your own sentences here 4",
+        "Customize your own sentences here 5",
+    ])
+    const [selectedPhotoId, setSelectedPhotoId] = useState<number>(1)
+
+    const photos = [
+        { id: 1, url: "http://localhost:3000/homepage/previews/1.webp", alt: "Photo 1" },
+        { id: 2, url: "http://localhost:3000/homepage/previews/2.webp", alt: "Photo 2" },
+        { id: 3, url: "http://localhost:3000/homepage/previews/3.webp", alt: "Photo 3" },
+        { id: 4, url: "http://localhost:3000/homepage/previews/4.webp", alt: "Photo 4" },
+        { id: 5, url: "http://localhost:3000/homepage/previews/5.webp", alt: "Photo 5" },
+        { id: 6, url: "http://localhost:3000/homepage/previews/1.webp", alt: "Photo 6" },
+        { id: 7, url: "http://localhost:3000/homepage/previews/2.webp", alt: "Photo 7" },
+        { id: 8, url: "http://localhost:3000/homepage/previews/3.webp", alt: "Photo 8" },
+        { id: 9, url: "http://localhost:3000/homepage/previews/4.webp", alt: "Photo 9" },
+        { id: 10, url: "http://localhost:3000/homepage/previews/5.webp", alt: "Photo 10" },
+        { id: 11, url: "http://localhost:3000/homepage/previews/1.webp", alt: "Photo 11" },
+        { id: 12, url: "http://localhost:3000/homepage/previews/2.webp", alt: "Photo 12" },
+        { id: 13, url: "http://localhost:3000/homepage/previews/3.webp", alt: "Photo 13" },
+        { id: 14, url: "http://localhost:3000/homepage/previews/4.webp", alt: "Photo 14" },
+        { id: 15, url: "http://localhost:3000/homepage/previews/5.webp", alt: "Photo 15" },
+        { id: 16, url: "http://localhost:3000/homepage/previews/1.webp", alt: "Photo 16" },
+        { id: 17, url: "http://localhost:3000/homepage/previews/2.webp", alt: "Photo 17" },
+        { id: 18, url: "http://localhost:3000/homepage/previews/3.webp", alt: "Photo 18" },
+        { id: 19, url: "http://localhost:3000/homepage/previews/4.webp", alt: "Photo 19" },
+        { id: 20, url: "http://localhost:3000/homepage/previews/5.webp", alt: "Photo 20" },
+    ]
+
+    const onPhotoSelect = (id: number) => {
+        setSelectedPhotoId(id)
+    }
+
+    const nextDemoPage = () => {
+        if (demoPage < Math.ceil(photos.length / 5)) {
+            setDemoPage((prev) => prev + 1)
+        }
+    }
+
+    const nextVideoPage = () => {
+        if (videoPage < Math.ceil(photos.length / 5)) {
+            setVideoPage((prev) => prev + 1)
+        }
+    }
+
+
+    const previousDemoPage = () => {
+        if (demoPage > 1) {
+            setDemoPage((prev) => prev - 1)
+        }
+    }
+
+    const previousVideoPage = () => {
+        if (videoPage > 1) {
+            setVideoPage((prev) => prev - 1)
+        }
+    }
+
+    const nextButton = () => {
+        setIndex((prev) => (prev + 1) % sentences.length);
+    }
+    const previousButton = () => {
+        setIndex((prev) => (prev - 1 + sentences.length) % sentences.length);
+    }
+
+    const updateSentence = (newText: string) => {
+        setSentences(prev => {
+            const newSentences = [...prev];
+            newSentences[index] = newText;
+            return newSentences;
+        });
+    }
+
+
+    return (
+        <SidebarProvider>
+            <AppSidebar />
+            <SidebarInset>
+                <header className="flex h-16 shrink-0 items-center gap-2">
+                    <div className="flex items-center gap-2 px-4">
+                        <SidebarTrigger className="-ml-1" />
+                        <Separator orientation="vertical" className="mr-2 h-4" />
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem className="hidden md:block">
+                                    <BreadcrumbLink href="#">
+                                        Building Your Application
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator className="hidden md:block" />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
+                </header>
+                <div className="flex flex-1 flex-col gap-4 p-10 pt-6">
+                    <div className="grid auto-rows-min grid-cols-2 gap-4 h-[calc(100vh-5rem)]">
+                        <div className="flex flex-col gap-4">
+
+                            {/* 1. Choose a hook */}
+                            <div className="h-fit w-full rounded-xl bg-primary/5">
+                                <div className="flex flex-col items-start p-10">
+                                    <p className="text-base font-[500] text-[#1a1a1a]/60 mb-2">
+                                        1. Choose a hook
+                                    </p>
+                                    <WordSlider
+                                        sentences={sentences}
+                                        nextButton={nextButton}
+                                        previousButton={previousButton}
+                                        index={index}
+                                        onTextChange={updateSentence}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* 2. UGC Video */}
+                            <div className="h-fit w-full rounded-xl bg-primary/5">
+                                <div className="flex flex-col items-start p-10">
+                                    <div className="flex flex-row items-center justify-between w-full">
+                                        <p className="text-base font-[500] text-[#1a1a1a]/60 mb-2">
+                                            2. Choose your UGC avatar
+                                        </p>
+                                        <div className="flex flex-row items-center gap-2">
+                                            <button className="text-[#1a1a1a]/50" onClick={previousVideoPage}>
+                                                <ChevronLeftIcon className="w-5 h-5" />
+                                            </button>
+                                            <span className="text-[#1a1a1a]/60">
+                                                {videoPage}/{Math.ceil(photos.length / 5)}
+                                            </span>
+                                            <button className="text-[#1a1a1a]/50" onClick={nextVideoPage}>
+                                                <ChevronRightIcon className="w-5 h-5" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <PhotoList
+                                        photos={photos}
+                                        selectedPhotoId={selectedPhotoId}
+                                        onPhotoSelect={onPhotoSelect}
+                                        currentPage={videoPage}
+                                    />
+                                </div>
+                            </div>
+
+                            {/* 3. Demo */}
+                            <div className="h-fit w-full rounded-xl bg-primary/5">
+                                <div className="flex flex-col items-start p-10">
+                                    <div className="flex flex-row items-center justify-between w-full">
+                                        <p className="text-base font-[500] text-[#1a1a1a]/60 mb-2">
+                                            3. Choose your video
+                                        </p>
+                                        <div className="flex flex-row items-center gap-2">
+                                            <button className="text-[#1a1a1a]/50" onClick={previousDemoPage}>
+                                                <ChevronLeftIcon className="w-5 h-5" />
+                                            </button>
+                                            <span className="text-[#1a1a1a]/60">
+                                                {demoPage}/{Math.ceil(photos.length / 5)}
+                                            </span>
+                                            <button className="text-[#1a1a1a]/50" onClick={nextDemoPage}>
+                                                <ChevronRightIcon className="w-5 h-5" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <DemoList
+                                        photos={photos}
+                                        selectedPhotoId={selectedPhotoId}
+                                        onPhotoSelect={onPhotoSelect}
+                                        currentPage={demoPage}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="h-full space-y-4">
+                            <div className="h-auto aspect-square relative rounded-xl bg-primary/5">
+                                <video
+                                    src="/video/vid1.mp4"
+                                    // autoPlay
+                                    // loop
+                                    // muted
+                                    playsInline
+                                    controls
+                                    className="h-full w-auto object-contain absolute top-0 left-1/2 -translate-x-1/2"
+                                />
+                            </div>
+                            <Button className="w-full">
+                                Create video
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+            </SidebarInset>
+        </SidebarProvider >
+    )
 }
