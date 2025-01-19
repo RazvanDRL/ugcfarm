@@ -20,6 +20,8 @@ import { useState } from "react"
 import { PhotoList } from "@/components/videos"
 import { DemoList } from "@/components/demos"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+import { CommandShortcut } from "@/components/ui/command"
+import { Badge } from "@/components/ui/badge"
 
 
 export default function Page() {
@@ -74,7 +76,6 @@ export default function Page() {
         }
     }
 
-
     const previousDemoPage = () => {
         if (demoPage > 1) {
             setDemoPage((prev) => prev - 1)
@@ -90,6 +91,7 @@ export default function Page() {
     const nextButton = () => {
         setIndex((prev) => (prev + 1) % sentences.length);
     }
+
     const previousButton = () => {
         setIndex((prev) => (prev - 1 + sentences.length) % sentences.length);
     }
@@ -101,7 +103,6 @@ export default function Page() {
             return newSentences;
         });
     }
-
 
     return (
         <SidebarProvider>
@@ -127,15 +128,22 @@ export default function Page() {
                     </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-10 pt-6">
+                    <CommandShortcut className="hidden md:flex rounded-l-none max-w-fit border-l-0 bg-secondary px-2 py-0.5">
+                        Pro Tip: Use ⇧ + ← or ⇧ + → to navigate between hooks
+                    </CommandShortcut>
                     <div className="grid auto-rows-min grid-cols-2 gap-4 h-[calc(100vh-5rem)]">
                         <div className="flex flex-col gap-4">
-
                             {/* 1. Choose a hook */}
                             <div className="h-fit w-full rounded-xl bg-primary/5">
                                 <div className="flex flex-col items-start p-10">
-                                    <p className="text-base font-[500] text-[#1a1a1a]/60 mb-2">
-                                        1. Choose a hook
-                                    </p>
+                                    <div className="flex flex-row items-center justify-between w-full mb-4">
+                                        <p className="text-base font-[500] text-[#1a1a1a]/60">
+                                            1. Choose a hook
+                                        </p>
+                                        <div className="text-sm font-[500] text-[#1a1a1a]/60">
+                                            {index + 1}/{sentences.length}
+                                        </div>
+                                    </div>
                                     <WordSlider
                                         sentences={sentences}
                                         nextButton={nextButton}
