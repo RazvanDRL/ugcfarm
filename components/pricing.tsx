@@ -26,6 +26,7 @@ function isEmpty(value: string | undefined | null): boolean {
 }
 
 function linkify(paymentLink: string, userId: string | undefined, email: string | undefined, referral: string | undefined): string {
+    return "/";
     const baseUrl = `https://buy.stripe.com/${paymentLink}`;
     const params = new URLSearchParams();
 
