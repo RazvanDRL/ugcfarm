@@ -42,31 +42,31 @@ const withUGC = [{
 
 const reviews = [
     {
-        img_url: "/homepage/previews/1.webp",
+        img_url: "/homepage/previews/1.png",
         rotation: -1,
     },
     {
-        img_url: "/homepage/previews/2.webp",
+        img_url: "/homepage/previews/2.png",
         rotation: 1,
     },
     {
-        img_url: "/homepage/previews/3.webp",
+        img_url: "/homepage/previews/3.png",
         rotation: 1,
     },
     {
-        img_url: "/homepage/previews/4.webp",
+        img_url: "/homepage/previews/4.png",
         rotation: 2,
     },
     {
-        img_url: "/homepage/previews/5.webp",
+        img_url: "/homepage/previews/5.png",
         rotation: 1,
     },
     {
-        img_url: "/homepage/previews/1.webp",
+        img_url: "/homepage/previews/1.png",
         rotation: 1,
     },
     {
-        img_url: "/homepage/previews/2.webp",
+        img_url: "/homepage/previews/2.png",
         rotation: 1,
     },
 ];
@@ -229,29 +229,29 @@ export default function Landing() {
                     {/* videos */}
                     {/* <div className="flex justify-center gap-2 w-full overflow-x-auto px-4 py-8 mx-auto">
                         <VideoPreview
-                            imageUrl="/homepage/previews/1.webp"
+                            imageUrl="/homepage/previews/1.png"
                             alt="Preview 1"
                             rotation={-1}
                         />
                         <VideoPreview
-                            imageUrl="/homepage/previews/2.webp"
+                            imageUrl="/homepage/previews/2.png"
                             alt="Preview 2"
                             rotation={1}
                             className="-mt-6 mb-6"
                         />
                         <VideoPreview
-                            imageUrl="/homepage/previews/3.webp"
+                            imageUrl="/homepage/previews/3.png"
                             alt="Preview 3"
                             rotation={1}
                         />
                         <VideoPreview
-                            imageUrl="/homepage/previews/4.webp"
+                            imageUrl="/homepage/previews/4.png"
                             alt="Preview 4"
                             rotation={2}
                             className="-mt-6 mb-6"
                         />
                         <VideoPreview
-                            imageUrl="/homepage/previews/5.webp"
+                            imageUrl="/homepage/previews/5.png"
                             alt="Preview 5"
                             rotation={1}
                         />
