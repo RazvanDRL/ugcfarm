@@ -32,9 +32,11 @@ import {
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { usePathname } from "next/navigation"
+import { TextShimmer } from "@/components/ui/text-shimmer"
 
 export default function Page() {
     const [index, setIndex] = useState(0)
+    const [timer, setTimer] = useState(0)
     const [demoPage, setDemoPage] = useState(1)
     const [videoPage, setVideoPage] = useState(1)
     const [sentences, setSentences] = useState([
@@ -46,6 +48,7 @@ export default function Page() {
     ])
     const [selectedPhotoId, setSelectedPhotoId] = useState<number>(1)
     const [location, setLocation] = useState<string>("http://localhost:3000")
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         setLocation(window.location.origin)
@@ -119,7 +122,7 @@ export default function Page() {
     }
 
     const createVideo = () => {
-        alert("hai sugeo")
+        setLoading(true)
     }
 
     return (
@@ -150,6 +153,7 @@ export default function Page() {
                         Pro Tip: Use (Shift + ← or Shift + →) to navigate between hooks
                     </CommandShortcut>
                     <div className="grid auto-rows-min md:grid-cols-2 grid-cols-1 gap-4 h-[calc(100vh-5rem)]">
+                        {/* Video Preview */}
                         <div className="md:col-start-2 space-y-4 order-first md:order-last">
                             <div className="h-auto aspect-square relative rounded-xl bg-[#A4A4A4]/10">
                                 <div className="relative w-full h-full">
@@ -170,10 +174,18 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className="flex flex-row items-center justify-end w-full">
-                                <Button onClick={createVideo} className="w-fit">
-                                    Create video
-                                    <ArrowRightIcon className="w-5 h-5" />
-                                </Button>
+                                {loading ? (
+                                    <Button variant="outline" className="w-fit">
+                                        <TextShimmer className='font-mono text-sm' duration={2}>
+                                            Generating video...
+                                        </TextShimmer>
+                                    </Button>
+                                ) : (
+                                    <Button onClick={createVideo} className="w-fit">
+                                        Create video
+                                        <ArrowRightIcon className="w-5 h-5" />
+                                    </Button>
+                                )}
                             </div>
                         </div>
                         <div className="flex flex-col gap-4 order-last md:order-first">
