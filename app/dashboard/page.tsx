@@ -334,10 +334,11 @@ export default function Page() {
                                                 </SelectTrigger>
                                                 <SelectContent className="bg-background font-[500]">
                                                     <SelectItem value="TikTok Font" className="truncate">TikTok Font</SelectItem>
-                                                    <SelectItem value="Helvetica" className="truncate">Helvetica</SelectItem>
-                                                    <SelectItem value="Times New Roman" className="truncate">Times New Roman</SelectItem>
-                                                    <SelectItem value="Georgia" className="truncate">Georgia</SelectItem>
-                                                    <SelectItem value="Palatino" className="truncate">Palatino</SelectItem>
+                                                    <SelectItem value="Arial" className="truncate">Arial</SelectItem>
+                                                    <SelectItem value="Montserrat" className="truncate">Montserrat</SelectItem>
+                                                    <SelectItem value="Inter" className="truncate">Inter</SelectItem>
+                                                    <SelectItem value="Iman Gadzhi Font" className="truncate">Iman Gadzhi Font</SelectItem>
+                                                    <SelectItem value="Alex Hormozi Font" className="truncate">Alex Hormozi Font</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -348,7 +349,7 @@ export default function Page() {
                                                 Text Color
                                             </label>
                                             <div className="w-full">
-                                                <ColorPicker defaultValue="#fff" showText allowClear className="p-[0.325rem]" />
+                                                <ColorPicker defaultValue="#fff" showText allowClear className="p-[0.325rem] hover:border-primary/80" />
                                             </div>
                                         </div>
 
@@ -358,7 +359,7 @@ export default function Page() {
                                                 Stroke Color
                                             </label>
                                             <div className="w-full">
-                                                <ColorPicker defaultValue="#000" showText allowClear className="p-[0.325rem]" />
+                                                <ColorPicker defaultValue="#000" showText allowClear className="p-[0.325rem] hover:border-primary/80" />
                                             </div>
                                         </div>
 
@@ -368,7 +369,7 @@ export default function Page() {
                                                 Shadow Color
                                             </label>
                                             <div className="w-full">
-                                                <ColorPicker defaultValue="#000" showText allowClear className="p-[0.325rem]" />
+                                                <ColorPicker defaultValue="#000" showText allowClear className="p-[0.325rem] hover:border-primary/80" />
                                             </div>
                                         </div>
 
