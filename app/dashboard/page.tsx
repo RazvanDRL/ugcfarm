@@ -19,13 +19,22 @@ import { WordSlider } from "@/components/slider"
 import { useState } from "react"
 import { PhotoList } from "@/components/videos"
 import { DemoList } from "@/components/demos"
-import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, PlayIcon } from "lucide-react"
 import { CommandShortcut } from "@/components/ui/command"
-import { Badge } from "@/components/ui/badge"
-
+import { ColorPicker } from 'antd';
+import { Input } from "@/components/ui/input"
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
 
 export default function Page() {
     const [index, setIndex] = useState(0)
+    const [colorOpen, setColorOpen] = useState(false)
     const [demoPage, setDemoPage] = useState(1)
     const [videoPage, setVideoPage] = useState(1)
     const [sentences, setSentences] = useState([
@@ -104,6 +113,10 @@ export default function Page() {
         });
     }
 
+    const createVideo = () => {
+        alert("hai sugeo")
+    }
+
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -116,12 +129,12 @@ export default function Page() {
                             <BreadcrumbList>
                                 <BreadcrumbItem className="hidden md:block">
                                     <BreadcrumbLink href="#">
-                                        Building Your Application
+                                        Platform
                                     </BreadcrumbLink>
                                 </BreadcrumbItem>
                                 <BreadcrumbSeparator className="hidden md:block" />
                                 <BreadcrumbItem>
-                                    <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                                    <BreadcrumbPage>Create Video</BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
                         </Breadcrumb>
@@ -129,13 +142,13 @@ export default function Page() {
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-10 pt-6">
                     <CommandShortcut className="hidden md:flex rounded-l-none max-w-fit border-l-0 bg-secondary px-2 py-0.5">
-                        Pro Tip: Use ⇧ + ← or ⇧ + → to navigate between hooks
+                        Pro Tip: Use (Shift + ← or Shift + →) to navigate between hooks
                     </CommandShortcut>
                     <div className="grid auto-rows-min grid-cols-2 gap-4 h-[calc(100vh-5rem)]">
                         <div className="flex flex-col gap-4">
                             {/* 1. Choose a hook */}
-                            <div className="h-fit w-full rounded-xl bg-primary/5">
-                                <div className="flex flex-col items-start p-10">
+                            <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                <div className="flex flex-col items-start p-6">
                                     <div className="flex flex-row items-center justify-between w-full mb-4">
                                         <p className="text-base font-[500] text-[#1a1a1a]/60">
                                             1. Choose a hook
@@ -155,8 +168,8 @@ export default function Page() {
                             </div>
 
                             {/* 2. UGC Video */}
-                            <div className="h-fit w-full rounded-xl bg-primary/5">
-                                <div className="flex flex-col items-start p-10">
+                            <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                <div className="flex flex-col items-start p-6">
                                     <div className="flex flex-row items-center justify-between w-full">
                                         <p className="text-base font-[500] text-[#1a1a1a]/60 mb-2">
                                             2. Choose your UGC avatar
@@ -166,7 +179,7 @@ export default function Page() {
                                                 <ChevronLeftIcon className="w-5 h-5" />
                                             </button>
                                             <span className="text-[#1a1a1a]/60">
-                                                {videoPage}/{Math.ceil(photos.length / 5)}
+                                                {videoPage}/{Math.ceil(photos.length / 10)}
                                             </span>
                                             <button className="text-[#1a1a1a]/50" onClick={nextVideoPage}>
                                                 <ChevronRightIcon className="w-5 h-5" />
@@ -183,8 +196,8 @@ export default function Page() {
                             </div>
 
                             {/* 3. Demo */}
-                            <div className="h-fit w-full rounded-xl bg-primary/5">
-                                <div className="flex flex-col items-start p-10">
+                            <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                <div className="flex flex-col items-start p-6">
                                     <div className="flex flex-row items-center justify-between w-full">
                                         <p className="text-base font-[500] text-[#1a1a1a]/60 mb-2">
                                             3. Choose your video
@@ -209,22 +222,147 @@ export default function Page() {
                                     />
                                 </div>
                             </div>
+
+                            {/* 4. Text Settings */}
+                            <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                <div className="flex flex-col items-start p-6">
+                                    <div className="flex flex-row items-center justify-between w-full">
+                                        <p className="text-base font-[500] text-[#1a1a1a]/60 mb-2">
+                                            4. Text Settings
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-3 grid-rows-3 gap-6">
+                                        {/* ROW 1 */}
+                                        {/* FONT SIZE */}
+                                        <div className="flex flex-col items-start col-start-1 row-start-1">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Font Size
+                                            </label>
+                                            <div className="relative">
+                                                <Input
+                                                    type="number"
+                                                    defaultValue={16}
+                                                    min={1}
+                                                    max={100}
+                                                    step={1}
+                                                    className="col-start-1 bg-background pl-3 pr-8 font-[500]"
+                                                    onChange={(e) => {
+                                                        const value = parseInt(e.target.value);
+                                                        if (value < 1) e.target.value = "1";
+                                                        if (value > 100) e.target.value = "100";
+                                                    }}
+                                                />
+                                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                                    px
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        {/* FONT WEIGHT */}
+                                        <div className="flex flex-col items-start col-start-2 row-start-1">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Font Weight
+                                            </label>
+                                            <Select defaultValue="500">
+                                                <SelectTrigger className="w-[140px] bg-background font-[500] truncate">
+                                                    <SelectValue placeholder="Select weight" />
+                                                </SelectTrigger>
+                                                <SelectContent className="bg-background font-[500] w-[140px]">
+                                                    <SelectItem value="100" className="truncate">Thin (100)</SelectItem>
+                                                    <SelectItem value="200" className="truncate">Extra Light (200)</SelectItem>
+                                                    <SelectItem value="300" className="truncate">Light (300)</SelectItem>
+                                                    <SelectItem value="400" className="truncate">Regular (400)</SelectItem>
+                                                    <SelectItem value="500" className="truncate">Medium (500)</SelectItem>
+                                                    <SelectItem value="600" className="truncate">Semi Bold (600)</SelectItem>
+                                                    <SelectItem value="700" className="truncate">Bold (700)</SelectItem>
+                                                    <SelectItem value="800" className="truncate">Extra Bold (800)</SelectItem>
+                                                    <SelectItem value="900" className="truncate">Black (900)</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+
+                                        {/* FONT FAMILY */}
+                                        <div className="flex flex-col items-start col-start-3 row-start-1">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Font Family
+                                            </label>
+                                            <Select defaultValue="TikTok Font">
+                                                <SelectTrigger className="w-[140px] bg-background font-[500] truncate">
+                                                    <SelectValue placeholder="Select font" />
+                                                </SelectTrigger>
+                                                <SelectContent className="bg-background font-[500] w-[140px]">
+                                                    <SelectItem value="TikTok Font" className="truncate">TikTok Font</SelectItem>
+                                                    <SelectItem value="Helvetica" className="truncate">Helvetica</SelectItem>
+                                                    <SelectItem value="Times New Roman" className="truncate">Times New Roman</SelectItem>
+                                                    <SelectItem value="Georgia" className="truncate">Georgia</SelectItem>
+                                                    <SelectItem value="Palatino" className="truncate">Palatino</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
+
+                                        {/* ROW 2 */}
+                                        {/* TEXT COLOR */}
+                                        <div className="flex flex-col items-start col-start-1 row-start-2">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Text Color
+                                            </label>
+                                            <ColorPicker defaultValue="#fff" showText allowClear className="p-[0.325rem]" />
+                                        </div>
+
+                                        {/* STROKE COLOR */}
+                                        <div className="flex flex-col items-start col-start-2 row-start-2">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Stroke Color
+                                            </label>
+                                            <ColorPicker defaultValue="#000" showText allowClear className="p-[0.325rem]" />
+                                        </div>
+
+                                        {/* SHADOW COLOR */}
+                                        <div className="flex flex-col items-start col-start-3 row-start-2">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Shadow Color
+                                            </label>
+                                            <ColorPicker defaultValue="#000" showText allowClear className="p-[0.325rem]" />
+                                        </div>
+
+                                        {/* ROW 3 */}
+                                        {/* UPPERCASE */}
+                                        <div className="flex flex-col items-start col-start-1 row-start-3">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Uppercase
+                                            </label>
+                                            <Switch />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div className="h-full space-y-4">
-                            <div className="h-auto aspect-square relative rounded-xl bg-primary/5">
-                                <video
-                                    src="/video/vid1.mp4"
-                                    // autoPlay
-                                    // loop
-                                    // muted
-                                    playsInline
-                                    controls
-                                    className="h-full w-auto object-contain absolute top-0 left-1/2 -translate-x-1/2"
-                                />
+                            <div className="h-auto aspect-square relative rounded-xl bg-[#A4A4A4]/10">
+                                <div className="relative w-full h-full">
+                                    <video
+                                        src="/video/vid1.mp4"
+                                        // autoPlay
+                                        // loop
+                                        // muted
+                                        playsInline
+                                        // controls
+                                        className="h-full w-auto object-contain absolute top-0 left-1/2 -translate-x-1/2 shadow-inner"
+                                    />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="p-4 rounded-full bg-black/50 cursor-pointer hover:bg-black/70 transition-colors">
+                                            <PlayIcon className="w-12 h-12 text-white" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <Button className="w-full">
-                                Create video
-                            </Button>
+                            <div className="flex flex-row items-center justify-end w-full">
+                                <Button onClick={createVideo} className="w-fit">
+                                    Create video
+                                    <ArrowRightIcon className="w-5 h-5" />
+                                </Button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -17,10 +17,9 @@ interface PhotoListProps {
 export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage }: PhotoListProps) {
 
     // Calculate pagination
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedPhotos = photos.slice(startIndex, startIndex + itemsPerPage);
-
     return (
         <div className={cn("grid grid-cols-5 grid-rows-2 gap-2", className)}>
             {paginatedPhotos.map((photo) => (

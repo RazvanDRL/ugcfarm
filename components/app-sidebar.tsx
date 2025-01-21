@@ -2,16 +2,15 @@
 
 import * as React from "react"
 import {
-    BookOpen,
-    Bot,
-    Command,
-    Frame,
+    BookCopy,
+    Calendar,
+    ChartArea,
+    History,
     LifeBuoy,
-    Map,
-    PieChart,
     Send,
     Settings2,
     SquareTerminal,
+    User,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -32,96 +31,49 @@ import Link from "next/link"
 
 const data = {
     user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
+        name: "Arthur",
+        email: "arthur@ugc.farm",
+        avatar: "/assets/blog/authors/arthur.webp",
     },
     navMain: [
         {
             title: "Playground",
-            url: "#",
+            url: "/dashboard",
             icon: SquareTerminal,
             isActive: true,
-            items: [
-                {
-                    title: "History",
-                    url: "#",
-                },
-                {
-                    title: "Starred",
-                    url: "#",
-                },
-                {
-                    title: "Settings",
-                    url: "#",
-                },
-            ],
         },
         {
-            title: "Models",
-            url: "#",
-            icon: Bot,
-            items: [
-                {
-                    title: "Genesis",
-                    url: "#",
-                },
-                {
-                    title: "Explorer",
-                    url: "#",
-                },
-                {
-                    title: "Quantum",
-                    url: "#",
-                },
-            ],
+            title: "Hook Library",
+            url: "/dashboard/hooks/library",
+            icon: BookCopy,
         },
         {
-            title: "Documentation",
-            url: "#",
-            icon: BookOpen,
-            items: [
-                {
-                    title: "Introduction",
-                    url: "#",
-                },
-                {
-                    title: "Get Started",
-                    url: "#",
-                },
-                {
-                    title: "Tutorials",
-                    url: "#",
-                },
-                {
-                    title: "Changelog",
-                    url: "#",
-                },
-            ],
+            title: "Video History",
+            url: "/dashboard/videos/history",
+            icon: History,
+        },
+    ],
+    projects: [
+        {
+            name: "Analytics",
+            url: "/dashboard/analytics",
+            icon: ChartArea,
         },
         {
-            title: "Settings",
-            url: "#",
-            icon: Settings2,
-            items: [
-                {
-                    title: "General",
-                    url: "#",
-                },
-                {
-                    title: "Team",
-                    url: "#",
-                },
-                {
-                    title: "Billing",
-                    url: "#",
-                },
-                {
-                    title: "Limits",
-                    url: "#",
-                },
-            ],
+            name: "Schedule",
+            url: "/dashboard/schedule",
+            icon: Calendar,
         },
+        {
+            name: "Auto-Post",
+            url: "/dashboard/auto-post",
+            icon: Send,
+        },
+        {
+            name: "My Profile",
+            url: "/dashboard/profile",
+            icon: User,
+        }
     ],
     navSecondary: [
         {
@@ -133,23 +85,6 @@ const data = {
             title: "Feedback",
             url: "#",
             icon: Send,
-        },
-    ],
-    projects: [
-        {
-            name: "Design Engineering",
-            url: "#",
-            icon: Frame,
-        },
-        {
-            name: "Sales & Marketing",
-            url: "#",
-            icon: PieChart,
-        },
-        {
-            name: "Travel",
-            url: "#",
-            icon: Map,
         },
     ],
 }

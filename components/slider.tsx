@@ -20,7 +20,7 @@ export function WordSlider({ sentences, className, nextButton, previousButton, i
     ])
 
     return (
-        <div className={cn("flex flex-col w-full font-mono", className)}>
+        <div className={cn("flex flex-col w-full", className)}>
             <div className="flex items-center gap-2">
                 <Button
                     variant="ghost"
@@ -32,7 +32,7 @@ export function WordSlider({ sentences, className, nextButton, previousButton, i
                 <Textarea
                     value={sentences[index ?? 0]}
                     onChange={(e) => onTextChange(e.target.value)}
-                    className="min-h-[100px] bg-background text-base resize-none"
+                    className="min-h-[100px] font-[500] bg-background text-base resize-none"
                     placeholder="e.g. Here's 5 hooks for you"
                 />
                 <Button
