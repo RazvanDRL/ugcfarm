@@ -7,7 +7,7 @@ const TermsPage: React.FC = () => {
             <p className="mt-2">Last updated: January 17, 2025</p>
 
             <h2 className="text-xl font-semibold mt-4">1. Agreement to Terms</h2>
-            <p>By accessing or using UGC.Farm ("the Service"), you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you do not have permission to access the Service.</p>
+            <p>By accessing or using UGC.Farm (&quot;the Service&quot;), you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you do not have permission to access the Service.</p>
 
             <h2 className="text-xl font-semibold mt-4">2. Service Description</h2>
             <ul className="list-disc ml-5">
@@ -47,7 +47,7 @@ const TermsPage: React.FC = () => {
 
             <h3 className="font-semibold mt-2">4.2 Platform Guidelines</h3>
             <ul className="list-disc ml-5">
-                <li>Follow each platform's community guidelines</li>
+                <li>Follow each platform&apos;s community guidelines</li>
                 <li>Respect content restrictions</li>
                 <li>Maintain appropriate disclosures</li>
                 <li>Comply with advertising policies</li>
@@ -125,7 +125,7 @@ const TermsPage: React.FC = () => {
             </ul>
 
             <h2 className="text-xl font-semibold mt-4">11. Limitation of Liability</h2>
-            <p>UGC.Farm is provided "as is" without warranties. We are not liable for:</p>
+            <p>UGC.Farm is provided &quot;as is&quot; without warranties. We are not liable for:</p>
             <ul className="list-disc ml-5">
                 <li>Content performance</li>
                 <li>Platform acceptance</li>

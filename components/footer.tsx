@@ -64,7 +64,7 @@ export function Footer() {
                         </Link>
                         <nav className="flex flex-col space-y-3">
                             {latestPosts.map((post) => (
-                                <Link href={`/blogs/${post.slug}`} className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors line-clamp-1 font-medium">
+                                <Link key={post.slug} href={`/blogs/${post.slug}`} className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors line-clamp-1 font-medium">
                                     {post.title}
                                 </Link>
                             ))}
@@ -77,7 +77,7 @@ export function Footer() {
                         </Link>
                         <nav className="flex flex-col space-y-3">
                             {freeTools.map((tool) => (
-                                <Link href={tool.href} className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                <Link key={tool.href} href={tool.href} className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
                                     {tool.title}
                                 </Link>
                             ))}

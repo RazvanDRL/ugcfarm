@@ -8,7 +8,7 @@ const PrivacyPage: React.FC = () => {
 
             <h2 className="text-xl font-semibold">1. Introduction</h2>
             <p>
-                This Privacy Policy explains how UGC.Farm ("we", "us", "our") collects, uses, and protects your data. We value your privacy and strive to be transparent about our data practices.
+                This Privacy Policy explains how UGC.Farm (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;) collects, uses, and protects your data. We value your privacy and strive to be transparent about our data practices.
             </p>
 
             <h2 className="text-xl font-semibold">2. Information We Collect</h2>
@@ -128,7 +128,7 @@ const PrivacyPage: React.FC = () => {
             <h2 className="text-xl font-semibold">11. International Data Transfers</h2>
             <p>Your data may be processed in different countries with appropriate safeguards under GDPR.</p>
 
-            <h2 className="text-xl font-semibold">12. Children's Privacy</h2>
+            <h2 className="text-xl font-semibold">12. Children&apos;s Privacy</h2>
             <p>Our Service is not intended for users under 13. We do not knowingly collect data from children.</p>
 
             <h2 className="text-xl font-semibold">13. Changes to This Policy</h2>
