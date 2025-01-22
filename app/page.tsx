@@ -242,6 +242,9 @@ const ReviewCard = ({
                     fill
                     sizes="50vw"
                     className="rounded-2xl border-4 border-white object-cover"
+                    priority
+                    loading="eager"
+                    fetchPriority="high"
                 />
             </div>
         </figure>
