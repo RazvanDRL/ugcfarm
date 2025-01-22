@@ -217,7 +217,7 @@ const reviews: Review[] = [
     }
 ]
 
-const factor = 1.5;
+// const factor = 1.5;
 
 const firstRow = reviews.slice(0, reviews.length / 2);
 const secondRow = reviews.slice(reviews.length / 2);
@@ -226,13 +226,11 @@ const ReviewCard = ({
     img_url,
     rotation,
 }: Review) => {
-    const optimizedImgUrl = `${img_url}?width=${Math.round(90 * factor)}&height=${Math.round(160 * factor)}&quality=75&format=webp`;
-
     return (
         <figure
             style={{
-                width: `${Math.round(90 * factor)}px`,
-                height: `${Math.round(160 * factor)}px`,
+                width: `135px`,
+                height: `240px`,
                 transform: `rotate(${rotation}deg)`,
             }}
             className={cn(
@@ -241,16 +239,12 @@ const ReviewCard = ({
         >
             <div className="relative flex flex-col h-full">
                 <Image
-                    src={optimizedImgUrl}
+                    src={img_url + "?class=landing"}
                     alt="UGC content preview"
-                    width={Math.round(90 * factor)}
-                    height={Math.round(160 * factor)}
-                    sizes="(max-width: 768px) 33vw, 25vw"
+                    width={135}
+                    height={240}
                     className="rounded-2xl border-4 border-white object-cover"
                     loading="eager"
-                    quality={75}
-                    placeholder="blur"
-                    blurDataURL={`${img_url}?width=16&quality=30`}
                     priority={true}
                 />
             </div>
