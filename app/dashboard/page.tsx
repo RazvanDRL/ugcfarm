@@ -258,11 +258,6 @@ export default function Page() {
             "url": "https://ugcfarm.b-cdn.net/photos/41.webp?class=dashboard",
             "alt": "UGC Avatar 41"
         },
-        {
-            "id": 42,
-            "url": "https://ugcfarm.b-cdn.net/photos/42.webp?class=dashboard",
-            "alt": "UGC Avatar 42"
-        }
     ]
 
     const onPhotoSelect = (id: number) => {

@@ -35,13 +35,10 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                     )}
                     onClick={() => onPhotoSelect(photo.id)}
                 >
-                    <Image
+                    <img
                         src={photo.url}
                         alt={photo.alt}
-                        width={50}
-                        height={50}
                         className="w-full h-full object-cover aspect-square"
-                        priority
                     />
                 </div>
             ))}

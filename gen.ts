@@ -23,7 +23,7 @@ export function generateImageData(variant: number, min: number, max: number) {
     return images;
 }
 
-const imageData = generateImageData(2, 1, 42);
+const imageData = generateImageData(2, 1, 41);
 
 fs.writeFile("image_data.json", JSON.stringify(imageData, null, 2), (err) => {
     if (err) throw err;

@@ -211,10 +211,6 @@ const reviews: Review[] = [
         "img_url": "https://ugcfarm.b-cdn.net/photos/41.webp",
         "rotation": 1
     },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/42.webp",
-        "rotation": -1
-    }
 ]
 
 // const factor = 1.5;
