@@ -363,13 +363,17 @@ export default function Page() {
                         <div className="md:col-start-2 space-y-4 order-first md:order-last">
                             <div className="h-auto aspect-square relative rounded-xl bg-[#A4A4A4]/10">
                                 <div className="relative w-full h-full">
-                                    <video
+                                    {/* <video
                                         src={`${location}/video/vid1.mp4`}
                                         autoPlay
                                         // loop
                                         muted
                                         playsInline
                                         // controls
+                                        className="h-full w-auto object-contain absolute top-0 left-1/2 -translate-x-1/2 shadow-inner"
+                                    /> */}
+                                    <img
+                                        src={`https://ugcfarm.b-cdn.net/photos/34.webp`}
                                         className="h-full w-auto object-contain absolute top-0 left-1/2 -translate-x-1/2 shadow-inner"
                                     />
                                     <div className="absolute inset-0 flex items-center justify-center">
@@ -457,7 +461,7 @@ export default function Page() {
                                                 <ChevronLeftIcon className="w-5 h-5" />
                                             </button>
                                             <span className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                {demoPage}/{Math.ceil(photos.length / 5)}
+                                                {demoPage}/{Math.ceil(demos.length / 5)}
                                             </span>
                                             <button className="text-[#1a1a1a]/50" onClick={nextDemoPage}>
                                                 <ChevronRightIcon className="w-5 h-5" />
