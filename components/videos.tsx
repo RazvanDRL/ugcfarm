@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import Image from "next/image";
 
 interface Photo {
     id: number;
@@ -17,16 +18,16 @@ interface PhotoListProps {
 export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage }: PhotoListProps) {
 
     // Calculate pagination
-    const itemsPerPage = 10;
+    const itemsPerPage = 21;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const paginatedPhotos = photos.slice(startIndex, startIndex + itemsPerPage);
     return (
-        <div className={cn("grid grid-cols-5 grid-rows-2 gap-2", className)}>
+        <div className={cn("grid grid-cols-7 grid-rows-3 gap-2", className)}>
             {paginatedPhotos.map((photo) => (
                 <div
                     key={photo.id}
                     className={cn(
-                        "max-w-[70px] relative cursor-pointer rounded-lg overflow-hidden transition-all duration-200",
+                        "max-w-[50px] relative cursor-pointer rounded-lg overflow-hidden transition-all duration-200",
                         "hover:ring-2 hover:ring-primary/50",
                         selectedPhotoId === photo.id
                             ? "ring-2 ring-primary"
@@ -34,10 +35,13 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                     )}
                     onClick={() => onPhotoSelect(photo.id)}
                 >
-                    <img
+                    <Image
                         src={photo.url}
                         alt={photo.alt}
+                        width={50}
+                        height={50}
                         className="w-full h-full object-cover aspect-square"
+                        priority
                     />
                 </div>
             ))}

@@ -19,7 +19,7 @@ import { WordSlider } from "@/components/slider"
 import { useEffect, useState } from "react"
 import { PhotoList } from "@/components/videos"
 import { DemoList } from "@/components/demos"
-import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, PlayIcon } from "lucide-react"
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, Loader, PlayIcon } from "lucide-react"
 import { CommandShortcut } from "@/components/ui/command"
 import { ColorPicker } from 'antd';
 import { Input } from "@/components/ui/input"
@@ -31,20 +31,18 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
-import { usePathname } from "next/navigation"
 import { TextShimmer } from "@/components/ui/text-shimmer"
 
 export default function Page() {
     const [index, setIndex] = useState(0)
-    const [timer, setTimer] = useState(0)
     const [demoPage, setDemoPage] = useState(1)
     const [videoPage, setVideoPage] = useState(1)
     const [sentences, setSentences] = useState([
-        "Customize your own sentences here 1",
-        "Customize your own sentences here 2",
-        "Customize your own sentences here 3",
-        "Customize your own sentences here 4",
-        "Customize your own sentences here 5",
+        "One decision can change your life",
+        "How to start dropshipping for $10 (in 2025)",
+        "This simple trick doubles your sales, immediately!",
+        "How much is a smart brand owner making per month?",
+        "Learn how to get your first 100K views on TikTok",
     ])
     const [selectedPhotoId, setSelectedPhotoId] = useState<number>(1)
     const [location, setLocation] = useState<string>("http://localhost:3000")
@@ -57,212 +55,212 @@ export default function Page() {
     const photos = [
         {
             "id": 1,
-            "url": "https://ugcfarm.b-cdn.net/photos/1.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/1.webp?class=dashboard",
             "alt": "UGC Avatar 1"
         },
         {
             "id": 2,
-            "url": "https://ugcfarm.b-cdn.net/photos/2.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/2.webp?class=dashboard",
             "alt": "UGC Avatar 2"
         },
         {
             "id": 3,
-            "url": "https://ugcfarm.b-cdn.net/photos/3.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/3.webp?class=dashboard",
             "alt": "UGC Avatar 3"
         },
         {
             "id": 4,
-            "url": "https://ugcfarm.b-cdn.net/photos/4.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/4.webp?class=dashboard",
             "alt": "UGC Avatar 4"
         },
         {
             "id": 5,
-            "url": "https://ugcfarm.b-cdn.net/photos/5.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/5.webp?class=dashboard",
             "alt": "UGC Avatar 5"
         },
         {
             "id": 6,
-            "url": "https://ugcfarm.b-cdn.net/photos/6.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/6.webp?class=dashboard",
             "alt": "UGC Avatar 6"
         },
         {
             "id": 7,
-            "url": "https://ugcfarm.b-cdn.net/photos/7.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/7.webp?class=dashboard",
             "alt": "UGC Avatar 7"
         },
         {
             "id": 8,
-            "url": "https://ugcfarm.b-cdn.net/photos/8.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/8.webp?class=dashboard",
             "alt": "UGC Avatar 8"
         },
         {
             "id": 9,
-            "url": "https://ugcfarm.b-cdn.net/photos/9.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/9.webp?class=dashboard",
             "alt": "UGC Avatar 9"
         },
         {
             "id": 10,
-            "url": "https://ugcfarm.b-cdn.net/photos/10.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/10.webp?class=dashboard",
             "alt": "UGC Avatar 10"
         },
         {
             "id": 11,
-            "url": "https://ugcfarm.b-cdn.net/photos/11.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/11.webp?class=dashboard",
             "alt": "UGC Avatar 11"
         },
         {
             "id": 12,
-            "url": "https://ugcfarm.b-cdn.net/photos/12.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/12.webp?class=dashboard",
             "alt": "UGC Avatar 12"
         },
         {
             "id": 13,
-            "url": "https://ugcfarm.b-cdn.net/photos/13.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/13.webp?class=dashboard",
             "alt": "UGC Avatar 13"
         },
         {
             "id": 14,
-            "url": "https://ugcfarm.b-cdn.net/photos/14.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/14.webp?class=dashboard",
             "alt": "UGC Avatar 14"
         },
         {
             "id": 15,
-            "url": "https://ugcfarm.b-cdn.net/photos/15.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/15.webp?class=dashboard",
             "alt": "UGC Avatar 15"
         },
         {
             "id": 16,
-            "url": "https://ugcfarm.b-cdn.net/photos/16.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/16.webp?class=dashboard",
             "alt": "UGC Avatar 16"
         },
         {
             "id": 17,
-            "url": "https://ugcfarm.b-cdn.net/photos/17.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/17.webp?class=dashboard",
             "alt": "UGC Avatar 17"
         },
         {
             "id": 18,
-            "url": "https://ugcfarm.b-cdn.net/photos/18.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/18.webp?class=dashboard",
             "alt": "UGC Avatar 18"
         },
         {
             "id": 19,
-            "url": "https://ugcfarm.b-cdn.net/photos/19.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/19.webp?class=dashboard",
             "alt": "UGC Avatar 19"
         },
         {
             "id": 20,
-            "url": "https://ugcfarm.b-cdn.net/photos/20.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/20.webp?class=dashboard",
             "alt": "UGC Avatar 20"
         },
         {
             "id": 21,
-            "url": "https://ugcfarm.b-cdn.net/photos/21.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/21.webp?class=dashboard",
             "alt": "UGC Avatar 21"
         },
         {
             "id": 22,
-            "url": "https://ugcfarm.b-cdn.net/photos/22.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/22.webp?class=dashboard",
             "alt": "UGC Avatar 22"
         },
         {
             "id": 23,
-            "url": "https://ugcfarm.b-cdn.net/photos/23.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/23.webp?class=dashboard",
             "alt": "UGC Avatar 23"
         },
         {
             "id": 24,
-            "url": "https://ugcfarm.b-cdn.net/photos/24.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/24.webp?class=dashboard",
             "alt": "UGC Avatar 24"
         },
         {
             "id": 25,
-            "url": "https://ugcfarm.b-cdn.net/photos/25.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/25.webp?class=dashboard",
             "alt": "UGC Avatar 25"
         },
         {
             "id": 26,
-            "url": "https://ugcfarm.b-cdn.net/photos/26.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/26.webp?class=dashboard",
             "alt": "UGC Avatar 26"
         },
         {
             "id": 27,
-            "url": "https://ugcfarm.b-cdn.net/photos/27.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/27.webp?class=dashboard",
             "alt": "UGC Avatar 27"
         },
         {
             "id": 28,
-            "url": "https://ugcfarm.b-cdn.net/photos/28.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/28.webp?class=dashboard",
             "alt": "UGC Avatar 28"
         },
         {
             "id": 29,
-            "url": "https://ugcfarm.b-cdn.net/photos/29.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/29.webp?class=dashboard",
             "alt": "UGC Avatar 29"
         },
         {
             "id": 30,
-            "url": "https://ugcfarm.b-cdn.net/photos/30.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/30.webp?class=dashboard",
             "alt": "UGC Avatar 30"
         },
         {
             "id": 31,
-            "url": "https://ugcfarm.b-cdn.net/photos/31.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/31.webp?class=dashboard",
             "alt": "UGC Avatar 31"
         },
         {
             "id": 32,
-            "url": "https://ugcfarm.b-cdn.net/photos/32.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/32.webp?class=dashboard",
             "alt": "UGC Avatar 32"
         },
         {
             "id": 33,
-            "url": "https://ugcfarm.b-cdn.net/photos/33.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/33.webp?class=dashboard",
             "alt": "UGC Avatar 33"
         },
         {
             "id": 34,
-            "url": "https://ugcfarm.b-cdn.net/photos/34.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/34.webp?class=dashboard",
             "alt": "UGC Avatar 34"
         },
         {
             "id": 35,
-            "url": "https://ugcfarm.b-cdn.net/photos/35.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/35.webp?class=dashboard",
             "alt": "UGC Avatar 35"
         },
         {
             "id": 36,
-            "url": "https://ugcfarm.b-cdn.net/photos/36.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/36.webp?class=dashboard",
             "alt": "UGC Avatar 36"
         },
         {
             "id": 37,
-            "url": "https://ugcfarm.b-cdn.net/photos/37.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/37.webp?class=dashboard",
             "alt": "UGC Avatar 37"
         },
         {
             "id": 38,
-            "url": "https://ugcfarm.b-cdn.net/photos/38.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/38.webp?class=dashboard",
             "alt": "UGC Avatar 38"
         },
         {
             "id": 39,
-            "url": "https://ugcfarm.b-cdn.net/photos/39.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/39.webp?class=dashboard",
             "alt": "UGC Avatar 39"
         },
         {
             "id": 40,
-            "url": "https://ugcfarm.b-cdn.net/photos/40.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/40.webp?class=dashboard",
             "alt": "UGC Avatar 40"
         },
         {
             "id": 41,
-            "url": "https://ugcfarm.b-cdn.net/photos/41.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/41.webp?class=dashboard",
             "alt": "UGC Avatar 41"
         },
         {
             "id": 42,
-            "url": "https://ugcfarm.b-cdn.net/photos/42.webp?class=landing",
+            "url": "https://ugcfarm.b-cdn.net/photos/42.webp?class=dashboard",
             "alt": "UGC Avatar 42"
         }
     ]
@@ -278,7 +276,7 @@ export default function Page() {
     }
 
     const nextVideoPage = () => {
-        if (videoPage < Math.ceil(photos.length / 5)) {
+        if (videoPage < Math.ceil(photos.length / 21)) {
             setVideoPage((prev) => prev + 1)
         }
     }
@@ -366,6 +364,7 @@ export default function Page() {
                             <div className="flex flex-row items-center justify-end w-full">
                                 {loading ? (
                                     <Button variant="outline" className="w-fit">
+                                        <Loader className="w-5 h-5 animate-spin" />
                                         <TextShimmer className='font-mono text-sm' duration={2}>
                                             Generating video...
                                         </TextShimmer>
@@ -412,7 +411,7 @@ export default function Page() {
                                                 <ChevronLeftIcon className="w-5 h-5" />
                                             </button>
                                             <span className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                {videoPage}/{Math.ceil(photos.length / 10)}
+                                                {videoPage}/{Math.ceil(photos.length / 21)}
                                             </span>
                                             <button className="text-[#1a1a1a]/50" onClick={nextVideoPage}>
                                                 <ChevronRightIcon className="w-5 h-5" />

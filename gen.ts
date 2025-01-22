@@ -14,7 +14,7 @@ export function generateImageData(variant: number, min: number, max: number) {
         for (let i = min; i <= max; i++) {
             images.push({
                 id: i,
-                url: process.env.NEXT_PUBLIC_CDN_URL + "/photos/" + i.toString() + ".webp?class=landing",
+                url: process.env.NEXT_PUBLIC_CDN_URL + "/photos/" + i.toString() + ".webp?class=dashboard",
                 alt: "UGC Avatar " + i
             });
         }
