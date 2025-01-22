@@ -223,7 +223,7 @@ export default function AffiliatesPage() {
                     </section>
                 </div>
             </main>
-            <Footer />
+
         </>
     )
 } 

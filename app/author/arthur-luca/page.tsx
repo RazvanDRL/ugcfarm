@@ -74,7 +74,7 @@ export default function Page() {
                 <h1>Arthur Luca</h1>
                 <p>Arthur Luca is a writer and entrepreneur.</p>
             </div>
-            <Footer />
+
         </>
     );
 }

@@ -1,5 +1,6 @@
 import { getAllPosts } from '@/lib/api';
 import { MetadataRoute } from 'next'
+import { freeTools } from '@/constants';
 
 const BASE_URL = "https://ugc.farm"
 
@@ -10,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return {
             url: `${BASE_URL}/blogs/${post.slug}`,
             lastModified: new Date(post.date),
-            changeFrequency: "always" as const,
+            changeFrequency: "daily" as const,
             priority: 0.8,
         }
     });
@@ -19,13 +20,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
             url: `${BASE_URL}/`,
             lastModified: new Date(),
-            changeFrequency: "always",
+            changeFrequency: "daily" as const,
             priority: 1,
         },
         {
             url: `${BASE_URL}/blogs`,
             lastModified: new Date(),
-            changeFrequency: "daily",
+            changeFrequency: "daily" as const,
             priority: 0.9,
         },
         {
@@ -43,7 +44,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         {
             url: `${BASE_URL}/affiliates`,
             lastModified: new Date(),
-            changeFrequency: "weekly",
+            changeFrequency: "daily" as const,
+            priority: 0.9,
+        },
+        {
+            url: `${BASE_URL}/free-tools`,
+            lastModified: new Date(),
+            changeFrequency: "daily" as const,
             priority: 0.9,
         },
         // {
@@ -58,6 +65,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: "monthly",
             priority: 0.7,
         },
+        ...freeTools.map((tool) => ({
+            url: `${BASE_URL}${tool.href}`,
+            lastModified: new Date(),
+            changeFrequency: "daily" as const,
+            priority: 0.7,
+        })),
         ...pages,
     ]
 }

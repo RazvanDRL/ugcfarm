@@ -86,7 +86,7 @@ export default function FAQPage() {
                 </h1>
                 <FAQ />
             </main>
-            <Footer />
+
         </>
     )
 }

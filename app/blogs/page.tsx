@@ -157,7 +157,7 @@ export default function BlogsPage() {
           </div>
         </div>
       </main>
-      <Footer />
+
     </>
   );
 }

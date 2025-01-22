@@ -186,7 +186,7 @@ export default function HowItWorks() {
                     </div>
                 </div>
             </main>
-            <Footer />
+
         </>
     )
 } 

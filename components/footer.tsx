@@ -1,8 +1,22 @@
 import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 import Image from 'next/image'
+import { getAllPosts } from '@/lib/api'
+import { freeTools } from '@/constants'
+
+type BlogPost = {
+    slug: string
+    title: string
+}
 
 export function Footer() {
+
+    const latestPosts = getAllPosts()
+        .slice(0, 4)
+        .map((post): BlogPost => ({
+            slug: post.slug,
+            title: post.title,
+        }))
     return (
         <footer className="max-w-5xl mx-auto py-8 px-8">
             <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8 md:gap-20">
@@ -49,9 +63,24 @@ export function Footer() {
                             Blogs
                         </Link>
                         <nav className="flex flex-col space-y-3">
-                            <Link href="/blogs/what-is-ugc" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
-                                What is UGC?
-                            </Link>
+                            {latestPosts.map((post) => (
+                                <Link href={`/blogs/${post.slug}`} className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors line-clamp-1 font-medium">
+                                    {post.title}
+                                </Link>
+                            ))}
+                        </nav>
+                    </div>
+
+                    <div className="flex flex-col space-y-4">
+                        <Link href="/free-tools" className="font-semibold text-[#1a1a1a] hover:text-primary hover:underline transition-colors">
+                            Free Tools
+                        </Link>
+                        <nav className="flex flex-col space-y-3">
+                            {freeTools.map((tool) => (
+                                <Link href={tool.href} className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                    {tool.title}
+                                </Link>
+                            ))}
                         </nav>
                     </div>
                 </div>

@@ -106,7 +106,7 @@ export default async function Post(props: Params) {
                     </article>
                 </Container>
             </main>
-            <Footer />
+
         </>
     );
 }

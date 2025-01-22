@@ -80,6 +80,11 @@ export const faq: FAQ[] = [
         category: "Business Questions",
         question: "What's the minimum commitment period?",
         answer: "There are no long-term commitments. You pay for what you need, when you need it."
+    },
+    {
+        category: "Business Questions",
+        question: "How is UGC.Farm different from reel.farm and other UGC automation tools?",
+        answer: "While platforms like reel.farm focus primarily on TikTok automation, UGC.Farm was built specifically for store owners who need to drive website traffic across multiple platforms."
     }
 ];
 
