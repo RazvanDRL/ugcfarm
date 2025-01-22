@@ -45,6 +45,7 @@ export default function Page() {
         "Learn how to get your first 100K views on TikTok",
     ])
     const [selectedPhotoId, setSelectedPhotoId] = useState<number>(1)
+    const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
     const [location, setLocation] = useState<string>("http://localhost:3000")
     const [loading, setLoading] = useState(false)
 
@@ -260,8 +261,30 @@ export default function Page() {
         },
     ]
 
+    const demos = [
+        {
+            "id": 1,
+            "url": "https://ugcfarm.b-cdn.net/demo/demo_2.webp?class=landing",
+            "alt": "UGC Demo 1"
+        },
+        {
+            "id": 2,
+            "url": "https://ugcfarm.b-cdn.net/demo/demo_1.webp?class=landing",
+            "alt": "UGC Demo 2"
+        },
+        {
+            "id": 3,
+            "url": "https://ugcfarm.b-cdn.net/demo/demo_3.webp?class=landing",
+            "alt": "UGC Demo 3"
+        },
+    ]
+
     const onPhotoSelect = (id: number) => {
         setSelectedPhotoId(id)
+    }
+
+    const onDemoSelect = (id: number) => {
+        setSelectedDemoId(id)
     }
 
     const nextDemoPage = () => {
@@ -442,9 +465,9 @@ export default function Page() {
                                         </div>
                                     </div>
                                     <DemoList
-                                        photos={photos}
-                                        selectedPhotoId={selectedPhotoId}
-                                        onPhotoSelect={onPhotoSelect}
+                                        photos={demos}
+                                        selectedPhotoId={selectedDemoId}
+                                        onPhotoSelect={onDemoSelect}
                                         currentPage={demoPage}
                                     />
                                 </div>
