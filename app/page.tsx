@@ -18,6 +18,7 @@ import { Card } from "@/components/ui/card"
 import { jsonLd } from './json-ld'
 import { metadata } from './metadata'
 
+
 const withoutUGC = [{
     title: "Traditional agencies",
     list: [
@@ -42,34 +43,174 @@ const withUGC = [{
 
 const reviews = [
     {
-        img_url: "/homepage/previews/1.png",
-        rotation: -1,
+        "img_url": "https://ugcfarm.b-cdn.net/photos/1.webp",
+        "rotation": 1
     },
     {
-        img_url: "/homepage/previews/2.png",
-        rotation: 1,
+        "img_url": "https://ugcfarm.b-cdn.net/photos/2.webp",
+        "rotation": 1
     },
     {
-        img_url: "/homepage/previews/3.png",
-        rotation: 1,
+        "img_url": "https://ugcfarm.b-cdn.net/photos/3.webp",
+        "rotation": -1
     },
     {
-        img_url: "/homepage/previews/4.png",
-        rotation: 2,
+        "img_url": "https://ugcfarm.b-cdn.net/photos/4.webp",
+        "rotation": -1
     },
     {
-        img_url: "/homepage/previews/5.png",
-        rotation: 1,
+        "img_url": "https://ugcfarm.b-cdn.net/photos/5.webp",
+        "rotation": 1
     },
     {
-        img_url: "/homepage/previews/1.png",
-        rotation: 1,
+        "img_url": "https://ugcfarm.b-cdn.net/photos/6.webp",
+        "rotation": 1
     },
     {
-        img_url: "/homepage/previews/2.png",
-        rotation: 1,
+        "img_url": "https://ugcfarm.b-cdn.net/photos/7.webp",
+        "rotation": -1
     },
-];
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/8.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/9.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/10.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/11.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/12.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/13.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/14.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/15.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/16.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/17.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/18.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/19.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/20.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/21.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/22.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/23.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/24.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/25.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/26.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/27.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/28.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/29.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/30.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/31.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/32.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/33.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/34.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/35.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/36.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/37.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/38.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/39.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/40.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/41.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/42.webp",
+        "rotation": -1
+    }
+]
 
 const factor = 1.5;
 
@@ -99,6 +240,7 @@ const ReviewCard = ({
                     src={img_url}
                     alt="Preview"
                     fill
+                    sizes="50vw"
                     className="rounded-2xl border-4 border-white object-cover"
                 />
             </div>
