@@ -16,7 +16,7 @@ export function DiscountBanner() {
     });
 
     useEffect(() => {
-        const endDate = 1737550800000;
+        const endDate = 1738148400000;
         console.log(endDate)
         const timer = setInterval(() => {
             const now = Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate(), new Date().getUTCHours(), new Date().getUTCMinutes(), new Date().getUTCSeconds());
