@@ -41,7 +41,12 @@ const withUGC = [{
     ]
 }]
 
-const reviews = [
+interface Review {
+    img_url: string;
+    rotation: number;
+}
+
+const reviews: Review[] = [
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/1.webp",
         "rotation": 1
@@ -220,10 +225,9 @@ const secondRow = reviews.slice(reviews.length / 2);
 const ReviewCard = ({
     img_url,
     rotation,
-}: {
-    img_url: string;
-    rotation: number;
-}) => {
+}: Review) => {
+    const optimizedImgUrl = `${img_url}?width=${Math.round(90 * factor)}&height=${Math.round(160 * factor)}&quality=75&format=webp`;
+
     return (
         <figure
             style={{
@@ -237,14 +241,17 @@ const ReviewCard = ({
         >
             <div className="relative flex flex-col h-full">
                 <Image
-                    src={img_url}
-                    alt="Preview"
-                    fill
-                    sizes="50vw"
+                    src={optimizedImgUrl}
+                    alt="UGC content preview"
+                    width={Math.round(90 * factor)}
+                    height={Math.round(160 * factor)}
+                    sizes="(max-width: 768px) 33vw, 25vw"
                     className="rounded-2xl border-4 border-white object-cover"
-                    priority
                     loading="eager"
-                    fetchPriority="high"
+                    quality={75}
+                    placeholder="blur"
+                    blurDataURL={`${img_url}?width=16&quality=30`}
+                    priority={true}
                 />
             </div>
         </figure>
