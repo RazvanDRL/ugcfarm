@@ -55,6 +55,9 @@ export function Footer() {
                             <Link href="/affiliates" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
                                 Affiliates
                             </Link>
+                            <Link href="/demo" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                Demo
+                            </Link>
                         </nav>
                     </div>
 
