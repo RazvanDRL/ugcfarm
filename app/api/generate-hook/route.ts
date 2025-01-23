@@ -7,34 +7,31 @@ import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
 
 // Create a new ratelimiter instance
-// const redis = new Redis({
-//     url: process.env.UPSTASH_REDIS_REST_URL!,
-//     token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-// });
+const redis = new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL!,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
 
 // Create a new ratelimiter that allows 5 requests per 24 hours
-// const ratelimit = new Ratelimit({
-//     redis,
-//     limiter: Ratelimit.slidingWindow(5, "24 h"),
-// });
-
-//tasks.trigger also works with the edge runtime
-//export const runtime = "edge";
+const ratelimit = new Ratelimit({
+    redis,
+    limiter: Ratelimit.slidingWindow(5, "24 h"),
+});
 
 export async function POST(request: NextRequest) {
     try {
         // Get IP for rate limiting
-        // const ip = request.headers.get('x-forwarded-for') ?? "127.0.0.1";
+        const ip = request.headers.get('x-forwarded-for') ?? "127.0.0.1";
 
-        // // Check rate limit
-        // const { success } = await ratelimit.limit(ip);
+        // Check rate limit
+        const { success } = await ratelimit.limit(ip);
 
-        // if (!success) {
-        //     return NextResponse.json(
-        //         { error: "Too many requests. Please try again later." },
-        //         { status: 429 }
-        //     );
-        // }
+        if (!success) {
+            return NextResponse.json(
+                { error: "Too many requests. Please try again later." },
+                { status: 429 }
+            );
+        }
 
         const body = await request.json();
         const { productDescription, platform, category, intent } = body;

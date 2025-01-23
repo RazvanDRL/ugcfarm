@@ -1,8 +1,7 @@
 "use client"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Loader2, Wand2, Copy, ShoppingBag } from "lucide-react"
 import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
@@ -14,7 +13,6 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Navbar } from "@/components/navbar"
-import { Footer } from "@/components/footer"
 import { Textarea } from "@/components/ui/textarea"
 
 type Platform = 'facebook' | 'instagram' | 'tiktok'
@@ -40,9 +38,20 @@ export default function HookGeneratorPage() {
             toast.error("Please enter your product description")
             return
         }
+
+        if (productDescription.trim().length < 10) {
+            toast.error("Product description is too short. Please keep it under 1000 characters.")
+            return
+        }
+
+        if (productDescription.trim().length > 1000) {
+            toast.error("Product description is too long. Please keep it under 1000 characters.")
+            return
+        }
+
         setIsLoading(true)
         try {
-            const response = await fetch('/api/generate-hooks', {
+            const response = await fetch('/api/generate-hook', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -55,8 +64,14 @@ export default function HookGeneratorPage() {
                 }),
             })
 
+            if (response.status === 429) {
+                toast.error("Maximum requests reached (5/day). Please try again later.")
+                return
+            }
+
             if (!response.ok) {
-                throw new Error('Failed to generate hooks')
+                toast.error("Failed to generate hooks. Please try again.")
+                return
             }
 
             const data = await response.json()
@@ -88,8 +103,7 @@ export default function HookGeneratorPage() {
                             <span className="text-primary">In Seconds</span>
                         </h1>
                         <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
-                            Stop waiting for UGC creators. Generate scroll-stopping hooks<br />
-                            that drive traffic and sales to your store.
+                            Generate scroll-stopping hooks that drive traffic and sales to your store.
                         </p>
                     </div>
 
@@ -98,14 +112,20 @@ export default function HookGeneratorPage() {
                         <CardHeader className="space-y-6">
                             <div className="space-y-4">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-[800] text-[#1a1a1a]/60">
-                                        Product Description
-                                    </label>
+                                    <div className="flex justify-between items-center">
+                                        <label className="text-sm font-[800] text-[#1a1a1a]/60">
+                                            Product Description
+                                        </label>
+                                        <span className={`text-sm ${productDescription.length > 1000 ? 'text-destructive' : 'text-muted-foreground'
+                                            }`}>
+                                            {productDescription.length}/1000
+                                        </span>
+                                    </div>
                                     <Textarea
                                         placeholder="Describe your product, its key features, and target audience..."
                                         value={productDescription}
                                         onChange={(e) => setProductDescription(e.target.value)}
-                                        className="h-24 resize-none py-2 font-[500]"
+                                        className="h-24 py-2 font-[500]"
                                     />
                                 </div>
 

@@ -10,13 +10,43 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
     title: "Free AI Writing Tools",
     description: "Access our collection of free AI-powered writing tools. Enhance your content creation workflow with tools designed for modern creators.",
+    alternates: {
+        canonical: "https://ugc.farm/free-tools"
+    },
     openGraph: {
         title: "Free AI Writing Tools | UGC Farm",
         description: "Boost your content creation with our free AI writing tools. Designed for modern creators and marketers.",
         url: "https://ugc.farm/free-tools",
         type: "website",
         siteName: "UGC Farm",
-    }
+        locale: "en_US",
+        images: [
+            {
+                url: "https://ugc.farm/og-image.png", // Add your actual OG image path
+                width: 1200,
+                height: 630,
+                alt: "UGC Farm Free AI Writing Tools",
+            }
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Free AI Writing Tools | UGC Farm",
+        description: "Boost your content creation with our free AI writing tools. Designed for modern creators and marketers.",
+        images: ["https://ugc.farm/og-image.png"], // Same as OG image
+    },
+    keywords: "AI writing tools, free AI tools, content creation, UGC Farm, writing assistant, AI content",
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+        },
+    },
 }
 
 export default function FreeToolsPage() {

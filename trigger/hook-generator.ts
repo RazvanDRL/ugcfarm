@@ -20,9 +20,11 @@ const systemPrompt = `You are an expert e-commerce copywriter specializing in so
 3. Direct response copywriting techniques
 4. Proven social media patterns
 5. Target audience psychology
+6. Don't use hashtags
 
 For each hook:
-- Keep it under 280 characters
+- Short and concise hooks
+- Keep it under 100 characters
 - Make it action-oriented
 - Include a clear value proposition
 - Create urgency/scarcity when relevant
@@ -49,6 +51,14 @@ export const hookGenerator = task({
   }) => {
     if (!payload.productDescription) {
       throw new Error("Product description is required");
+    }
+
+    if (payload.productDescription.trim().length < 10) {
+      throw new Error("Product description is too short");
+    }
+
+    if (payload.productDescription.trim().length > 1000) {
+      throw new Error("Product description is too long");
     }
 
     const userPrompt = `Generate 3 hooks for an e-commerce product with these details:
