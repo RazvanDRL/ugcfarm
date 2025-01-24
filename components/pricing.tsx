@@ -53,8 +53,9 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                 <Link key="affiliate_essential" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
                 "✕ Schedule videos",
                 "✕ Full analytics",
+                "✕ Custom avatars",
             ],
-            cta: "Start Free",
+            cta: "Start Now",
             paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_1,
             popular: false
         },
@@ -68,6 +69,7 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                 "50 videos",
                 "$0.98 per video",
                 "90+ UGC avatars",
+                "Custom avatars",
                 "Viral Hook Generator",
                 "Schedule videos",
                 "Full analytics",
@@ -78,21 +80,23 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
             popular: true
         },
         {
-            title: "Agency",
+            title: "Business",
             emoji: "🏆",
-            description: "Perfect for agencies",
-            price: !referral ? 129 : (129 * 0.7).toFixed(2),
-            originalPrice: 199,
+            description: "Perfect for businesses",
+            price: 1290,
+            originalPrice: 1990,
             features: [
-                "150 videos",
+                "1500 videos",
                 "$0.86 per video",
                 "90+ UGC avatars",
+                "Custom avatars",
                 "Viral Hook Generator",
                 "Schedule videos",
                 "Full analytics",
+                "Feature previews",
                 <Link key="affiliate_essential" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
             ],
-            cta: "Go Unlimited",
+            cta: "Scale Now",
             paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_3,
             popular: false
         }
@@ -127,7 +131,7 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                                 </div>
                                 <CardDescription className="text-md font-[500]">{plan.description}</CardDescription>
                                 <div className={cn("text-4xl font-extrabold text-[#1a1a1a]")}>
-                                    <span className="line-through mr-2 text-lg font-normal text-muted-foreground">
+                                    <span className="line-through mr-2 text-base font-normal text-muted-foreground">
                                         ${plan.originalPrice}
                                     </span>
                                     ${plan.price}
