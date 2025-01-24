@@ -6,6 +6,7 @@ import { PostHogProvider } from "@/components/posthog";
 import { IntercomScript } from "@/app/components/IntercomScript";
 import { Toaster } from "sonner";
 import { Footer } from "@/components/footer";
+import { PurchaseNotification } from "@/components/purchase-notification";
 export const metadata: Metadata = {
   metadataBase: new URL("https://ugc.farm"),
   title: {
@@ -109,6 +110,7 @@ export default function RootLayout({
           >
             <Toaster position="top-right" closeButton />
             {children}
+            <PurchaseNotification />
             <Footer />
           </PlausibleProvider>
         </body>
