@@ -38,29 +38,38 @@ const calculateHoursAgo = (timestamp: number): number => {
 export function PurchaseNotification() {
     const [currentPurchase, setCurrentPurchase] = useState<PurchaseNotification | null>(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [shownPurchases, setShownPurchases] = useState<number[]>([]);
 
     useEffect(() => {
         let currentIndex = 0;
         let intervalId: NodeJS.Timeout;
 
         const showNotification = () => {
+            // Stop if all purchases have been shown
+            if (shownPurchases.length >= purchases.length) {
+                clearInterval(intervalId);
+                return;
+            }
+
+            // Find the next unshown purchase
+            while (shownPurchases.includes(currentIndex)) {
+                currentIndex = (currentIndex + 1) % purchases.length;
+            }
+
             setCurrentPurchase(purchases[currentIndex]);
+            setShownPurchases(prev => [...prev, currentIndex]);
             setIsVisible(true);
 
-            // Hide notification after 5 seconds
             setTimeout(() => {
                 setIsVisible(false);
-                // Reduced wait time for fade out animation
                 setTimeout(() => {
                     currentIndex = (currentIndex + 1) % purchases.length;
                 }, 300);
             }, 5000);
         };
 
-        // Show first notification after 2 minutes
         const initialTimeout = setTimeout(() => {
             showNotification();
-            // Start interval only after the initial timeout
             intervalId = setInterval(showNotification, 6000);
         }, 12000);
 
@@ -68,7 +77,7 @@ export function PurchaseNotification() {
             clearTimeout(initialTimeout);
             clearInterval(intervalId);
         };
-    }, []);
+    }, [shownPurchases]);
 
     if (!currentPurchase) return null;
 
