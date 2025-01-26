@@ -13,6 +13,11 @@ interface PurchaseNotification {
 
 const purchases: PurchaseNotification[] = [
     {
+        name: "Aleksandr I.",
+        product: "Starter Plan",
+        timestamp: 1737887290432
+    },
+    {
         name: "Percy D.",
         product: "Creator Plan",
         timestamp: 1737730800000
