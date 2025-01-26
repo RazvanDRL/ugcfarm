@@ -336,7 +336,7 @@ export default function Landing() {
                                 ))}
                             </div>
                             <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
-                                Average creator raises prices 3x/year
+                                All languages supported
                             </p>
                         </div>
                     </div>

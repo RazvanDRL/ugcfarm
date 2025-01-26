@@ -110,6 +110,8 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                 </h2>
                 <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center mb-12">
                     Lock in these prices forever.
+                    <br />
+                    You can top-up your account with more videos at any time.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

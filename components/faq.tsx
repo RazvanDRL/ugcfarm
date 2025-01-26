@@ -12,6 +12,12 @@ interface FAQ {
 }
 
 export const faq: FAQ[] = [
+
+    {
+        category: "Getting Started",
+        question: "Is this a subscription?",
+        answer: "No, this is a one-time payment. You pay for what you need, when you need it. You can top-up your account with more videos at any time."
+    },
     // Getting Started
     {
         category: "Getting Started",
