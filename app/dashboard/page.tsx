@@ -16,7 +16,7 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { WordSlider } from "@/components/slider"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback } from "react"
 import { PhotoList } from "@/components/videos"
 import { DemoList } from "@/components/demos"
 import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, Loader, PlayIcon } from "lucide-react"
@@ -32,6 +32,8 @@ import {
 } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { TextShimmer } from "@/components/ui/text-shimmer"
+import { Player } from "@remotion/player"
+import { Main } from "@/remotion/MyComp/Main"
 
 export default function Page() {
     const [index, setIndex] = useState(0)
@@ -48,6 +50,7 @@ export default function Page() {
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
     const [location, setLocation] = useState<string>("http://localhost:3000")
     const [loading, setLoading] = useState(false)
+    const [videoDuration, setVideoDuration] = useState(5)
 
     useEffect(() => {
         setLocation(window.location.origin)
@@ -361,26 +364,25 @@ export default function Page() {
                     <div className="grid auto-rows-min md:grid-cols-2 grid-cols-1 gap-4 h-[calc(100vh-5rem)]">
                         {/* Video Preview */}
                         <div className="md:col-start-2 space-y-4 order-first md:order-last">
-                            <div className="h-auto aspect-square relative rounded-xl bg-[#A4A4A4]/10">
-                                <div className="relative w-full h-full">
-                                    {/* <video
-                                        src={`${location}/video/vid1.mp4`}
-                                        autoPlay
+                            <div className="h-auto aspect-square rounded-xl bg-[#A4A4A4]/10 overflow-hidden">
+                                <div className="relative w-full h-full aspect-[9/16]">
+                                    <Player
+                                        component={Main}
+                                        inputProps={{
+                                            text: sentences[index],
+                                            videoUrl: "https://ugcfarm.b-cdn.net/p0wJwTiPwMzqMXq9dm-5c_output.mp4",
+                                        }}
+                                        durationInFrames={videoDuration * 30}
+                                        fps={30}
+                                        compositionWidth={1080}
+                                        compositionHeight={1920}
+                                        style={{
+                                            height: '100%',
+                                        }}
+                                        controls
                                         // loop
-                                        muted
-                                        playsInline
-                                        // controls
-                                        className="h-full w-auto object-contain absolute top-0 left-1/2 -translate-x-1/2 shadow-inner"
-                                    /> */}
-                                    <img
-                                        src={`https://ugcfarm.b-cdn.net/photos/34.webp`}
-                                        className="h-full w-auto object-contain absolute top-0 left-1/2 -translate-x-1/2 shadow-inner"
+                                        className="mx-auto h-full"
                                     />
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                        <div className="p-4 rounded-full bg-black/50 cursor-pointer hover:bg-black/70 transition-colors">
-                                            <PlayIcon className="w-12 h-12 text-white" />
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <div className="flex flex-row items-center justify-end w-full">
