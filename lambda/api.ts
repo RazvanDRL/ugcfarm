@@ -11,35 +11,56 @@ import { ApiResponse } from "../helpers/api-response";
 const makeRequest = async <Res>(
   endpoint: string,
   body: unknown,
+  token?: string,
 ): Promise<Res> => {
-  const result = await fetch(endpoint, {
-    method: "post",
-    body: JSON.stringify(body),
-    headers: {
-      "content-type": "application/json",
-    },
-  });
-  const json = (await result.json()) as ApiResponse<Res>;
-  if (json.type === "error") {
-    throw new Error(json.message);
-  }
+  if (!token) {
+    const result = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    const json = (await result.json()) as ApiResponse<Res>;
+    if (json.type === "error") {
+      throw new Error(json.message);
+    }
 
-  return json.data;
+    return json.data;
+  }
+  else {
+    const result = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+    const json = (await result.json()) as ApiResponse<Res>;
+    if (json.type === "error") {
+      throw new Error(json.message);
+    }
+
+    return json.data;
+  }
 };
 
 export const renderVideo = async ({
   id,
   inputProps,
+  token,
 }: {
   id: string;
   inputProps: z.infer<typeof CompositionProps>;
+  token: string;
 }) => {
   const body: z.infer<typeof RenderRequest> = {
     id,
     inputProps,
   };
 
-  return makeRequest<RenderMediaOnLambdaOutput>("/api/lambda/render", body);
+  return makeRequest<RenderMediaOnLambdaOutput>("/api/lambda/render", body, token);
 };
 
 export const getProgress = async ({

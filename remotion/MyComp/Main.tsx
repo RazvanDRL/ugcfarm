@@ -6,12 +6,25 @@ import {
   useVideoConfig,
 } from "remotion";
 import { CompositionProps } from "../../types/constants";
-// import { loadFont, fontFamily } from "@remotion/google-fonts/Inter";
+// import { loadFont } from "@remotion/google-fonts/Inter";
 
-// loadFont();
+// const { fontFamily } = loadFont();
 
-export const Main = ({ text, videoUrl }: z.infer<typeof CompositionProps>) => {
+export const Main = ({ text, videoUrl, videoProps, textStyle }: z.infer<typeof CompositionProps>) => {
   const { width, height } = useVideoConfig();
+  const {
+    fontSize,
+    fontWeight,
+    fontFamily: selectedFont,
+    textColor,
+    strokeColor,
+    shadowColor,
+    uppercase,
+  } = textStyle;
+
+  console.log(textStyle)
+
+  const processedText = uppercase ? text.toUpperCase() : text;
 
   return (
     <AbsoluteFill>
@@ -35,14 +48,16 @@ export const Main = ({ text, videoUrl }: z.infer<typeof CompositionProps>) => {
       >
         <h1
           style={{
-            fontSize: "3rem",
-            fontWeight: "bold",
-            color: "white",
+            fontSize: `${fontSize}px`,
+            fontWeight,
+            // fontFamily: selectedFont === "Inter" ? fontFamily : selectedFont,
+            color: textColor,
             textAlign: "center",
-            textShadow: "0 2px 4px rgba(0,0,0,0.5)",
+            WebkitTextStroke: `2px ${strokeColor}`,
+            textShadow: `0 2px 4px ${shadowColor}`,
           }}
         >
-          {text}
+          {processedText}
         </h1>
       </AbsoluteFill>
     </AbsoluteFill>

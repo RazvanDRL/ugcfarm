@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Check, ArrowRight, Lock, Building2 } from 'lucide-react';
+import { Check, ArrowRight, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import StripeLogo from '@/public/logos/stripe.svg';
 import Image from 'next/image';
@@ -43,7 +43,7 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
             title: "Starter",
             emoji: "🌱",
             description: "Convince yourself",
-            price: !referral ? 19 : (29 * 0.7).toFixed(2),
+            price: !referral ? 19 : (19 * 0.7).toFixed(2),
             originalPrice: 49,
             features: [
                 "10 videos",

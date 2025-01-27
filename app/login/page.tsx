@@ -40,25 +40,33 @@ export default function LoginPage() {
 
     async function handleLoginWithEmail(email: string) {
         setIsLoading(prev => ({ ...prev, email: true }));
+
+        const redirect = decodeURIComponent(new URLSearchParams(window.location.search).get("redirect") || "/dashboard")
+
         if (!isValidEmail(email)) {
             toast.error("Invalid email address");
             setIsLoading(prev => ({ ...prev, email: false }));
             return;
         }
 
-        const { data, error } = await supabase.auth.signInWithOtp({
-            email: email,
-            options: {
-                emailRedirectTo: "http://localhost:3000/dashboard",
-            },
-        });
+        try {
+            const { data, error } = await supabase.auth.signInWithOtp({
+                email: email,
+                options: {
+                    emailRedirectTo: `${window.location.origin}${redirect}`,
+                },
+            });
 
-        if (error) {
-            toast.error(error.message);
-        } else {
+            if (error) {
+                throw error;
+            }
+
             toast.success("Check your email for a login link");
+        } catch (error: any) {
+            toast.error(error.message || "Failed to send login link. Please try again.");
+        } finally {
+            setIsLoading(prev => ({ ...prev, email: false }));
         }
-        setIsLoading(prev => ({ ...prev, email: false }));
     }
 
     async function handleLoginWithProvider(provider: "google" | "twitter") {

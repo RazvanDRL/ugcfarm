@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type User } from "@supabase/supabase-js";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
@@ -13,4 +13,5 @@ if (!supabaseAnonKey) {
     throw new Error("Supabase anon key is not set");
 }
 
+export type { User };
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);

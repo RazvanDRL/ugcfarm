@@ -19,7 +19,7 @@ import { WordSlider } from "@/components/slider"
 import { useEffect, useState, useCallback } from "react"
 import { PhotoList } from "@/components/videos"
 import { DemoList } from "@/components/demos"
-import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, Loader, PlayIcon } from "lucide-react"
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, DownloadIcon, Loader, PlayIcon } from "lucide-react"
 import { CommandShortcut } from "@/components/ui/command"
 import { ColorPicker } from 'antd';
 import { Input } from "@/components/ui/input"
@@ -34,8 +34,33 @@ import { Switch } from "@/components/ui/switch"
 import { TextShimmer } from "@/components/ui/text-shimmer"
 import { Player } from "@remotion/player"
 import { Main } from "@/remotion/MyComp/Main"
+import { supabase, type User } from "@/lib/supabase/client/supabase"
+import { useRouter } from "next/navigation"
+import { useRendering } from "@/helpers/use-rendering"
+import { COMP_NAME } from "@/types/constants"
+import { toast } from "sonner"
+import Link from "next/link"
+
+interface InputProps {
+    text: string;
+    videoUrl: string;
+    textStyle: {
+        fontSize: number;
+        fontWeight: number;
+        fontFamily: string;
+        textColor: string;
+        strokeColor: string;
+        shadowColor: string;
+        uppercase: boolean;
+    };
+    videoProps: {
+        uuid: string;
+    };
+}
 
 export default function Page() {
+    const router = useRouter()
+    const [user, setUser] = useState<User | null>(null)
     const [index, setIndex] = useState(0)
     const [demoPage, setDemoPage] = useState(1)
     const [videoPage, setVideoPage] = useState(1)
@@ -48,13 +73,90 @@ export default function Page() {
     ])
     const [selectedPhotoId, setSelectedPhotoId] = useState<number>(1)
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
-    const [location, setLocation] = useState<string>("http://localhost:3000")
     const [loading, setLoading] = useState(false)
     const [videoDuration, setVideoDuration] = useState(5)
+    const [textStyle, setTextStyle] = useState({
+        fontSize: 48,
+        fontWeight: 500,
+        fontFamily: "TikTok Font",
+        textColor: "#ffffff",
+        strokeColor: "#000000",
+        shadowColor: "#000000",
+        uppercase: false,
+    })
+    const [inputProps, setInputProps] = useState<InputProps>({
+        text: sentences[index],
+        videoUrl: "https://ugcfarm.b-cdn.net/p0wJwTiPwMzqMXq9dm-5c_output.mp4",
+        textStyle,
+        videoProps: {
+            uuid: "54be6352-a357-4b3d-a35b-c14c72c4263e"
+        }
+    });
+    const [video, setVideo] = useState<string>("")
+    const [tokenClient, setTokenClient] = useState<string>("")
+
+    const { renderMedia, state, setToken, token } = useRendering(COMP_NAME, inputProps);
+
+    async function fetchVideo(id: string, access_token: string) {
+        try {
+            const response = await fetch(`/api/generate-signed-url`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${access_token}`,
+                },
+                body: JSON.stringify({ key: `${id}.mp4`, bucket: 'output-bucket' }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch signed URL');
+            }
+
+            const data = await response.json();
+            setVideo(data.url);
+            console.log(data.url);
+        } catch (error) {
+            console.error('Error fetching video:', error);
+        }
+    }
 
     useEffect(() => {
-        setLocation(window.location.origin)
+        const getUser = async () => {
+            const { data: { user } } = await supabase.auth.getUser()
+            if (user) {
+                setUser(user)
+                const session = await supabase.auth.refreshSession()
+                if (session.data.session?.access_token) {
+                    setToken(session.data.session?.access_token)
+                    console.log("yesyesyesyesyesyesyesyesyesyes session data token found")
+                    fetchVideo(inputProps.videoProps.uuid, session.data.session?.access_token)
+                } else {
+                    toast.error("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx No access token found")
+                }
+            } else {
+                router.replace(`/login?redirect=${encodeURIComponent(window.location.pathname)}`)
+            }
+        }
+
+        getUser()
     }, [])
+
+    useEffect(() => {
+        if (state.status === "done") {
+            fetchVideo(inputProps.videoProps.uuid, token)
+        }
+    }, [state])
+
+    useEffect(() => {
+        setInputProps({
+            text: sentences[index],
+            videoUrl: "https://ugcfarm.b-cdn.net/p0wJwTiPwMzqMXq9dm-5c_output.mp4",
+            textStyle,
+            videoProps: {
+                uuid: crypto.randomUUID()
+            }
+        });
+    }, [index, selectedPhotoId, textStyle]);
 
     const photos = [
         {
@@ -330,8 +432,58 @@ export default function Page() {
         });
     }
 
-    const createVideo = () => {
-        setLoading(true)
+    const createVideo = async () => {
+        setLoading(true);
+        try {
+            await renderMedia();
+        } catch (error) {
+            console.error("Error rendering video:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value);
+        setTextStyle(prev => ({
+            ...prev,
+            fontSize: value,
+        }));
+    }
+
+    const handleFontWeightChange = (value: string) => {
+        setTextStyle(prev => ({
+            ...prev,
+            fontWeight: parseInt(value),
+        }));
+    }
+
+    const handleFontFamilyChange = (value: string) => {
+        setTextStyle(prev => ({
+            ...prev,
+            fontFamily: value,
+        }));
+    }
+
+    const handleStrokeColorChange = (color: string) => {
+        setTextStyle(prev => ({
+            ...prev,
+            strokeColor: color,
+        }));
+    }
+
+    const handleShadowColorChange = (color: string) => {
+        setTextStyle(prev => ({
+            ...prev,
+            shadowColor: color,
+        }));
+    }
+
+    const handleUppercaseChange = (checked: boolean) => {
+        setTextStyle(prev => ({
+            ...prev,
+            uppercase: checked,
+        }));
     }
 
     return (
@@ -368,10 +520,7 @@ export default function Page() {
                                 <div className="relative w-full h-full aspect-[9/16]">
                                     <Player
                                         component={Main}
-                                        inputProps={{
-                                            text: sentences[index],
-                                            videoUrl: "https://ugcfarm.b-cdn.net/p0wJwTiPwMzqMXq9dm-5c_output.mp4",
-                                        }}
+                                        inputProps={inputProps}
                                         durationInFrames={videoDuration * 30}
                                         fps={30}
                                         compositionWidth={1080}
@@ -380,18 +529,37 @@ export default function Page() {
                                             height: '100%',
                                         }}
                                         controls
-                                        // loop
                                         className="mx-auto h-full"
                                     />
                                 </div>
                             </div>
-                            <div className="flex flex-row items-center justify-end w-full">
-                                {loading ? (
+                            <div className="flex flex-row gap-6 items-center justify-end w-full">
+                                {video && state.status !== "invoking" && state.status !== "rendering" && state.status !== "done" && (
+                                    <Link href={video}>
+                                        <Button variant="outline" onClick={() => toast.success("Video downloaded")} className="w-fit">
+                                            Download video
+                                            <DownloadIcon className="w-5 h-5" />
+                                        </Button>
+                                    </Link>
+                                )}
+                                {state.status === "done" ? (
+                                    <Button variant="outline" className="w-fit" onClick={() => toast.success("Video downloaded")} asChild>
+                                        <a href={video} download>
+                                            Download video
+                                            <DownloadIcon className="w-5 h-5 ml-2" />
+                                        </a>
+                                    </Button>
+                                ) : loading ? (
                                     <Button variant="outline" className="w-fit">
                                         <Loader className="w-5 h-5 animate-spin" />
                                         <TextShimmer className='font-mono text-sm' duration={2}>
                                             Generating video...
                                         </TextShimmer>
+                                        {state.status === "rendering" && state.progress && (
+                                            <div className="text-sm font-[500] text-[#1a1a1a]/60">
+                                                {Math.round(state.progress * 100)}%
+                                            </div>
+                                        )}
                                     </Button>
                                 ) : (
                                     <Button onClick={createVideo} className="w-fit">
@@ -496,16 +664,12 @@ export default function Page() {
                                             <div className="relative w-full">
                                                 <Input
                                                     type="number"
-                                                    defaultValue={16}
+                                                    value={textStyle.fontSize}
                                                     min={1}
                                                     max={100}
                                                     step={1}
                                                     className="w-full bg-background pl-3 pr-8 font-[500]"
-                                                    onChange={(e) => {
-                                                        const value = parseInt(e.target.value);
-                                                        if (value < 1) e.target.value = "1";
-                                                        if (value > 100) e.target.value = "100";
-                                                    }}
+                                                    onChange={handleFontSizeChange}
                                                 />
                                                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
                                                     px
@@ -518,7 +682,10 @@ export default function Page() {
                                             <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
                                                 Font Weight
                                             </label>
-                                            <Select defaultValue="500">
+                                            <Select
+                                                value={textStyle.fontWeight.toString()}
+                                                onValueChange={handleFontWeightChange}
+                                            >
                                                 <SelectTrigger className="w-full bg-background font-[500] truncate">
                                                     <SelectValue placeholder="Select weight" />
                                                 </SelectTrigger>
@@ -541,7 +708,10 @@ export default function Page() {
                                             <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
                                                 Font Family
                                             </label>
-                                            <Select defaultValue="TikTok Font">
+                                            <Select
+                                                value={textStyle.fontFamily}
+                                                onValueChange={handleFontFamilyChange}
+                                            >
                                                 <SelectTrigger className="w-full bg-background font-[500] truncate">
                                                     <SelectValue placeholder="Select font" />
                                                 </SelectTrigger>
@@ -562,7 +732,17 @@ export default function Page() {
                                                 Text Color
                                             </label>
                                             <div className="w-full">
-                                                <ColorPicker defaultValue="#fff" showText allowClear className="p-[0.325rem] hover:border-primary/80" />
+                                                <ColorPicker
+                                                    value={textStyle.textColor}
+                                                    onChange={(c) => {
+                                                        setTextStyle(prev => ({
+                                                            ...prev,
+                                                            textColor: c.toHexString(),
+                                                        }))
+                                                    }}
+                                                    showText
+                                                    allowClear
+                                                    className="p-[0.325rem] hover:border-primary/80" />
                                             </div>
                                         </div>
 
@@ -591,7 +771,10 @@ export default function Page() {
                                             <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
                                                 Uppercase
                                             </label>
-                                            <Switch />
+                                            <Switch
+                                                checked={textStyle.uppercase}
+                                                onCheckedChange={handleUppercaseChange}
+                                            />
                                         </div>
                                     </div>
                                 </div>

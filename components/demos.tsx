@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils"
+import { CirclePlus } from "lucide-react";
 import Image from "next/image"
 interface Photo {
     id: number;
@@ -41,6 +42,13 @@ export function DemoList({ photos, selectedPhotoId, onPhotoSelect, className, cu
                     />
                 </div>
             ))}
+            {/* Upload Button */}
+            <div className="flex flex-col bg-[#A4A4A4]/10 rounded-lg cursor-pointer hover:ring-2 hover:ring-primary/50 items-center transition-all duration-200 justify-center w-full h-full">
+                <button className="text-sm font-[500] opacity-50">
+                    <CirclePlus className="w-5 h-5" />
+                </button>
+            </div>
         </div>
     );
 }
+
