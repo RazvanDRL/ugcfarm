@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
+import Link from "next/link";
 
 export default function LoginPage() {
     const router = useRouter();
@@ -89,15 +90,17 @@ export default function LoginPage() {
         <>
             <main className="max-w-5xl mx-auto min-h-screen flex items-center justify-center p-4">
                 <div className="flex flex-col items-start justify-center space-y-6 w-full max-w-xs">
-                    <Image
-                        src="/favicon.svg"
-                        alt="UGC Farm Logo"
-                        width={36}
-                        height={36}
-                        priority
-                        loading="eager"
-                        quality={75}
-                    />
+                    <Link href="/">
+                        <Image
+                            src="/favicon.svg"
+                            alt="UGC Farm Logo"
+                            width={36}
+                            height={36}
+                            priority
+                            loading="eager"
+                            quality={75}
+                        />
+                    </Link>
                     <div className="flex flex-col gap-2.5 w-full">
                         {/* Google Login */}
                         <Button
