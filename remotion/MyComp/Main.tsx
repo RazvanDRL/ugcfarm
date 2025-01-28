@@ -1,16 +1,17 @@
 import { z } from "zod";
 import {
   AbsoluteFill,
-  Video,
   OffthreadVideo,
   useVideoConfig,
+  Sequence,
 } from "remotion";
 import { CompositionProps } from "../../types/constants";
+import { preloadVideo, resolveRedirect } from "@remotion/preload";
 // import { loadFont } from "@remotion/google-fonts/Inter";
 
 // const { fontFamily } = loadFont();
 
-export const Main = ({ text, videoUrl, videoProps, textStyle }: z.infer<typeof CompositionProps>) => {
+export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<typeof CompositionProps>) => {
   const { width, height } = useVideoConfig();
   const {
     fontSize,
@@ -22,21 +23,51 @@ export const Main = ({ text, videoUrl, videoProps, textStyle }: z.infer<typeof C
     uppercase,
   } = textStyle;
 
-  console.log(textStyle)
+  let urlToLoad = demos;
+
+  resolveRedirect(urlToLoad)
+    .then((resolved) => {
+      // Was able to resolve a redirect, setting this as the video to load
+      urlToLoad = resolved;
+    })
+    .catch((err) => {
+      // Was unable to resolve redirect e.g. due to no CORS support
+      console.log("Could not resolve redirect", err);
+    })
+    .finally(() => {
+      // In either case, we try to preload the original or resolved URL
+      preloadVideo(urlToLoad);
+    });
 
   const processedText = uppercase ? text.toUpperCase() : text;
+  const ugcDuration = 150; // 5 seconds at 30fps
 
   return (
     <AbsoluteFill>
       {/* Background Video */}
-      <OffthreadVideo
-        src={videoUrl}
-        style={{
-          width,
-          height,
-          objectFit: "cover",
-        }}
-      />
+      <Sequence from={0} durationInFrames={ugcDuration}>
+        <OffthreadVideo
+          src={videoUrl}
+          style={{
+            width,
+            height,
+            objectFit: "cover",
+          }}
+        />
+      </Sequence>
+
+      {/* Demo Video */}
+      <Sequence from={ugcDuration}>
+        <OffthreadVideo
+          src={demos}
+          style={{
+            width,
+            height,
+            objectFit: "cover",
+          }}
+
+        />
+      </Sequence>
 
       {/* Text Overlay */}
       <AbsoluteFill

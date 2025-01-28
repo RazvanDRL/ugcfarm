@@ -17,6 +17,7 @@ export const CompositionProps = z.object({
     shadowColor: z.string().default("#000000"),
     uppercase: z.boolean().default(false),
   }),
+  demos: z.string().default("")
 });
 
 export const defaultMyCompProps = {
@@ -34,9 +35,10 @@ export const defaultMyCompProps = {
     shadowColor: "#000000",
     uppercase: false,
   },
+  demos: ""
 };
 
-export const DURATION_IN_FRAMES = 150;
+export const DURATION_IN_FRAMES = 600;
 export const VIDEO_WIDTH = 1080;
 export const VIDEO_HEIGHT = 1920;
 export const VIDEO_FPS = 30;

@@ -56,6 +56,7 @@ interface InputProps {
     videoProps: {
         uuid: string;
     };
+    demos: string;
 }
 
 export default function Page() {
@@ -74,7 +75,7 @@ export default function Page() {
     const [selectedPhotoId, setSelectedPhotoId] = useState<number>(1)
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
     const [loading, setLoading] = useState(false)
-    const [videoDuration, setVideoDuration] = useState(5)
+    const [videoDuration, setVideoDuration] = useState(10)
     const [textStyle, setTextStyle] = useState({
         fontSize: 48,
         fontWeight: 500,
@@ -90,14 +91,16 @@ export default function Page() {
         textStyle,
         videoProps: {
             uuid: "54be6352-a357-4b3d-a35b-c14c72c4263e"
-        }
+        },
+        demos: ""
     });
     const [video, setVideo] = useState<string>("")
-    const [tokenClient, setTokenClient] = useState<string>("")
+    const [demos, setDemos] = useState<any[]>([])
+    const [demoVideos, setDemoVideos] = useState<any[]>([])
 
     const { renderMedia, state, setToken, token } = useRendering(COMP_NAME, inputProps);
 
-    async function fetchVideo(id: string, access_token: string) {
+    async function fetchVideo(id: string, access_token: string, bucket: string) {
         try {
             const response = await fetch(`/api/generate-signed-url`, {
                 method: 'POST',
@@ -105,7 +108,7 @@ export default function Page() {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${access_token}`,
                 },
-                body: JSON.stringify({ key: `${id}.mp4`, bucket: 'output-bucket' }),
+                body: JSON.stringify({ key: `${id}.mp4`, bucket: bucket }),
             });
 
             if (!response.ok) {
@@ -113,11 +116,50 @@ export default function Page() {
             }
 
             const data = await response.json();
-            setVideo(data.url);
-            console.log(data.url);
+            return data.url;
         } catch (error) {
             console.error('Error fetching video:', error);
         }
+    }
+
+    async function fetchDemos(user: User, access_token: string) {
+        if (!user) {
+            toast.error("No user found");
+            return;
+        }
+
+        let tempDemos: any[] = [];
+
+        const { data: demos, error: demosError } = await supabase
+            .from('user_demos')
+            .select('*')
+            .eq('user_id', user.id);
+
+        if (demosError) {
+            throw new Error('Failed to fetch demos');
+        }
+
+        for (const [index, demo] of demos.entries()) {
+            setDemoVideos(prev => [...prev, demo.key.split('/')[1]])
+
+            const response = await fetch(`/api/generate-signed-url`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${access_token}`,
+                },
+                body: JSON.stringify({ key: `${demo.key.split('/')[1].replace('.mp4', '')}-thumb.webp`, bucket: 'upload-bucket' }),
+            });
+
+            const data = await response.json();
+
+            tempDemos.push({
+                id: index + 1,
+                url: data.url,
+                alt: `Demo ${index + 1}`
+            });
+        }
+        setDemos(tempDemos);
     }
 
     useEffect(() => {
@@ -127,11 +169,14 @@ export default function Page() {
                 setUser(user)
                 const session = await supabase.auth.refreshSession()
                 if (session.data.session?.access_token) {
+                    fetchDemos(user, session.data.session?.access_token)
                     setToken(session.data.session?.access_token)
-                    console.log("yesyesyesyesyesyesyesyesyesyes session data token found")
-                    fetchVideo(inputProps.videoProps.uuid, session.data.session?.access_token)
+                    fetchVideo(inputProps.videoProps.uuid, session.data.session?.access_token, "output-bucket").then((url) => {
+                        setVideo(url)
+                    })
+                    console.log("session data token found")
                 } else {
-                    toast.error("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx No access token found")
+                    toast.error("No access token found")
                 }
             } else {
                 router.replace(`/login?redirect=${encodeURIComponent(window.location.pathname)}`)
@@ -143,7 +188,9 @@ export default function Page() {
 
     useEffect(() => {
         if (state.status === "done") {
-            fetchVideo(inputProps.videoProps.uuid, token)
+            fetchVideo(inputProps.videoProps.uuid, token, "output-bucket").then((url) => {
+                setVideo(url)
+            })
         }
     }, [state])
 
@@ -154,9 +201,10 @@ export default function Page() {
             textStyle,
             videoProps: {
                 uuid: crypto.randomUUID()
-            }
+            },
+            demos: demoVideos[selectedDemoId]
         });
-    }, [index, selectedPhotoId, textStyle]);
+    }, [index, selectedPhotoId, textStyle, demos, selectedDemoId]);
 
     const photos = [
         {
@@ -366,30 +414,25 @@ export default function Page() {
         },
     ]
 
-    const demos = [
-        {
-            "id": 1,
-            "url": "https://ugcfarm.b-cdn.net/demo/demo_2.webp?class=landing",
-            "alt": "UGC Demo 1"
-        },
-        {
-            "id": 2,
-            "url": "https://ugcfarm.b-cdn.net/demo/demo_1.webp?class=landing",
-            "alt": "UGC Demo 2"
-        },
-        {
-            "id": 3,
-            "url": "https://ugcfarm.b-cdn.net/demo/demo_3.webp?class=landing",
-            "alt": "UGC Demo 3"
-        },
-    ]
-
     const onPhotoSelect = (id: number) => {
         setSelectedPhotoId(id)
     }
 
     const onDemoSelect = (id: number) => {
         setSelectedDemoId(id)
+        const startTime = performance.now()
+        const videoKey = demoVideos[selectedDemoId].replace('.mp4', '')
+        console.log(videoKey)
+        fetchVideo(videoKey, token, "upload-bucket").then((url) => {
+            const endTime = performance.now()
+            const duration = endTime - startTime
+            console.log(`Fetching video took ${duration} milliseconds`)
+            console.log(url)
+            setInputProps({
+                ...inputProps,
+                demos: url
+            })
+        })
     }
 
     const nextDemoPage = () => {
@@ -643,6 +686,7 @@ export default function Page() {
                                         selectedPhotoId={selectedDemoId}
                                         onPhotoSelect={onDemoSelect}
                                         currentPage={demoPage}
+                                        token={token}
                                     />
                                 </div>
                             </div>
