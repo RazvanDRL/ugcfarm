@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabase/client/supabase"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { ArrowRight, Copy } from "lucide-react"
+import Link from "next/link"
 
 interface HookEntry {
     id: string
@@ -110,13 +111,15 @@ export default function HooksLibraryPage() {
                                         </h2>
                                         <div className="flex flex-row gap-4 items-center">
                                             {hookIndex === index &&
-                                                <Button
-                                                    variant="ghost"
-                                                    size="sm"
-                                                    className="text-white bg-primary hover:bg-primary/80 font-bold transition-all hover:text-white"
-                                                >
-                                                    Use
-                                                </Button>
+                                                <Link href={`/dashboard?hook=${hook.id}`}>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        className="text-white bg-primary hover:bg-primary/80 font-bold transition-all hover:text-white"
+                                                    >
+                                                        Use
+                                                    </Button>
+                                                </Link>
                                             }
                                             < ArrowRight className={`w-4 h-4 text-primary transition-transform duration-200 ${hookIndex === index ? 'rotate-90' : ''}`} />
 

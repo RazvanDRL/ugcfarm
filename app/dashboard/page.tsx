@@ -213,6 +213,24 @@ export default function Page() {
                 } else {
                     toast.error("No access token found")
                 }
+
+                // get the hook params
+                const urlParams = new URLSearchParams(window.location.search);
+                const hookId = urlParams.get('hook');
+
+                if (hookId) {
+                    const { data: hook, error: hookError } = await supabase
+                        .from('hook_library')
+                        .select('data')
+                        .eq('id', hookId)
+                        .single()
+
+                    if (hookError) {
+                        throw new Error('Failed to fetch hook');
+                    }
+
+                    setSentences(hook.data)
+                }
             } else {
                 router.replace(`/login?redirect=${encodeURIComponent(window.location.pathname)}`)
             }
