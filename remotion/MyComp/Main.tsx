@@ -7,21 +7,66 @@ import {
 } from "remotion";
 import { CompositionProps } from "../../types/constants";
 // import { preloadVideo, resolveRedirect } from "@remotion/preload";
-// import { loadFont } from "@remotion/google-fonts/Inter";
+import { loadFont } from "@remotion/fonts";
+import { staticFile } from "remotion";
+import * as Montserrat from "@remotion/google-fonts/Montserrat";
+import * as Inter from "@remotion/google-fonts/Inter";
 
-// const { fontFamily } = loadFont();
+Montserrat.loadFont();
+Inter.loadFont();
+
+const TheBoldFont = loadFont({
+  family: "TheBoldFont",
+  url: staticFile("fonts/TheBoldFont.woff2"),
+  weight: "100 900",
+  format: "woff2",
+}).then(() => {
+  console.log("TheBoldFont font loaded!");
+});
+
+const Komika = loadFont({
+  family: "Komika",
+  url: staticFile("fonts/Komika.woff2"),
+  weight: "100 900",
+  format: "woff2",
+}).then(() => {
+  console.log("Komika font loaded!");
+});
+
+const TikTok = loadFont({
+  family: "TikTok",
+  url: staticFile("fonts/TikTokText-Bold.ttf"),
+  weight: "100 900",
+}).then(() => {
+  console.log("TikTok font loaded!");
+});
+
+// Define font families dictionary outside the component
+const FONT_FAMILIES = {
+  Montserrat: Montserrat.fontFamily,
+  Inter: Inter.fontFamily,
+  TheBoldFont: TheBoldFont,
+  Komika: Komika,
+  TikTok: TikTok,
+} as const;
+
+// Define type for font family keys
+type FontFamilyKey = keyof typeof FONT_FAMILIES;
 
 export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<typeof CompositionProps>) => {
   const { width, height } = useVideoConfig();
   const {
     fontSize,
     fontWeight,
-    fontFamily: selectedFont,
+    fontFamily,
     textColor,
     strokeColor,
     shadowColor,
     uppercase,
   } = textStyle;
+
+  // Remove the old fontFamilies object and use the constant
+  const selectedFontFamily = FONT_FAMILIES[fontFamily as FontFamilyKey];
 
   // let urlToLoad = demos;
 
@@ -83,10 +128,10 @@ export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<t
           style={{
             fontSize: `${fontSize}px`,
             fontWeight,
-            // fontFamily: selectedFont === "Inter" ? fontFamily : selectedFont,
+            fontFamily: fontFamily,
             color: textColor,
             textAlign: "center",
-            WebkitTextStroke: `2px ${strokeColor}`,
+            // WebkitTextStroke: `2px ${strokeColor}`,
             textShadow: `0 2px 4px ${shadowColor}`,
           }}
         >

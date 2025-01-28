@@ -90,8 +90,8 @@ export default function Page() {
     const [videoDuration, setVideoDuration] = useState(5)
     const [textStyle, setTextStyle] = useState({
         fontSize: 48,
-        fontWeight: 500,
-        fontFamily: "TikTok Font",
+        fontWeight: 700,
+        fontFamily: "TikTok",
         textColor: "#ffffff",
         strokeColor: "#000000",
         shadowColor: "#000000",
@@ -839,6 +839,7 @@ export default function Page() {
                                             <Select
                                                 value={textStyle.fontWeight.toString()}
                                                 onValueChange={handleFontWeightChange}
+                                                disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika" || textStyle.fontFamily === "TikTok"}
                                             >
                                                 <SelectTrigger className="w-full bg-background font-[500] truncate">
                                                     <SelectValue placeholder="Select weight" />
@@ -870,12 +871,11 @@ export default function Page() {
                                                     <SelectValue placeholder="Select font" />
                                                 </SelectTrigger>
                                                 <SelectContent className="bg-background font-[500]">
-                                                    <SelectItem value="TikTok Font" className="truncate">TikTok Font</SelectItem>
-                                                    <SelectItem value="Arial" className="truncate">Arial</SelectItem>
+                                                    <SelectItem value="TikTok" className="truncate">TikTok Font</SelectItem>
                                                     <SelectItem value="Montserrat" className="truncate">Montserrat</SelectItem>
                                                     <SelectItem value="Inter" className="truncate">Inter</SelectItem>
-                                                    <SelectItem value="Iman Gadzhi Font" className="truncate">Iman Gadzhi Font</SelectItem>
-                                                    <SelectItem value="Alex Hormozi Font" className="truncate">Alex Hormozi Font</SelectItem>
+                                                    <SelectItem value="Komika" className="truncate">MrBeast Font</SelectItem>
+                                                    <SelectItem value="TheBoldFont" className="truncate">Alex Hormozi Font</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                         </div>
@@ -926,7 +926,8 @@ export default function Page() {
                                                 Uppercase
                                             </label>
                                             <Switch
-                                                checked={textStyle.uppercase}
+                                                checked={textStyle.uppercase || textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
+                                                disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
                                                 onCheckedChange={handleUppercaseChange}
                                             />
                                         </div>
