@@ -40,9 +40,9 @@ type Profile = {
 const data = {
     navMain: [
         {
-            title: "Playground",
+            title: "Create video",
             url: "/dashboard",
-            icon: SquareTerminal,
+            icon: Video,
             isActive: true,
         },
         {

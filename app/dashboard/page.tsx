@@ -529,9 +529,39 @@ export default function Page() {
     }
 
     const createVideo = async () => {
+        if (!user || !profile) {
+            toast.error('Please login to create a video')
+            return
+        }
+
+        if (profile.credits <= 0) {
+            toast.error('You do not have enough credits to create a video')
+            return
+        }
+
         setLoading(true);
+
         try {
-            await renderMedia();
+            // insert the video into the database
+            const { data, error } = await supabase
+                .from('video_history')
+                .insert({
+                    user_id: user.id,
+                    video_id: inputProps.videoProps.uuid,
+                    prompt: sentences[index],
+                    text_style: textStyle,
+                })
+
+            if (error) {
+                toast.error('Failed to insert video into database');
+                throw new Error('Failed to insert video into database');
+            } else {
+                setProfile(prev => prev ? {
+                    ...prev,
+                    credits: prev.credits - 1,
+                } : null)
+                await renderMedia();
+            }
         } catch (error) {
             console.error("Error rendering video:", error);
         } finally {
@@ -663,7 +693,7 @@ export default function Page() {
                     <CommandShortcut className="hidden md:flex rounded-l-none max-w-fit border-l-0 bg-secondary px-2 py-0.5">
                         Pro Tip: Use (Shift + ← or Shift + →) to navigate between hooks
                     </CommandShortcut>
-                    <div className="grid auto-rows-min md:grid-cols-2 grid-cols-1 gap-4 h-[calc(100vh-5rem)]">
+                    <div className="grid auto-rows-min md:grid-cols-2 grid-cols-1 gap-4 h-[100vh]">
                         {/* Video Preview */}
                         <div className="md:col-start-2 space-y-4 order-first md:order-last">
                             <div className="h-auto aspect-square rounded-xl bg-[#A4A4A4]/10 overflow-hidden">

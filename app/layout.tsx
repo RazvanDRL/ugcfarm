@@ -121,7 +121,6 @@ export default function RootLayout({
             <Toaster position="top-right" closeButton />
             {children}
             <PurchaseNotification />
-            <Footer />
           </PlausibleProvider>
         </body>
       </PostHogProvider>

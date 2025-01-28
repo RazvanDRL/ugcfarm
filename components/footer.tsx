@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
 import Image from 'next/image'
@@ -11,12 +12,6 @@ type BlogPost = {
 
 export function Footer() {
 
-    const latestPosts = getAllPosts()
-        .slice(0, 4)
-        .map((post): BlogPost => ({
-            slug: post.slug,
-            title: post.title,
-        }))
     return (
         <footer className="max-w-5xl mx-auto py-8 px-8">
             <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-8 md:gap-20">
@@ -61,7 +56,7 @@ export function Footer() {
                         </nav>
                     </div>
 
-                    <div className="flex flex-col space-y-4">
+                    {/* <div className="flex flex-col space-y-4">
                         <Link href="/blogs" className="font-semibold text-[#1a1a1a] hover:text-primary hover:underline transition-colors">
                             Blogs
                         </Link>
@@ -72,7 +67,7 @@ export function Footer() {
                                 </Link>
                             ))}
                         </nav>
-                    </div>
+                    </div> */}
 
                     <div className="flex flex-col space-y-4">
                         <Link href="/free-tools" className="font-semibold text-[#1a1a1a] hover:text-primary hover:underline transition-colors">
