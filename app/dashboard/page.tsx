@@ -471,7 +471,7 @@ export default function Page() {
     }
 
     const nextDemoPage = () => {
-        if (demoPage < Math.ceil(photos.length / 5)) {
+        if (demoPage < Math.ceil(demos.length / 5)) {
             setDemoPage((prev) => prev + 1)
         }
     }
