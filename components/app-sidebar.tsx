@@ -11,6 +11,7 @@ import {
     Settings2,
     SquareTerminal,
     User,
+    Video,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -29,12 +30,14 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 
+type Profile = {
+    name: string
+    email: string
+    avatar: string
+    credits: number
+}
+
 const data = {
-    user: {
-        name: "Arthur",
-        email: "arthur@ugc.farm",
-        avatar: "/assets/blog/authors/arthur.webp",
-    },
     navMain: [
         {
             title: "Playground",
@@ -89,7 +92,7 @@ const data = {
     ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sidebar> & { user: Profile }) {
     return (
         <Sidebar variant="inset" {...props}>
             <SidebarHeader>
@@ -113,9 +116,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <NavMain items={data.navMain} />
                 <NavProjects projects={data.projects} />
                 <NavSecondary items={data.navSecondary} className="mt-auto" />
+                <div className="px-4 pb-2">
+                    <div className="flex items-center gap-4 px-4 py-3 rounded-lg bg-primary/10 border border-primary/20">
+                        <Video className="w-6 h-6 text-primary" />
+                        <div className="flex flex-col gap-0.5">
+                            <p className="text-xs font-medium text-primary">Videos Available</p>
+                            <p className="text-sm font-semibold">{user.credits} videos</p>
+                        </div>
+                    </div>
+                </div>
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user} />
+                <NavUser user={user} />
             </SidebarFooter>
         </Sidebar >
     )

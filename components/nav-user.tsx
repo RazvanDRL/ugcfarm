@@ -6,6 +6,7 @@ import {
   ChevronsUpDown,
   CreditCard,
   LogOut,
+  Router,
   Sparkles,
 } from "lucide-react"
 
@@ -29,6 +30,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { supabase } from "@/lib/supabase/client/supabase"
 
 export function NavUser({
   user,
@@ -40,6 +42,11 @@ export function NavUser({
   }
 }) {
   const { isMobile } = useSidebar()
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    window.location.href = "/"
+  }
 
   return (
     <SidebarMenu>
@@ -102,7 +109,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={handleSignOut}>
               <LogOut />
               Log out
             </DropdownMenuItem>

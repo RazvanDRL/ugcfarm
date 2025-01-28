@@ -71,9 +71,17 @@ interface InputProps {
     demos: string;
 }
 
+type Profile = {
+    name: string
+    email: string
+    avatar: string
+    credits: number
+}
+
 export default function Page() {
     const router = useRouter()
     const [user, setUser] = useState<User | null>(null)
+    const [profile, setProfile] = useState<Profile | null>(null)
     const [index, setIndex] = useState(0)
     const [demoPage, setDemoPage] = useState(1)
     const [videoPage, setVideoPage] = useState(1)
@@ -181,6 +189,19 @@ export default function Page() {
             const { data: { user } } = await supabase.auth.getUser()
             if (user) {
                 setUser(user)
+
+                const { data: profile, error: profileError } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', user.id)
+                    .single()
+
+                if (profileError) {
+                    throw new Error('Failed to fetch profile');
+                }
+
+                setProfile(profile)
+
                 const session = await supabase.auth.refreshSession()
                 if (session.data.session?.access_token) {
                     fetchDemos(user, session.data.session?.access_token)
@@ -586,9 +607,20 @@ export default function Page() {
         }
     }
 
+    if (!user || !profile) {
+        return <div>Loading...</div>
+    }
+
     return (
         <SidebarProvider>
-            <AppSidebar />
+            <AppSidebar user={
+                {
+                    name: profile.name,
+                    email: profile.email,
+                    avatar: profile.avatar,
+                    credits: profile.credits,
+                }
+            } />
             <SidebarInset>
                 <header className="flex h-16 shrink-0 items-center gap-2">
                     <div className="flex items-center gap-2 px-4">
