@@ -6,7 +6,7 @@ import {
   Sequence,
 } from "remotion";
 import { CompositionProps } from "../../types/constants";
-import { preloadVideo, resolveRedirect } from "@remotion/preload";
+// import { preloadVideo, resolveRedirect } from "@remotion/preload";
 // import { loadFont } from "@remotion/google-fonts/Inter";
 
 // const { fontFamily } = loadFont();
@@ -23,21 +23,21 @@ export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<t
     uppercase,
   } = textStyle;
 
-  let urlToLoad = demos;
+  // let urlToLoad = demos;
 
-  resolveRedirect(urlToLoad)
-    .then((resolved) => {
-      // Was able to resolve a redirect, setting this as the video to load
-      urlToLoad = resolved;
-    })
-    .catch((err) => {
-      // Was unable to resolve redirect e.g. due to no CORS support
-      console.log("Could not resolve redirect", err);
-    })
-    .finally(() => {
-      // In either case, we try to preload the original or resolved URL
-      preloadVideo(urlToLoad);
-    });
+  // resolveRedirect(urlToLoad)
+  //   .then((resolved) => {
+  //     // Was able to resolve a redirect, setting this as the video to load
+  //     urlToLoad = resolved;
+  //   })
+  //   .catch((err) => {
+  //     // Was unable to resolve redirect e.g. due to no CORS support
+  //     console.log("Could not resolve redirect", err);
+  //   })
+  //   .finally(() => {
+  //     // In either case, we try to preload the original or resolved URL
+  //     preloadVideo(urlToLoad);
+  //   });
 
   const processedText = uppercase ? text.toUpperCase() : text;
   const ugcDuration = 150; // 5 seconds at 30fps
@@ -53,11 +53,12 @@ export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<t
             height,
             objectFit: "cover",
           }}
+          pauseWhenBuffering={true}
         />
       </Sequence>
 
       {/* Demo Video */}
-      <Sequence from={ugcDuration}>
+      {/* <Sequence from={ugcDuration} premountFor={100}>
         <OffthreadVideo
           src={demos}
           style={{
@@ -65,9 +66,10 @@ export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<t
             height,
             objectFit: "cover",
           }}
+          pauseWhenBuffering={true}
 
         />
-      </Sequence>
+      </Sequence> */}
 
       {/* Text Overlay */}
       <AbsoluteFill

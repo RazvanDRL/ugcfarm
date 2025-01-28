@@ -19,7 +19,7 @@ import { WordSlider } from "@/components/slider"
 import { useEffect, useState, useCallback } from "react"
 import { PhotoList } from "@/components/videos"
 import { DemoList } from "@/components/demos"
-import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, DownloadIcon, Loader, PlayIcon } from "lucide-react"
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, DownloadIcon, Loader, PlayIcon, WandSparkles } from "lucide-react"
 import { CommandShortcut } from "@/components/ui/command"
 import { ColorPicker } from 'antd';
 import { Input } from "@/components/ui/input"
@@ -40,6 +40,7 @@ import { useRendering } from "@/helpers/use-rendering"
 import { COMP_NAME } from "@/types/constants"
 import { toast } from "sonner"
 import Link from "next/link"
+import { Badge } from "@/components/badge"
 
 interface InputProps {
     text: string;
@@ -75,7 +76,7 @@ export default function Page() {
     const [selectedPhotoId, setSelectedPhotoId] = useState<number>(1)
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
     const [loading, setLoading] = useState(false)
-    const [videoDuration, setVideoDuration] = useState(10)
+    const [videoDuration, setVideoDuration] = useState(5)
     const [textStyle, setTextStyle] = useState({
         fontSize: 48,
         fontWeight: 500,
@@ -617,9 +618,15 @@ export default function Page() {
                             <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
                                 <div className="flex flex-col items-start p-6">
                                     <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
-                                        <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                            1. Choose a hook
-                                        </p>
+                                        <div className="flex flex-row items-center gap-4">
+                                            <p className="text-base font-[500] text-[#1a1a1a]/60">
+                                                1. Choose a hook
+                                            </p>
+                                            <button className="flex flex-row items-center gap-2 text-[12px] font-[500] bg-primary text-white px-2 py-1 rounded-md">
+                                                <WandSparkles className="w-3 h-3" />
+                                                Generate with AI
+                                            </button>
+                                        </div>
                                         <div className="text-sm font-[500] text-[#1a1a1a]/60">
                                             {index + 1}/{sentences.length}
                                         </div>
