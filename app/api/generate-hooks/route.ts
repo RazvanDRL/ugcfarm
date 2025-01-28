@@ -19,11 +19,7 @@ const requestSchema = z.object({
 
 // Define the response schema matching the hook generator
 const responseSchema = z.object({
-    hooks: z.array(z.object({
-        text: z.string(),
-        platform: z.enum(['facebook', 'instagram', 'tiktok']),
-        tips: z.array(z.string()),
-    }))
+    hooks: z.array(z.string())
 })
 
 const systemPrompt = `You are an expert e-commerce copywriter specializing in social media hooks. Generate hooks based on:
@@ -76,9 +72,7 @@ export async function POST(req: Request) {
 Product Description: ${prompt}
 Platform: ${platform}
 ${category ? `Category: ${category}` : ''}
-Goal: ${intent}
-
-For each hook, provide 2-3 specific tips for maximizing its performance.`
+Goal: ${intent}`
 
         const completion = await openai.beta.chat.completions.parse({
             model: model,
@@ -90,8 +84,27 @@ For each hook, provide 2-3 specific tips for maximizing its performance.`
             temperature: 0.8,
         })
 
-        // Extract just the hook text from the response
-        const hooks = completion.choices[0].message.parsed?.hooks.map(hook => hook.text)
+        // Extract hooks directly from the response (no need to access .text property)
+        const hooks = completion.choices[0].message.parsed?.hooks
+
+        console.log(hooks)
+
+        const { data: savedHooks, error: dbError } = await supabase
+            .from('hook_library')
+            .insert({
+                user_id: user.id,
+                data: hooks,
+                prompt: prompt,
+            })
+
+        if (dbError) {
+            console.error('Error saving hooks:', dbError)
+            return NextResponse.json(
+                { error: 'Failed to save hooks' },
+                { status: 500 }
+            )
+        }
+
         return NextResponse.json({ hooks })
 
     } catch (error) {

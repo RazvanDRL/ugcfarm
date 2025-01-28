@@ -40,7 +40,7 @@ import { useRendering } from "@/helpers/use-rendering"
 import { COMP_NAME } from "@/types/constants"
 import { toast } from "sonner"
 import Link from "next/link"
-import { Badge } from "@/components/badge"
+import { v4 as uuidv4 } from 'uuid';
 import {
     Dialog,
     DialogContent,
@@ -235,7 +235,7 @@ export default function Page() {
             videoUrl: "https://ugcfarm.b-cdn.net/p0wJwTiPwMzqMXq9dm-5c_output.mp4",
             textStyle,
             videoProps: {
-                uuid: crypto.randomUUID()
+                uuid: uuidv4()
             },
             demos: demoVideos[selectedDemoId]
         });

@@ -117,11 +117,11 @@ export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sideb
                 <NavProjects projects={data.projects} />
                 {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
                 <div className="px-4 pb-2 mt-auto">
-                    <div className="flex items-center gap-4 px-4 py-3 rounded-lg bg-primary/10 border border-primary/20">
+                    <div className="flex items-center gap-4 px-4 py-3 rounded-lg bg-primary/10 border-2 border-primary/50">
                         <Video className="w-6 h-6 text-primary" />
                         <div className="flex flex-col gap-0.5">
                             <p className="text-xs font-medium text-primary">Videos Available</p>
-                            <p className="text-sm font-semibold">{user.credits} videos</p>
+                            <p className="text-sm font-semibold text-[#1a1a1a]">{user.credits} videos</p>
                         </div>
                     </div>
                 </div>
