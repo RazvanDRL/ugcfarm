@@ -34,7 +34,7 @@ import { Switch } from "@/components/ui/switch"
 import { TextShimmer } from "@/components/ui/text-shimmer"
 import { Player } from "@remotion/player"
 import { Main } from "@/remotion/MyComp/Main"
-import { supabase, type User } from "@/lib/supabase/client/supabase"
+import { Profile, supabase, type User } from "@/lib/supabase/client/supabase"
 import { useRouter } from "next/navigation"
 import { useRendering } from "@/helpers/use-rendering"
 import { COMP_NAME } from "@/types/constants"
@@ -69,13 +69,6 @@ interface InputProps {
         uuid: string;
     };
     demos: string;
-}
-
-type Profile = {
-    name: string
-    email: string
-    avatar: string
-    credits: number
 }
 
 export default function Page() {
