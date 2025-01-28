@@ -41,6 +41,17 @@ import { COMP_NAME } from "@/types/constants"
 import { toast } from "sonner"
 import Link from "next/link"
 import { Badge } from "@/components/badge"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 
 interface InputProps {
     text: string;
@@ -98,7 +109,9 @@ export default function Page() {
     const [video, setVideo] = useState<string>("")
     const [demos, setDemos] = useState<any[]>([])
     const [demoVideos, setDemoVideos] = useState<any[]>([])
-
+    const [isGenerating, setIsGenerating] = useState(false)
+    const [prompt, setPrompt] = useState("")
+    const [open, setOpen] = useState(false)
     const { renderMedia, state, setToken, token } = useRendering(COMP_NAME, inputProps);
 
     async function fetchVideo(id: string, access_token: string, bucket: string) {
@@ -530,6 +543,49 @@ export default function Page() {
         }));
     }
 
+    const generateHooks = async () => {
+        setIsGenerating(true)
+
+        if (!prompt) {
+            toast.error('Please enter a prompt')
+            setIsGenerating(false)
+            return
+        }
+
+        try {
+            const response = await fetch('/api/generate-hooks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    prompt,
+                    platform: 'tiktok',
+                    intent: 'engagement'
+                }),
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to generate hooks')
+            }
+
+            const data = await response.json()
+
+            // Update the sentences state with the new hooks
+            setSentences(data.hooks)
+            setIndex(0) // Reset to first hook
+            toast.success('Successfully generated new hooks!')
+        } catch (error) {
+            toast.error('Failed to generate hooks')
+            console.error('Error generating hooks:', error)
+        } finally {
+            setOpen(false)
+            setIsGenerating(false)
+            setPrompt("")
+        }
+    }
+
     return (
         <SidebarProvider>
             <AppSidebar />
@@ -565,7 +621,7 @@ export default function Page() {
                                     <Player
                                         component={Main}
                                         inputProps={inputProps}
-                                        durationInFrames={videoDuration * 30}
+                                        durationInFrames={150}
                                         fps={30}
                                         compositionWidth={1080}
                                         compositionHeight={1920}
@@ -622,10 +678,57 @@ export default function Page() {
                                             <p className="text-base font-[500] text-[#1a1a1a]/60">
                                                 1. Choose a hook
                                             </p>
-                                            <button className="flex flex-row items-center gap-2 text-[12px] font-[500] bg-primary text-white px-2 py-1 rounded-md">
-                                                <WandSparkles className="w-3 h-3" />
-                                                Generate with AI
-                                            </button>
+                                            <Dialog open={open} onOpenChange={setOpen}>
+                                                <DialogTrigger asChild>
+                                                    <button className="flex flex-row items-center gap-2 text-[12px] font-[500] bg-primary text-white px-2 py-1 rounded-md">
+                                                        <WandSparkles className="w-3 h-3" />
+                                                        Generate with AI
+                                                    </button>
+                                                </DialogTrigger>
+                                                <DialogContent className="sm:max-w-[425px]">
+                                                    <DialogHeader>
+                                                        <DialogTitle>Generate TikTok Hooks</DialogTitle>
+                                                        <DialogDescription>
+                                                            Provide information about your product or service to generate engaging TikTok hooks.
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+                                                    <div className="grid gap-4 py-4">
+                                                        <div className="grid gap-2">
+                                                            <Label htmlFor="prompt" className="flex flex-row items-center gap-2">
+                                                                Tell us about your product/service
+                                                                <span className="text-xs text-red-500">
+                                                                    (Required)
+                                                                </span>
+                                                            </Label>
+                                                            <Textarea
+                                                                id="prompt"
+                                                                placeholder="Example: My product is a course that teaches people how to start dropshipping. The target audience is 18-25 year olds who want to start an online business."
+                                                                value={prompt}
+                                                                onChange={(e) => setPrompt(e.target.value)}
+                                                                className="h-32"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <DialogFooter>
+                                                        <Button
+                                                            onClick={generateHooks}
+                                                            disabled={!prompt || isGenerating}
+                                                        >
+                                                            {isGenerating ? (
+                                                                <>
+                                                                    <Loader className="w-4 h-4 mr-2 animate-spin" />
+                                                                    Generating...
+                                                                </>
+                                                            ) : (
+                                                                <>
+                                                                    <WandSparkles className="w-4 h-4 mr-2" />
+                                                                    Generate Hooks
+                                                                </>
+                                                            )}
+                                                        </Button>
+                                                    </DialogFooter>
+                                                </DialogContent>
+                                            </Dialog>
                                         </div>
                                         <div className="text-sm font-[500] text-[#1a1a1a]/60">
                                             {index + 1}/{sentences.length}
