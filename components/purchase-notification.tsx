@@ -13,24 +13,34 @@ interface PurchaseNotification {
 
 const purchases: PurchaseNotification[] = [
     {
+        name: "David R.",
+        product: "Creator Plan",
+        timestamp: 1738087200000
+    },
+    {
+        name: "Lucas M.",
+        product: "Starter Plan",
+        timestamp: 1738051200000
+    },
+    {
+        name: "Sara M.",
+        product: "Starter Plan",
+        timestamp: 1737979200000
+    },
+    {
+        name: "Lloyd P.",
+        product: "Creator Plan",
+        timestamp: 1737975600000
+    },
+    {
+        name: "Dylan T.",
+        product: "Starter Plan",
+        timestamp: 1737943200000
+    },
+    {
         name: "Aleksandr I.",
         product: "Starter Plan",
         timestamp: 1737887290432
-    },
-    {
-        name: "Percy D.",
-        product: "Creator Plan",
-        timestamp: 1737730800000
-    },
-    {
-        name: "Meg C.",
-        product: "Creator Plan",
-        timestamp: 1737630000000
-    },
-    {
-        name: "Richie K.",
-        product: "Creator Plan",
-        timestamp: 1737536400000
     },
 ];
 
