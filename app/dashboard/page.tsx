@@ -225,7 +225,8 @@ export default function Page() {
         const { data: demos, error: demosError } = await supabase
             .from('user_demos')
             .select('*')
-            .eq('user_id', user.id);
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false });
 
         if (demosError) {
             throw new Error('Failed to fetch demos');
@@ -268,9 +269,25 @@ export default function Page() {
                 if (session.data.session?.access_token) {
                     fetchDemos(user, session.data.session?.access_token)
                     setToken(session.data.session?.access_token)
-                    fetchVideo(inputProps.videoProps.uuid, session.data.session?.access_token, "output-bucket").then((url) => {
-                        setVideo(url)
-                    })
+
+                    // Fetch the first demo video on load
+                    const { data: demos, error: demosError } = await supabase
+                        .from('user_demos')
+                        .select('*')
+                        .eq('user_id', user.id)
+                        .order('created_at', { ascending: false })
+                        .limit(1)
+                        .single();
+
+                    if (!demosError && demos) {
+                        const videoKey = demos.key.split('/')[1].replace('.mp4', '')
+                        const url = await getSignedUrl(videoKey + '.mp4', 'upload-bucket', session.data.session?.access_token)
+                        setInputProps(prev => ({
+                            ...prev,
+                            demos: url || ""
+                        }))
+                    }
+
                     console.log("session data token found")
                 } else {
                     toast.error("No access token found")
@@ -303,8 +320,8 @@ export default function Page() {
 
     useEffect(() => {
         if (state.status === "done") {
-            fetchVideo(inputProps.videoProps.uuid, token, "output-bucket").then((url) => {
-                setVideo(url)
+            getSignedUrl(inputProps.videoProps.uuid + '.mp4', 'output-bucket', token).then((url) => {
+                setVideo(url || "")
             })
         }
     }, [state])
@@ -754,14 +771,14 @@ export default function Page() {
         const startTime = performance.now()
         const videoKey = demoVideos[selectedDemoId].replace('.mp4', '')
         console.log(videoKey)
-        fetchVideo(videoKey, token, "upload-bucket").then((url) => {
+        getSignedUrl(videoKey + '.mp4', 'upload-bucket', token).then((url) => {
             const endTime = performance.now()
             const duration = endTime - startTime
             console.log(`Fetching video took ${duration} milliseconds`)
             console.log(url)
             setInputProps({
                 ...inputProps,
-                demos: url
+                demos: url || ""
             })
         })
     }
