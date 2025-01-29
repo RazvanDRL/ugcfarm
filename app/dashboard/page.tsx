@@ -276,7 +276,7 @@ export default function Page() {
 
                 setProfile(profile)
 
-                const session = await supabase.auth.refreshSession()
+                const session = await supabase.auth.getSession()
                 if (session.data.session?.access_token) {
                     fetchDemos(user, session.data.session?.access_token)
                     setToken(session.data.session?.access_token)
@@ -1214,17 +1214,19 @@ export default function Page() {
                                         <p className="text-base font-[500] text-[#1a1a1a]/60">
                                             3. Choose your video
                                         </p>
-                                        <div className="flex flex-row items-center gap-2">
-                                            <button className="text-[#1a1a1a]/50" onClick={previousDemoPage}>
-                                                <ChevronLeftIcon className="w-5 h-5" />
-                                            </button>
-                                            <span className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                {demoPage}/{Math.ceil(demos.length / 5)}
-                                            </span>
-                                            <button className="text-[#1a1a1a]/50" onClick={nextDemoPage}>
-                                                <ChevronRightIcon className="w-5 h-5" />
-                                            </button>
-                                        </div>
+                                        {demos.length > 0 &&
+                                            <div className="flex flex-row items-center gap-2">
+                                                <button className="text-[#1a1a1a]/50" onClick={previousDemoPage}>
+                                                    <ChevronLeftIcon className="w-5 h-5" />
+                                                </button>
+                                                <span className="text-sm font-[500] text-[#1a1a1a]/60">
+                                                    {demoPage}/{Math.ceil(demos.length / 5)}
+                                                </span>
+                                                <button className="text-[#1a1a1a]/50" onClick={nextDemoPage}>
+                                                    <ChevronRightIcon className="w-5 h-5" />
+                                                </button>
+                                            </div>
+                                        }
                                     </div>
                                     <DemoList
                                         photos={demos}

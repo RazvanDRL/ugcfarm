@@ -62,83 +62,54 @@ export function DemoList({ photos, selectedPhotoId, onPhotoSelect, className, cu
 
     return (
         <div className={cn("grid grid-cols-6 grid-rows-1 gap-2", className)}>
-            {photos.length === 0 ? (
-                <>
-                    {/* {skeletonVideos} */}
-                    {/* Upload Button */}
-                    <label className={cn(
-                        "flex flex-col bg-[#A4A4A4]/10 rounded-lg cursor-pointer hover:ring-2 hover:ring-primary/50 items-center transition-all duration-200 justify-center w-full h-full",
-                        isUploading && "cursor-not-allowed opacity-50"
-                    )}>
-                        <Input
-                            type="file"
-                            className="hidden"
-                            onChange={handleFileChange}
-                            accept=".mp4"
-                            disabled={isUploading}
-                        />
-                        <div className="text-sm font-[500] opacity-50 flex flex-col items-center gap-1">
-                            {isUploading ? (
-                                <div className="flex flex-col items-center">
-                                    <Loader2 className="w-5 h-5 animate-spin" />
-                                    {uploadProgress > 0 && (
-                                        <span className="text-xs font-semibold mt-1">{uploadProgress}%</span>
-                                    )}
-                                </div>
-                            ) : (
-                                <CirclePlus className="w-5 h-5" />
-                            )}
-                        </div>
-                    </label>
-                </>
-            ) : (
-                <>
-                    {paginatedPhotos.map((photo) => (
-                        <div
-                            key={photo.id}
-                            className={cn(
-                                "max-w-[50px] relative cursor-pointer rounded-lg overflow-hidden transition-all duration-200",
-                                "hover:ring-2 hover:ring-primary/50",
-                                selectedPhotoId === photo.id
-                                    ? "ring-2 ring-primary"
-                                    : "opacity-50"
-                            )}
-                            onClick={() => onPhotoSelect(photo.id)}
-                        >
-                            <img
-                                src={photo.url}
-                                alt={photo.alt}
-                                className="w-full h-full object-cover aspect-[9/16]"
-                            />
-                        </div>
-                    ))}
-                    {/* Upload Button */}
-                    <label className={cn(
-                        "flex flex-col bg-[#A4A4A4]/10 rounded-lg cursor-pointer hover:ring-2 hover:ring-primary/50 items-center transition-all duration-200 justify-center w-full h-full",
-                        isUploading && "cursor-not-allowed opacity-50"
-                    )}>
-                        <Input
-                            type="file"
-                            className="hidden"
-                            onChange={handleFileChange}
-                            accept=".mp4"
-                            disabled={isUploading}
-                        />
-                        <div className="text-sm font-[500] opacity-50 flex flex-col items-center gap-1">
-                            {isUploading ? (
-                                <div className="flex flex-col items-center">
-                                    <Loader2 className="w-5 h-5 animate-spin" />
-                                    {uploadProgress > 0 && (
-                                        <span className="text-xs font-semibold mt-1">{uploadProgress}%</span>
-                                    )}
-                                </div>
-                            ) : (
-                                <CirclePlus className="w-5 h-5" />
-                            )}
-                        </div>
-                    </label>
-                </>
-            )}
+
+            {paginatedPhotos.map((photo) => (
+                <div
+                    key={photo.id}
+                    className={cn(
+                        "max-w-[50px] relative cursor-pointer rounded-lg overflow-hidden transition-all duration-200",
+                        "hover:ring-2 hover:ring-primary/50",
+                        selectedPhotoId === photo.id
+                            ? "ring-2 ring-primary"
+                            : "opacity-50"
+                    )}
+                    onClick={() => onPhotoSelect(photo.id)}
+                >
+                    <img
+                        src={photo.url}
+                        alt={photo.alt}
+                        className="w-full h-full object-cover aspect-[9/16]"
+                    />
+                </div>
+            ))}
+            {/* Upload Button */}
+            <label className={cn(
+                "flex flex-col bg-[#A4A4A4]/10 rounded-lg cursor-pointer hover:ring-2 hover:ring-primary/50 items-center transition-all duration-200 justify-center",
+                "w-[50px] aspect-[9/16]",
+                isUploading && "cursor-not-allowed"
+            )}>
+                <Input
+                    type="file"
+                    className="hidden"
+                    onChange={handleFileChange}
+                    accept=".mp4"
+                    disabled={isUploading}
+                />
+                <div className="relative w-full h-full flex items-center justify-center">
+                    <div className="absolute inset-2 rounded-full flex items-center justify-center">
+                        {isUploading ? (
+                            <div className="flex flex-col items-center">
+                                <Loader2 className="w-5 h-5 animate-spin" />
+                                {uploadProgress > 0 && (
+                                    <span className="text-xs font-semibold mt-1">{uploadProgress}%</span>
+                                )}
+                            </div>
+                        ) : (
+                            <CirclePlus className="w-5 h-5 opacity-50" />
+                        )}
+                    </div>
+                </div>
+            </label>
         </div>
     );
 }

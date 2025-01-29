@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 import { supabase } from '@/lib/supabase/client/supabase';
+import { getSignedUrl } from '@/hooks/use-signed-url';
 
 interface Photo {
     id: number;
@@ -10,29 +11,8 @@ interface Photo {
     alt: string;
 }
 
-async function fetchVideo(id: string, access_token: string) {
-    try {
-        const response = await fetch(`/api/generate-signed-url`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${access_token}`,
-            },
-            body: JSON.stringify({ key: id, bucket: 'upload-bucket' }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to fetch signed URL');
-        }
-
-        const data = await response.json();
-        return data.url;
-    } catch (error) {
-        console.error('Error fetching video:', error);
-    }
-}
-
 const generateThumbnail = async (videoFile: File): Promise<File | undefined> => {
+    console.log('generateThumbnail', videoFile);
     try {
         return new Promise((resolve) => {
             const video = document.createElement('video');
@@ -42,6 +22,8 @@ const generateThumbnail = async (videoFile: File): Promise<File | undefined> => 
             video.autoplay = false;
             video.muted = true;
             video.src = URL.createObjectURL(videoFile);
+
+            console.log('video.src', video.src);
 
             video.onloadeddata = () => {
                 // Seek to 1 second or video duration if shorter
@@ -100,8 +82,9 @@ export const useUpload = (token: string, photos: Photo[]) => {
         setUploadProgress(0);
         try {
             // Generate thumbnail from video
+            console.log('generateThumbnail', file);
             const thumbnail = await generateThumbnail(file);
-
+            console.log('thumbnail', thumbnail);
             // Get signed URL for video
             const videoResponse = await fetch('/api/upload', {
                 method: 'POST',
@@ -197,7 +180,7 @@ export const useUpload = (token: string, photos: Photo[]) => {
                 throw new Error('Failed to insert demo');
             }
 
-            const thumbnailUrl = await fetchVideo(thumbnailKey.split('/')[1], token);
+            const thumbnailUrl = await getSignedUrl(thumbnailKey.split('/')[1], 'upload-bucket', token);
 
             if (thumbnailUrl) {
                 photos.push({

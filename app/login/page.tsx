@@ -29,7 +29,7 @@ export default function LoginPage() {
             const { data: { user }, error } = await supabase.auth.getUser();
 
             if (user && !error) {
-                router.push(`/dashboard?message=already-logged-in`);
+                router.push(`/dashboard`);
             }
         }
         checkUser();
@@ -56,7 +56,7 @@ export default function LoginPage() {
             const { data, error } = await supabase.auth.signInWithOtp({
                 email: email,
                 options: {
-                    emailRedirectTo: window.location.origin || "https://ugc.farm" + redirect,
+                    emailRedirectTo: `${window.location.origin}/dashboard`
                 },
             });
 
@@ -81,7 +81,7 @@ export default function LoginPage() {
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider,
             options: {
-                redirectTo: window.location.origin || "https://ugc.farm" + redirect,
+                redirectTo: `${window.location.origin}${redirect}`,
             },
         });
 

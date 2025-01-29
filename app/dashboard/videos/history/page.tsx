@@ -51,7 +51,7 @@ export default function History() {
 
             setProfile(profile)
 
-            const session = await supabase.auth.refreshSession()
+            const session = await supabase.auth.getSession()
             if (session.data.session?.access_token) {
                 setToken(session.data.session?.access_token)
                 console.log("session data token found")
