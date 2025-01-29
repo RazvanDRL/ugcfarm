@@ -54,7 +54,7 @@ export default function LoginPage() {
             const { data, error } = await supabase.auth.signInWithOtp({
                 email: email,
                 options: {
-                    emailRedirectTo: `${window.location.origin}${redirect}`,
+                    emailRedirectTo: window.location.origin || "https://ugc.farm" + redirect,
                 },
             });
 
@@ -72,10 +72,13 @@ export default function LoginPage() {
 
     async function handleLoginWithProvider(provider: "google" | "twitter") {
         setIsLoading(prev => ({ ...prev, [provider]: true }));
+
+        const redirect = decodeURIComponent(new URLSearchParams(window.location.search).get("redirect") || "/dashboard")
+
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider,
             options: {
-                redirectTo: "http://localhost:3000/dashboard",
+                redirectTo: window.location.origin || "https://ugc.farm" + redirect,
             },
         });
 
