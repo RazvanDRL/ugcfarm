@@ -66,11 +66,6 @@ const data = {
             url: "/dashboard/auto-post",
             icon: Send,
         },
-        {
-            name: "My Profile",
-            url: "/dashboard/profile",
-            icon: User,
-        }
     ],
     navSecondary: [
         {
