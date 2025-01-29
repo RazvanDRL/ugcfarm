@@ -11,6 +11,16 @@ module.exports = withPlausibleProxy({
 				hostname: 'ugcfarm.b-cdn.net',
 				pathname: '/photos/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'pbs.twimg.com',
+				pathname: '/profile_images/**',
+			},
+			{
+				protocol: 'https',
+				hostname: 'lh3.googleusercontent.com',
+				pathname: '/a/**',
+			},
 		],
 		formats: ['image/webp'],
 		minimumCacheTTL: 31536000, // 1 year
