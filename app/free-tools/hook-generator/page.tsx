@@ -40,7 +40,7 @@ export default function HookGeneratorPage() {
         }
 
         if (productDescription.trim().length < 10) {
-            toast.error("Product description is too short. Please keep it under 1000 characters.")
+            toast.error("Product description is too short")
             return
         }
 
@@ -64,17 +64,18 @@ export default function HookGeneratorPage() {
                 }),
             })
 
+            const data = await response.json()
+
             if (response.status === 429) {
                 toast.error("Maximum requests reached (5/day). Please try again later.")
                 return
             }
 
             if (!response.ok) {
-                toast.error("Failed to generate hooks. Please try again.")
+                toast.error(data.error || "Failed to generate hooks. Please try again.")
                 return
             }
 
-            const data = await response.json()
             setGeneratedHooks(data.hooks)
         } catch (error) {
             toast.error('Failed to generate hooks. Please try again.')

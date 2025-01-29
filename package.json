@@ -45,7 +45,6 @@
     "@remotion/preload": "4.0.255",
     "@remotion/tailwind": "4.0.255",
     "@supabase/supabase-js": "2.45.1",
-    "@trigger.dev/sdk": "3.3.12",
     "@upstash/ratelimit": "^2.0.5",
     "@upstash/redis": "^1.34.3",
     "antd": "^5.23.2",
@@ -86,7 +85,6 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
-    "@trigger.dev/build": "3.3.12",
     "@types/node": "^20.17.16",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",

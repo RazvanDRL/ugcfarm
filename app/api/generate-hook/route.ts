@@ -1,11 +1,11 @@
 "use server";
-import type { hookGenerator } from "@/trigger/hook-generator";
-import { tasks } from "@trigger.dev/sdk/v3";
-import { runs } from "@trigger.dev/sdk/v3";
 import { NextRequest, NextResponse } from "next/server";
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-
+import OpenAI from 'openai';
+import { z } from "zod";
+import { model } from "@/constants";
+import { zodResponseFormat } from "openai/helpers/zod";
 // Create a new ratelimiter instance
 const redis = new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL!,
@@ -17,6 +17,18 @@ const ratelimit = new Ratelimit({
     redis,
     limiter: Ratelimit.slidingWindow(5, "24 h"),
 });
+
+const HookGeneratorSchema = z.object({
+    hooks: z.array(z.object({
+        text: z.string(),
+        platform: z.enum(['facebook', 'instagram', 'tiktok']),
+        tips: z.array(z.string()),
+    }))
+});
+
+const systemPrompt = `You are an expert e-commerce copywriter specializing in social media hooks...`; // Your existing system prompt
+
+const openai = new OpenAI();
 
 export async function POST(request: NextRequest) {
     try {
@@ -43,26 +55,41 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const handle = await tasks.trigger<typeof hookGenerator>(
-            "hook-generator",
-            {
-                productDescription,
-                platform,
-                category,
-                intent,
-            }
-        );
-
-        for await (const run of runs.subscribeToRun<typeof hookGenerator>(handle.id)) {
-            if (run.output) {
-                return NextResponse.json(run.output);
-            }
+        if (productDescription.trim().length < 10) {
+            return NextResponse.json(
+                { error: "Product description is too short" },
+                { status: 400 }
+            );
         }
 
-        return NextResponse.json(
-            { error: "Failed to generate hooks" },
-            { status: 500 }
-        );
+        if (productDescription.trim().length > 1000) {
+            return NextResponse.json(
+                { error: "Product description is too long" },
+                { status: 400 }
+            );
+        }
+
+        const userPrompt = `Generate 3 hooks for an e-commerce product with these details:
+
+Product Description: ${productDescription}
+Platform: ${platform}
+Category: ${category}
+Goal: ${intent}
+
+For each hook, provide 2-3 specific tips for maximizing its performance.`;
+
+        const completion = await openai.beta.chat.completions.parse({
+            model: model,
+            messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: userPrompt }
+            ],
+            response_format: zodResponseFormat(HookGeneratorSchema, "hook_generator"),
+            temperature: 0.8,
+        });
+
+        return NextResponse.json(completion.choices[0].message.parsed);
+
     } catch (error) {
         console.error('Hook generation error:', error);
         return NextResponse.json(
