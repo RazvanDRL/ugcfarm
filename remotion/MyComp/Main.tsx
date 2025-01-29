@@ -103,7 +103,7 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
           style={{
             transform: `translateY(${100 - verticalAlignment}%)`,
             alignItems: "center",
-            padding: "0 2rem",
+            padding: "0 10rem",
           }}
         >
           <h1
@@ -116,12 +116,17 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
               position: 'relative',
               textShadow: `0 8px 10px ${shadowColor}, 0 2px 2px ${shadowColor}`,
               zIndex: 1,
+              wordBreak: 'break-word',
+              overflowWrap: 'break-word',
+              maxWidth: '100%',
             }}
           >
             <span
               style={{
                 position: 'relative',
                 display: 'block',
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
               }}
             >
               {processedText}
@@ -135,6 +140,8 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
                   color: 'transparent',
                   zIndex: -1,
                   textShadow: 'none',
+                  wordBreak: 'break-word',
+                  overflowWrap: 'break-word',
                 }}
               >
                 {processedText}

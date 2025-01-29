@@ -872,7 +872,13 @@ export default function Page() {
             newSentences[index] = newText;
             return newSentences;
         });
-    }
+
+        // Add this to update inputProps immediately when text changes
+        setInputProps(prev => ({
+            ...prev,
+            text: newText
+        }));
+    };
 
     const createVideo = async () => {
         if (!user || !profile) {
