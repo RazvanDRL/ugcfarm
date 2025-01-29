@@ -15,8 +15,7 @@ import { DiscountBanner } from "./banner"
 export function Navbar() {
     return (
         <>
-            <DiscountBanner />
-            <nav className="z-50 fixed bg-background flex items-center justify-center mx-auto top-8 md:top-10 left-0 right-0 w-full max-w-5xl">
+            <nav className="z-50 fixed bg-background flex items-center justify-center mx-auto top-0 left-0 right-0 w-full max-w-5xl">
                 <div className="container flex h-20 items-center justify-between px-8">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">
@@ -51,9 +50,9 @@ export function Navbar() {
                                 <span className="font-[900]">Sign up</span>
                             </Button>
                         </Link> */}
-                        <Link href="/#pricing" className="hover:scale-105 transition-all duration-300">
+                        <Link href="/login" className="hover:scale-105 transition-all duration-300">
                             <Button variant="default">
-                                <span className="font-[900]">Get presale pricing</span>
+                                <span className="font-[900]">Login</span>
                             </Button>
                         </Link>
                     </div>
@@ -86,8 +85,8 @@ export function Navbar() {
                                             </Link>
                                         </Button> */}
                                         <Button asChild className="w-full mt-2">
-                                            <Link href="/#pricing">
-                                                <span className="font-[900]">Get presale pricing</span>
+                                            <Link href="/login">
+                                                <span className="font-[900]">Login</span>
                                             </Link>
                                         </Button>
                                     </div>
