@@ -575,7 +575,7 @@ export default function Landing() {
 
             {/* Corner Card */}
             {showCornerCard && !hasSubmittedEmail && (
-                <Card className="fixed bottom-4 right-4 p-4 w-[300px] shadow-lg z-50 animate-in slide-in-from-right">
+                <Card className="fixed bottom-20 right-4 p-4 w-[300px] shadow-lg z-50 animate-in slide-in-from-right">
                     <div className="flex justify-between items-start mb-3">
                         <h3 className="text-lg font-bold text-[#1a1a1a]">
                             Get a <span className="text-primary font-black">FREE</span> UGC Video
