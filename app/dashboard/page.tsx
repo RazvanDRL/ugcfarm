@@ -793,13 +793,12 @@ export default function Page() {
     const onDemoSelect = async (id: number) => {
         try {
             setSelectedDemoId(id)
-            id = id + 1
+            id = id - 1
             // Ensure we have a valid video key
+            console.log('demoVideos', demoVideos, demoVideos[id], id)
             if (!demoVideos[id]) {
                 throw new Error('Invalid demo video selected')
             }
-
-            console.log('demoVideos', demoVideos[id])
             const videoKey = demoVideos[id].replace('.mp4', '')
             const url = await getSignedUrl(videoKey + '.mp4', 'upload-bucket', token)
             console.log('url', url)
