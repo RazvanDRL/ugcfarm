@@ -62,6 +62,7 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
     strokeColor,
     shadowColor,
     uppercase,
+    verticalAlignment,
   } = textStyle;
 
   // Remove the old fontFamilies object and use the constant
@@ -85,8 +86,6 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
 
   const processedText = uppercase ? text.toUpperCase() : text;
 
-  console.log(video_duration, hook_duration, demos)
-
   return (
     <AbsoluteFill>
       {/* Background Video */}
@@ -100,6 +99,28 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
           }}
           pauseWhenBuffering={true}
         />
+        <AbsoluteFill
+          style={{
+            transform: `translateY(${100 - verticalAlignment}%)`,
+            alignItems: "center",
+            padding: "0 2rem",
+          }}
+        >
+          <h1
+            style={{
+              fontSize: `${fontSize}px`,
+              fontWeight,
+              fontFamily: fontFamily,
+              color: textColor,
+              textAlign: "center",
+              WebkitTextStroke: `2px ${strokeColor}`,
+              textShadow: `0 2px 4px ${shadowColor}`,
+              position: 'relative',
+            }}
+          >
+            {processedText}
+          </h1>
+        </AbsoluteFill>
       </Sequence>
 
       {/* Demo Video */}
@@ -116,31 +137,6 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
           />
         </Sequence>
       )}
-
-      {/* Text Overlay */}
-      <Sequence from={0} durationInFrames={hook_duration}>
-        <AbsoluteFill
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            padding: "0 2rem",
-          }}
-        >
-          <h1
-            style={{
-              fontSize: `${fontSize}px`,
-              fontWeight,
-              fontFamily: fontFamily,
-              color: textColor,
-              textAlign: "center",
-              // WebkitTextStroke: `2px ${strokeColor}`,
-              textShadow: `0 2px 4px ${shadowColor}`,
-            }}
-          >
-            {processedText}
-          </h1>
-        </AbsoluteFill>
-      </Sequence>
     </AbsoluteFill>
   );
 };

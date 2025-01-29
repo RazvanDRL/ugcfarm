@@ -19,7 +19,7 @@ import { WordSlider } from "@/components/slider"
 import { useEffect, useState, useCallback } from "react"
 import { PhotoList } from "@/components/videos"
 import { DemoList } from "@/components/demos"
-import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, DownloadIcon, Loader, PlayIcon, WandSparkles } from "lucide-react"
+import { AlignVerticalJustifyCenter, AlignVerticalJustifyEnd, AlignVerticalJustifyStart, ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, DownloadIcon, Loader, PlayIcon, WandSparkles } from "lucide-react"
 import { CommandShortcut } from "@/components/ui/command"
 import { ColorPicker } from 'antd';
 import { Input } from "@/components/ui/input"
@@ -54,6 +54,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { getSignedUrl } from "@/hooks/use-signed-url"
 import { parseMedia } from '@remotion/media-parser';
+import { Slider } from "@/components/ui/slider"
 
 interface InputProps {
     text: string;
@@ -67,6 +68,7 @@ interface InputProps {
         strokeColor: string;
         shadowColor: string;
         uppercase: boolean;
+        verticalAlignment: number;
     };
     videoProps: {
         uuid: string;
@@ -174,8 +176,8 @@ export default function Page() {
         strokeColor: "#000000",
         shadowColor: "#000000",
         uppercase: false,
+        verticalAlignment: 50
     })
-
     const [video, setVideo] = useState<string>("")
     const [demos, setDemos] = useState<any[]>([])
     const [demoVideos, setDemoVideos] = useState<any[]>([])
@@ -920,6 +922,14 @@ export default function Page() {
         }));
     }
 
+    const handleVerticalAlignmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = parseInt(e.target.value);
+        setTextStyle(prev => ({
+            ...prev,
+            verticalAlignment: value,
+        }));
+    }
+
     const handleFontWeightChange = (value: string) => {
         setTextStyle(prev => ({
             ...prev,
@@ -1037,7 +1047,7 @@ export default function Page() {
                     <CommandShortcut className="hidden md:flex rounded-l-none max-w-fit border-l-0 bg-secondary px-2 py-0.5">
                         Pro Tip: Use (Shift + ← or Shift + →) to navigate between hooks
                     </CommandShortcut>
-                    <div className="grid auto-rows-min md:grid-cols-2 grid-cols-1 gap-4 h-[100vh]">
+                    <div className="grid auto-rows-min md:grid-cols-2 grid-cols-1 gap-4 h-fit">
                         {/* Video Preview */}
                         <div className="md:col-start-2 space-y-4 order-first md:order-last">
                             <div className="h-auto aspect-square rounded-xl bg-[#A4A4A4]/10 overflow-hidden">
@@ -1356,6 +1366,72 @@ export default function Page() {
                                                 onCheckedChange={handleUppercaseChange}
                                             />
                                         </div>
+
+                                        {/* VERTICAL ALIGNMENT */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Vertical Alignment
+                                            </label>
+                                            {/* make a slider for vertical alignment and below it 3 settings for top, center, bottom*/}
+                                            {/* complete  */}
+                                            <div className="w-full space-y-3">
+                                                <Input
+                                                    type="number"
+                                                    value={textStyle.verticalAlignment}
+                                                    onChange={handleVerticalAlignmentChange}
+                                                    className="w-full bg-background pl-3 font-[500]"
+                                                />
+                                                <Slider
+                                                    defaultValue={[50]}
+                                                    max={90}
+                                                    min={10}
+                                                    step={1}
+                                                    value={[textStyle.verticalAlignment]}
+                                                    onValueChange={(e) =>
+                                                        setTextStyle((prev) => ({
+                                                            ...prev,
+                                                            verticalAlignment: e[0]
+                                                        }))
+                                                    } />
+                                            </div>
+                                            <div className="flex flex-row items-center justify-between w-full mt-2">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="hover:bg-background"
+                                                    onClick={() => setTextStyle((prev) => ({
+                                                        ...prev,
+                                                        verticalAlignment: 20
+                                                    }))}
+                                                >
+
+                                                    <AlignVerticalJustifyStart className="w-4 h-4" />
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="hover:bg-background"
+                                                    onClick={() => setTextStyle((prev) => ({
+                                                        ...prev,
+                                                        verticalAlignment: 50
+                                                    }))}
+                                                >
+
+                                                    <AlignVerticalJustifyCenter className="w-4 h-4" />
+                                                </Button><Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="hover:bg-background"
+                                                    onClick={() => setTextStyle((prev) => ({
+                                                        ...prev,
+                                                        verticalAlignment: 80
+                                                    }))}
+                                                >
+
+                                                    <AlignVerticalJustifyEnd className="w-4 h-4" />
+                                                </Button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1363,6 +1439,6 @@ export default function Page() {
                     </div>
                 </div>
             </SidebarInset>
-        </SidebarProvider>
+        </SidebarProvider >
     )
 }

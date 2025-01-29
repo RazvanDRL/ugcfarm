@@ -18,6 +18,7 @@ export const CompositionProps = z.object({
     strokeColor: z.string().default("#000000"),
     shadowColor: z.string().default("#000000"),
     uppercase: z.boolean().default(false),
+    verticalAlignment: z.number().default(50),
   }),
   demos: z.string().default("")
 });
@@ -38,6 +39,7 @@ export const defaultMyCompProps = {
     strokeColor: "#000000",
     shadowColor: "#000000",
     uppercase: false,
+    verticalAlignment: 50,
   },
   demos: ""
 };
