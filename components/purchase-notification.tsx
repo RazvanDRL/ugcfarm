@@ -86,7 +86,7 @@ export function PurchaseNotification() {
         const initialTimeout = setTimeout(() => {
             showNotification();
             intervalId = setInterval(showNotification, 6000);
-        }, 12000);
+        }, 30000);
 
         return () => {
             clearTimeout(initialTimeout);
