@@ -1,11 +1,12 @@
 "use client";
 import { Navbar } from "@/components/navbar";
 import { Button } from "@/components/button";
+import { Button as ButtonSmall } from "@/components/ui/button";
 import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
-import { ArrowRight, Smile, Frown, Star, ClipboardList, Upload, Zap } from "lucide-react";
+import { ArrowRight, Smile, Frown, Star, ClipboardList, Upload, Zap, X } from "lucide-react";
 import { ROICalculator } from "@/components/roi-calculator"
 import FlickeringGrid from "@/components/ui/flickering-grid";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,11 @@ import { FAQ } from "@/components/faq";
 import { Card } from "@/components/ui/card"
 import { jsonLd } from './json-ld'
 import { metadata } from './metadata'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase/client/supabase";
+import { toast } from "sonner";
 
 
 const withoutUGC = [{
@@ -275,6 +281,39 @@ const steps = [
 export default function Landing() {
     const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     const ref = params ? params.get('ref') : null;
+    const [showDialog, setShowDialog] = useState(false);
+    const [email, setEmail] = useState("");
+    const [showCornerCard, setShowCornerCard] = useState(true);
+    const [hasSubmittedEmail, setHasSubmittedEmail] = useState(false);
+
+    useEffect(() => {
+        // Check localStorage only after component mounts
+        const emailSubmitted = localStorage.getItem('ugcfarm_email_submitted');
+        setHasSubmittedEmail(!!emailSubmitted);
+
+        if (!emailSubmitted) {
+            const timer = setTimeout(() => {
+                setShowDialog(true);
+            }, 60000);
+
+            return () => clearTimeout(timer);
+        }
+    }, []);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const { data, error } = await supabase
+            .from('free_videos')
+            .insert({ email });
+        if (error) {
+            console.error(error);
+        } else {
+            localStorage.setItem('ugcfarm_email_submitted', 'true');
+            setHasSubmittedEmail(true);
+            toast.success("You'll receive a video in your inbox shortly 🎉");
+            setShowDialog(false);
+        }
+    };
 
     return (
         <>
@@ -533,6 +572,63 @@ export default function Landing() {
                 </div>
             </main >
             <Footer />
+
+            {/* Corner Card */}
+            {showCornerCard && !hasSubmittedEmail && (
+                <Card className="fixed bottom-4 right-4 p-4 w-[300px] shadow-lg z-50 animate-in slide-in-from-right">
+                    <div className="flex justify-between items-start mb-3">
+                        <h3 className="text-lg font-bold text-[#1a1a1a]">
+                            Get a <span className="text-primary font-black">FREE</span> UGC Video
+                        </h3>
+                        <button
+                            onClick={() => setShowCornerCard(false)}
+                            className="text-gray-500 hover:text-gray-700 transition-colors"
+                        >
+                            <X className="h-4 w-4" />
+                        </button>
+                    </div>
+                    <p className="text-sm text-[#1a1a1a]/60 mb-4">
+                        Enter your email to receive a free professional UGC video for your brand.
+                    </p>
+                    <form onSubmit={handleSubmit} className="space-y-3">
+                        <Input
+                            type="email"
+                            placeholder="you@example.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="placeholder:font-[500]"
+                        />
+                        <ButtonSmall type="submit" className="w-full font-[600] text-sm">
+                            Get My Free Videos&nbsp;&nbsp;&rarr;
+                        </ButtonSmall>
+                    </form>
+                </Card>
+            )}
+
+            <Dialog open={showDialog} onOpenChange={setShowDialog}>
+                <DialogContent className="sm:max-w-md gap-8">
+                    <DialogHeader>
+                        <DialogTitle className="text-2xl font-bold text-[#1a1a1a]">Get a <span className="text-primary font-black">FREE</span> UGC Video 👇</DialogTitle>
+                        <DialogDescription className="text-base">
+                            Enter your email to receive a <span className="font-bold">free</span> professional UGC video for your brand.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <Input
+                            type="email"
+                            placeholder="you@example.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            className="placeholder:font-[500]"
+                        />
+                        <ButtonSmall type="submit" className="w-full font-[600]">
+                            Get My Free Videos&nbsp;&nbsp;&rarr;
+                        </ButtonSmall>
+                    </form>
+                </DialogContent>
+            </Dialog>
         </>
     );
 }
