@@ -924,10 +924,22 @@ export default function Page() {
 
     const handleVerticalAlignmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value);
-        setTextStyle(prev => ({
-            ...prev,
-            verticalAlignment: value,
-        }));
+        if (value < 10) {
+            setTextStyle(prev => ({
+                ...prev,
+                verticalAlignment: 10,
+            }));
+        } else if (value > 90) {
+            setTextStyle(prev => ({
+                ...prev,
+                verticalAlignment: 90,
+            }));
+        } else {
+            setTextStyle(prev => ({
+                ...prev,
+                verticalAlignment: value,
+            }));
+        }
     }
 
     const handleFontWeightChange = (value: string) => {
@@ -1246,7 +1258,7 @@ export default function Page() {
                                             4. Text Settings
                                         </p>
                                     </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
                                         {/* FONT SIZE */}
                                         <div className="flex flex-col items-start">
                                             <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
@@ -1402,6 +1414,8 @@ export default function Page() {
                                                 <Input
                                                     type="number"
                                                     value={textStyle.verticalAlignment}
+                                                    min={10}
+                                                    max={90}
                                                     onChange={handleVerticalAlignmentChange}
                                                     className="w-full bg-background pl-3 font-[500]"
                                                 />
