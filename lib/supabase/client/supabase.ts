@@ -20,6 +20,7 @@ type Profile = {
     email: string
     avatar: string
     credits: number
+    plan: string
 }
 
 export type { User, Profile };

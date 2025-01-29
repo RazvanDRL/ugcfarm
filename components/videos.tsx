@@ -1,6 +1,14 @@
 import { cn } from "@/lib/utils"
 import Image from "next/image";
 import { Lock } from "lucide-react"
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+import Link from "next/link";
+import { sleep } from "openai/core.mjs";
 
 interface Photo {
     id: number;
@@ -14,6 +22,7 @@ interface PhotoListProps {
     onPhotoSelect: (id: number) => void;
     className?: string;
     currentPage: number;
+    plan: string;
 }
 
 const vids = [
@@ -80,7 +89,7 @@ const vids = [
 ]
 
 
-export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage }: PhotoListProps) {
+export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage, plan }: PhotoListProps) {
     // Calculate pagination
     const itemsPerPage = 21;
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -99,8 +108,8 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
     return (
         <div className={cn("grid grid-cols-7 grid-rows-3 gap-2", className)}>
             {paginatedPhotos.map((photo, index) => {
-                const isLocked = currentPage > 1 || index > 10;
-                return (
+                const isLocked = currentPage > 1 || index > (plan === 'starter' ? 9 : 10);
+                const PhotoElement = (
                     <div
                         key={photo.id}
                         className={cn(
@@ -122,8 +131,29 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
                                 <Lock className="w-4 h-4 text-white" />
                             </div>
-                        )} </div>
+                        )}
+                    </div>
                 );
+
+                return isLocked ? (
+                    <TooltipProvider key={photo.id}>
+                        <Tooltip delayDuration={0}>
+                            <TooltipTrigger asChild
+                                onClick={async (event) => {
+                                    event.preventDefault();
+                                    const target = event.currentTarget;
+                                    await sleep(0);
+                                    target.blur();
+                                    target.focus();
+                                }}>
+                                {PhotoElement}
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <Link href="/#pricing" className="underline">Upgrade to unlock &rarr;</Link>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
+                ) : PhotoElement;
             })}
         </div>
     );

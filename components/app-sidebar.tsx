@@ -29,13 +29,7 @@ import {
 } from "@/components/ui/sidebar"
 import Image from "next/image"
 import Link from "next/link"
-
-type Profile = {
-    name: string
-    email: string
-    avatar: string
-    credits: number
-}
+import { type Profile } from "@/lib/supabase/client/supabase"
 
 const data = {
     navMain: [

@@ -945,6 +945,7 @@ export default function Page() {
                     email: profile.email,
                     avatar: profile.avatar,
                     credits: profile.credits,
+                    plan: profile.plan
                 }
             } />
             <SidebarInset>
@@ -1122,6 +1123,7 @@ export default function Page() {
                                         </div>
                                     </div>
                                     <PhotoList
+                                        plan={profile.plan}
                                         photos={photos}
                                         selectedPhotoId={selectedPhotoId}
                                         onPhotoSelect={onPhotoSelect}
