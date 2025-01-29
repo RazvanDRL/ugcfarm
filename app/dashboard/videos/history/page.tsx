@@ -15,6 +15,7 @@ import { toast } from 'sonner'
 import { Breadcrumb } from '@/components/ui/breadcrumb'
 import { AppSidebar } from '@/components/app-sidebar'
 import { getSignedUrl } from '@/hooks/use-signed-url'
+import Loading from '@/components/loading'
 
 
 export default function History() {
@@ -83,7 +84,7 @@ export default function History() {
     }
 
     if (!profile || !user) {
-        return <div>Loading...</div>
+        return <Loading />
     }
 
     return (<SidebarProvider>

@@ -55,6 +55,7 @@ import { Label } from "@/components/ui/label"
 import { getSignedUrl } from "@/hooks/use-signed-url"
 import { parseMedia } from '@remotion/media-parser';
 import { Slider } from "@/components/ui/slider"
+import Loading from "@/components/loading"
 
 interface InputProps {
     text: string;
@@ -1008,7 +1009,7 @@ export default function Page() {
     }
 
     if (!user || !profile) {
-        return <div>Loading...</div>
+        return <Loading />
     }
 
     return (

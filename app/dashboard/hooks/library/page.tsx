@@ -15,6 +15,7 @@ import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
 import { Breadcrumb, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
 import { BreadcrumbItem } from "@/components/ui/breadcrumb"
+import Loading from "@/components/loading"
 
 interface HookEntry {
     id: string
@@ -79,7 +80,7 @@ export default function HooksLibraryPage() {
     }
 
     if (!profile || isLoading) {
-        return <div>Loading...</div>
+        return <Loading />
     }
 
     return (
