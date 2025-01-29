@@ -169,7 +169,7 @@ export default function Page() {
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
     const [loading, setLoading] = useState(false)
     const [textStyle, setTextStyle] = useState({
-        fontSize: 48,
+        fontSize: 36,
         fontWeight: 700,
         fontFamily: "TikTok",
         textColor: "#ffffff",
@@ -1253,7 +1253,7 @@ export default function Page() {
                                                 <Input
                                                     type="number"
                                                     value={textStyle.fontSize}
-                                                    min={1}
+                                                    min={12}
                                                     max={100}
                                                     step={1}
                                                     className="w-full bg-background pl-3 pr-8 font-[500]"
@@ -1340,7 +1340,18 @@ export default function Page() {
                                                 Stroke Color
                                             </label>
                                             <div className="w-full">
-                                                <ColorPicker defaultValue="#000" showText allowClear className="p-[0.325rem] hover:border-primary/80" />
+                                                <ColorPicker
+                                                    defaultValue="#000"
+                                                    showText
+                                                    allowClear
+                                                    className="p-[0.325rem] hover:border-primary/80"
+                                                    onChange={(c) => {
+                                                        setTextStyle(prev => ({
+                                                            ...prev,
+                                                            strokeColor: c.toHexString(),
+                                                        }))
+                                                    }}
+                                                />
                                             </div>
                                         </div>
 
@@ -1350,7 +1361,18 @@ export default function Page() {
                                                 Shadow Color
                                             </label>
                                             <div className="w-full">
-                                                <ColorPicker defaultValue="#000" showText allowClear className="p-[0.325rem] hover:border-primary/80" />
+                                                <ColorPicker
+                                                    defaultValue="#000"
+                                                    showText
+                                                    allowClear
+                                                    className="p-[0.325rem] hover:border-primary/80"
+                                                    onChange={(c) => {
+                                                        setTextStyle(prev => ({
+                                                            ...prev,
+                                                            shadowColor: c.toHexString(),
+                                                        }))
+                                                    }}
+                                                />
                                             </div>
                                         </div>
 

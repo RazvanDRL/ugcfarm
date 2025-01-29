@@ -11,7 +11,7 @@ export const CompositionProps = z.object({
     uuid: z.string(),
   }),
   textStyle: z.object({
-    fontSize: z.number().default(48),
+    fontSize: z.number().default(36),
     fontWeight: z.number().default(500),
     fontFamily: z.string().default("Inter"),
     textColor: z.string().default("#ffffff"),
@@ -32,7 +32,7 @@ export const defaultMyCompProps = {
     uuid: "",
   },
   textStyle: {
-    fontSize: 48,
+    fontSize: 36,
     fontWeight: 500,
     fontFamily: "Inter",
     textColor: "#ffffff",

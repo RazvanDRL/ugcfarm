@@ -113,12 +113,33 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
               fontFamily: fontFamily,
               color: textColor,
               textAlign: "center",
-              WebkitTextStroke: `2px ${strokeColor}`,
-              textShadow: `0 2px 4px ${shadowColor}`,
               position: 'relative',
+              textShadow: `0 8px 10px ${shadowColor}, 0 2px 2px ${shadowColor}`,
+              zIndex: 1,
             }}
           >
-            {processedText}
+            <span
+              style={{
+                position: 'relative',
+                display: 'block',
+              }}
+            >
+              {processedText}
+              <span
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  WebkitTextStroke: `0.5rem ${strokeColor}`,
+                  color: 'transparent',
+                  zIndex: -1,
+                  textShadow: 'none',
+                }}
+              >
+                {processedText}
+              </span>
+            </span>
           </h1>
         </AbsoluteFill>
       </Sequence>
