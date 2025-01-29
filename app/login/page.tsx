@@ -42,7 +42,9 @@ export default function LoginPage() {
     async function handleLoginWithEmail(email: string) {
         setIsLoading(prev => ({ ...prev, email: true }));
 
-        const redirect = decodeURIComponent(new URLSearchParams(window.location.search).get("redirect") || "/dashboard")
+        // const redirect = decodeURIComponent(new URLSearchParams(window.location.search).get("redirect") || "/dashboard")
+        let redirect = "/dashboard"
+
 
         if (!isValidEmail(email)) {
             toast.error("Invalid email address");
@@ -73,7 +75,8 @@ export default function LoginPage() {
     async function handleLoginWithProvider(provider: "google" | "twitter") {
         setIsLoading(prev => ({ ...prev, [provider]: true }));
 
-        const redirect = decodeURIComponent(new URLSearchParams(window.location.search).get("redirect") || "/dashboard")
+        // const redirect = decodeURIComponent(new URLSearchParams(window.location.search).get("redirect") || "/dashboard")
+        let redirect = "/dashboard"
 
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider,
