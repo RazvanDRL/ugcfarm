@@ -79,11 +79,6 @@ export const faq: FAQ[] = [
     },
     {
         category: "Business Questions",
-        question: "How does early access pricing work?",
-        answer: "Early access members lock in our launch pricing forever. Once we exit early access, prices will increase significantly. This is a limited-time opportunity to secure the lowest possible rates."
-    },
-    {
-        category: "Business Questions",
         question: "What's the minimum commitment period?",
         answer: "There are no long-term commitments. You pay for what you need, when you need it."
     },

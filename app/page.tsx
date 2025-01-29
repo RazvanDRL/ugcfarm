@@ -401,10 +401,9 @@ export default function Landing() {
 
                                 </Link>
                             </MagneticButton>
-                            <Link href="/#pricing" className="text-sm opacity-80 font-[600] text-[#1a1a1a]/60 flex items-center hover:underline">
-                                {/* See demo <ArrowRight className="ml-1 w-4 h-4" /> */}
+                            {/* <Link href="/#pricing" className="text-sm opacity-80 font-[600] text-[#1a1a1a]/60 flex items-center hover:underline">
                                 Lock in&nbsp;<span className="hover:no-underline underline underline-offset-2 decoration-dashed">lifetime pricing</span>&nbsp;before launch
-                            </Link>
+                            </Link> */}
                         </div>
                     </div>
 
