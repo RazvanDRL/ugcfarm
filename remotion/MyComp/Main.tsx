@@ -6,12 +6,11 @@ import {
   Sequence,
 } from "remotion";
 import { CompositionProps } from "../../types/constants";
-// import { preloadVideo, resolveRedirect } from "@remotion/preload";
+import { preloadVideo, resolveRedirect } from "@remotion/preload";
 import { loadFont } from "@remotion/fonts";
 import { staticFile } from "remotion";
 import * as Montserrat from "@remotion/google-fonts/Montserrat";
 import * as Inter from "@remotion/google-fonts/Inter";
-
 Montserrat.loadFont();
 Inter.loadFont();
 
@@ -53,7 +52,7 @@ const FONT_FAMILIES = {
 // Define type for font family keys
 type FontFamilyKey = keyof typeof FONT_FAMILIES;
 
-export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<typeof CompositionProps>) => {
+export const Main = ({ text, videoUrl, video_duration, videoProps, textStyle, demos }: z.infer<typeof CompositionProps>) => {
   const { width, height } = useVideoConfig();
   const {
     fontSize,
@@ -85,12 +84,11 @@ export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<t
   //   });
 
   const processedText = uppercase ? text.toUpperCase() : text;
-  const ugcDuration = 150; // 5 seconds at 30fps
 
   return (
     <AbsoluteFill>
       {/* Background Video */}
-      <Sequence from={0} durationInFrames={ugcDuration}>
+      <Sequence from={0} durationInFrames={video_duration}>
         <OffthreadVideo
           src={videoUrl}
           style={{
@@ -103,18 +101,19 @@ export const Main = ({ text, videoUrl, videoProps, textStyle, demos }: z.infer<t
       </Sequence>
 
       {/* Demo Video */}
-      {/* <Sequence from={ugcDuration} premountFor={100}>
-        <OffthreadVideo
-          src={demos}
-          style={{
-            width,
-            height,
-            objectFit: "cover",
-          }}
-          pauseWhenBuffering={true}
-
-        />
-      </Sequence> */}
+      {demos && video_duration && (
+        <Sequence from={video_duration - 150} premountFor={100}>
+          <OffthreadVideo
+            src={demos}
+            style={{
+              width,
+              height,
+              objectFit: "cover",
+            }}
+          // pauseWhenBuffering={true}
+          />
+        </Sequence>
+      )}
 
       {/* Text Overlay */}
       <AbsoluteFill

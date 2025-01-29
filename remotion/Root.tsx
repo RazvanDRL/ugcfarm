@@ -1,4 +1,5 @@
 import { Composition } from "remotion";
+// import { parseMedia } from '@remotion/media-parser';
 import { Main } from "./MyComp/Main";
 import {
   COMP_NAME,
@@ -8,6 +9,8 @@ import {
   VIDEO_HEIGHT,
   VIDEO_WIDTH,
 } from "../types/constants";
+import { getVideoMetadata } from "@remotion/media-utils";
+
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -20,6 +23,25 @@ export const RemotionRoot: React.FC = () => {
         width={VIDEO_WIDTH}
         height={VIDEO_HEIGHT}
         defaultProps={defaultMyCompProps}
+        // calculateMetadata={async ({ props }) => {
+        //   const { slowDurationInSeconds } = await parseMedia({
+        //     src: props.videoUrl,
+        //     fields: { slowDurationInSeconds: true },
+        //   });
+
+        //   return {
+        //     durationInFrames: Math.floor(slowDurationInSeconds * 30),
+        //   };
+        // }}
+        calculateMetadata={async ({ props }) => {
+          const data = await getVideoMetadata(props.videoUrl);
+          return {
+            fps: VIDEO_FPS,
+            durationInFrames: Math.ceil((data.durationInSeconds + 150) * VIDEO_FPS),
+            width: data.width,
+            height: data.height,
+          };
+        }}
       />
     </>
   );

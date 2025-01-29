@@ -56,6 +56,7 @@ import { Label } from "@/components/ui/label"
 interface InputProps {
     text: string;
     videoUrl: string;
+    video_duration: number;
     textStyle: {
         fontSize: number;
         fontWeight: number;
@@ -171,23 +172,23 @@ export default function Page() {
         shadowColor: "#000000",
         uppercase: false,
     })
-    console.log(vids.find(v => v.id === selectedPhotoId)?.url || "")
 
-    const [inputProps, setInputProps] = useState<InputProps>({
-        text: sentences[index],
-        videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
-        textStyle,
-        videoProps: {
-            uuid: uuidv4()
-        },
-        demos: ""
-    });
     const [video, setVideo] = useState<string>("")
     const [demos, setDemos] = useState<any[]>([])
     const [demoVideos, setDemoVideos] = useState<any[]>([])
     const [isGenerating, setIsGenerating] = useState(false)
     const [prompt, setPrompt] = useState("")
     const [open, setOpen] = useState(false)
+    const [inputProps, setInputProps] = useState<InputProps>({
+        text: sentences[index],
+        videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
+        video_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30) + 150,
+        textStyle,
+        videoProps: {
+            uuid: uuidv4()
+        },
+        demos: demoVideos[selectedDemoId]
+    });
     const { renderMedia, state, setToken, token } = useRendering(COMP_NAME, inputProps);
 
     async function fetchVideo(id: string, access_token: string, bucket: string) {
@@ -320,6 +321,7 @@ export default function Page() {
         setInputProps({
             text: sentences[index],
             videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
+            video_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30) + 150,
             textStyle,
             videoProps: {
                 uuid: uuidv4()
@@ -985,7 +987,7 @@ export default function Page() {
                                     <Player
                                         component={Main}
                                         inputProps={inputProps}
-                                        durationInFrames={Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30)}
+                                        durationInFrames={Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30) + 150}
                                         fps={30}
                                         compositionWidth={1080}
                                         compositionHeight={1920}

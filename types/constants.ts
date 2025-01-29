@@ -5,6 +5,7 @@ export const COMP_NAME = "Main";
 export const CompositionProps = z.object({
   text: z.string(),
   videoUrl: z.string(),
+  video_duration: z.number(),
   videoProps: z.object({
     uuid: z.string(),
   }),
@@ -23,6 +24,7 @@ export const CompositionProps = z.object({
 export const defaultMyCompProps = {
   text: "Your text here",
   videoUrl: "",
+  video_duration: 5,
   videoProps: {
     uuid: "",
   },
@@ -38,7 +40,7 @@ export const defaultMyCompProps = {
   demos: ""
 };
 
-export const DURATION_IN_FRAMES = 600;
+export const DURATION_IN_FRAMES = 150;
 export const VIDEO_WIDTH = 1080;
 export const VIDEO_HEIGHT = 1920;
 export const VIDEO_FPS = 30;
