@@ -4,13 +4,17 @@ import { Button } from "@/components/ui/button"
 import {
     SidebarInset,
     SidebarProvider,
+    SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { useEffect, useState } from "react"
 import { Profile, supabase } from "@/lib/supabase/client/supabase"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { ArrowRight, Copy } from "lucide-react"
+import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
+import { Breadcrumb, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb"
+import { BreadcrumbItem } from "@/components/ui/breadcrumb"
 
 interface HookEntry {
     id: string
@@ -82,6 +86,25 @@ export default function HooksLibraryPage() {
         <SidebarProvider>
             <AppSidebar user={profile} />
             <SidebarInset>
+                <header className="flex h-16 shrink-0 items-center gap-2">
+                    <div className="flex items-center gap-2 px-4">
+                        <SidebarTrigger className="-ml-1" />
+                        <Separator orientation="vertical" className="mr-2 h-4" />
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem className="hidden md:block">
+                                    <BreadcrumbLink href="/dashboard">
+                                        Home
+                                    </BreadcrumbLink>
+                                </BreadcrumbItem>
+                                <BreadcrumbSeparator className="hidden md:block" />
+                                <BreadcrumbItem>
+                                    <BreadcrumbPage>Hooks Library</BreadcrumbPage>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
+                </header>
                 <div className="flex flex-col gap-6 items-center justify-center min-h-screen px-8">
                     {hooks.length === 0 ? (
                         <div className="flex flex-col items-center gap-4 text-center">
@@ -101,7 +124,7 @@ export default function HooksLibraryPage() {
                                         className={`hover:bg-primary/20 flex items-center justify-between bg-primary/10 border-2 border-primary/50 flex-row gap-4 p-4 rounded-lg transition-all ${hookIndex === index ? 'translate-x-4' : ''}`}
                                         onClick={() => setHookIndex(index)}
                                     >
-                                        <h2 className={`text-base text-left font-bold text-primary w-[300px] line-clamp-1 transition-all duration-200 ${hookIndex === index ? 'underline' : ''}`}>
+                                        <h2 className={`text-base text-left font-bold text-primary w-full max-w-[300px] line-clamp-1 transition-all duration-200 ${hookIndex === index ? 'underline' : ''}`}>
                                             {hook.prompt}
                                         </h2>
                                         <div className="flex flex-row gap-4 items-center">

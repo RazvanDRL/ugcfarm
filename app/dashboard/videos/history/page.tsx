@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { Breadcrumb } from '@/components/ui/breadcrumb'
 import { AppSidebar } from '@/components/app-sidebar'
+import { getSignedUrl } from '@/hooks/use-signed-url'
 
 
 export default function History() {
@@ -60,29 +61,6 @@ export default function History() {
         }
         fetchUser()
     }, [])
-
-    async function fetchVideo(id: string, access_token: string, bucket: string) {
-        try {
-            const response = await fetch(`/api/generate-signed-url`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${access_token}`,
-                },
-                body: JSON.stringify({ key: `${id}.mp4`, bucket: bucket }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch signed URL');
-            }
-
-            const data = await response.json();
-            return data.url;
-        } catch (error) {
-            console.error('Error fetching video:', error);
-        }
-    }
-
     async function fetchVideos(user: User, access_token: string) {
         const { data: videos, error } = await supabase
             .from('video_history')
@@ -98,7 +76,7 @@ export default function History() {
         setVideos(videos)
         const tempVideos = []
         for (const video of videos) {
-            const url = await fetchVideo(video.video_id, access_token, 'output-bucket')
+            const url = await getSignedUrl(video.video_id + ".mp4", 'output-bucket', access_token)
             tempVideos.push({ ...video, video_url: url })
         }
         setVideos(tempVideos)
@@ -126,8 +104,8 @@ export default function History() {
                     <Breadcrumb>
                         <BreadcrumbList>
                             <BreadcrumbItem className="hidden md:block">
-                                <BreadcrumbLink href="#">
-                                    Dashboard
+                                <BreadcrumbLink href="/dashboard">
+                                    Home
                                 </BreadcrumbLink>
                             </BreadcrumbItem>
                             <BreadcrumbSeparator className="hidden md:block" />

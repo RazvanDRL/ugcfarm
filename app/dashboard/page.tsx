@@ -1405,7 +1405,7 @@ export default function Page() {
                                                     }))}
                                                 >
 
-                                                    <AlignVerticalJustifyStart className="w-4 h-4" />
+                                                    <AlignVerticalJustifyEnd className="w-4 h-4" />
                                                 </Button>
                                                 <Button
                                                     variant="ghost"
@@ -1418,7 +1418,8 @@ export default function Page() {
                                                 >
 
                                                     <AlignVerticalJustifyCenter className="w-4 h-4" />
-                                                </Button><Button
+                                                </Button>
+                                                <Button
                                                     variant="ghost"
                                                     size="icon"
                                                     className="hover:bg-background"
@@ -1428,7 +1429,7 @@ export default function Page() {
                                                     }))}
                                                 >
 
-                                                    <AlignVerticalJustifyEnd className="w-4 h-4" />
+                                                    <AlignVerticalJustifyStart className="w-4 h-4" />
                                                 </Button>
                                             </div>
                                         </div>
