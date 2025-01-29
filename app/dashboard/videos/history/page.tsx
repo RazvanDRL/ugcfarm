@@ -115,6 +115,7 @@ export default function History() {
                 email: profile.email,
                 avatar: profile.avatar,
                 credits: profile.credits,
+                plan: profile.plan,
             }
         } />
         <SidebarInset>

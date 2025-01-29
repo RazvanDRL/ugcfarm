@@ -6,7 +6,7 @@ import {
     SidebarProvider,
 } from "@/components/ui/sidebar"
 import { useEffect, useState } from "react"
-import { supabase } from "@/lib/supabase/client/supabase"
+import { Profile, supabase } from "@/lib/supabase/client/supabase"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { ArrowRight, Copy } from "lucide-react"
@@ -25,12 +25,7 @@ export default function HooksLibraryPage() {
     const [hooks, setHooks] = useState<HookEntry[]>([])
     const [hookIndex, setHookIndex] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
-    const [profile, setProfile] = useState<{
-        name: string
-        email: string
-        avatar: string
-        credits: number
-    } | null>(null)
+    const [profile, setProfile] = useState<Profile | null>(null)
 
     useEffect(() => {
         const getHooks = async () => {

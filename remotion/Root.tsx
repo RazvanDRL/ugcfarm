@@ -37,7 +37,7 @@ export const RemotionRoot: React.FC = () => {
           const data = await getVideoMetadata(props.videoUrl);
           return {
             fps: VIDEO_FPS,
-            durationInFrames: Math.ceil((data.durationInSeconds + 150) * VIDEO_FPS),
+            durationInFrames: props.video_duration,
             width: data.width,
             height: data.height,
           };

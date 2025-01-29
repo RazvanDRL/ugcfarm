@@ -53,6 +53,7 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { getSignedUrl } from "@/hooks/use-signed-url"
+import { parseMedia } from '@remotion/media-parser';
 
 interface InputProps {
     text: string;
@@ -71,6 +72,7 @@ interface InputProps {
         uuid: string;
     };
     demos: string;
+    hook_duration: number;
 }
 
 export default function Page() {
@@ -183,12 +185,13 @@ export default function Page() {
     const [inputProps, setInputProps] = useState<InputProps>({
         text: sentences[index],
         videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
-        video_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30) + 150,
+        video_duration: 0,
         textStyle,
         videoProps: {
             uuid: uuidv4()
         },
-        demos: demoVideos[selectedDemoId]
+        demos: demoVideos[selectedDemoId],
+        hook_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30)
     });
     const { renderMedia, state, setToken, token } = useRendering(COMP_NAME, inputProps);
 
@@ -220,6 +223,11 @@ export default function Page() {
             return;
         }
 
+        if (demoVideos.length > 0) {
+            console.log('demoVideos is already populated')
+            return;
+        }
+
         let tempDemos: any[] = [];
 
         const { data: demos, error: demosError } = await supabase
@@ -243,7 +251,7 @@ export default function Page() {
                 alt: `Demo ${index + 1}`
             });
         }
-        console.log(tempDemos)
+        console.log('tempDemos', tempDemos)
         setDemos(tempDemos);
     }
 
@@ -282,10 +290,23 @@ export default function Page() {
                     if (!demosError && demos) {
                         const videoKey = demos.key.split('/')[1].replace('.mp4', '')
                         const url = await getSignedUrl(videoKey + '.mp4', 'upload-bucket', session.data.session?.access_token)
-                        setInputProps(prev => ({
-                            ...prev,
-                            demos: url || ""
-                        }))
+
+                        parseMedia({
+                            src: url || "",
+                            fields: {
+                                slowDurationInSeconds: true,
+                            },
+                        })
+                            .then(({ slowDurationInSeconds }: { slowDurationInSeconds: number }) => {
+                                setInputProps(prev => ({
+                                    ...prev,
+                                    video_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30) + Math.round(slowDurationInSeconds * 30),
+                                    demos: url || ""
+                                }))
+                            })
+                            .catch((err: any) => {
+                                console.log(`Error fetching metadata: ${err}`);
+                            });
                     }
 
                     console.log("session data token found")
@@ -330,12 +351,13 @@ export default function Page() {
         setInputProps({
             text: sentences[index],
             videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
-            video_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30) + 150,
+            video_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30),
             textStyle,
             videoProps: {
                 uuid: uuidv4()
             },
-            demos: demoVideos[selectedDemoId]
+            demos: demoVideos[selectedDemoId],
+            hook_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30)
         });
     }, [index, selectedPhotoId, textStyle, demos, selectedDemoId]);
 
@@ -766,21 +788,47 @@ export default function Page() {
         setSelectedPhotoId(id)
     }
 
-    const onDemoSelect = (id: number) => {
-        setSelectedDemoId(id)
-        const startTime = performance.now()
-        const videoKey = demoVideos[selectedDemoId].replace('.mp4', '')
-        console.log(videoKey)
-        getSignedUrl(videoKey + '.mp4', 'upload-bucket', token).then((url) => {
-            const endTime = performance.now()
-            const duration = endTime - startTime
-            console.log(`Fetching video took ${duration} milliseconds`)
-            console.log(url)
-            setInputProps({
-                ...inputProps,
-                demos: url || ""
+    const onDemoSelect = async (id: number) => {
+        try {
+            setSelectedDemoId(id)
+            id = id + 1
+            // Ensure we have a valid video key
+            if (!demoVideos[id]) {
+                throw new Error('Invalid demo video selected')
+            }
+
+            console.log('demoVideos', demoVideos[id])
+            const videoKey = demoVideos[id].replace('.mp4', '')
+            const url = await getSignedUrl(videoKey + '.mp4', 'upload-bucket', token)
+            console.log('url', url)
+            if (!url) {
+                throw new Error('Failed to get signed URL')
+            }
+
+            // Parse the media to get duration
+            const metadata = await parseMedia({
+                src: url,
+                fields: {
+                    slowDurationInSeconds: true,
+                }
             })
-        })
+
+            // Calculate durations
+            const selectedVideo = vids.find(v => v.id === selectedPhotoId)
+            const hookDuration = Math.round((selectedVideo?.duration || 5) * 30)
+            const demoDuration = Math.round(metadata.slowDurationInSeconds * 30)
+
+            // Update inputProps with new values
+            setInputProps(prev => ({
+                ...prev,
+                demos: url,
+                video_duration: hookDuration + demoDuration,
+                hook_duration: hookDuration
+            }))
+        } catch (error) {
+            console.error('Error in onDemoSelect:', error)
+            toast.error(error instanceof Error ? error.message : 'Failed to load demo video')
+        }
     }
 
     const nextDemoPage = () => {
@@ -997,7 +1045,7 @@ export default function Page() {
                                     <Player
                                         component={Main}
                                         inputProps={inputProps}
-                                        durationInFrames={Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30) + 150}
+                                        durationInFrames={inputProps.video_duration}
                                         fps={30}
                                         compositionWidth={1080}
                                         compositionHeight={1920}

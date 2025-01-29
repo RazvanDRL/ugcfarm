@@ -6,6 +6,7 @@ export const CompositionProps = z.object({
   text: z.string(),
   videoUrl: z.string(),
   video_duration: z.number(),
+  hook_duration: z.number(),
   videoProps: z.object({
     uuid: z.string(),
   }),
@@ -25,6 +26,7 @@ export const defaultMyCompProps = {
   text: "Your text here",
   videoUrl: "",
   video_duration: 5,
+  hook_duration: 5,
   videoProps: {
     uuid: "",
   },

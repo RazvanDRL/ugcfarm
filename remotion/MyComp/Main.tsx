@@ -52,7 +52,7 @@ const FONT_FAMILIES = {
 // Define type for font family keys
 type FontFamilyKey = keyof typeof FONT_FAMILIES;
 
-export const Main = ({ text, videoUrl, video_duration, videoProps, textStyle, demos }: z.infer<typeof CompositionProps>) => {
+export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps, textStyle, demos }: z.infer<typeof CompositionProps>) => {
   const { width, height } = useVideoConfig();
   const {
     fontSize,
@@ -85,10 +85,12 @@ export const Main = ({ text, videoUrl, video_duration, videoProps, textStyle, de
 
   const processedText = uppercase ? text.toUpperCase() : text;
 
+  console.log(video_duration, hook_duration, demos)
+
   return (
     <AbsoluteFill>
       {/* Background Video */}
-      <Sequence from={0} durationInFrames={video_duration}>
+      <Sequence from={0} durationInFrames={hook_duration}>
         <OffthreadVideo
           src={videoUrl}
           style={{
@@ -101,8 +103,8 @@ export const Main = ({ text, videoUrl, video_duration, videoProps, textStyle, de
       </Sequence>
 
       {/* Demo Video */}
-      {demos && video_duration && (
-        <Sequence from={video_duration - 150} premountFor={100}>
+      {demos && hook_duration && (
+        <Sequence from={hook_duration} premountFor={100}>
           <OffthreadVideo
             src={demos}
             style={{
@@ -110,33 +112,35 @@ export const Main = ({ text, videoUrl, video_duration, videoProps, textStyle, de
               height,
               objectFit: "cover",
             }}
-          // pauseWhenBuffering={true}
+            pauseWhenBuffering={true}
           />
         </Sequence>
       )}
 
       {/* Text Overlay */}
-      <AbsoluteFill
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "0 2rem",
-        }}
-      >
-        <h1
+      <Sequence from={0} durationInFrames={hook_duration}>
+        <AbsoluteFill
           style={{
-            fontSize: `${fontSize}px`,
-            fontWeight,
-            fontFamily: fontFamily,
-            color: textColor,
-            textAlign: "center",
-            // WebkitTextStroke: `2px ${strokeColor}`,
-            textShadow: `0 2px 4px ${shadowColor}`,
+            justifyContent: "center",
+            alignItems: "center",
+            padding: "0 2rem",
           }}
         >
-          {processedText}
-        </h1>
-      </AbsoluteFill>
+          <h1
+            style={{
+              fontSize: `${fontSize}px`,
+              fontWeight,
+              fontFamily: fontFamily,
+              color: textColor,
+              textAlign: "center",
+              // WebkitTextStroke: `2px ${strokeColor}`,
+              textShadow: `0 2px 4px ${shadowColor}`,
+            }}
+          >
+            {processedText}
+          </h1>
+        </AbsoluteFill>
+      </Sequence>
     </AbsoluteFill>
   );
 };
