@@ -16,10 +16,10 @@ const S3 = new S3Client({
     },
 });
 
-// Rate limiting for 2 requests per 15 seconds
+// Rate limiting for 50 requests per 10 seconds
 const ratelimit = new Ratelimit({
     redis: Redis.fromEnv(),
-    limiter: Ratelimit.slidingWindow(15, '15 s'),
+    limiter: Ratelimit.slidingWindow(50, '10 s'),
     analytics: true,
 });
 
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
                 Key: fullKey,
             }),
             {
-                expiresIn: 3600, // 1 hour
+                expiresIn: 86400, // 1 day
             }
         );
         return NextResponse.json({ url });

@@ -97,7 +97,7 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
             height,
             objectFit: "cover",
           }}
-          pauseWhenBuffering={true}
+          pauseWhenBuffering
         />
         <AbsoluteFill
           style={{
@@ -146,7 +146,7 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
 
       {/* Demo Video */}
       {demos && hook_duration && (
-        <Sequence from={hook_duration} premountFor={100}>
+        <Sequence from={hook_duration} premountFor={hook_duration}>
           <OffthreadVideo
             src={demos}
             style={{
@@ -154,7 +154,7 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
               height,
               objectFit: "cover",
             }}
-            pauseWhenBuffering={true}
+            pauseWhenBuffering
           />
         </Sequence>
       )}

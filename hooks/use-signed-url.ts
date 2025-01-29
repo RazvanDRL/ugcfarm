@@ -36,7 +36,7 @@ export async function getSignedUrl(key: string, bucket: string, token: string): 
         // Cache the URL with expiration (1 hour - 5 minutes buffer)
         const cacheData: CachedUrl = {
             url: data.url,
-            expiresAt: Date.now() + (55 * 60 * 1000)
+            expiresAt: Date.now() + ((86400 - 5 * 60) * 1000)
         };
 
         localStorage.setItem(

@@ -160,11 +160,11 @@ export default function Page() {
     const [demoPage, setDemoPage] = useState(1)
     const [videoPage, setVideoPage] = useState(1)
     const [sentences, setSentences] = useState([
-        "One decision can change your life",
-        "How to start dropshipping for $10 (in 2025)",
-        "This simple trick doubles your sales, immediately!",
-        "How much is a smart brand owner making per month?",
-        "Learn how to get your first 100K views on TikTok",
+        "Edit this hook 1",
+        "Edit this hook 2",
+        "Edit this hook 3",
+        "Edit this hook 4",
+        "Edit this hook 5",
     ])
     const [selectedPhotoId, setSelectedPhotoId] = useState<number>(7)
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
@@ -789,6 +789,7 @@ export default function Page() {
 
     const onPhotoSelect = (id: number) => {
         setSelectedPhotoId(id)
+        setSelectedDemoId(0)
     }
 
     const onDemoSelect = async (id: number) => {
@@ -1135,7 +1136,7 @@ export default function Page() {
                                     <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
                                         <div className="flex flex-row items-center gap-4">
                                             <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                                1. Choose a hook
+                                                1. Choose a hook {demos.length > 0 ? `(${demos.length} available)` : ''}
                                             </p>
                                             <Dialog open={open} onOpenChange={setOpen}>
                                                 <DialogTrigger asChild>
@@ -1237,7 +1238,7 @@ export default function Page() {
                                 <div className="flex flex-col items-start p-6">
                                     <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
                                         <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                            3. Choose your video
+                                            3. Choose your video <span className="text-xs opacity-80 font-[500]">(optional)</span>{selectedDemoId === 0 ? <span className="text-xs text-primary font-[500]"> - no video selected</span> : ''}
                                         </p>
                                         {demos.length > 0 &&
                                             <div className="flex flex-row items-center gap-2">
