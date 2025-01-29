@@ -9,7 +9,7 @@ export function ROICalculator() {
     const [videosPerMonth, setVideosPerMonth] = useState([10])
 
     const AGENCY_COST_PER_VIDEO = 80
-    const OUR_COST_PER_VIDEO = videosPerMonth[0] <= 10 ? 1.9 : videosPerMonth[0] <= 50 ? 1.9 : videosPerMonth[0] <= 150 ? 0.98 : 0.86
+    const OUR_COST_PER_VIDEO = videosPerMonth[0] <= 10 ? 2.9 : videosPerMonth[0] <= 50 ? 2.9 : videosPerMonth[0] <= 150 ? 1.18 : 0.92
 
     const agencyCost = videosPerMonth[0] * AGENCY_COST_PER_VIDEO
     const ourCost = videosPerMonth[0] * OUR_COST_PER_VIDEO
