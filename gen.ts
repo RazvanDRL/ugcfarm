@@ -14,16 +14,15 @@ export function generateImageData(variant: number, min: number, max: number) {
         for (let i = min; i <= max; i++) {
             images.push({
                 id: i,
-                url: process.env.NEXT_PUBLIC_CDN_URL + "/photos/" + i.toString() + ".webp?class=dashboard",
+                url: process.env.NEXT_PUBLIC_CDN_URL + "/photos/" + i.toString().padStart(3, '0') + ".webp?class=dashboard",
                 alt: "UGC Avatar " + i
             });
         }
     }
-
     return images;
 }
 
-const imageData = generateImageData(2, 1, 41);
+const imageData = generateImageData(2, 64, 111);
 
 fs.writeFile("image_data.json", JSON.stringify(imageData, null, 2), (err) => {
     if (err) throw err;
