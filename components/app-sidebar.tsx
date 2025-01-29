@@ -5,8 +5,10 @@ import {
     BookCopy,
     Calendar,
     ChartArea,
+    HelpCircle,
     History,
     LifeBuoy,
+    PlusCircle,
     Send,
     Settings2,
     SquareTerminal,
@@ -30,6 +32,8 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import { type Profile } from "@/lib/supabase/client/supabase"
+import { FeedbackFish } from '@feedback-fish/react'
+import { Button } from "./ui/button"
 
 const data = {
     navMain: [
@@ -102,10 +106,25 @@ export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sideb
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
+                <div className="px-4">
+                    <FeedbackFish projectId="7af5337d80b183" >
+                        <Button variant="outline" className="w-full bg-primary text-white border-none transition-all duration-300">
+                            <HelpCircle className="w-5 h-5" />
+                            Help
+                        </Button>
+                    </FeedbackFish>
+                </div>
                 <NavMain items={data.navMain} />
                 <NavProjects projects={data.projects} />
                 {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
-                <div className="px-4 pb-2 mt-auto">
+                <div className="px-4 pb-2 mt-auto space-y-2">
+                    <Link href="/#pricing">
+                        <Button variant="outline" className="w-full bg-primary text-white border-none transition-all duration-300">
+                            <PlusCircle className="w-5 h-5" />
+                            Add more videos
+                        </Button>
+                    </Link>
+
                     <div className="flex items-center gap-4 px-4 py-3 rounded-lg bg-primary/10 border-2 border-primary/50">
                         <Video className="w-6 h-6 text-primary" />
                         <div className="flex flex-col gap-0.5">
