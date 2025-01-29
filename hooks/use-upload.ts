@@ -191,6 +191,14 @@ export const useUpload = (token: string, photos: Photo[]) => {
             }
 
             toast.success('Files uploaded successfully');
+
+
+            // Add a slight delay before refreshing to ensure the toast is visible
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+
+
             return { videoKey, thumbnailKey };
         } catch (error: any) {
             toast.error(error.message || 'Failed to upload files');
