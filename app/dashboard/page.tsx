@@ -52,6 +52,7 @@ import {
 } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
+import { getSignedUrl } from "@/hooks/use-signed-url"
 
 interface InputProps {
     text: string;
@@ -233,20 +234,11 @@ export default function Page() {
         for (const [index, demo] of demos.entries()) {
             setDemoVideos(prev => [...prev, demo.key.split('/')[1]])
 
-            const response = await fetch(`/api/generate-signed-url`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${access_token}`,
-                },
-                body: JSON.stringify({ key: `${demo.key.split('/')[1].replace('.mp4', '')}-thumb.webp`, bucket: 'upload-bucket' }),
-            });
-
-            const data = await response.json();
+            const url = await getSignedUrl(demo.key.split('/')[1].replace('.mp4', '') + '-thumb.webp', 'upload-bucket', access_token)
 
             tempDemos.push({
                 id: index + 1,
-                url: data.url,
+                url: url,
                 alt: `Demo ${index + 1}`
             });
         }
