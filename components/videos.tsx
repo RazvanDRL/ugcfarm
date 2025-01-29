@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import Image from "next/image";
-import { Lock } from "lucide-react"
+import { Clock, Lock } from "lucide-react"
 import {
     Tooltip,
     TooltipContent,
@@ -129,7 +129,12 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                         />
                         {isLocked && (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-                                <Lock className="w-4 h-4 text-white" />
+                                {
+                                    plan === 'starter' ?
+                                        <Lock className="w-4 h-4 text-white" />
+                                        :
+                                        <Clock className="w-4 h-4 text-white" />
+                                }
                             </div>
                         )}
                     </div>
@@ -149,7 +154,12 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                                 {PhotoElement}
                             </TooltipTrigger>
                             <TooltipContent>
-                                <Link href="/#pricing" className="underline">Upgrade to unlock &rarr;</Link>
+                                {
+                                    plan === 'starter' ?
+                                        <Link href="/#pricing" className="underline">Upgrade to unlock &rarr;</Link>
+                                        :
+                                        <p>Coming soon...</p>
+                                }
                             </TooltipContent>
                         </Tooltip>
                     </TooltipProvider>
