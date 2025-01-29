@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/client/supabase";
 import { toast } from "sonner";
+import { PurchaseNotification } from "@/components/purchase-notification";
 
 
 const withoutUGC = [{
@@ -572,6 +573,7 @@ export default function Landing() {
                 </div>
             </main >
             <Footer />
+            <PurchaseNotification />
 
             {/* Corner Card */}
             {showCornerCard && !hasSubmittedEmail && (
