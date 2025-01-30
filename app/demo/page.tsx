@@ -36,11 +36,27 @@ const demoVideos = [
     },
     {
         id: 7,
-        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/02ca629e-6fee-453a-b425-8f82a9586160/playlist.m3u8",
+        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/fd3de4cc-ce16-4d71-9f72-5075b68ab71d/playlist.m3u8",
     },
     {
         id: 8,
-        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/d13b7bf5-f4d8-42c3-8d07-ae8c9300134b/playlist.m3u8",
+        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/d930aca8-7374-43db-8b9c-c998c58bdc73/playlist.m3u8",
+    },
+    {
+        id: 9,
+        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/29e1e221-581e-474e-924e-8fd8fa634dfb/playlist.m3u8",
+    },
+    {
+        id: 10,
+        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/e870e529-60c5-4722-88a3-de24f8c7f480/playlist.m3u8",
+    },
+    {
+        id: 11,
+        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/4fc36cc4-27e6-4363-8da2-a8d2cf10768b/playlist.m3u8",
+    },
+    {
+        id: 12,
+        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/29bb6715-7b0d-4b20-8c8f-292b5c49e884/playlist.m3u8",
     },
 ]
 
@@ -67,8 +83,8 @@ export default function DemoPage() {
                     </div>
 
                     {/* Demo Videos Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
-                        {demoVideos.map((video) => (
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 w-full">
+                        {[...demoVideos].reverse().map((video) => (
                             <Card key={video.id} className="group relative overflow-hidden border-2 hover:border-primary/50 transition-all duration-300">
                                 <div className="relative w-full" style={{ paddingBottom: "177.78%" }}>
                                     <div className="absolute inset-0">
@@ -81,9 +97,15 @@ export default function DemoPage() {
                                             loop
                                             controls={false}
                                             playsinline
+                                            preload="metadata"
                                             config={{
                                                 file: {
-                                                    forceHLS: true,
+                                                    attributes: {
+                                                        playsInline: true,
+                                                        preload: "metadata",
+                                                        controlsList: "nodownload",
+                                                        disablePictureInPicture: true,
+                                                    }
                                                 }
                                             }}
                                         />
