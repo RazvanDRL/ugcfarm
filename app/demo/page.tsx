@@ -4,7 +4,7 @@ import { Navbar } from "@/components/navbar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { PlayCircle, ArrowRight } from "lucide-react"
+import { PlayCircle, ArrowRight, Rocket, Sparkles, Zap } from "lucide-react"
 import Link from "next/link"
 import ReactPlayer from 'react-player'
 import React from 'react'
@@ -74,12 +74,17 @@ export default function DemoPage() {
                             Demo Videos
                         </Badge>
                         <h1 className="text-5xl font-[900] text-[#1a1a1a] text-center">
-                            See UGC Farm<br />
-                            <span className="text-primary">In Action</span>
+                            Transform Your Brand With<br />
+                            <span className="text-primary">Proven UGC Strategies</span>
                         </h1>
                         <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center">
-                            Watch how brands are using UGC Farm to create converting content
+                            Used by brands to increase conversions by 42% on average.
                         </p>
+                        <Link href="/#pricing">
+                            <Button className="px-6 py-6 text-lg font-bold">
+                                Create your own video&nbsp;&nbsp;&rarr;
+                            </Button>
+                        </Link>
                     </div>
 
                     {/* Demo Videos Grid */}
@@ -123,23 +128,31 @@ export default function DemoPage() {
                     </div>
 
                     {/* CTA Section */}
-                    <div className="mt-16 text-center space-y-8">
-                        <h2 className="text-4xl font-[900]">
-                            Ready to create your own?
-                        </h2>
-                        <p className="text-xl text-muted-foreground max-w-2xl mx-auto font-[500]">
-                            Start generating professional UGC content today
-                        </p>
-                        <Link href="/#pricing">
-                            <Button
-                                variant="default"
-                                size="lg"
-                                className="mt-8 hover:scale-[1.05] transition-all duration-300 font-[600] text-lg px-6 py-6"
-                            >
-                                Get Started Now
-                                <ArrowRight className="ml-2 h-5 w-5" />
-                            </Button>
-                        </Link>
+                    <div className="mt-24 w-full">
+                        <Card className="relative overflow-hidden border-2 border-primary/20 bg-primary/5 py-16 shadow-lg hover:shadow-xl transition-all">
+                            <div className="mx-auto max-w-2xl text-center px-4">
+                                <Badge variant="secondary" className="mb-6 px-4 py-2 font-bold text-sm bg-primary/10 text-primary hover:bg-primary/20">
+                                    <Sparkles className="w-4 h-4 mr-2" />
+                                    Start Creating Today
+                                </Badge>
+                                <h2 className="text-5xl font-[900] text-[#1a1a1a] mb-6">
+                                    Ready to Transform Your Content?
+                                </h2>
+                                <p className="text-xl text-[#1a1a1a]/60 mb-8 font-[500]">
+                                    Boost your conversions with AI-powered UGC
+                                </p>
+                                <Link href="/#pricing">
+                                    <Button
+                                        variant="default"
+                                        size="lg"
+                                        className="h-[50px] px-8 py-6 text-lg font-bold hover:scale-105 transition-transform duration-300"
+                                    >
+                                        <Zap className="mr-2 h-5 w-5" />
+                                        Launch Your First Campaign
+                                    </Button>
+                                </Link>
+                            </div>
+                        </Card>
                     </div>
                 </div>
             </main>
