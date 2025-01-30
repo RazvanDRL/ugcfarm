@@ -153,13 +153,21 @@ function getNumber(plan: string) {
     if (plan === 'starter') {
         return 9;
     } else if (plan === 'creator') {
-        return 30;
+        return 23;
     }
     return 10;
 }
 
+function getPage(plan: string) {
+    if (plan === 'starter') {
+        return 1;
+    } else if (plan === 'creator') {
+        return 2;
+    }
+    return 3;
+}
+
 export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage, plan }: PhotoListProps) {
-    // Calculate pagination
     const itemsPerPage = 21;
     const startIndex = (currentPage - 1) * itemsPerPage;
 
@@ -177,7 +185,13 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
     return (
         <div className={cn("grid grid-cols-7 grid-rows-3 gap-2", className)}>
             {paginatedPhotos.map((photo, index) => {
-                const isLocked = currentPage > 1 || index > getNumber(plan);
+                const absoluteIndex = startIndex + index;
+                const isLocked = plan === 'starter' ?
+                    absoluteIndex > 9 || currentPage > 1 :
+                    plan === 'creator' ?
+                        absoluteIndex > 22 || currentPage > 2 :
+                        absoluteIndex > 9 || currentPage > 3;
+
                 const PhotoElement = (
                     <div
                         key={photo.id}
