@@ -1266,12 +1266,18 @@ export default function Page() {
                                     </Link>
                                 )} */}
                                 {state.status === "done" ? (
-                                    <Button variant="outline" className="w-fit" onClick={() => toast.success("Video downloaded")} asChild>
-                                        <a href={video} download>
-                                            Download video
-                                            <DownloadIcon className="w-5 h-5 ml-2" />
-                                        </a>
-                                    </Button>
+                                    <>
+                                        <Button variant="outline" className="w-fit" onClick={() => toast.success("Video downloaded")} asChild>
+                                            <a href={video} download>
+                                                Download video
+                                                <DownloadIcon className="w-5 h-5 ml-2" />
+                                            </a>
+                                        </Button>
+                                        <Button onClick={createVideo} className="w-fit">
+                                            Create video
+                                            <ArrowRightIcon className="w-5 h-5" />
+                                        </Button>
+                                    </>
                                 ) : loading ? (
                                     <Button variant="outline" className="w-fit">
                                         <Loader className="w-5 h-5 animate-spin" />

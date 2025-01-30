@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { CheckCircle, ArrowLeft, Home } from "lucide-react"
+import { CheckCircle, ArrowLeft, Home, User } from "lucide-react"
 import { Card } from "@/components/ui/card"
 import dynamic from "next/dynamic"
 import { useEffect, useState } from "react"
@@ -57,16 +57,16 @@ export default function PaymentCompletedPage() {
 
                 <div className="flex flex-col gap-3">
                     <Button asChild variant="default">
-                        <Link href="/">
-                            <Home className="mr-2 h-4 w-4" />
-                            Return Home
+                        <Link href="/login">
+                            <User className="mr-2 h-4 w-4" />
+                            Login
                         </Link>
                     </Button>
 
                     <Button asChild variant="ghost">
-                        <Link href="/affiliates">
+                        <Link href="/">
                             <ArrowLeft className="mr-2 h-4 w-4" />
-                            Affiliates
+                            Back to Home
                         </Link>
                     </Button>
                 </div>
