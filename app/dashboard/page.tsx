@@ -1142,7 +1142,7 @@ export default function Page() {
                                     <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
                                         <div className="flex flex-row items-center gap-4">
                                             <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                                1. Choose a hook {demos.length > 0 ? `(${demos.length} available)` : ''}
+                                                1. Choose a hook
                                             </p>
                                             <Dialog open={open} onOpenChange={setOpen}>
                                                 <DialogTrigger asChild>
