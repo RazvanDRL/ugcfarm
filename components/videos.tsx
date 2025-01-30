@@ -27,67 +27,136 @@ interface PhotoListProps {
 
 const vids = [
     {
-        "id": 7,
-        "url": "https://ugcfarm.b-cdn.net/avatars/007.mp4",
-        "alt": "UGC Video 7"
-    },
-    {
-        "id": 12,
-        "url": "https://ugcfarm.b-cdn.net/avatars/012.mp4",
-        "alt": "UGC Video 12"
-    },
-    {
-        "id": 15,
-        "url": "https://ugcfarm.b-cdn.net/avatars/015.mp4",
-        "alt": "UGC Video 15"
-    },
-    {
-        "id": 20,
-        "url": "https://ugcfarm.b-cdn.net/avatars/020.mp4",
-        "alt": "UGC Video 20"
-    },
-    {
-        "id": 31,
-        "url": "https://ugcfarm.b-cdn.net/avatars/031.mp4",
-        "alt": "UGC Video 31"
-    },
-    {
-        "id": 32,
-        "url": "https://ugcfarm.b-cdn.net/avatars/032.mp4",
-        "alt": "UGC Video 32"
-    },
-    {
-        "id": 64,
-        "url": "https://ugcfarm.b-cdn.net/avatars/064.mp4",
-        "alt": "UGC Video 64"
-    },
-    {
-        "id": 66,
-        "url": "https://ugcfarm.b-cdn.net/avatars/066.mp4",
-        "alt": "UGC Video 66"
-    },
-    {
-        "id": 79,
-        "url": "https://ugcfarm.b-cdn.net/avatars/079.mp4",
-        "alt": "UGC Video 79"
-    },
-    {
-        "id": 80,
-        "url": "https://ugcfarm.b-cdn.net/avatars/080.mp4",
-        "alt": "UGC Video 80"
-    },
-    {
-        "id": 82,
-        "url": "https://ugcfarm.b-cdn.net/avatars/082.mp4",
-        "alt": "UGC Video 82"
-    },
-    {
-        "id": 111,
-        "url": "https://ugcfarm.b-cdn.net/avatars/111.mp4",
-        "alt": "UGC Video 111"
-    },
+        id: 20,
+        url: "https://ugcfarm.b-cdn.net/avatars/020.mp4",
+        alt: "UGC Video 020",
+        duration: 2.2,
+    }, {
+        id: 36,
+        url: "https://ugcfarm.b-cdn.net/avatars/036.mp4",
+        alt: "UGC Video 036",
+        duration: 2.433333,
+    }, {
+        id: 32,
+        url: "https://ugcfarm.b-cdn.net/avatars/032.mp4",
+        alt: "UGC Video 032",
+        duration: 3,
+    }, {
+        id: 31,
+        url: "https://ugcfarm.b-cdn.net/avatars/031.mp4",
+        alt: "UGC Video 031",
+        duration: 3.1,
+    }, {
+        id: 18,
+        url: "https://ugcfarm.b-cdn.net/avatars/018.mp4",
+        alt: "UGC Video 018",
+        duration: 3.9,
+    }, {
+        id: 80,
+        url: "https://ugcfarm.b-cdn.net/avatars/080.mp4",
+        alt: "UGC Video 080",
+        duration: 3,
+    }, {
+        id: 82,
+        url: "https://ugcfarm.b-cdn.net/avatars/082.mp4",
+        alt: "UGC Video 082",
+        duration: 3.4,
+    }, {
+        id: 79,
+        url: "https://ugcfarm.b-cdn.net/avatars/079.mp4",
+        alt: "UGC Video 079",
+        duration: 5.1,
+    }, {
+        id: 116,
+        url: "https://ugcfarm.b-cdn.net/avatars/116.mp4",
+        alt: "UGC Video 116",
+        duration: 3,
+    }, {
+        id: 117,
+        url: "https://ugcfarm.b-cdn.net/avatars/117.mp4",
+        alt: "UGC Video 117",
+        duration: 4,
+    }, {
+        id: 101,
+        url: "https://ugcfarm.b-cdn.net/avatars/101.mp4",
+        alt: "UGC Video 101",
+        duration: 2.6,
+    }, {
+        id: 115,
+        url: "https://ugcfarm.b-cdn.net/avatars/115.mp4",
+        alt: "UGC Video 115",
+        duration: 2.666667,
+    }, {
+        id: 114,
+        url: "https://ugcfarm.b-cdn.net/avatars/114.mp4",
+        alt: "UGC Video 114",
+        duration: 3.1,
+    }, {
+        id: 64,
+        url: "https://ugcfarm.b-cdn.net/avatars/064.mp4",
+        alt: "UGC Video 064",
+        duration: 3.733333,
+    }, {
+        id: 111,
+        url: "https://ugcfarm.b-cdn.net/avatars/111.mp4",
+        alt: "UGC Video 111",
+        duration: 4.233333,
+    }, {
+        id: 113,
+        url: "https://ugcfarm.b-cdn.net/avatars/113.mp4",
+        alt: "UGC Video 113",
+        duration: 3.1,
+    }, {
+        id: 112,
+        url: "https://ugcfarm.b-cdn.net/avatars/112.mp4",
+        alt: "UGC Video 112",
+        duration: 3.033333,
+    }, {
+        id: 66,
+        url: "https://ugcfarm.b-cdn.net/avatars/066.mp4",
+        alt: "UGC Video 066",
+        duration: 3.833333,
+    }, {
+        id: 15,
+        url: "https://ugcfarm.b-cdn.net/avatars/015.mp4",
+        alt: "UGC Video 015",
+        duration: 2.866667,
+    }, {
+        id: 3,
+        url: "https://ugcfarm.b-cdn.net/avatars/003.mp4",
+        alt: "UGC Video 003",
+        duration: 3.033333,
+    }, {
+        id: 17,
+        url: "https://ugcfarm.b-cdn.net/avatars/017.mp4",
+        alt: "UGC Video 017",
+        duration: 2.733333,
+    }, {
+        id: 7,
+        url: "https://ugcfarm.b-cdn.net/avatars/007.mp4",
+        alt: "UGC Video 007",
+        duration: 5.1,
+    }, {
+        id: 12,
+        url: "https://ugcfarm.b-cdn.net/avatars/012.mp4",
+        alt: "UGC Video 012",
+        duration: 2.766667,
+    }, {
+        id: 10,
+        url: "https://ugcfarm.b-cdn.net/avatars/010.mp4",
+        alt: "UGC Video 010",
+        duration: 2.2,
+    }
 ]
 
+function getNumber(plan: string) {
+    if (plan === 'starter') {
+        return 9;
+    } else if (plan === 'creator') {
+        return 30;
+    }
+    return 10;
+}
 
 export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage, plan }: PhotoListProps) {
     // Calculate pagination
@@ -108,7 +177,7 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
     return (
         <div className={cn("grid grid-cols-7 grid-rows-3 gap-2", className)}>
             {paginatedPhotos.map((photo, index) => {
-                const isLocked = currentPage > 1 || index > (plan === 'starter' ? 9 : 10);
+                const isLocked = currentPage > 1 || index > getNumber(plan);
                 const PhotoElement = (
                     <div
                         key={photo.id}

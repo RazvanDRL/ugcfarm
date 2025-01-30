@@ -85,77 +85,126 @@ interface InputProps {
 export default function Page() {
     const vids = [
         {
-            id: 7,
-            url: "https://ugcfarm.b-cdn.net/avatars/007.mp4",
-            alt: "UGC Video 7",
-            duration: 5.1
-        },
-        {
-            id: 12,
-            url: "https://ugcfarm.b-cdn.net/avatars/012.mp4",
-            alt: "UGC Video 12",
-            duration: 2.766667
-        },
-        {
-            id: 15,
-            url: "https://ugcfarm.b-cdn.net/avatars/015.mp4",
-            alt: "UGC Video 15",
-            duration: 2.866667
-        },
-        {
             id: 20,
             url: "https://ugcfarm.b-cdn.net/avatars/020.mp4",
-            alt: "UGC Video 20",
-            duration: 2.2
-        },
-        {
-            id: 31,
-            url: "https://ugcfarm.b-cdn.net/avatars/031.mp4",
-            alt: "UGC Video 31",
-            duration: 3.1
-        },
-        {
+            alt: "UGC Video 020",
+            duration: 2.2,
+        }, {
+            id: 36,
+            url: "https://ugcfarm.b-cdn.net/avatars/036.mp4",
+            alt: "UGC Video 036",
+            duration: 2.433333,
+        }, {
             id: 32,
             url: "https://ugcfarm.b-cdn.net/avatars/032.mp4",
-            alt: "UGC Video 32",
-            duration: 3
-        },
-        {
-            id: 64,
-            url: "https://ugcfarm.b-cdn.net/avatars/064.mp4",
-            alt: "UGC Video 64",
-            duration: 3.733333
-        },
-        {
-            id: 66,
-            url: "https://ugcfarm.b-cdn.net/avatars/066.mp4",
-            alt: "UGC Video 66",
-            duration: 3.833333
-        },
-        {
-            id: 79,
-            url: "https://ugcfarm.b-cdn.net/avatars/079.mp4",
-            alt: "UGC Video 79",
-            duration: 5.1
-        },
-        {
+            alt: "UGC Video 032",
+            duration: 3,
+        }, {
+            id: 31,
+            url: "https://ugcfarm.b-cdn.net/avatars/031.mp4",
+            alt: "UGC Video 031",
+            duration: 3.1,
+        }, {
+            id: 18,
+            url: "https://ugcfarm.b-cdn.net/avatars/018.mp4",
+            alt: "UGC Video 018",
+            duration: 3.9,
+        }, {
             id: 80,
             url: "https://ugcfarm.b-cdn.net/avatars/080.mp4",
-            alt: "UGC Video 80",
-            duration: 3
-        },
-        {
+            alt: "UGC Video 080",
+            duration: 3,
+        }, {
             id: 82,
             url: "https://ugcfarm.b-cdn.net/avatars/082.mp4",
-            alt: "UGC Video 82",
-            duration: 3.4
-        },
-        {
+            alt: "UGC Video 082",
+            duration: 3.4,
+        }, {
+            id: 79,
+            url: "https://ugcfarm.b-cdn.net/avatars/079.mp4",
+            alt: "UGC Video 079",
+            duration: 5.1,
+        }, {
+            id: 116,
+            url: "https://ugcfarm.b-cdn.net/avatars/116.mp4",
+            alt: "UGC Video 116",
+            duration: 3,
+        }, {
+            id: 117,
+            url: "https://ugcfarm.b-cdn.net/avatars/117.mp4",
+            alt: "UGC Video 117",
+            duration: 4,
+        }, {
+            id: 101,
+            url: "https://ugcfarm.b-cdn.net/avatars/101.mp4",
+            alt: "UGC Video 101",
+            duration: 2.6,
+        }, {
+            id: 115,
+            url: "https://ugcfarm.b-cdn.net/avatars/115.mp4",
+            alt: "UGC Video 115",
+            duration: 2.666667,
+        }, {
+            id: 114,
+            url: "https://ugcfarm.b-cdn.net/avatars/114.mp4",
+            alt: "UGC Video 114",
+            duration: 3.1,
+        }, {
+            id: 64,
+            url: "https://ugcfarm.b-cdn.net/avatars/064.mp4",
+            alt: "UGC Video 064",
+            duration: 3.733333,
+        }, {
             id: 111,
             url: "https://ugcfarm.b-cdn.net/avatars/111.mp4",
             alt: "UGC Video 111",
-            duration: 4.233333
-        },
+            duration: 4.233333,
+        }, {
+            id: 113,
+            url: "https://ugcfarm.b-cdn.net/avatars/113.mp4",
+            alt: "UGC Video 113",
+            duration: 3.1,
+        }, {
+            id: 112,
+            url: "https://ugcfarm.b-cdn.net/avatars/112.mp4",
+            alt: "UGC Video 112",
+            duration: 3.033333,
+        }, {
+            id: 66,
+            url: "https://ugcfarm.b-cdn.net/avatars/066.mp4",
+            alt: "UGC Video 066",
+            duration: 3.833333,
+        }, {
+            id: 15,
+            url: "https://ugcfarm.b-cdn.net/avatars/015.mp4",
+            alt: "UGC Video 015",
+            duration: 2.866667,
+        }, {
+            id: 3,
+            url: "https://ugcfarm.b-cdn.net/avatars/003.mp4",
+            alt: "UGC Video 003",
+            duration: 3.033333,
+        }, {
+            id: 17,
+            url: "https://ugcfarm.b-cdn.net/avatars/017.mp4",
+            alt: "UGC Video 017",
+            duration: 2.733333,
+        }, {
+            id: 7,
+            url: "https://ugcfarm.b-cdn.net/avatars/007.mp4",
+            alt: "UGC Video 007",
+            duration: 5.1,
+        }, {
+            id: 12,
+            url: "https://ugcfarm.b-cdn.net/avatars/012.mp4",
+            alt: "UGC Video 012",
+            duration: 2.766667,
+        }, {
+            id: 10,
+            url: "https://ugcfarm.b-cdn.net/avatars/010.mp4",
+            alt: "UGC Video 010",
+            duration: 2.2,
+        }
     ]
     const router = useRouter()
     const [user, setUser] = useState<User | null>(null)
@@ -170,7 +219,7 @@ export default function Page() {
         "Edit this hook 4",
         "Edit this hook 5",
     ])
-    const [selectedPhotoId, setSelectedPhotoId] = useState<number>(7)
+    const [selectedPhotoId, setSelectedPhotoId] = useState<number>(3)
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
     const [loading, setLoading] = useState(false)
     const [textStyle, setTextStyle] = useState({
@@ -887,7 +936,37 @@ export default function Page() {
             "id": 111,
             "url": "https://ugcfarm.b-cdn.net/photos/111.webp?class=dashboard",
             "alt": "UGC Avatar 111"
-        }
+        },
+        {
+            "id": 112,
+            "url": "https://ugcfarm.b-cdn.net/photos/112.webp?class=dashboard",
+            "alt": "UGC Avatar 112"
+        },
+        {
+            "id": 113,
+            "url": "https://ugcfarm.b-cdn.net/photos/113.webp?class=dashboard",
+            "alt": "UGC Avatar 113"
+        },
+        {
+            "id": 114,
+            "url": "https://ugcfarm.b-cdn.net/photos/114.webp?class=dashboard",
+            "alt": "UGC Avatar 114"
+        },
+        {
+            "id": 115,
+            "url": "https://ugcfarm.b-cdn.net/photos/115.webp?class=dashboard",
+            "alt": "UGC Avatar 115"
+        },
+        {
+            "id": 116,
+            "url": "https://ugcfarm.b-cdn.net/photos/116.webp?class=dashboard",
+            "alt": "UGC Avatar 116"
+        },
+        {
+            "id": 117,
+            "url": "https://ugcfarm.b-cdn.net/photos/117.webp?class=dashboard",
+            "alt": "UGC Avatar 117"
+        },
     ]
 
     const onPhotoSelect = (id: number) => {
