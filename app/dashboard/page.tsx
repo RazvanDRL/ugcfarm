@@ -288,6 +288,10 @@ export default function Page() {
                     throw new Error('Failed to fetch profile');
                 }
 
+                if (profile.plan === null) {
+                    router.replace('/#pricing')
+                }
+
                 setProfile(profile)
 
                 const session = await supabase.auth.getSession()
