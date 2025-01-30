@@ -96,6 +96,7 @@ Goal: ${intent}`
                 data: hooks,
                 prompt: prompt,
             })
+            .select()
 
         if (dbError) {
             console.error('Error saving hooks:', dbError)
@@ -105,7 +106,7 @@ Goal: ${intent}`
             )
         }
 
-        return NextResponse.json({ hooks })
+        return NextResponse.json({ hooks, hookId: savedHooks[0].id })
 
     } catch (error) {
         console.error('Error generating hooks:', error)

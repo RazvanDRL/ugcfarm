@@ -1029,6 +1029,12 @@ export default function Page() {
             // Update the sentences state with the new hooks
             setSentences(data.hooks)
             setIndex(0) // Reset to first hook
+            
+            // Set hook param with hookId from response
+            const params = new URLSearchParams(window.location.search)
+            params.set('hook', data.hookId)
+            window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
+            
             toast.success('Successfully generated new hooks!')
         } catch (error) {
             toast.error('Failed to generate hooks')
