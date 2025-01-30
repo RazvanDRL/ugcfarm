@@ -106,7 +106,7 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
         <div id={id} className={`${className}`}>
             <div className="max-w-5xl">
                 <h2 className={cn("text-5xl text-[#1a1a1a] sm:text-5xl font-black mb-8 text-center")}>
-                    Presale Pricing
+                    Pricing
                 </h2>
                 <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center mb-12">
                     Lock in these prices forever.
