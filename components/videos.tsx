@@ -209,6 +209,7 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                             src={photo.url}
                             alt={photo.alt}
                             className="w-full h-full object-cover aspect-square"
+                            draggable={false}
                         />
                         {isLocked && (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">

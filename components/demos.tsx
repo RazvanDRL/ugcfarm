@@ -79,6 +79,7 @@ export function DemoList({ photos, selectedPhotoId, onPhotoSelect, className, cu
                         src={photo.url}
                         alt={photo.alt}
                         className="w-full h-full object-cover aspect-[9/16]"
+                        draggable={false}
                     />
                 </div>
             ))}
