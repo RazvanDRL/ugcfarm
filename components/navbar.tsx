@@ -15,7 +15,8 @@ import { DiscountBanner } from "./banner"
 export function Navbar() {
     return (
         <>
-            <nav className="z-50 fixed bg-background flex items-center justify-center mx-auto top-0 left-0 right-0 w-full max-w-5xl">
+            <DiscountBanner />
+            <nav className="z-50 fixed bg-background flex items-center justify-center mx-auto top-8 md:top-10 left-0 right-0 w-full max-w-5xl">
                 <div className="container flex h-20 items-center justify-between px-8">
                     {/* Logo */}
                     <Link href="/" className="flex items-center space-x-2">

@@ -44,7 +44,7 @@ const withUGC = [{
         "Instant delivery",
         "Consistent brand voice",
         "Zero-effort",
-        "Scaleable",
+        "Scalable",
     ]
 }]
 
@@ -401,8 +401,8 @@ export default function Landing() {
 
                                 </Link>
                             </MagneticButton>
-                            {/* <Link href="/#pricing" className="text-sm opacity-80 font-[600] text-[#1a1a1a]/60 flex items-center hover:underline">
-                                Lock in&nbsp;<span className="hover:no-underline underline underline-offset-2 decoration-dashed">lifetime pricing</span>&nbsp;before launch
+                            {/* <Link href="/#pricing" className="text-sm font-[600] text-[#1a1a1a]/40 flex items-center hover:underline">
+                                Use code<span className="font-mono font-[500] bg-background text-primary/80 px-1 rounded-sm"> LAUNCH </span>for 20% off
                             </Link> */}
                         </div>
                     </div>
