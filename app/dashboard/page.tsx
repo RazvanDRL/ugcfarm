@@ -977,6 +977,13 @@ export default function Page() {
 
     const onDemoSelect = async (id: number) => {
         try {
+            // If clicking the same demo, deselect it
+            if (id === selectedDemoId) {
+                setSelectedDemoId(0)
+                resetDemo()
+                return
+            }
+
             setSelectedDemoId(id)
             await setDemo(id, demoVideos, token)
         } catch (error) {
