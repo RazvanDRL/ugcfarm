@@ -20,7 +20,10 @@ export const CompositionProps = z.object({
     uppercase: z.boolean().default(false),
     verticalAlignment: z.number().default(50),
   }),
-  demos: z.string().default("")
+  demos: z.object({
+    url: z.string().default(""),
+    duration: z.number().default(0)
+  }).nullable()
 });
 
 export const defaultMyCompProps = {
@@ -41,7 +44,7 @@ export const defaultMyCompProps = {
     uppercase: false,
     verticalAlignment: 50,
   },
-  demos: ""
+  demos: null
 };
 
 export const DURATION_IN_FRAMES = 150;

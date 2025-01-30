@@ -56,6 +56,7 @@ import { getSignedUrl } from "@/hooks/use-signed-url"
 import { parseMedia } from '@remotion/media-parser';
 import { Slider } from "@/components/ui/slider"
 import Loading from "@/components/loading"
+import { useDemoVideo } from "@/hooks/use-demo-video"
 
 interface InputProps {
     text: string;
@@ -74,7 +75,10 @@ interface InputProps {
     videoProps: {
         uuid: string;
     };
-    demos: string;
+    demos: {
+        url: string;
+        duration: number;
+    } | null;
     hook_duration: number;
 }
 
@@ -185,18 +189,28 @@ export default function Page() {
     const [isGenerating, setIsGenerating] = useState(false)
     const [prompt, setPrompt] = useState("")
     const [open, setOpen] = useState(false)
-    const [inputProps, setInputProps] = useState<InputProps>({
-        text: sentences[index],
-        videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
-        video_duration: 0,
-        textStyle,
-        videoProps: {
-            uuid: uuidv4()
-        },
-        demos: demoVideos[selectedDemoId],
-        hook_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30)
+    const [inputProps, setInputProps] = useState<InputProps>(() => {
+        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
+        return {
+            text: sentences[index],
+            videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
+            video_duration: hookDuration,
+            textStyle,
+            videoProps: {
+                uuid: uuidv4()
+            },
+            demos: null,
+            hook_duration: hookDuration
+        }
     });
     const { renderMedia, state, setToken, token } = useRendering(COMP_NAME, inputProps);
+    const {
+        demoUrl,
+        demoDuration,
+        setDemo,
+        resetDemo
+    } = useDemoVideo();
+    const [isDemoInitialized, setIsDemoInitialized] = useState(false);
 
     async function fetchVideo(id: string, access_token: string, bucket: string) {
         try {
@@ -294,22 +308,27 @@ export default function Page() {
                         const videoKey = demos.key.split('/')[1].replace('.mp4', '')
                         const url = await getSignedUrl(videoKey + '.mp4', 'upload-bucket', session.data.session?.access_token)
 
-                        parseMedia({
-                            src: url || "",
-                            fields: {
-                                slowDurationInSeconds: true,
-                            },
-                        })
-                            .then(({ slowDurationInSeconds }: { slowDurationInSeconds: number }) => {
-                                setInputProps(prev => ({
-                                    ...prev,
-                                    video_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30) + Math.round(slowDurationInSeconds * 30),
-                                    demos: url || ""
-                                }))
-                            })
-                            .catch((err: any) => {
-                                console.log(`Error fetching metadata: ${err}`);
+                        if (url) {
+                            const metadata = await parseMedia({
+                                src: url,
+                                fields: {
+                                    slowDurationInSeconds: true,
+                                },
                             });
+
+                            const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
+                            const demoDuration = Math.round(metadata.slowDurationInSeconds * 30);
+
+                            setInputProps(prev => ({
+                                ...prev,
+                                video_duration: hookDuration + demoDuration,
+                                demos: {
+                                    url,
+                                    duration: demoDuration
+                                },
+                                hook_duration: hookDuration
+                            }));
+                        }
                     }
 
                     console.log("session data token found")
@@ -351,18 +370,98 @@ export default function Page() {
     }, [state])
 
     useEffect(() => {
+        console.log('useEffect', demoUrl, demoDuration)
+        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
+        const totalDuration = hookDuration + (demoDuration || 0);
+
         setInputProps({
             text: sentences[index],
             videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
-            video_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30),
+            video_duration: totalDuration,
             textStyle,
             videoProps: {
                 uuid: uuidv4()
             },
-            demos: demoVideos[selectedDemoId],
-            hook_duration: Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30)
+            demos: demoUrl ? {
+                url: demoUrl,
+                duration: demoDuration
+            } : null,
+            hook_duration: hookDuration
         });
-    }, [index, selectedPhotoId, textStyle, demos, selectedDemoId]);
+    }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration]);
+
+    // Add this effect to debug state changes
+    useEffect(() => {
+        console.log('State changed:', {
+            demoUrl,
+            demoDuration,
+            selectedDemoId,
+            textStyle,
+            text: sentences[index]
+        });
+    }, [demoUrl, demoDuration, selectedDemoId, textStyle, sentences, index]);
+
+    // Modify the main inputProps effect to preserve demo state
+    useEffect(() => {
+        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
+        const totalDuration = hookDuration + (demoDuration || 0);
+
+        console.log('Setting inputProps with demo:', { demoUrl, demoDuration });
+
+        setInputProps(prev => ({
+            ...prev,
+            text: sentences[index],
+            videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
+            video_duration: totalDuration,
+            textStyle,
+            demos: prev.demos && demoUrl ? {  // Preserve demo if it exists
+                url: demoUrl,
+                duration: demoDuration
+            } : prev.demos,
+            hook_duration: hookDuration
+        }));
+    }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration]);
+
+    // Modify the effect that handles demo initialization
+    useEffect(() => {
+        if (selectedDemoId > 0 && !isDemoInitialized && token && demoVideos.length > 0) {
+            setDemo(selectedDemoId, demoVideos, token)
+                .then(() => {
+                    setIsDemoInitialized(true);
+                })
+                .catch(error => {
+                    console.error('Error initializing demo:', error);
+                });
+        }
+    }, [selectedDemoId, isDemoInitialized, token, demoVideos, setDemo]);
+
+    // Modify the inputProps effect to preserve demo state
+    useEffect(() => {
+        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
+        const totalDuration = hookDuration + (demoDuration || 0);
+
+        console.log('Setting inputProps with demo:', { demoUrl, demoDuration, isDemoInitialized });
+
+        setInputProps(prev => {
+            // Preserve existing demo if we have one and new one isn't set
+            const demos = prev.demos && !demoUrl ? prev.demos : (
+                demoUrl ? {
+                    url: demoUrl,
+                    duration: demoDuration
+                } : null
+            );
+
+            return {
+                ...prev,
+                text: sentences[index],
+                videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
+                video_duration: totalDuration,
+                textStyle,
+                demos,
+                hook_duration: hookDuration
+            };
+        });
+    }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration, isDemoInitialized]);
 
     const photos = [
         {
@@ -789,45 +888,14 @@ export default function Page() {
 
     const onPhotoSelect = (id: number) => {
         setSelectedPhotoId(id)
+        resetDemo()
         setSelectedDemoId(0)
     }
 
     const onDemoSelect = async (id: number) => {
         try {
             setSelectedDemoId(id)
-            id = id - 1
-            // Ensure we have a valid video key
-            console.log('demoVideos', demoVideos, demoVideos[id], id)
-            if (!demoVideos[id]) {
-                throw new Error('Invalid demo video selected')
-            }
-            const videoKey = demoVideos[id].replace('.mp4', '')
-            const url = await getSignedUrl(videoKey + '.mp4', 'upload-bucket', token)
-            console.log('url', url)
-            if (!url) {
-                throw new Error('Failed to get signed URL')
-            }
-
-            // Parse the media to get duration
-            const metadata = await parseMedia({
-                src: url,
-                fields: {
-                    slowDurationInSeconds: true,
-                }
-            })
-
-            // Calculate durations
-            const selectedVideo = vids.find(v => v.id === selectedPhotoId)
-            const hookDuration = Math.round((selectedVideo?.duration || 5) * 30)
-            const demoDuration = Math.round(metadata.slowDurationInSeconds * 30)
-
-            // Update inputProps with new values
-            setInputProps(prev => ({
-                ...prev,
-                demos: url,
-                video_duration: hookDuration + demoDuration,
-                hook_duration: hookDuration
-            }))
+            await setDemo(id, demoVideos, token)
         } catch (error) {
             console.error('Error in onDemoSelect:', error)
             toast.error(error instanceof Error ? error.message : 'Failed to load demo video')
@@ -1029,12 +1097,12 @@ export default function Page() {
             // Update the sentences state with the new hooks
             setSentences(data.hooks)
             setIndex(0) // Reset to first hook
-            
+
             // Set hook param with hookId from response
             const params = new URLSearchParams(window.location.search)
             params.set('hook', data.hookId)
             window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
-            
+
             toast.success('Successfully generated new hooks!')
         } catch (error) {
             toast.error('Failed to generate hooks')

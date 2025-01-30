@@ -155,7 +155,7 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
       {demos && hook_duration && (
         <Sequence from={hook_duration} premountFor={hook_duration}>
           <OffthreadVideo
-            src={demos}
+            src={demos.url}
             style={{
               width,
               height,
