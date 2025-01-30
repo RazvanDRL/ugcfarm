@@ -119,6 +119,7 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
               wordBreak: 'break-word',
               overflowWrap: 'break-word',
               maxWidth: '100%',
+              whiteSpace: 'pre-wrap',
             }}
           >
             <span
@@ -142,6 +143,7 @@ export const Main = ({ text, videoUrl, video_duration, hook_duration, videoProps
                   textShadow: 'none',
                   wordBreak: 'break-word',
                   overflowWrap: 'break-word',
+                  whiteSpace: 'pre-wrap',
                 }}
               >
                 {processedText}

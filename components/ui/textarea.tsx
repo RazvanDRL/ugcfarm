@@ -13,6 +13,7 @@ const Textarea = React.forwardRef<
         className
       )}
       ref={ref}
+      wrap="soft"
       {...props}
     />
   )
