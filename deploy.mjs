@@ -44,6 +44,7 @@ const { functionName, alreadyExisted: functionAlreadyExisted } =
     region: REGION,
     timeoutInSeconds: TIMEOUT,
     diskSizeInMb: DISK,
+    runtimePreference: "apple-emojis",
   });
 console.log(
   functionName,

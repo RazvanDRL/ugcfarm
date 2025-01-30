@@ -40,7 +40,7 @@
     "@radix-ui/react-toggle": "^1.1.1",
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.7",
-    "@remotion/fonts": "^4.0.255",
+    "@remotion/fonts": "4.0.255",
     "@remotion/google-fonts": "4.0.255",
     "@remotion/lambda": "4.0.255",
     "@remotion/preload": "4.0.255",
