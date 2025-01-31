@@ -11,8 +11,16 @@ export default function TikTokAuthButton({ user_id }: { user_id: string }) {
 
     const encodedState = btoa(state);
 
+    const scopes = [
+        'user.info.basic',
+        'video.publish',
+        'video.upload',
+    ];
+
+    const scopeString = scopes.join(',');
+
     const authUrl =
-        `https://www.tiktok.com/v2/auth/authorize?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=user.info.basic&response_type=code&redirect_uri=${encodeURIComponent(`${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/tiktok/callback`)}&state=${encodedState}`;
+        `https://www.tiktok.com/v2/auth/authorize?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=${scopeString}&response_type=code&redirect_uri=${`${process.env.NEXT_PUBLIC_SITE_URL}/api/auth/tiktok/callback`}&state=${encodedState}`;
 
     return (
         <Link href={authUrl} className="w-full">

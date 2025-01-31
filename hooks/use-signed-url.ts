@@ -5,6 +5,10 @@ interface CachedUrl {
 }
 
 export async function getSignedUrl(key: string, bucket: string, token: string): Promise<string | null> {
+    if (!token) return null
+    if (!bucket) return null
+    if (!key) return null
+
     // Check localStorage first
     const cached = localStorage.getItem(`signed_url_${bucket}_${key}`);
     if (cached) {
