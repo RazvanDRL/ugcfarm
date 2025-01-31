@@ -24,7 +24,8 @@ export async function GET(request: NextRequest) {
     // Get user info
     const userResponse = await fetch('https://open.tiktokapis.com/v2/user/info/', {
         headers: {
-            'Authorization': `Bearer ${tokenData.access_token}`
+            'Authorization': `Bearer ${tokenData.access_token}`,
+            'Content-Type': 'application/json'
         }
     });
 
