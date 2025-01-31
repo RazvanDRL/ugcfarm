@@ -45,6 +45,7 @@
     "@remotion/lambda": "4.0.255",
     "@remotion/preload": "4.0.255",
     "@remotion/tailwind": "4.0.255",
+    "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "2.45.1",
     "@upstash/ratelimit": "^2.0.5",
     "@upstash/redis": "^1.34.3",

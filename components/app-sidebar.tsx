@@ -34,6 +34,7 @@ import Link from "next/link"
 import { type Profile } from "@/lib/supabase/client/supabase"
 import { FeedbackFish } from '@feedback-fish/react'
 import { Button } from "./ui/button"
+import TikTokAuthButton from "./tiktok-auth-button"
 
 const data = {
     navMain: [
@@ -113,6 +114,8 @@ export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sideb
                             Help
                         </Button>
                     </FeedbackFish>
+                    {/* @dev TIKTOK BUTTON */}
+                    {/* <TikTokAuthButton user_id={user.id} /> */}
                 </div>
                 <NavMain items={data.navMain} />
                 <NavProjects projects={data.projects} />

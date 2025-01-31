@@ -55,15 +55,15 @@ interface Review {
 
 const reviews: Review[] = [
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/1.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/001.webp",
         "rotation": 1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/2.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/002.webp",
         "rotation": 1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/3.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/003.webp",
         "rotation": -1
     },
     {
@@ -87,11 +87,11 @@ const reviews: Review[] = [
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/9.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/009.webp",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/10.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/010.webp",
         "rotation": 1
     },
     {
@@ -123,15 +123,15 @@ const reviews: Review[] = [
         "rotation": 1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/18.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/018.webp",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/19.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/019.webp",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/20.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/020.webp",
         "rotation": 1
     },
     {
@@ -163,11 +163,11 @@ const reviews: Review[] = [
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/28.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/028.webp",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/29.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/029.webp",
         "rotation": 1
     },
     {
@@ -187,7 +187,7 @@ const reviews: Review[] = [
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/34.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/034.webp",
         "rotation": 0
     },
     {

@@ -10,7 +10,6 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { v4 as uuidv4 } from 'uuid';
 
 export default function LoginPage() {
     const router = useRouter();
@@ -19,12 +18,10 @@ export default function LoginPage() {
         email: boolean;
         google: boolean;
         twitter: boolean;
-        tiktok: boolean;
     }>({
         email: false,
         google: false,
         twitter: false,
-        tiktok: false,
     });
 
     useEffect(() => {
@@ -75,17 +72,11 @@ export default function LoginPage() {
         }
     }
 
-    async function handleLoginWithProvider(provider: "google" | "twitter" | "tiktok") {
+    async function handleLoginWithProvider(provider: "google" | "twitter") {
         setIsLoading(prev => ({ ...prev, [provider]: true }));
 
         // const redirect = decodeURIComponent(new URLSearchParams(window.location.search).get("redirect") || "/dashboard")
         let redirect = "/dashboard"
-
-        if (provider === "tiktok") {
-            const authUrl = `https://www.tiktok.com/v2/auth/authorize?client_key=${process.env.NEXT_PUBLIC_TIKTOK_CLIENT_KEY}&scope=user.info.basic&response_type=code&redirect_uri=${encodeURIComponent(`https://ugc.farm/api/auth/tiktok/callback`)}&state=${uuidv4()}`;
-            window.location.href = authUrl;
-            return;
-        }
 
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider,
@@ -154,18 +145,6 @@ export default function LoginPage() {
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                             </> : "Continue with Twitter"}
                         </Button>
-
-                        {/* TikTok Login */}
-                        <Button
-                            variant="outline"
-                            onClick={() => handleLoginWithProvider("tiktok")}
-                            // disabled={isLoading.tiktok}
-                            className="w-full"
-                        >
-                            Continue with TikTok
-                        </Button>
-
-
                     </div>
 
                     <Separator className="w-full my-2" />

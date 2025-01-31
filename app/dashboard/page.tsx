@@ -1212,6 +1212,7 @@ export default function Page() {
         <SidebarProvider>
             <AppSidebar user={
                 {
+                    id: user.id,
                     name: profile.name,
                     email: profile.email,
                     avatar: profile.avatar,
