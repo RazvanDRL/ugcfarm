@@ -34,6 +34,16 @@ export async function POST(request: NextRequest) {
         if (event.type === 'checkout.session.completed') {
             const session: Stripe.Checkout.Session = event.data.object;
             console.log(session);
+            const { data: logs, error: logsError } = await supabase
+                .from('stripe_logs')
+                .insert({
+                    data: session
+                });
+
+            if (logsError) {
+                console.error(logsError.message);
+                return NextResponse.json({ message: logsError.message }, { status: 500 });
+            }
             let userId = session.client_reference_id;
             if (!userId) {
                 console.log('No client_reference_id found in session');
@@ -116,17 +126,6 @@ export async function POST(request: NextRequest) {
             if (addCreditsError) {
                 console.error(addCreditsError.message);
                 return NextResponse.json({ message: addCreditsError.message }, { status: 500 });
-            }
-
-            const { data: logs, error: logsError } = await supabase
-                .from('stripe_logs')
-                .insert({
-                    data: session
-                });
-
-            if (logsError) {
-                console.error(logsError.message);
-                return NextResponse.json({ message: logsError.message }, { status: 500 });
             }
 
             const { data: user_data, error: user_error } = await supabase
