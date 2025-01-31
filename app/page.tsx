@@ -29,7 +29,7 @@ import { PurchaseNotification } from "@/components/purchase-notification";
 const withoutUGC = [{
     title: "Traditional agencies",
     list: [
-        "$80-150 per video",
+        "$80+ per video",
         "3-day delivery time",
         "Inconsistent quality",
         "Communication barriers",
@@ -40,7 +40,7 @@ const withoutUGC = [{
 const withUGC = [{
     title: "You with UGC Farm",
     list: [
-        "Low video costs",
+        "From $1.2 per video",
         "Instant delivery",
         "Consistent brand voice",
         "Zero-effort",
@@ -356,7 +356,7 @@ export default function Landing() {
                                 ))}
                             </div>
                             <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
-                                73% of brands overpay for UGC
+                                No subscription required
                             </p>
                         </div>
                         <div className="hidden md:flex flex-col items-center justify-center gap-1">
@@ -366,7 +366,7 @@ export default function Landing() {
                                 ))}
                             </div>
                             <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
-                                48% of creators miss deadlines
+                                68% of businesses struggle with marketing
                             </p>
                         </div>
                         <div className="hidden md:flex flex-col items-center justify-center gap-1">
@@ -383,10 +383,10 @@ export default function Landing() {
 
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Turn Reels into Website Visitors
+                            Marketing your business made easy
                         </h1>
                         <p className="text-lg md:text-xl font-[600] text-[#1a1a1a] opacity-60 text-center">
-                            perfect for busy owners who want more sales
+                            Create 60+ videos from one product video with AI UGC
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             <MagneticButton>
@@ -454,8 +454,14 @@ export default function Landing() {
                         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
                     </div>
 
+                    <Link href="/demo">
+                        <ButtonSmall className="py-6 px-6 text-lg font-[600]">
+                            See demo&nbsp;&nbsp;&rarr;
+                        </ButtonSmall>
+                    </Link>
+
                     {/* calculator */}
-                    <div className="flex flex-col items-center justify-center space-y-8 py-12">
+                    {/* <div className="flex flex-col items-center justify-center space-y-8 py-12">
                         <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
                             See how much you are saving
                         </h2>
@@ -468,12 +474,12 @@ export default function Landing() {
                                 Start saving now
                             </Button>
                         </Link>
-                    </div>
+                    </div> */}
 
                     {/* problem agitation */}
                     <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
                         <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Never pay <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">extra</span> again.
+                            From complex to <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">effortless</span> marketing
                         </h2>
                         {/* 2 cards side by side */}
                         <div className="mt-16 flex flex-col sm:flex-row items-stretch justify-center gap-6 w-full">
@@ -502,7 +508,7 @@ export default function Landing() {
                     <Bento />
 
                     {/* how it workss */}
-                    <div className="flex flex-col items-center justify-center space-y-8 py-12">
+                    {/* <div className="flex flex-col items-center justify-center space-y-8 py-12">
                         <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
                             Generate Professional UGC<br />
                             <span className="text-primary">100x Faster</span>
@@ -531,7 +537,7 @@ export default function Landing() {
                                 </Card>
                             ))}
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* pricing */}
                     <Pricing id="pricing" className="w-full py-12 px-6 lg:px-0.5" referral={ref} />
@@ -572,7 +578,7 @@ export default function Landing() {
                 </div>
             </main >
             <Footer />
-            <PurchaseNotification />
+            {/* <PurchaseNotification /> */}
 
             {/* Corner Card */}
             {showCornerCard && !hasSubmittedEmail && (
@@ -607,7 +613,7 @@ export default function Landing() {
                 </Card>
             )}
 
-            <Dialog open={showDialog && !hasSubmittedEmail} onOpenChange={setShowDialog}>
+            {/* <Dialog open={showDialog && !hasSubmittedEmail} onOpenChange={setShowDialog}>
                 <DialogContent className="sm:max-w-md gap-8">
                     <DialogHeader>
                         <DialogTitle className="text-2xl font-bold text-[#1a1a1a]">Get a <span className="text-primary font-black">FREE</span> UGC Video 👇</DialogTitle>
@@ -629,7 +635,7 @@ export default function Landing() {
                         </ButtonSmall>
                     </form>
                 </DialogContent>
-            </Dialog>
+            </Dialog> */}
         </>
     );
 }
