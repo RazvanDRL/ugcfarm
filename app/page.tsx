@@ -607,7 +607,7 @@ export default function Landing() {
                 </Card>
             )}
 
-            <Dialog open={showDialog} onOpenChange={setShowDialog}>
+            <Dialog open={showDialog && !hasSubmittedEmail} onOpenChange={setShowDialog}>
                 <DialogContent className="sm:max-w-md gap-8">
                     <DialogHeader>
                         <DialogTitle className="text-2xl font-bold text-[#1a1a1a]">Get a <span className="text-primary font-black">FREE</span> UGC Video 👇</DialogTitle>
