@@ -32,5 +32,5 @@ export async function GET(request: NextRequest) {
 
     console.log(userData);
 
-    return NextResponse.redirect('/dashboard');
+    return NextResponse.redirect('https://ugc.farm/dashboard');
 } 
