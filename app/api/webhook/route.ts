@@ -73,6 +73,7 @@ export async function POST(request: NextRequest) {
 
                 user = user_data;
                 userError = user_error;
+                userId = user_data?.id || "";
             } else {
                 const { data: user_data, error: user_error } = await supabase
                     .from('profiles')
