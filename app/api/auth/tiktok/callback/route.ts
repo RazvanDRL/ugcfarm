@@ -21,6 +21,8 @@ export async function GET(request: NextRequest) {
 
     const tokenData = await tokenResponse.json();
 
+    console.log(tokenData);
+
     // Get user info
     const userResponse = await fetch('https://open.tiktokapis.com/v2/user/info/', {
         headers: {
