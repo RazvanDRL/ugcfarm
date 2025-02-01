@@ -9,6 +9,7 @@ import { Card } from "@/components/ui/card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { toast } from "sonner"
+import TikTokShareConfirmationModal from "@/components/tiktok-share-confirmation-modal"
 
 export function TikTokConnectionStatus() {
     const [isConnected, setIsConnected] = useState(false)
@@ -19,7 +20,14 @@ export function TikTokConnectionStatus() {
         access_token?: string
     }>({})
     const [videoHistory, setVideoHistory] = useState<any[]>([])
-    const [token, setToken] = useState<string>('')
+    const [token, setToken] = useState<string>("")
+
+    // State to control the confirmation modal and custom title
+    const [isConfirmModalOpen, setConfirmModalOpen] = useState(false)
+    const [selectedVideo, setSelectedVideo] = useState<string>("")
+    const [customTitle, setCustomTitle] = useState("")
+    const [privacyOptions, setPrivacyOptions] = useState<string[]>([])
+    const [selectedPrivacy, setSelectedPrivacy] = useState("")
 
     useEffect(() => {
         const checkConnection = async () => {
@@ -57,7 +65,6 @@ export function TikTokConnectionStatus() {
 
             let tempVideoHistory: any[] = []
 
-
             videoData?.forEach((video) => {
                 getSignedUrl(`${video.video_id}.mp4`, 'output-bucket', session.access_token).then((signedUrl) => {
                     // get the host from the signed url
@@ -67,13 +74,38 @@ export function TikTokConnectionStatus() {
             })
             console.log("tempVideoHistory", tempVideoHistory)
             setVideoHistory(tempVideoHistory)
-        }
 
+            // Fetch creator info to get privacy options
+            if (data?.tiktok_access_token) {
+                try {
+                    const res = await fetch("/api/tiktok-proxy/creator-info", {
+                        method: "POST",
+                        headers: {
+                            Authorization: `Bearer ${data.tiktok_access_token}`,
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    if (res.ok) {
+                        const creatorData = await res.json()
+                        // Assume the creatorData contains a field 'privacy_options'
+                        if (creatorData.data.privacy_level_options) {
+                            setPrivacyOptions(creatorData.data.privacy_level_options)
+                            // Set default privacy value to first option
+                            setSelectedPrivacy("Choose Display Option")
+                        }
+                    } else {
+                        toast.error("Failed to get privacy options")
+                    }
+                } catch (error) {
+                    console.error("Error fetching creator info:", error)
+                }
+            }
+        }
 
         checkConnection()
     }, [])
 
-    async function postToTikTok(videoUrl: string, accessToken: string) {
+    async function postToTikTok(videoUrl: string, accessToken: string, title: string, privacy: string) {
         try {
             // First query creator info
             const creatorInfo = await fetch('/api/tiktok-proxy/creator-info', {
@@ -91,7 +123,7 @@ export function TikTokConnectionStatus() {
 
             console.log("creatorInfo", creatorInfo)
 
-            // Then initialize the video post
+            // Then initialize the video post using the provided title and privacy option
             const postResponse = await fetch('/api/tiktok-proxy/v2/post/publish/video/init/', {
                 method: 'POST',
                 headers: {
@@ -101,8 +133,8 @@ export function TikTokConnectionStatus() {
                 },
                 body: JSON.stringify({
                     post_info: {
-                        title: "User-Generated Content",
-                        privacy_level: "SELF_ONLY",
+                        title: title,
+                        privacy_level: privacy,
                         disable_duet: true,
                         disable_comment: true,
                         disable_stitch: true,
@@ -134,9 +166,9 @@ export function TikTokConnectionStatus() {
         }
     }
 
-    async function postVideo(videoUrl: string) {
+    async function postVideo(videoUrl: string, title: string, privacy: string) {
         try {
-            const publishId = await postToTikTok(videoUrl, accountInfo.access_token!);
+            const publishId = await postToTikTok(videoUrl, accountInfo.access_token!, title, privacy);
 
             toast.success(`Video posted successfully! ${publishId}`)
 
@@ -144,6 +176,34 @@ export function TikTokConnectionStatus() {
         } catch (error) {
             toast.error(`Failed to post video: ${error instanceof Error ? error.message : 'Unknown error'}`)
         }
+    }
+
+    // Handler when the user clicks the Post button; open the confirmation modal.
+    const handlePostClick = (video: string) => {
+        setSelectedVideo(video)
+        setCustomTitle("") // Reset title input for each new share
+        setConfirmModalOpen(true)
+    }
+
+    // When confirmed in the modal, post the video with the custom title and selected privacy.
+    const handleConfirmShare = (
+        title: string,
+        privacy: string,
+        interactions: { comment: boolean; duet: boolean; stitch: boolean }
+    ) => {
+        console.log("Interaction settings:", interactions)
+        if (selectedVideo) {
+            postVideo(selectedVideo, title, privacy)
+        }
+        setConfirmModalOpen(false)
+    }
+
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCustomTitle(e.target.value)
+    }
+
+    const handlePrivacyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedPrivacy(e.target.value)
     }
 
     if (!user || !token) return null
@@ -204,7 +264,7 @@ export function TikTokConnectionStatus() {
                     return (
                         <div key={video} className="w-[200px] h-[200px] flex flex-col gap-3">
                             <video src={video} className="rounded-lg" />
-                            <Button onClick={() => postVideo(video)}>
+                            <Button onClick={() => handlePostClick(video)}>
                                 <Send className="h-4 w-4" />
                                 Post
                             </Button>
@@ -213,6 +273,17 @@ export function TikTokConnectionStatus() {
                 })}
             </div>
 
+            {/* Confirmation Modal with Title and Privacy Option */}
+            <TikTokShareConfirmationModal
+                open={isConfirmModalOpen}
+                onClose={() => setConfirmModalOpen(false)}
+                onConfirm={handleConfirmShare}
+                titleValue={customTitle}
+                onTitleChange={handleTitleChange}
+                privacyOptions={privacyOptions}
+                selectedPrivacy={selectedPrivacy}
+                onPrivacyChange={handlePrivacyChange}
+            />
         </div>
     )
 } 
