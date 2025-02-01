@@ -595,21 +595,23 @@ export default function Landing() {
                         </button>
                     </div>
                     <p className="text-sm text-[#1a1a1a]/60 mb-4">
-                        Enter your email to receive a free professional UGC video for your brand.
+                        Login to receive a free professional UGC video for your brand.
                     </p>
-                    <form onSubmit={handleSubmit} className="space-y-3">
-                        <Input
+                    {/* <form onSubmit={handleSubmit} className="space-y-3"> */}
+                    {/* <Input
                             type="email"
                             placeholder="you@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                             className="placeholder:font-[500]"
-                        />
+                        /> */}
+                    <Link href="/login">
                         <ButtonSmall type="submit" className="w-full font-[600] text-sm">
-                            Get My Free Videos&nbsp;&nbsp;&rarr;
+                            Get my free video&nbsp;&nbsp;&rarr;
                         </ButtonSmall>
-                    </form>
+                    </Link>
+                    {/* </form> */}
                 </Card>
             )}
 
