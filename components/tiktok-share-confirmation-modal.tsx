@@ -66,7 +66,7 @@ export default function TikTokShareConfirmationModal({
                     <DialogTitle>Share Video on TikTok</DialogTitle>
                     <DialogDescription>
                         You are about to share this video on TikTok. For compliance with
-                        TikTok's content sharing guidelines, please ensure that your content
+                        TikTok&apos;s content sharing guidelines, please ensure that your content
                         meets the guidelines before proceeding.
                     </DialogDescription>
                 </DialogHeader>
@@ -115,7 +115,7 @@ export default function TikTokShareConfirmationModal({
                         onCheckedChange={(checked) => setConsent(checked === true)}
                     />
                     <Label className="text-sm text-gray-700">
-                        By posting, you agree to TikTok's <Link href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" className="text-primary hover:underline">Music Usage Confirmation</Link>
+                        By posting, you agree to TikTok&apos;s <Link href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en" className="text-primary hover:underline">Music Usage Confirmation</Link>
                     </Label>
                 </div>
                 <DialogFooter className="flex justify-end gap-2">
