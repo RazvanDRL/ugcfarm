@@ -6,7 +6,7 @@ import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
-import { ArrowRight, Smile, Frown, Star, ClipboardList, Upload, Zap, X } from "lucide-react";
+import { ArrowRight, Smile, Frown, Star, ClipboardList, Upload, Zap, X, Play, Pause } from "lucide-react";
 import { ROICalculator } from "@/components/roi-calculator"
 import FlickeringGrid from "@/components/ui/flickering-grid";
 import { cn } from "@/lib/utils";
@@ -20,11 +20,10 @@ import { jsonLd } from './json-ld'
 import { metadata } from './metadata'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "@/lib/supabase/client/supabase";
 import { toast } from "sonner";
 import { PurchaseNotification } from "@/components/purchase-notification";
-
 
 const withoutUGC = [{
     title: "Traditional agencies",
@@ -440,6 +439,8 @@ export default function Landing() {
     const [email, setEmail] = useState("");
     const [showCornerCard, setShowCornerCard] = useState(true);
     const [hasSubmittedEmail, setHasSubmittedEmail] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
         // Check localStorage only after component mounts
@@ -467,6 +468,17 @@ export default function Landing() {
             setHasSubmittedEmail(true);
             toast.success("You'll receive a video in your inbox shortly 🎉");
             setShowDialog(false);
+        }
+    };
+
+    const handlePlayPause = () => {
+        if (videoRef.current) {
+            if (isPlaying) {
+                videoRef.current.pause();
+            } else {
+                videoRef.current.play();
+            }
+            setIsPlaying(!isPlaying);
         }
     };
 
@@ -543,21 +555,21 @@ export default function Landing() {
                             Create 60+ videos from one product video with AI UGC
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
-                            <MagneticButton>
-                                <Link href="/#pricing">
+                            {/* <MagneticButton> */}
+                            <Link href="/#pricing">
 
-                                    <Button
-                                        variant="default"
-                                        className="hover:scale-[1.05] transition-all duration-300"
-                                    >
-                                        Start now
-                                    </Button>
+                                <Button
+                                    variant="default"
+                                    className="hover:scale-[1.05] transition-all duration-300"
+                                >
+                                    Start now
+                                </Button>
 
-                                </Link>
-                            </MagneticButton>
-                            {/* <Link href="/#pricing" className="text-sm font-[600] text-[#1a1a1a]/40 flex items-center hover:underline">
-                                Use code<span className="font-mono font-[500] bg-background text-primary/80 px-1 rounded-sm"> LAUNCH </span>for 20% off
-                            </Link> */}
+                            </Link>
+                            {/* </MagneticButton> */}
+                            <Link href="/demo" className="text-sm font-[600] text-[#1a1a1a]/40 flex items-center hover:underline">
+                                View demo&nbsp;&rarr;
+                            </Link>
                         </div>
                     </div>
 
@@ -610,9 +622,40 @@ export default function Landing() {
 
                     <Link href="/demo">
                         <ButtonSmall className="py-6 px-6 text-lg font-[600]">
-                            See demo&nbsp;&nbsp;&rarr;
+                            See demos&nbsp;&nbsp;&rarr;
                         </ButtonSmall>
                     </Link>
+
+                    {/* video from founder */}
+                    <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
+                        <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
+                            How it works
+                        </h2>
+                        <div className="w-full bg-primary p-2 rounded-xl relative group">
+                            <video
+                                ref={videoRef}
+                                src="https://ugcfarm.b-cdn.net/founder.mp4"
+                                className="rounded-lg"
+                                loop
+                                playsInline
+                                controlsList="nodownload"
+                                disablePictureInPicture
+                            />
+                            <button
+                                className={cn(
+                                    "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full p-6 backdrop-blur-lg bg-primary/70 hover:bg-primary/90 transition-opacity duration-300",
+                                    isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
+                                )}
+                                onClick={handlePlayPause}
+                            >
+                                {isPlaying ? (
+                                    <Pause className="h-20 w-20 text-white" fill="white" />
+                                ) : (
+                                    <Play className="h-20 w-20 text-white" fill="white" />
+                                )}
+                            </button>
+                        </div>
+                    </div>
 
                     {/* calculator */}
                     {/* <div className="flex flex-col items-center justify-center space-y-8 py-12">
