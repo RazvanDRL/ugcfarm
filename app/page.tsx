@@ -53,10 +53,12 @@ interface Review {
     rotation: number;
 }
 
+
+
 const reviews: Review[] = [
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/001.webp",
-        "rotation": 1
+        "rotation": 0
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/002.webp",
@@ -64,27 +66,27 @@ const reviews: Review[] = [
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/003.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/004.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/005.webp",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/4.webp",
-        "rotation": -1
+        "img_url": "https://ugcfarm.b-cdn.net/photos/006.webp",
+        "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/5.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/007.webp",
         "rotation": 1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/6.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/008.webp",
         "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/7.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/8.webp",
-        "rotation": -1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/009.webp",
@@ -95,129 +97,329 @@ const reviews: Review[] = [
         "rotation": 1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/11.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/011.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/012.webp",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/12.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/13.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/14.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/15.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/16.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/013.webp",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/17.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/014.webp",
         "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/015.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/016.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/017.webp",
+        "rotation": -1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/018.webp",
-        "rotation": 0
+        "rotation": 1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/019.webp",
-        "rotation": 0
+        "rotation": -1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/020.webp",
         "rotation": 1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/21.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/021.webp",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/22.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/23.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/24.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/25.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/26.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/022.webp",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/27.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/023.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/024.webp",
         "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/025.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/026.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/027.webp",
+        "rotation": 1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/028.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/029.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/30.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/31.webp",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/32.webp",
-        "rotation": 1
+        "img_url": "https://ugcfarm.b-cdn.net/photos/029.webp",
+        "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/33.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/030.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/031.webp",
         "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/032.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/033.webp",
+        "rotation": -1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/034.webp",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/35.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/36.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/035.webp",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/37.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/036.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/037.webp",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/38.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/038.webp",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/39.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/039.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/040.webp",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/40.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/041.webp",
         "rotation": 1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/41.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/042.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/043.webp",
         "rotation": 1
     },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/064.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/065.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/066.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/067.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/068.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/069.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/070.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/071.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/072.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/073.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/074.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/075.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/076.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/077.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/078.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/079.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/080.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/081.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/082.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/083.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/086.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/087.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/088.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/089.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/090.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/091.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/092.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/093.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/094.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/095.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/096.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/097.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/098.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/099.webp",
+        "rotation": -1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/100.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/101.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/102.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/103.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/104.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/109.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/110.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/111.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/112.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/113.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/114.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/115.webp",
+        "rotation": 1
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/116.webp",
+        "rotation": 0
+    },
+    {
+        "img_url": "https://ugcfarm.b-cdn.net/photos/117.webp",
+        "rotation": 1
+    }
 ]
 
 // const factor = 1.5;
