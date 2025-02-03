@@ -109,10 +109,6 @@ const reviews: Review[] = [
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/014.webp",
-        "rotation": 1
-    },
-    {
         "img_url": "https://ugcfarm.b-cdn.net/photos/015.webp",
         "rotation": -1
     },
@@ -137,44 +133,12 @@ const reviews: Review[] = [
         "rotation": 1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/021.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/022.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/023.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/024.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/025.webp",
-        "rotation": -1
-    },
-    {
         "img_url": "https://ugcfarm.b-cdn.net/photos/026.webp",
         "rotation": 0
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/027.webp",
         "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/028.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/029.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/030.webp",
-        "rotation": -1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/031.webp",
@@ -357,10 +321,6 @@ const reviews: Review[] = [
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/098.webp",
-        "rotation": 0
-    },
-    {
         "img_url": "https://ugcfarm.b-cdn.net/photos/099.webp",
         "rotation": -1
     },
@@ -374,14 +334,6 @@ const reviews: Review[] = [
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/102.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/103.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/104.webp",
         "rotation": 1
     },
     {
