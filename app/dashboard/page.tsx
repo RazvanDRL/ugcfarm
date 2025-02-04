@@ -1164,6 +1164,18 @@ export default function Page() {
             return
         }
 
+        if (prompt.length < 10) {
+            toast.error('Prompt must be at least 10 characters')
+            setIsGenerating(false)
+            return
+        }
+
+        if (prompt.length > 1000) {
+            toast.error('Prompt must be less than 1000 characters')
+            setIsGenerating(false)
+            return
+        }
+
         try {
             const response = await fetch('/api/generate-hooks', {
                 method: 'POST',
