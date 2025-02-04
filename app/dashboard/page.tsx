@@ -1158,7 +1158,7 @@ export default function Page() {
     const generateHooks = async () => {
         setIsGenerating(true)
 
-        if (!prompt) {
+        if (!prompt || prompt.length === 0) {
             toast.error('Please enter a prompt')
             setIsGenerating(false)
             return
