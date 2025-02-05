@@ -32,7 +32,7 @@ import {
 import Image from "next/image"
 import Link from "next/link"
 import { type Profile } from "@/lib/supabase/client/supabase"
-import { FeedbackFish } from '@feedback-fish/react'
+// import { FeedbackFish } from '@feedback-fish/react'
 import { Button } from "./ui/button"
 import TikTokAuthButton from "./tiktok-auth-button"
 
@@ -108,12 +108,12 @@ export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sideb
             </SidebarHeader>
             <SidebarContent>
                 <div className="px-4">
-                    <FeedbackFish projectId="7af5337d80b183" >
+                    {/* <FeedbackFish projectId="7af5337d80b183" >
                         <Button variant="outline" className="w-full bg-primary text-white border-none transition-all duration-300">
                             <HelpCircle className="w-5 h-5" />
                             Help
                         </Button>
-                    </FeedbackFish>
+                    </FeedbackFish> */}
                     {/* @dev TIKTOK BUTTON */}
                     {/* <TikTokAuthButton user_id={user.id} /> */}
                 </div>
