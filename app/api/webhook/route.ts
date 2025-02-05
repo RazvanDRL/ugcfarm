@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
                 console.log('Invalid product', productId);
                 return NextResponse.json({ message: 'Invalid product' }, { status: 400 });
             }
-            const credits: 10 | 50 | 1500 = productMap[productId].credits;
+            const credits: 10 | 50 | 190 = productMap[productId].credits;
             const plan: 'starter' | 'creator' | 'business' = productMap[productId].plan;
 
             // check if user exists

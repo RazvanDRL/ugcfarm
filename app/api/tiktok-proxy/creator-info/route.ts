@@ -7,7 +7,7 @@ export async function POST(req: Request) {
         const response = await fetch('https://open.tiktokapis.com/v2/post/publish/creator_info/query/', {
             method: 'POST',
             headers: {
-                'Authorization': headers.get('Authorization') || '',
+                Authorization: headers.get('Authorization') || '',
                 'Content-Type': 'application/json'
             }
         });

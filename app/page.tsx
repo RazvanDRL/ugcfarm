@@ -39,7 +39,7 @@ const withoutUGC = [{
 const withUGC = [{
     title: "You with UGC Farm",
     list: [
-        "From $1.2 per video",
+        "From $0.73 per video",
         "Instant delivery",
         "Consistent brand voice",
         "Zero-effort",
@@ -532,7 +532,7 @@ export default function Landing() {
                                 ))}
                             </div>
                             <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
-                                68% of businesses struggle with marketing
+                                68% of businesses get more sales with AI UGC
                             </p>
                         </div>
                         <div className="hidden md:flex flex-col items-center justify-center gap-1">
@@ -549,10 +549,10 @@ export default function Landing() {
 
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Marketing your business made easy
+                            Turn Reels into Website Visitors
                         </h1>
                         <p className="text-lg md:text-xl font-[600] text-[#1a1a1a] opacity-60 text-center">
-                            Create 60+ videos from one product video with AI UGC
+                            Create 60+ videos from one product demo with AI UGC
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             {/* <MagneticButton> */}
@@ -634,7 +634,7 @@ export default function Landing() {
                         <div className="w-full bg-primary p-2 rounded-xl relative group">
                             <video
                                 ref={videoRef}
-                                src="https://ugcfarm.b-cdn.net/founder.mp4"
+                                src="https://cdn.ugc.farm/founder.mp4"
                                 className="rounded-lg"
                                 loop
                                 playsInline

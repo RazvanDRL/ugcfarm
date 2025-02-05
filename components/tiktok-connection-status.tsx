@@ -76,30 +76,30 @@ export function TikTokConnectionStatus() {
             setVideoHistory(tempVideoHistory)
 
             // Fetch creator info to get privacy options
-            if (data?.tiktok_access_token) {
-                try {
-                    const res = await fetch("/api/tiktok-proxy/creator-info", {
-                        method: "POST",
-                        headers: {
-                            Authorization: `Bearer ${data.tiktok_access_token}`,
-                            "Content-Type": "application/json",
-                        },
-                    })
-                    if (res.ok) {
-                        const creatorData = await res.json()
-                        // Assume the creatorData contains a field 'privacy_options'
-                        if (creatorData.data.privacy_level_options) {
-                            setPrivacyOptions(creatorData.data.privacy_level_options)
-                            // Set default privacy value to first option
-                            setSelectedPrivacy("Choose Display Option")
-                        }
-                    } else {
-                        toast.error("Failed to get privacy options")
-                    }
-                } catch (error) {
-                    console.error("Error fetching creator info:", error)
-                }
-            }
+            // if (data?.tiktok_access_token) {
+            //     try {
+            //         const res = await fetch("/api/tiktok-proxy/creator-info", {
+            //             method: "POST",
+            //             headers: {
+            //                 Authorization: `Bearer ${data.tiktok_access_token}`,
+            //                 "Content-Type": "application/json",
+            //             },
+            //         })
+            //         if (res.ok) {
+            //             const creatorData = await res.json()
+            //             // Assume the creatorData contains a field 'privacy_options'
+            //             if (creatorData.data.privacy_level_options) {
+            //                 setPrivacyOptions(creatorData.data.privacy_level_options)
+            //                 // Set default privacy value to first option
+            //                 setSelectedPrivacy("Choose Display Option")
+            //             }
+            //         } else {
+            //             toast.error("Failed to get privacy options")
+            //         }
+            //     } catch (error) {
+            //         console.error("Error fetching creator info:", error)
+            //     }
+            // }
         }
 
         checkConnection()
@@ -213,19 +213,9 @@ export function TikTokConnectionStatus() {
             <Card className="p-4 rounded-lg shadow-sm hover:shadow-md transition-shadow">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4 mr-12">
-                        <Avatar className="h-10 w-10 ">
-                            {accountInfo.avatar_url ? (
-                                <AvatarImage
-                                    src={accountInfo.avatar_url}
-                                    alt="TikTok avatar"
-                                    className="object-cover"
-                                />
-                            ) : (
-                                <AvatarFallback className="bg-gray-100">
-                                    {accountInfo.display_name?.charAt(0) || 'TT'}
-                                </AvatarFallback>
-                            )}
-                        </Avatar>
+                        {accountInfo.avatar_url && (
+                            <img src={accountInfo.avatar_url} className="w-10 h-10 rounded-full" />
+                        )}
 
                         <div className="space-y-1">
                             <h3 className="text-sm font-medium">

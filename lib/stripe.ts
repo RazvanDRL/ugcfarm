@@ -26,7 +26,7 @@ export const productMap = {
         plan: 'creator'
     },
     [process.env.STRIPE_PRODUCT_ID_3!]: {
-        credits: 1500,
+        credits: 190,
         plan: 'business'
     },
 } as const;
