@@ -84,7 +84,7 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
             title: "Business",
             emoji: "🏆",
             description: "Perfect for businesses",
-            price: 139,
+            price: !referral ? 139 : (139 * 0.7).toFixed(2),
             originalPrice: 199,
             features: [
                 "190 videos",

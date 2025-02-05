@@ -67,6 +67,7 @@
     "next-plausible": "^3.12.4",
     "next-themes": "^0.4.4",
     "openai": "^4.82.0",
+    "orate": "^1.0.41",
     "posthog-js": "^1.210.2",
     "react": "^19.0.0",
     "react-confetti": "^6.2.2",
