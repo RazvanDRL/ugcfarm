@@ -1,0 +1,61 @@
+import { NextResponse } from 'next/server';
+import { fal } from "@fal-ai/client";
+import { supabase } from '@/lib/supabase/admin/supabase';
+
+export async function POST(req: Request) {
+    try {
+        // const token = req.headers.get('Authorization')?.split(' ')[1]
+        // if (!token) {
+        //     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        // }
+
+        // const { data: { user }, error } = await supabase.auth.getUser(token)
+
+        // if (error || !user) {
+        //     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        // }
+
+        const { video_url, prompt } = await req.json()
+
+
+        const response = await fetch("http://localhost:3000/api/generate-audio", {
+            method: "POST",
+            body: JSON.stringify({
+                prompt: prompt,
+                input_voice: "jessica"
+            })
+        })
+
+        const data = await response.json()
+
+        const { data: audio, error } = await supabase
+            .storage
+            .from('user_audios')
+            .createSignedUrl(data.audio.path, 3600)
+
+        // const { video_url, audio_url } = await req.json()
+
+        // if (!video_url || !audio_url) {
+        //     return NextResponse.json({ error: 'Video and audio URLs are required' }, { status: 400 })
+        // }
+
+        fal.config({
+            credentials: process.env.FAL_KEY
+        });
+        console.log(audio!.signedUrl, video_url)
+        const result = await fal.subscribe("fal-ai/latentsync", {
+            input: {
+                video_url: video_url,
+                audio_url: audio!.signedUrl
+            },
+            logs: true,
+        });
+
+        const url = result.data.video.url
+
+        return NextResponse.json({ url })
+    } catch (error) {
+        console.error('Error generating speech:', error);
+        return new NextResponse('Internal Server Error', { status: 500 });
+    }
+}

@@ -57,6 +57,17 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
     //   throw new TypeError('unauthorized user');
     // }
 
+    if (body.inputProps.lip_sync) {
+      const response = await fetch("http://localhost:3000/api/lip-sync", {
+        method: "POST",
+        body: JSON.stringify({ video_url: body.inputProps.videoUrl, prompt: body.inputProps.text })
+      })
+
+      const video_data = await response.json()
+
+      body.inputProps.videoUrl = video_data.url
+    }
+
     // force width, force height from input props
     const result = await renderMediaOnLambda({
       codec: "h264",

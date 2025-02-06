@@ -31,16 +31,16 @@ const voices = {
 
 export async function POST(req: Request) {
     try {
-        const token = req.headers.get('Authorization')?.split(' ')[1]
-        if (!token) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-        }
+        // const token = req.headers.get('Authorization')?.split(' ')[1]
+        // if (!token) {
+        //     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        // }
 
-        const { data: { user }, error } = await supabase.auth.getUser(token)
+        // const { data: { user }, error } = await supabase.auth.getUser(token)
 
-        if (error || !user) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-        }
+        // if (error || !user) {
+        //     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        // }
 
         const { prompt, input_voice } = await req.json()
 
@@ -86,7 +86,7 @@ export async function POST(req: Request) {
         const { data: audio, error: audioError } = await supabase
             .storage
             .from('user_audios')
-            .upload(`${user.id}/${filename}`, speech, {
+            .upload(`8d23651a-1616-4c57-9722-16dcafbd521a/${filename}`, speech, {
                 cacheControl: '3600',
                 upsert: false
             })

@@ -80,6 +80,7 @@ interface InputProps {
         duration: number;
     } | null;
     hook_duration: number;
+    lip_sync: boolean;
 }
 
 export default function Page() {
@@ -254,7 +255,8 @@ export default function Page() {
                 uuid: uuidv4()
             },
             demos: null,
-            hook_duration: hookDuration
+            hook_duration: hookDuration,
+            lip_sync: false
         }
     });
     const { renderMedia, state, setToken, token } = useRendering(COMP_NAME, inputProps);
@@ -444,7 +446,8 @@ export default function Page() {
                 url: demoUrl,
                 duration: demoDuration
             } : null,
-            hook_duration: hookDuration
+            hook_duration: hookDuration,
+            lip_sync: false
         });
     }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration]);
 
@@ -1465,9 +1468,9 @@ export default function Page() {
                                                     </DialogFooter>
                                                 </DialogContent>
                                             </Dialog>
-                                            {/* <Button onClick={generateAudio} className="w-fit">
+                                            <Button onClick={generateAudio} className="w-fit">
                                                 Generate Audio
-                                            </Button> */}
+                                            </Button>
                                         </div>
                                         <div className="text-sm font-[500] text-[#1a1a1a]/60">
                                             {index + 1}/{sentences.length}
