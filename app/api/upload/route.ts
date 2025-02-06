@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if the file type is mp4
-    if (fileType !== 'video/mp4' && fileType !== 'image/webp') {
+    if (fileType !== 'video/mp4' && fileType !== 'image/webp' && fileType !== 'audio/mpeg') {
         return NextResponse.json({ error: 'Invalid file type' }, { status: 400 });
     }
 

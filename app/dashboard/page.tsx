@@ -235,7 +235,12 @@ export default function Page() {
     const [video, setVideo] = useState<string>("")
     const [demos, setDemos] = useState<any[]>([])
     const [demoVideos, setDemoVideos] = useState<any[]>([])
-    const [isGenerating, setIsGenerating] = useState(false)
+    const [isGenerating, setIsGenerating] = useState({
+        audio: false,
+        hook: false
+    })
+    const [audio, setAudio] = useState<string>("")
+    const [voice, setVoice] = useState<string>("")
     const [prompt, setPrompt] = useState("")
     const [open, setOpen] = useState(false)
     const [inputProps, setInputProps] = useState<InputProps>(() => {
@@ -1156,23 +1161,35 @@ export default function Page() {
     }
 
     const generateHooks = async () => {
-        setIsGenerating(true)
+        setIsGenerating(prev => ({
+            ...prev,
+            hook: true
+        }))
 
         if (!prompt || prompt.length === 0) {
             toast.error('Please enter a prompt')
-            setIsGenerating(false)
+            setIsGenerating(prev => ({
+                ...prev,
+                hook: false
+            }))
             return
         }
 
         if (prompt.length < 10) {
             toast.error('Prompt must be at least 10 characters')
-            setIsGenerating(false)
+            setIsGenerating(prev => ({
+                ...prev,
+                hook: false
+            }))
             return
         }
 
         if (prompt.length > 1000) {
             toast.error('Prompt must be less than 1000 characters')
-            setIsGenerating(false)
+            setIsGenerating(prev => ({
+                ...prev,
+                hook: false
+            }))
             return
         }
 
@@ -1211,9 +1228,72 @@ export default function Page() {
             console.error('Error generating hooks:', error)
         } finally {
             setOpen(false)
-            setIsGenerating(false)
+            setIsGenerating(prev => ({
+                ...prev,
+                hook: false
+            }))
             setPrompt("")
         }
+    }
+
+    const generateAudio = async () => {
+        setIsGenerating(prev => ({
+            ...prev,
+            audio: true
+        }))
+
+        const prompt = sentences[index]
+
+        if (!prompt || prompt.length === 0) {
+            toast.error('Please enter a prompt')
+            setIsGenerating(prev => ({
+                ...prev,
+                audio: false
+            }))
+            return
+        }
+
+        if (prompt.length < 10) {
+            toast.error('Prompt must be at least 10 characters')
+            setIsGenerating(prev => ({
+                ...prev,
+                audio: false
+            }))
+            return
+        }
+
+        if (prompt.length > 1000) {
+            toast.error('Prompt must be less than 1000 characters')
+            setIsGenerating(prev => ({
+                ...prev,
+                audio: false
+            }))
+            return
+        }
+
+        const response = await fetch('/api/generate-audio', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                prompt: prompt,
+                input_voice: "Jessica"
+            }),
+        })
+
+        if (!response.ok) {
+            toast.error('Failed to generate audio' + response.statusText)
+            setIsGenerating(prev => ({
+                ...prev,
+                audio: false
+            }))
+            return
+        }
+
+        const data = await response.json()
+        setAudio(data.audio)
     }
 
     if (!user || !profile) {
@@ -1361,9 +1441,9 @@ export default function Page() {
                                                     <DialogFooter>
                                                         <Button
                                                             onClick={generateHooks}
-                                                            disabled={!prompt || isGenerating}
+                                                            disabled={!prompt || isGenerating.hook}
                                                         >
-                                                            {isGenerating ? (
+                                                            {isGenerating.hook ? (
                                                                 <>
                                                                     <Loader className="w-4 h-4 mr-2 animate-spin" />
                                                                     Generating...
@@ -1378,6 +1458,9 @@ export default function Page() {
                                                     </DialogFooter>
                                                 </DialogContent>
                                             </Dialog>
+                                            {/* <Button onClick={generateAudio} className="w-fit">
+                                                Generate Audio
+                                            </Button> */}
                                         </div>
                                         <div className="text-sm font-[500] text-[#1a1a1a]/60">
                                             {index + 1}/{sentences.length}
