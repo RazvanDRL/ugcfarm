@@ -1293,7 +1293,14 @@ export default function Page() {
         }
 
         const data = await response.json()
-        setAudio(data.audio)
+
+        const { data: audio, error } = await supabase
+            .storage
+            .from('user_audios')
+            .createSignedUrl(data.audio.path, 3600)
+
+        console.log(audio?.signedUrl)
+
     }
 
     if (!user || !profile) {

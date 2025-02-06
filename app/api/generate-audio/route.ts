@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { speak } from 'orate';
 import { elevenlabs } from 'orate/elevenlabs';
 import { supabase } from '@/lib/supabase/admin/supabase';
-import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 const voices = {
@@ -73,54 +72,31 @@ export async function POST(req: Request) {
             prompt: prompt
         });
 
-        console.log(speech)
+        // Verify the File object is valid
+        if (!(speech instanceof File) || speech.size === 0) {
+            console.error('Invalid speech file object');
+            return NextResponse.json({
+                error: 'Generated speech file is invalid'
+            }, { status: 500 });
+        }
 
         const filename = `${uuidv4()}.mp3`;
 
-        // Use absolute URL for API call
-        const audioResponse = await fetch("http://localhost:3000/api/upload", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-                filename: filename,
-                fileSize: speech.size,
-                fileType: speech.type,
-            }),
-        });
-
-        if (!audioResponse.ok) {
-            const errorData = await audioResponse.json();
-            return NextResponse.json({ error: errorData.error || 'Failed to upload audio' }, { status: audioResponse.status })
-        }
-
-        const { url: audioUrl, key: audioKey } = await audioResponse.json();
-
-        // Upload video to R2
-        const uploadResponse = await axios.put(audioUrl, speech, {
-            headers: {
-                'Content-Type': speech.type,
-            },
-        });
-
-        if (uploadResponse.status !== 200) {
-            return NextResponse.json({ error: 'Failed to upload audio' }, { status: 500 })
-        }
 
         const { data: audio, error: audioError } = await supabase
+            .storage
             .from('user_audios')
-            .insert({
-                user_id: user.id,
-                key: audioKey,
-            });
+            .upload(`${user.id}/${filename}`, speech, {
+                cacheControl: '3600',
+                upsert: false
+            })
+
 
         if (audioError) {
             return NextResponse.json({ error: 'Failed to insert audio into the database' }, { status: 500 })
         }
 
-        return NextResponse.json({ audio: audioUrl }, { status: 200 })
+        return NextResponse.json({ audio: audio }, { status: 200 })
 
     } catch (error) {
         console.error('Error generating speech:', error);
