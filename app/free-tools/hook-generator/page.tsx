@@ -51,7 +51,7 @@ export default function HookGeneratorPage() {
 
         setIsLoading(true)
         try {
-            const response = await fetch('/api/generate-hook', {
+            const response = await fetch('/api/free-tools/generate-hook', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

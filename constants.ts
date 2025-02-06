@@ -9,4 +9,10 @@ export const freeTools = [
         href: "/free-tools/hook-generator",
         icon: Wand2,
     },
+    {
+        title: "Marketing Plan Generator",
+        description: "Generate a marketing plan for your business.",
+        href: "/free-tools/marketing-plan-generator",
+        icon: Wand2,
+    },
 ]
