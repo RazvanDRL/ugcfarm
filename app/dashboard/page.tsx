@@ -1419,9 +1419,9 @@ export default function Page() {
                                             </p>
                                             <Dialog open={open} onOpenChange={setOpen}>
                                                 <DialogTrigger asChild>
-                                                    <button className="flex flex-row items-center gap-2 text-[12px] font-[500] bg-primary text-white px-2 py-1 rounded-md">
-                                                        <WandSparkles className="w-3 h-3" />
-                                                        Generate with AI
+                                                    <button className={`flex flex-row items-center gap-2 text-[12px] font-[500] ${isGenerating.hook ? 'bg-primary/50' : 'bg-primary'} text-white px-2 py-1 rounded-md`}>
+                                                        <WandSparkles className="w-3 h-3 animate-pulse" />
+                                                        {isGenerating.hook ? 'Generating your hooks...' : 'Generate with AI'}
                                                     </button>
                                                 </DialogTrigger>
                                                 <DialogContent className="sm:max-w-[425px]">

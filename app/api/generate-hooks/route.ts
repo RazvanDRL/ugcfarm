@@ -1,13 +1,9 @@
-import { OpenAI } from 'openai'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
-import { zodResponseFormat } from "openai/helpers/zod"
-import { model } from "@/constants"
 import { supabase } from '@/lib/supabase/admin/supabase'
+import { google } from '@ai-sdk/google';
+import { generateObject } from 'ai';
 
-const openai = new OpenAI()
-
-// Define the request schema
 const requestSchema = z.object({
     prompt: z.string()
         .min(10, "Product description must be at least 10 characters")
@@ -15,11 +11,6 @@ const requestSchema = z.object({
     platform: z.enum(['facebook', 'instagram', 'tiktok']).default('tiktok'),
     category: z.string().optional(),
     intent: z.enum(['sales', 'engagement', 'traffic']).default('engagement')
-})
-
-// Define the response schema matching the hook generator
-const responseSchema = z.object({
-    hooks: z.array(z.string())
 })
 
 const systemPrompt = `You are an expert e-commerce copywriter specializing in social media hooks. Generate hooks based on:
@@ -74,20 +65,16 @@ Platform: ${platform}
 ${category ? `Category: ${category}` : ''}
 Goal: ${intent}`
 
-        const completion = await openai.beta.chat.completions.parse({
-            model: model,
-            messages: [
-                { role: "system", content: systemPrompt },
-                { role: "user", content: userPrompt }
-            ],
-            response_format: zodResponseFormat(responseSchema, "hook_generator"),
-            temperature: 0.8,
+        const result = await generateObject({
+            model: google('gemini-2.0-flash', { structuredOutputs: true }),
+            prompt: userPrompt,
+            system: systemPrompt,
+            schema: z.object({
+                hooks: z.array(z.string())
+            }),
         })
 
-        // Extract hooks directly from the response (no need to access .text property)
-        const hooks = completion.choices[0].message.parsed?.hooks
-
-        console.log(hooks)
+        const hooks = result.object.hooks
 
         const { data: savedHooks, error: dbError } = await supabase
             .from('hook_library')

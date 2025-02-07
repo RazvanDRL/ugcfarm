@@ -117,7 +117,7 @@ export default function RootLayout({
             selfHosted={true}
             enabled={true}
           >
-            <Toaster position="top-right" closeButton />
+            <Toaster position="top-right" closeButton richColors />
             {children}
           </PlausibleProvider>
         </body>
