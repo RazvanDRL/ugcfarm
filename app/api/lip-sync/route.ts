@@ -2,6 +2,13 @@ import { NextResponse } from 'next/server';
 import { fal } from "@fal-ai/client";
 import { supabase } from '@/lib/supabase/admin/supabase';
 
+interface ExtendedLatentsyncInput {
+    video_url: string;
+    audio_url: string;
+    loop_mode: "pingpong" | "loop" | "none";
+    guidance_scale: number;
+}
+
 export async function POST(req: Request) {
     try {
         // const token = req.headers.get('Authorization')?.split(' ')[1]
@@ -46,8 +53,9 @@ export async function POST(req: Request) {
         const result = await fal.subscribe("fal-ai/latentsync", {
             input: {
                 video_url: video_url,
-                audio_url: audio!.signedUrl
-            },
+                audio_url: audio!.signedUrl,
+                loop_mode: "pingpong"
+            } as ExtendedLatentsyncInput,
             logs: true,
         });
 
