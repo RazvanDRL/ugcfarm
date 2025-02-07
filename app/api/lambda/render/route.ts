@@ -62,7 +62,6 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
       const response = await fetch("https://ugc.farm/api/lip-sync", {
         method: "POST",
         headers: {
-          'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({

@@ -27,7 +27,6 @@ export async function POST(req: Request) {
         const response = await fetch("https://ugc.farm/api/generate-audio", {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
