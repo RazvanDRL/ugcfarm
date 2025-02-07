@@ -58,6 +58,52 @@ import { Slider } from "@/components/ui/slider"
 import Loading from "@/components/loading"
 import { useDemoVideo } from "@/hooks/use-demo-video"
 
+const voices = {
+    alice: "alice",
+    aria: "aria",
+    bill: "bill",
+    brian: "brian",
+    callum: "callum",
+    charlie: "charlie",
+    charlotte: "charlotte",
+    chris: "chris",
+    daniel: "daniel",
+    eric: "eric",
+    george: "george",
+    jessica: "jessica",
+    laura: "laura",
+    liam: "liam",
+    lily: "lily",
+    matilda: "matilda",
+    river: "river",
+    roger: "roger",
+    sarah: "sarah",
+    will: "will"
+} as const;
+
+const voice_demos = {
+    alice: "https://storage.googleapis.com/eleven-public-prod/premade/voices/Xb7hH8MSUJpSbSDYk0k2/d10f7534-11f6-41fe-a012-2de1e482d336.mp3",
+    aria: "https://storage.googleapis.com/eleven-public-prod/premade/voices/9BWtsMINqrJLrRacOk9x/405766b8-1f4e-4d3c-aba1-6f25333823ec.mp3",
+    bill: "https://storage.googleapis.com/eleven-public-prod/premade/voices/pqHfZKP75CvOlQylNhV4/d782b3ff-84ba-4029-848c-acf01285524d.mp3",
+    brian: "https://storage.googleapis.com/eleven-public-prod/premade/voices/nPczCjzI2devNBz1zQrb/2dd3e72c-4fd3-42f1-93ea-abc5d4e5aa1d.mp3",
+    callum: "https://storage.googleapis.com/eleven-public-prod/premade/voices/N2lVS1w4EtoT3dr4eOWO/ac833bd8-ffda-4938-9ebc-b0f99ca25481.mp3",
+    charlie: "https://storage.googleapis.com/eleven-public-prod/premade/voices/IKne3meq5aSn9XLyUdCD/102de6f2-22ed-43e0-a1f1-111fa75c5481.mp3",
+    charlotte: "https://storage.googleapis.com/eleven-public-prod/premade/voices/XB0fDUnXU5powFXDhCwa/942356dc-f10d-4d89-bda5-4f8505ee038b.mp3",
+    chris: "https://storage.googleapis.com/eleven-public-prod/premade/voices/iP95p4xoKVk53GoZ742B/3f4bde72-cc48-40dd-829f-57fbf906f4d7.mp3",
+    daniel: "https://storage.googleapis.com/eleven-public-prod/premade/voices/onwK4e9ZLuTAKqWW03F9/7eee0236-1a72-4b86-b303-5dcadc007ba9.mp3",
+    eric: "https://storage.googleapis.com/eleven-public-prod/premade/voices/cjVigY5qzO86Huf0OWal/d098fda0-6456-4030-b3d8-63aa048c9070.mp3",
+    george: "https://storage.googleapis.com/eleven-public-prod/premade/voices/JBFqnCBsd6RMkjVDRZzb/e6206d1a-0721-4787-aafb-06a6e705cac5.mp3",
+    jessica: "https://storage.googleapis.com/eleven-public-prod/premade/voices/cgSgspJ2msm6clMCkdW9/56a97bf8-b69b-448f-846c-c3a11683d45a.mp3",
+    laura: "https://storage.googleapis.com/eleven-public-prod/premade/voices/FGY2WhTYpPnrIDTdsKH5/67341759-ad08-41a5-be6e-de12fe448618.mp3",
+    liam: "https://storage.googleapis.com/eleven-public-prod/premade/voices/TX3LPaxmHKxFdv7VOQHJ/63148076-6363-42db-aea8-31424308b92c.mp3",
+    lily: "https://storage.googleapis.com/eleven-public-prod/premade/voices/pFZP5JQG7iQjIQuC4Bku/89b68b35-b3dd-4348-a84a-a3c13a3c2b30.mp3",
+    matilda: "https://storage.googleapis.com/eleven-public-prod/premade/voices/XrExE9yKIg1WjnnlVkGX/b930e18d-6b4d-466e-bab2-0ae97c6d8535.mp3",
+    river: "https://storage.googleapis.com/eleven-public-prod/premade/voices/SAz9YHcvj6GT2YYXdXww/e6c95f0b-2227-491a-b3d7-2249240decb7.mp3",
+    roger: "https://storage.googleapis.com/eleven-public-prod/premade/voices/CwhRBWXzGAHq8TQ4Fs17/58ee3ff5-f6f2-4628-93b8-e38eb31806b0.mp3",
+    sarah: "https://storage.googleapis.com/eleven-public-prod/premade/voices/EXAVITQu4vr4xnSDxMaL/01a3e33c-6e99-4ee7-8543-ff2216a32186.mp3",
+    will: "https://storage.googleapis.com/eleven-public-prod/premade/voices/bIHbv24MWmeRgasZH58o/8caf8f3d-ad29-4980-af41-53f20c72d7a4.mp3"
+}
+
 interface InputProps {
     text: string;
     videoUrl: string;
@@ -81,6 +127,7 @@ interface InputProps {
     } | null;
     hook_duration: number;
     lip_sync: boolean;
+    voice: string;
 }
 
 export default function Page() {
@@ -241,7 +288,6 @@ export default function Page() {
         hook: false
     })
     const [audio, setAudio] = useState<string>("")
-    const [voice, setVoice] = useState<string>("")
     const [prompt, setPrompt] = useState("")
     const [open, setOpen] = useState(false)
     const [inputProps, setInputProps] = useState<InputProps>(() => {
@@ -256,7 +302,8 @@ export default function Page() {
             },
             demos: null,
             hook_duration: hookDuration,
-            lip_sync: false
+            lip_sync: false,
+            voice: "alice"
         }
     });
     const { renderMedia, state, setToken, token } = useRendering(COMP_NAME, inputProps);
@@ -447,7 +494,8 @@ export default function Page() {
                 duration: demoDuration
             } : null,
             hook_duration: hookDuration,
-            lip_sync: false
+            lip_sync: false,
+            voice: "alice"
         });
     }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration]);
 
@@ -1239,76 +1287,85 @@ export default function Page() {
         }
     }
 
-    const generateAudio = async () => {
-        setIsGenerating(prev => ({
+    // const generateAudio = async () => {
+    //     setIsGenerating(prev => ({
+    //         ...prev,
+    //         audio: true
+    //     }))
+
+    //     const prompt = sentences[index]
+
+    //     if (!prompt || prompt.length === 0) {
+    //         toast.error('Please enter a prompt')
+    //         setIsGenerating(prev => ({
+    //             ...prev,
+    //             audio: false
+    //         }))
+    //         return
+    //     }
+
+    //     if (prompt.length < 10) {
+    //         toast.error('Prompt must be at least 10 characters')
+    //         setIsGenerating(prev => ({
+    //             ...prev,
+    //             audio: false
+    //         }))
+    //         return
+    //     }
+
+    //     if (prompt.length > 1000) {
+    //         toast.error('Prompt must be less than 1000 characters')
+    //         setIsGenerating(prev => ({
+    //             ...prev,
+    //             audio: false
+    //         }))
+    //         return
+    //     }
+
+    //     const response = await fetch('/api/generate-audio', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${token}`
+    //         },
+    //         body: JSON.stringify({
+    //             prompt: prompt,
+    //             input_voice: "Jessica"
+    //         }),
+    //     })
+
+    //     if (!response.ok) {
+    //         toast.error('Failed to generate audio' + response.statusText)
+    //         setIsGenerating(prev => ({
+    //             ...prev,
+    //             audio: false
+    //         }))
+    //         return
+    //     }
+
+    //     const data = await response.json()
+
+    //     const { data: audio, error } = await supabase
+    //         .storage
+    //         .from('user_audios')
+    //         .createSignedUrl(data.audio.path, 3600)
+
+    //     console.log(audio?.signedUrl)
+
+    // }
+
+    const handleLipSyncChange = (checked: boolean) => {
+        setInputProps(prev => ({
             ...prev,
-            audio: true
+            lip_sync: checked
         }))
-
-        const prompt = sentences[index]
-
-        if (!prompt || prompt.length === 0) {
-            toast.error('Please enter a prompt')
-            setIsGenerating(prev => ({
-                ...prev,
-                audio: false
-            }))
-            return
-        }
-
-        if (prompt.length < 10) {
-            toast.error('Prompt must be at least 10 characters')
-            setIsGenerating(prev => ({
-                ...prev,
-                audio: false
-            }))
-            return
-        }
-
-        if (prompt.length > 1000) {
-            toast.error('Prompt must be less than 1000 characters')
-            setIsGenerating(prev => ({
-                ...prev,
-                audio: false
-            }))
-            return
-        }
-
-        const response = await fetch('/api/generate-audio', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify({
-                prompt: prompt,
-                input_voice: "Jessica"
-            }),
-        })
-
-        if (!response.ok) {
-            toast.error('Failed to generate audio' + response.statusText)
-            setIsGenerating(prev => ({
-                ...prev,
-                audio: false
-            }))
-            return
-        }
-
-        const data = await response.json()
-
-        const { data: audio, error } = await supabase
-            .storage
-            .from('user_audios')
-            .createSignedUrl(data.audio.path, 3600)
-
-        console.log(audio?.signedUrl)
-
     }
 
     if (!user || !profile) {
         return <Loading />
     }
+
+    console.log(inputProps.voice)
 
     return (
         <SidebarProvider>
@@ -1406,6 +1463,50 @@ export default function Page() {
                                         <ArrowRightIcon className="w-5 h-5" />
                                     </Button>
                                 )}
+                            </div>
+
+                            {/* Lip Sync Settings */}
+                            <div className="flex flex-row items-center gap-2">
+                                <div className={`h-fit transition-all duration-1000 ease-in-out ${inputProps.lip_sync ? 'w-full' : 'w-fit'} rounded-xl bg-[#A4A4A4]/10`}>
+                                    <div className="flex flex-col items-start p-6">
+                                        <div className={`flex flex-row items-center justify-between transition-all duration-300 ease-in-out ${inputProps.lip_sync ? 'w-full mb-6 md:mb-4' : 'w-fit'} gap-4`}>
+                                            <div className="flex flex-row items-center gap-4">
+                                                <p className="text-base font-[500] text-[#1a1a1a]/60">
+                                                    Lip Sync settings {inputProps.lip_sync ? <span className="text-primary font-[600]"> - ON</span> : ''}
+                                                </p>
+                                            </div>
+                                            <div className="text-sm font-[500] text-[#1a1a1a]/60">
+                                                <Switch
+                                                    checked={inputProps.lip_sync}
+                                                    onCheckedChange={handleLipSyncChange}
+                                                />
+                                            </div>
+                                        </div>
+                                        {inputProps.lip_sync && (
+                                            <div className="w-full">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Avatar Voice
+                                                </label>
+                                                <Select
+                                                    value={inputProps.voice}
+                                                    onValueChange={(value) => setInputProps(prev => ({ ...prev, voice: value }))}
+                                                >
+                                                    <SelectTrigger className="w-[180px] bg-background font-[500] truncate">
+                                                        <SelectValue placeholder="Select voice" />
+                                                    </SelectTrigger>
+                                                    <SelectContent className="w-[180px] bg-background font-[500]">
+                                                        {Object.keys(voices).map((voice) => (
+                                                            <SelectItem key={voice} value={voice}>
+                                                                <span className="capitalize">{voice}</span>
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <audio src={voice_demos[inputProps.voice as keyof typeof voice_demos]} autoPlay controls className="border-primary/10 border-2 rounded-full mt-2" />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="flex flex-col gap-4 order-last md:order-first">

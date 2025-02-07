@@ -11,40 +11,37 @@ interface ExtendedLatentsyncInput {
 
 export async function POST(req: Request) {
     try {
-        // const token = req.headers.get('Authorization')?.split(' ')[1]
-        // if (!token) {
-        //     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-        // }
+        const token = req.headers.get('Authorization')?.split(' ')[1]
+        if (!token) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        }
 
-        // const { data: { user }, error } = await supabase.auth.getUser(token)
+        const { data: { user }, error } = await supabase.auth.getUser(token)
 
-        // if (error || !user) {
-        //     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-        // }
+        if (error || !user) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        }
 
-        const { video_url, prompt } = await req.json()
+        const { video_url, prompt, voice } = await req.json()
 
-
-        const response = await fetch("http://localhost:3000/api/generate-audio", {
+        const response = await fetch("https://ugc.farm/api/generate-audio", {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({
                 prompt: prompt,
-                input_voice: "jessica"
+                input_voice: voice
             })
         })
 
         const data = await response.json()
 
-        const { data: audio, error } = await supabase
+        const { data: audio, error: audioError } = await supabase
             .storage
             .from('user_audios')
             .createSignedUrl(data.audio.path, 3600)
-
-        // const { video_url, audio_url } = await req.json()
-
-        // if (!video_url || !audio_url) {
-        //     return NextResponse.json({ error: 'Video and audio URLs are required' }, { status: 400 })
-        // }
 
         fal.config({
             credentials: process.env.FAL_KEY

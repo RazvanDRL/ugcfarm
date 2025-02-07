@@ -25,6 +25,7 @@ export const CompositionProps = z.object({
     duration: z.number().default(0)
   }).nullable(),
   lip_sync: z.boolean().default(false),
+  voice: z.string().default("alice"),
 });
 
 export const defaultMyCompProps = {
@@ -47,6 +48,7 @@ export const defaultMyCompProps = {
   },
   demos: null,
   lip_sync: false,
+  voice: "alice",
 };
 
 export const DURATION_IN_FRAMES = 150;

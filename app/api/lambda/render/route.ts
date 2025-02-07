@@ -9,6 +9,7 @@ import { DISK, RAM, REGION, SITE_NAME, TIMEOUT } from "../../../../config.mjs";
 import { executeApi } from "../../../../helpers/api-response";
 import { RenderRequest } from "../../../../types/schema";
 import { supabase } from "@/lib/supabase/admin/supabase";
+import { parseMedia } from '@remotion/media-parser';
 
 
 export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
@@ -58,13 +59,31 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
     // }
 
     if (body.inputProps.lip_sync) {
-      const response = await fetch("http://localhost:3000/api/lip-sync", {
+      const response = await fetch("https://ugc.farm/api/lip-sync", {
         method: "POST",
-        body: JSON.stringify({ video_url: body.inputProps.videoUrl, prompt: body.inputProps.text })
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          video_url: body.inputProps.videoUrl,
+          prompt: body.inputProps.text,
+          voice: body.inputProps.voice
+        })
       })
 
       const video_data = await response.json()
 
+      const metadata = await parseMedia({
+        src: video_data.url,
+        fields: {
+          slowDurationInSeconds: true,
+        },
+      });
+
+      let hook_duration = Math.round(metadata.slowDurationInSeconds * 30)
+
+      body.inputProps.hook_duration = hook_duration
       body.inputProps.videoUrl = video_data.url
     }
 
