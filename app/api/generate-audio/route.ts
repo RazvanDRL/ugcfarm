@@ -70,16 +70,7 @@ export async function POST(req: Request) {
             prompt: prompt
         });
 
-        // Verify the File object is valid
-        if (!(speech instanceof File) || speech.size === 0) {
-            console.error('Invalid speech file object');
-            return NextResponse.json({
-                error: 'Generated speech file is invalid'
-            }, { status: 500 });
-        }
-
         const filename = `${uuidv4()}.mp3`;
-
 
         const { data: audio, error: audioError } = await supabase
             .storage
