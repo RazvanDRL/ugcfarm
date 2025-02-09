@@ -70,15 +70,15 @@ export async function POST(req: Request) {
             prompt: prompt
         });
 
-        // Convert the audio data to a Buffer
-        const audioBuffer = Buffer.from(await speech.arrayBuffer());
+        // Get the audio data as Uint8Array
+        const audioData = new Uint8Array(await speech.arrayBuffer());
 
         const filename = `${uuidv4()}.mp3`;
 
         const { data: audio, error: audioError } = await supabase
             .storage
             .from('user_audios')
-            .upload(`${user.id}/${filename}`, audioBuffer, {
+            .upload(`${user.id}/${filename}`, audioData, {
                 cacheControl: '3600',
                 upsert: false,
                 contentType: 'audio/mpeg'
