@@ -1466,7 +1466,7 @@ export default function Page() {
                             </div>
 
                             {/* Lip Sync Settings */}
-                            <div className="flex flex-row items-center gap-2">
+                            {/* <div className="flex flex-row items-center gap-2">
                                 <div className={`h-fit transition-all duration-1000 ease-in-out ${inputProps.lip_sync ? 'w-full' : 'w-fit'} rounded-xl bg-[#A4A4A4]/10`}>
                                     <div className="flex flex-col items-start p-6">
                                         <div className={`flex flex-row items-center justify-between transition-all duration-300 ease-in-out ${inputProps.lip_sync ? 'w-full mb-6 md:mb-4' : 'w-fit'} gap-4`}>
@@ -1507,7 +1507,7 @@ export default function Page() {
                                         )}
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="flex flex-col gap-4 order-last md:order-first">
                             {/* 1. Choose a hook */}

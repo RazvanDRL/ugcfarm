@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
         const { video_url, prompt, voice } = await req.json()
 
-        const response = await fetch("https://ugcfarm-02nyc.kinsta.app/api/generate-audio", {
+        const response = await fetch("http://localhost:3000/api/generate-audio", {
             method: "POST",
             headers: {
                 'Authorization': `Bearer ${token}`

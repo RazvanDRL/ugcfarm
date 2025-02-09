@@ -59,7 +59,7 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
     // }
 
     if (body.inputProps.lip_sync) {
-      const response = await fetch("https://ugcfarm-02nyc.kinsta.app/api/lip-sync", {
+      const response = await fetch("http://localhost:3000/api/lip-sync", {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${token}`
