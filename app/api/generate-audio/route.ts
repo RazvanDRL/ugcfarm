@@ -70,16 +70,19 @@ export async function POST(req: Request) {
             prompt: prompt
         });
 
+        // Convert the audio data to a Buffer
+        const audioBuffer = Buffer.from(await speech.arrayBuffer());
+
         const filename = `${uuidv4()}.mp3`;
 
         const { data: audio, error: audioError } = await supabase
             .storage
             .from('user_audios')
-            .upload(`${user.id}/${filename}`, speech, {
+            .upload(`${user.id}/${filename}`, audioBuffer, {
                 cacheControl: '3600',
-                upsert: false
+                upsert: false,
+                contentType: 'audio/mpeg'
             })
-
 
         if (audioError) {
             return NextResponse.json({ error: 'Failed to insert audio into the database' }, { status: 500 })
