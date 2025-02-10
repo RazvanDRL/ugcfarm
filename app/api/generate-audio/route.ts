@@ -70,8 +70,8 @@ export async function POST(req: Request) {
             prompt: prompt
         });
 
-        // Get the audio data as Uint8Array
-        const audioData = new Uint8Array(await speech.arrayBuffer());
+        // Convert to Node.js Buffer instead of browser File API
+        const audioData = Buffer.from(await speech.text(), 'base64');
 
         const filename = `${uuidv4()}.mp3`;
 
