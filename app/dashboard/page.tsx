@@ -459,6 +459,10 @@ export default function Page() {
                     }
 
                     setSentences(hook.data)
+                    setInputProps(prev => ({
+                        ...prev,
+                        text: hook.data[0]
+                    }))
                 }
             } else {
                 router.replace(`/login?redirect=${encodeURIComponent(window.location.pathname)}`)
