@@ -70,8 +70,9 @@ export async function POST(req: Request) {
             prompt: prompt
         });
 
-        // Convert to Node.js Buffer instead of browser File API
-        const audioData = Buffer.from(await speech.text(), 'base64');
+        // Get ArrayBuffer and convert to Node.js Buffer
+        const arrayBuffer = await speech.arrayBuffer();
+        const audioData = Buffer.from(arrayBuffer);
 
         const filename = `${uuidv4()}.mp3`;
 
