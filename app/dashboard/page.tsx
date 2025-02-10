@@ -1100,7 +1100,7 @@ export default function Page() {
             return
         }
 
-        // fetch user's credits
+        // // fetch user's credits
         const { data: credits, error } = await supabase
             .from('profiles')
             .select('credits')
@@ -1130,14 +1130,18 @@ export default function Page() {
                 })
 
             if (error) {
-                toast.error('Failed to insert video into database');
+                if (error.code === 'P0001') {
+                    toast.error('You do not have enough credits to create a video')
+                } else {
+                    toast.error('Failed to create video')
+                }
                 throw new Error('Failed to insert video into database');
             } else {
                 setProfile(prev => prev ? {
                     ...prev,
                     credits: prev.credits - 1,
                 } : null)
-                await renderMedia();                    
+                await renderMedia();
             }
         } catch (error) {
             console.error("Error rendering video:", error);
