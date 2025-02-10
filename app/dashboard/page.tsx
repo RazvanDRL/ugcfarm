@@ -1100,7 +1100,18 @@ export default function Page() {
             return
         }
 
-        if (profile.credits <= 0) {
+        // fetch user's credits
+        const { data: credits, error } = await supabase
+            .from('profiles')
+            .select('credits')
+            .eq('id', user.id)
+
+        if (error) {
+            toast.error('Failed to fetch user credits')
+            return
+        }
+
+        if (credits[0].credits <= 0) {
             toast.error('You do not have enough credits to create a video')
             return
         }
@@ -1126,7 +1137,7 @@ export default function Page() {
                     ...prev,
                     credits: prev.credits - 1,
                 } : null)
-                await renderMedia();
+                await renderMedia();                    
             }
         } catch (error) {
             console.error("Error rendering video:", error);
