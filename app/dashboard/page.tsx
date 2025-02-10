@@ -1085,6 +1085,12 @@ export default function Page() {
     }
 
     const updateSentence = (newText: string) => {
+        if (newText.length > 100) {
+            toast.error('Hook must be less than 100 characters')
+        }
+
+        newText = newText.substring(0, 100);
+
         setSentences(prev => {
             const newSentences = [...prev];
             newSentences[index] = newText;
@@ -1383,8 +1389,6 @@ export default function Page() {
     if (!user || !profile) {
         return <Loading />
     }
-
-    console.log(inputProps.voice)
 
     return (
         <SidebarProvider>
