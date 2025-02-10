@@ -24,7 +24,9 @@ export async function POST(req: Request) {
 
         const { video_url, prompt, voice } = await req.json()
 
-        const response = await fetch("http://localhost:3000/api/generate-audio", {
+        const SITE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_SITE_URL
+
+        const response = await fetch(`${SITE_URL}/api/generate-audio`, {
             method: "POST",
             headers: {
                 'Authorization': `Bearer ${token}`

@@ -58,8 +58,10 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
     //   throw new TypeError('unauthorized user');
     // }
 
+    const SITE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_SITE_URL
+
     if (body.inputProps.lip_sync) {
-      const response = await fetch("http://localhost:3000/api/lip-sync", {
+      const response = await fetch(`${SITE_URL}/api/lip-sync`, {
         method: "POST",
         headers: {
           'Authorization': `Bearer ${token}`
