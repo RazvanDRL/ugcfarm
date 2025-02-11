@@ -371,7 +371,6 @@ export default function Page() {
                 alt: `Demo ${index + 1}`
             });
         }
-        console.log('tempDemos', tempDemos)
         setDemos(tempDemos);
     }
 
@@ -481,7 +480,6 @@ export default function Page() {
     }, [state])
 
     useEffect(() => {
-        console.log('useEffect', demoUrl, demoDuration)
         const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
         const totalDuration = hookDuration + (demoDuration || 0);
 
@@ -503,38 +501,6 @@ export default function Page() {
         });
     }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration]);
 
-    // Add this effect to debug state changes
-    useEffect(() => {
-        console.log('State changed:', {
-            demoUrl,
-            demoDuration,
-            selectedDemoId,
-            textStyle,
-            text: sentences[index]
-        });
-    }, [demoUrl, demoDuration, selectedDemoId, textStyle, sentences, index]);
-
-    // Modify the main inputProps effect to preserve demo state
-    useEffect(() => {
-        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
-        const totalDuration = hookDuration + (demoDuration || 0);
-
-        console.log('Setting inputProps with demo:', { demoUrl, demoDuration });
-
-        setInputProps(prev => ({
-            ...prev,
-            text: sentences[index],
-            videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
-            video_duration: totalDuration,
-            textStyle,
-            demos: prev.demos && demoUrl ? {  // Preserve demo if it exists
-                url: demoUrl,
-                duration: demoDuration
-            } : prev.demos,
-            hook_duration: hookDuration
-        }));
-    }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration]);
-
     // Modify the effect that handles demo initialization
     useEffect(() => {
         if (selectedDemoId > 0 && !isDemoInitialized && token && demoVideos.length > 0) {
@@ -547,34 +513,6 @@ export default function Page() {
                 });
         }
     }, [selectedDemoId, isDemoInitialized, token, demoVideos, setDemo]);
-
-    // Modify the inputProps effect to preserve demo state
-    useEffect(() => {
-        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
-        const totalDuration = hookDuration + (demoDuration || 0);
-
-        console.log('Setting inputProps with demo:', { demoUrl, demoDuration, isDemoInitialized });
-
-        setInputProps(prev => {
-            // Preserve existing demo if we have one and new one isn't set
-            const demos = prev.demos && !demoUrl ? prev.demos : (
-                demoUrl ? {
-                    url: demoUrl,
-                    duration: demoDuration
-                } : null
-            );
-
-            return {
-                ...prev,
-                text: sentences[index],
-                videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
-                video_duration: totalDuration,
-                textStyle,
-                demos,
-                hook_duration: hookDuration
-            };
-        });
-    }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration, isDemoInitialized]);
 
     const photos = [
         {
@@ -1031,8 +969,8 @@ export default function Page() {
 
     const onPhotoSelect = (id: number) => {
         setSelectedPhotoId(id)
-        resetDemo()
-        setSelectedDemoId(0)
+        // resetDemo()
+        // setSelectedDemoId(0)
     }
 
     const onDemoSelect = async (id: number) => {
