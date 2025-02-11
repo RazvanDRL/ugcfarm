@@ -11,30 +11,6 @@ import React from 'react'
 
 const demoVideos = [
     {
-        id: 1,
-        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/a8df55e3-6397-46cb-b843-785107e734e9/playlist.m3u8",
-    },
-    {
-        id: 2,
-        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/3fbc0835-637d-4153-9083-295b925922d4/playlist.m3u8",
-    },
-    {
-        id: 3,
-        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/f2bccb6f-bcad-4345-b68c-badd82ce54b4/playlist.m3u8",
-    },
-    {
-        id: 4,
-        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/8d6bedc0-fbd3-45b3-902b-c0b58745cd85/playlist.m3u8",
-    },
-    {
-        id: 5,
-        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/cd000198-f3b0-49df-b043-1bd21169edb4/playlist.m3u8",
-    },
-    {
-        id: 6,
-        videoUrl: "https://vz-c509880b-3e0.b-cdn.net/d07fda19-350f-404b-9104-d8c902029ae9/playlist.m3u8",
-    },
-    {
         id: 7,
         videoUrl: "https://vz-c509880b-3e0.b-cdn.net/fd3de4cc-ce16-4d71-9f72-5075b68ab71d/playlist.m3u8",
     },
