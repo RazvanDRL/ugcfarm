@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fal } from "@fal-ai/client";
 import { supabase } from '@/lib/supabase/admin/supabase';
-
+import { v4 as uuidv4 } from 'uuid';
 export async function POST(req: Request) {
     try {
         const token = req.headers.get('Authorization')?.split(' ')[1]
@@ -37,7 +37,44 @@ export async function POST(req: Request) {
         const url = result.data.images[0].url
         const seed = result.data.seed
 
-        return NextResponse.json({ url, seed })
+        const id = uuidv4();
+
+        const { data: user_avatars, error: user_avatars_error } = await supabase
+            .from("user_avatars")
+            .insert({
+                id: id,
+                user_id: user.id,
+                data: result.data,
+                seed: seed,
+            })
+
+        if (user_avatars_error) {
+            return NextResponse.json({ error: 'Error generating avatar' }, { status: 500 })
+        }
+
+        const blob = await fetch(url).then((r) => r.blob())
+
+        const { data: upload_data, error: upload_error } = await supabase.storage
+            .from("user_avatars")
+            .upload(`${user.id}/${id}.jpg`, blob, {
+                cacheControl: '3600',
+                upsert: false
+            })
+
+        if (upload_error) {
+            return NextResponse.json({ error: 'Error uploading avatar' }, { status: 500 })
+        }
+
+        const { data: signed_url, error: signed_url_error } = await supabase
+            .storage
+            .from('user_avatars')
+            .createSignedUrl(`${user.id}/${id}.jpg`, 86400)
+
+        if (signed_url_error) {
+            return NextResponse.json({ error: 'Error getting signed url' }, { status: 500 })
+        }
+
+        return NextResponse.json({ url: signed_url?.signedUrl })
     } catch (error) {
         console.error('Error generating speech:', error);
         return new NextResponse('Internal Server Error', { status: 500 });

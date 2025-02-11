@@ -21,6 +21,11 @@ module.exports = withPlausibleProxy({
 				hostname: 'lh3.googleusercontent.com',
 				pathname: '/a/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'yvxmlrehhemovqibmvqt.supabase.co',
+				pathname: '/storage/v1/object/sign/**',
+			},
 		],
 		formats: ['image/webp'],
 		minimumCacheTTL: 31536000, // 1 year

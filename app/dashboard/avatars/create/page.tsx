@@ -18,6 +18,7 @@ import Options from '@/components/options'
 import { Button } from '@/components/ui/button'
 import { Loader } from 'lucide-react'
 import { TextShimmer } from '@/components/ui/text-shimmer'
+import Image from 'next/image'
 
 const style_options = ["selfie", "whole body"]
 const gender_options = ["female", "male"]
@@ -46,6 +47,7 @@ export default function History() {
     const [selectedBody, setSelectedBody] = useState<string>(default_avatar.body)
     const [selectedHair, setSelectedHair] = useState<string>(default_avatar.hair)
     const [selectedBackground, setSelectedBackground] = useState<string>(default_avatar.background)
+    const [avatar, setAvatar] = useState<string | null>(null)
 
     useEffect(() => {
         async function fetchUser() {
@@ -140,7 +142,7 @@ export default function History() {
             }
 
             toast.success("Avatar generated successfully")
-            console.log(data)
+            setAvatar(data.url)
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
             toast.error(`Failed to generate avatar: ${errorMessage}`)
@@ -185,83 +187,90 @@ export default function History() {
                 </div>
             </header>
             <div className="flex items-center max-w-5xl mx-auto justify-center h-[calc(100vh-84px)]">
-                <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-2xl font-bold tracking-tight">Create your own avatar</h1>
-                    <p className="text-muted-foreground">
-                        Create your own avatar with your own image
-                    </p>
-                    {/* OPTIONS */}
-                    <div className="w-full flex flex-col gap-4 justify-start items-start mt-4">
-                        {/* STYLE */}
-                        <Options
-                            label="photo style"
-                            options={style_options}
-                            disabled={isGenerating}
-                            onOptionChange={(option) => setSelectedStyle(option)}
-                            selectedOption={selectedStyle}
-                        />
+                {avatar === null ? (
+                    <div className="flex flex-col items-center justify-center">
+                        <h1 className="text-2xl font-bold tracking-tight">Create your own avatar</h1>
+                        <p className="text-muted-foreground">
+                            Create your own avatar with your own image
+                        </p>
+                        {/* OPTIONS */}
+                        <div className="w-full flex flex-col gap-4 justify-start items-start mt-4">
+                            {/* STYLE */}
+                            <Options
+                                label="photo style"
+                                options={style_options}
+                                disabled={isGenerating}
+                                onOptionChange={(option) => setSelectedStyle(option)}
+                                selectedOption={selectedStyle}
+                            />
 
-                        {/* GENDER */}
-                        <Options
-                            label="gender"
-                            options={gender_options}
-                            disabled={isGenerating}
-                            onOptionChange={(option) => setSelectedGender(option)}
-                            selectedOption={selectedGender}
-                        />
+                            {/* GENDER */}
+                            <Options
+                                label="gender"
+                                options={gender_options}
+                                disabled={isGenerating}
+                                onOptionChange={(option) => setSelectedGender(option)}
+                                selectedOption={selectedGender}
+                            />
 
-                        {/* AGE */}
-                        <Options
-                            label="age"
-                            options={age_options}
-                            disabled={isGenerating}
-                            onOptionChange={(option) => setSelectedAge(prev => prev === option ? '' : option)}
-                            selectedOption={selectedAge}
-                        />
+                            {/* AGE */}
+                            <Options
+                                label="age"
+                                options={age_options}
+                                disabled={isGenerating}
+                                onOptionChange={(option) => setSelectedAge(prev => prev === option ? '' : option)}
+                                selectedOption={selectedAge}
+                            />
 
-                        {/* BODY */}
-                        <Options
-                            label="body"
-                            options={body_options}
-                            disabled={isGenerating}
-                            onOptionChange={(option) => setSelectedBody(prev => prev === option ? '' : option)}
-                            selectedOption={selectedBody}
-                        />
+                            {/* BODY */}
+                            <Options
+                                label="body"
+                                options={body_options}
+                                disabled={isGenerating}
+                                onOptionChange={(option) => setSelectedBody(prev => prev === option ? '' : option)}
+                                selectedOption={selectedBody}
+                            />
 
-                        {/* HAIR */}
-                        <Options
-                            label="hair"
-                            options={hair_options}
-                            disabled={isGenerating}
-                            onOptionChange={(option) => setSelectedHair(prev => prev === option ? '' : option)}
-                            selectedOption={selectedHair}
-                        />
+                            {/* HAIR */}
+                            <Options
+                                label="hair"
+                                options={hair_options}
+                                disabled={isGenerating}
+                                onOptionChange={(option) => setSelectedHair(prev => prev === option ? '' : option)}
+                                selectedOption={selectedHair}
+                            />
 
-                        {/* BACKGROUND */}
-                        <Options
-                            label="background"
-                            options={background_options}
-                            disabled={isGenerating}
-                            onOptionChange={(option) => setSelectedBackground(prev => prev === option ? '' : option)}
-                            selectedOption={selectedBackground}
-                        />
+                            {/* BACKGROUND */}
+                            <Options
+                                label="background"
+                                options={background_options}
+                                disabled={isGenerating}
+                                onOptionChange={(option) => setSelectedBackground(prev => prev === option ? '' : option)}
+                                selectedOption={selectedBackground}
+                            />
+                        </div>
+                        {isGenerating ? (
+                            <Button variant="outline" className="mt-8 w-fit ml-auto">
+                                <Loader className="w-5 h-5 animate-spin" />
+                                <TextShimmer className='font-mono text-sm' duration={2}>
+                                    Generating avatar...
+                                </TextShimmer>
+                            </Button>
+                        ) : (
+                            <Button
+                                onClick={handleCreateAvatar}
+                                className="mt-8 w-fit ml-auto"
+                            >
+                                Create avatar&nbsp;&nbsp;&rarr;
+                            </Button>
+                        )}
                     </div>
-                    {isGenerating ? (
-                        <Button variant="outline" className="mt-8 w-fit ml-auto">
-                            <Loader className="w-5 h-5 animate-spin" />
-                            <TextShimmer className='font-mono text-sm' duration={2}>
-                                Generating avatar...
-                            </TextShimmer>
-                        </Button>
-                    ) : (
-                        <Button
-                            onClick={handleCreateAvatar}
-                            className="mt-8 w-fit ml-auto"
-                        >
-                            Create avatar&nbsp;&nbsp;&rarr;
-                        </Button>
-                    )}
-                </div>
+                ) : (
+                    <div className="flex flex-col items-center justify-center">
+                        <h1 className="text-2xl font-bold tracking-tight">Your avatar</h1>
+                        <Image src={avatar} alt="avatar" width={90 * 3} height={160 * 3} className="rounded-lg" />
+                    </div>
+                )}
             </div>
         </SidebarInset>
     </SidebarProvider>
