@@ -186,7 +186,7 @@ export default function History() {
                     </Breadcrumb>
                 </div>
             </header>
-            <div className="flex items-center max-w-5xl mx-auto justify-center h-[calc(100vh-84px)]">
+            <div className="flex items-center max-w-5xl mx-auto justify-center h-[calc(100vh-84px)] px-8">
                 {avatar === null ? (
                     <div className="flex flex-col items-center justify-center">
                         <h1 className="text-2xl font-bold tracking-tight">Create your own avatar</h1>
@@ -250,12 +250,17 @@ export default function History() {
                             />
                         </div>
                         {isGenerating ? (
-                            <Button variant="outline" className="mt-8 w-fit ml-auto">
-                                <Loader className="w-5 h-5 animate-spin" />
-                                <TextShimmer className='font-mono text-sm' duration={2}>
-                                    Generating avatar...
-                                </TextShimmer>
-                            </Button>
+                            <div className='flex flex-col items-center justify-end gap-2 mt-8 w-fit ml-auto'>
+                                <Button variant="outline" className="w-fit">
+                                    <Loader className="w-5 h-5 animate-spin" />
+                                    <TextShimmer className='font-mono text-sm' duration={2}>
+                                        Generating avatar...
+                                    </TextShimmer>
+                                </Button>
+                                <label className='text-[10px] font-mono text-muted-foreground/70'>
+                                    This will take 15 seconds
+                                </label>
+                            </div>
                         ) : (
                             <Button
                                 onClick={handleCreateAvatar}
@@ -268,7 +273,7 @@ export default function History() {
                 ) : (
                     <div className="flex flex-col items-center justify-center">
                         <h1 className="text-2xl font-bold tracking-tight">Your avatar</h1>
-                        <Image src={avatar} alt="avatar" width={90 * 3} height={160 * 3} className="rounded-lg" />
+                        <img src={avatar} alt="avatar" className="w-[270px] h-[480px] rounded-lg" />
                     </div>
                 )}
             </div>
