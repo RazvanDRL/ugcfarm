@@ -120,11 +120,16 @@ export default function LoginPage() {
                                 alt="Google"
                                 width={16}
                                 height={16}
-                                className="mr-2"
+                                className="mr-auto"
                             />
-                            {isLoading.google ? <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            </> : "Continue with Google"}
+                            {isLoading.google ? <span className="flex w-full justify-center items-center">
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                            </span>
+                                :
+                                <span className="flex w-full justify-center items-center">
+                                    Continue with Google
+                                </span>
+                            }
                         </Button>
 
                         {/* Twitter Login */}
@@ -139,11 +144,16 @@ export default function LoginPage() {
                                 alt="Twitter"
                                 width={16}
                                 height={16}
-                                className="mr-2"
+                                className="mr-auto"
                             />
-                            {isLoading.twitter ? <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            </> : "Continue with Twitter"}
+                            {isLoading.twitter ? <span className="flex w-full justify-center items-center">
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                            </span>
+                                :
+                                <span className="flex w-full justify-center items-center">
+                                    Continue with Twitter
+                                </span>
+                            }
                         </Button>
                     </div>
 
