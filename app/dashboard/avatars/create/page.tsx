@@ -358,7 +358,7 @@ export default function History() {
                     ) : (
                         <div className="flex flex-col items-center justify-center">
                             <p className="text-muted-foreground">
-                                You don't have any avatars yet
+                                You don&apos;t have any avatars yet
                             </p>
                         </div>
                     )}
