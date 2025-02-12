@@ -11,7 +11,7 @@ interface OptionsProps {
 
 export default function Options({ label, options, onOptionChange, className, selectedOption, disabled }: OptionsProps) {
     return (
-        <div className={cn("flex flex-col gap-2 max-w-xl px-8 lg:px-0", className)}>
+        <div className={cn("flex flex-col gap-2 max-w-xl", className)}>
             <p className="text-sm font-mono text-muted-foreground uppercase">{label}{selectedOption === '' && <span className="text-primary">&nbsp;-&nbsp;None</span>}</p>
             <div className="flex flex-row flex-wrap gap-3 font-mono">
                 {options.map((option) => (

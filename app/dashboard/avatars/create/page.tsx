@@ -16,7 +16,7 @@ import { AppSidebar } from '@/components/app-sidebar'
 import Loading from '@/components/loading'
 import Options from '@/components/options'
 import { Button } from '@/components/ui/button'
-import { Loader } from 'lucide-react'
+import { Download, Loader, Maximize2 } from 'lucide-react'
 import { TextShimmer } from '@/components/ui/text-shimmer'
 import Image from 'next/image'
 
@@ -47,7 +47,7 @@ export default function History() {
     const [selectedBody, setSelectedBody] = useState<string>(default_avatar.body)
     const [selectedHair, setSelectedHair] = useState<string>(default_avatar.hair)
     const [selectedBackground, setSelectedBackground] = useState<string>(default_avatar.background)
-    const [avatar, setAvatar] = useState<string | null>(null)
+    const [avatars, setAvatars] = useState<string[]>([])
 
     useEffect(() => {
         async function fetchUser() {
@@ -79,6 +79,7 @@ export default function History() {
             const session = await supabase.auth.getSession()
             if (session.data.session?.access_token) {
                 setToken(session.data.session?.access_token)
+                fetchAvatars(user.id)
             } else {
                 toast.error("No access token found")
             }
@@ -142,7 +143,7 @@ export default function History() {
             }
 
             toast.success("Avatar generated successfully")
-            setAvatar(data.url)
+            setAvatars(prev => [data.url, ...prev])
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
             toast.error(`Failed to generate avatar: ${errorMessage}`)
@@ -150,6 +151,51 @@ export default function History() {
             setIsGenerating(false)
         }
     }
+
+    const fetchAvatars = async (user_id: string) => {
+        const { data: avatars, error: avatars_error } = await supabase.storage
+            .from('user_avatars')
+            .list(`${user_id}`, {
+                // limit: 8,
+                // offset: 0,
+                sortBy: { column: 'updated_at', order: 'desc' },
+            })
+
+        console.log(avatars)
+
+        if (avatars_error) {
+            toast.error('Failed to fetch avatars')
+            throw new Error('Failed to fetch avatars')
+        }
+
+        const { data: signed_url, error: signed_url_error } = await supabase.storage
+            .from('user_avatars')
+            .createSignedUrls(avatars.map(avatar => user_id + '/' + avatar.name), 86400)
+
+        if (signed_url_error) {
+            toast.error('Failed to fetch avatars')
+            throw new Error('Failed to fetch avatars')
+        }
+        setAvatars(signed_url.map(url => url.signedUrl))
+    }
+
+    const handleDownloadAvatar = async (avatarUrl: string) => {
+        try {
+            const response = await fetch(avatarUrl);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `avatar-${Date.now()}.png`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            toast.success('Avatar downloaded successfully');
+        } catch (error) {
+            toast.error('Failed to download avatar');
+        }
+    };
 
     if (!profile || !user) {
         return <Loading />
@@ -186,96 +232,137 @@ export default function History() {
                     </Breadcrumb>
                 </div>
             </header>
-            <div className="flex items-center max-w-5xl mx-auto justify-center h-[calc(100vh-84px)] px-8">
-                {avatar === null ? (
-                    <div className="flex flex-col items-center justify-center">
-                        <h1 className="text-2xl font-bold tracking-tight">Create your own avatar</h1>
-                        <p className="text-muted-foreground">
-                            Create your own avatar with your own image
-                        </p>
-                        {/* OPTIONS */}
-                        <div className="w-full flex flex-col gap-4 justify-start items-start mt-4">
-                            {/* STYLE */}
-                            <Options
-                                label="photo style"
-                                options={style_options}
-                                disabled={isGenerating}
-                                onOptionChange={(option) => setSelectedStyle(option)}
-                                selectedOption={selectedStyle}
-                            />
+            <div className="flex flex-col items-center max-w-5xl mx-auto justify-center min-h-[calc(100vh-84px)] px-8 lg:px-0">
+                <div className="flex flex-col items-center justify-center">
+                    <h1 className="text-2xl font-bold tracking-tight">Create your own avatar</h1>
+                    <p className="text-muted-foreground">
+                        Create your own avatar with your own image
+                    </p>
+                    {/* OPTIONS */}
+                    <div className="w-full flex flex-col gap-4 justify-start items-start mt-4">
+                        {/* STYLE */}
+                        <Options
+                            label="photo style"
+                            options={style_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedStyle(option)}
+                            selectedOption={selectedStyle}
+                        />
 
-                            {/* GENDER */}
-                            <Options
-                                label="gender"
-                                options={gender_options}
-                                disabled={isGenerating}
-                                onOptionChange={(option) => setSelectedGender(option)}
-                                selectedOption={selectedGender}
-                            />
+                        {/* GENDER */}
+                        <Options
+                            label="gender"
+                            options={gender_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedGender(option)}
+                            selectedOption={selectedGender}
+                        />
 
-                            {/* AGE */}
-                            <Options
-                                label="age"
-                                options={age_options}
-                                disabled={isGenerating}
-                                onOptionChange={(option) => setSelectedAge(prev => prev === option ? '' : option)}
-                                selectedOption={selectedAge}
-                            />
+                        {/* AGE */}
+                        <Options
+                            label="age"
+                            options={age_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedAge(prev => prev === option ? '' : option)}
+                            selectedOption={selectedAge}
+                        />
 
-                            {/* BODY */}
-                            <Options
-                                label="body"
-                                options={body_options}
-                                disabled={isGenerating}
-                                onOptionChange={(option) => setSelectedBody(prev => prev === option ? '' : option)}
-                                selectedOption={selectedBody}
-                            />
+                        {/* BODY */}
+                        <Options
+                            label="body"
+                            options={body_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedBody(prev => prev === option ? '' : option)}
+                            selectedOption={selectedBody}
+                        />
 
-                            {/* HAIR */}
-                            <Options
-                                label="hair"
-                                options={hair_options}
-                                disabled={isGenerating}
-                                onOptionChange={(option) => setSelectedHair(prev => prev === option ? '' : option)}
-                                selectedOption={selectedHair}
-                            />
+                        {/* HAIR */}
+                        <Options
+                            label="hair"
+                            options={hair_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedHair(prev => prev === option ? '' : option)}
+                            selectedOption={selectedHair}
+                        />
 
-                            {/* BACKGROUND */}
-                            <Options
-                                label="background"
-                                options={background_options}
-                                disabled={isGenerating}
-                                onOptionChange={(option) => setSelectedBackground(prev => prev === option ? '' : option)}
-                                selectedOption={selectedBackground}
-                            />
-                        </div>
-                        {isGenerating ? (
-                            <div className='flex flex-col items-center justify-end gap-2 mt-8 w-fit ml-auto'>
-                                <Button variant="outline" className="w-fit">
-                                    <Loader className="w-5 h-5 animate-spin" />
-                                    <TextShimmer className='font-mono text-sm' duration={2}>
-                                        Generating avatar...
-                                    </TextShimmer>
-                                </Button>
-                                <label className='text-[10px] font-mono text-muted-foreground/70'>
-                                    This will take 15 seconds
-                                </label>
-                            </div>
-                        ) : (
-                            <Button
-                                onClick={handleCreateAvatar}
-                                className="mt-8 w-fit ml-auto"
-                            >
-                                Create avatar&nbsp;&nbsp;&rarr;
+                        {/* BACKGROUND */}
+                        <Options
+                            label="background"
+                            options={background_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedBackground(prev => prev === option ? '' : option)}
+                            selectedOption={selectedBackground}
+                        />
+                    </div>
+                    {isGenerating ? (
+                        <div className='flex flex-col items-center justify-end gap-2 mt-8 w-fit ml-auto'>
+                            <Button variant="outline" className="w-fit">
+                                <Loader className="w-5 h-5 animate-spin" />
+                                <TextShimmer className='font-mono text-sm' duration={2}>
+                                    Generating avatar...
+                                </TextShimmer>
                             </Button>
-                        )}
-                    </div>
-                ) : (
-                    <div className="flex flex-col items-center justify-center">
-                        <h1 className="text-2xl font-bold tracking-tight">Your avatar</h1>
-                        <img src={avatar} alt="avatar" className="w-[270px] h-[480px] rounded-lg" />
-                    </div>
-                )}
+                            <label className='text-[10px] font-mono text-muted-foreground/70'>
+                                This will take 15 seconds
+                            </label>
+                        </div>
+                    ) : (
+                        <Button
+                            onClick={handleCreateAvatar}
+                            className="mt-8 w-fit ml-auto"
+                        >
+                            Create avatar&nbsp;&nbsp;&rarr;
+                        </Button>
+                    )}
+                </div>
+
+                {/* AVATARS */}
+                <div className="w-full flex flex-col items-center justify-center">
+                    <h2 className="text-3xl text-[#1a1a1a] font-bold text-left w-full mb-8 mt-20">
+                        Your avatars {avatars.length > 0 ? `(${avatars.length})` : ''}
+                    </h2>
+                    {avatars.length > 0 ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-4 gap-4">
+                            {avatars.map((avatar, index) => (
+                                <div key={index} className="relative rounded-lg overflow-hidden group">
+                                    <Image
+                                        src={avatar}
+                                        alt={`Avatar ${index}`}
+                                        width={180}
+                                        height={270}
+                                        className="object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gray-100 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:cursor-pointer group-hover:opacity-100 transition-opacity duration-300">
+                                        <div className="flex space-x-2">
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className='text-primary hover:text-primary bg-white cursor-pointer'
+                                                onClick={() => window.open(avatar, '_blank')}
+                                            >
+                                                <Maximize2 className="w-5 h-5" />
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                className='text-primary hover:text-primary bg-white cursor-pointer'
+                                                onClick={() => handleDownloadAvatar(avatar)}
+                                            >
+                                                <Download className="w-5 h-5" />
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-muted-foreground">
+                                You don't have any avatars yet
+                            </p>
+                        </div>
+                    )}
+                </div>
             </div>
         </SidebarInset>
     </SidebarProvider>
