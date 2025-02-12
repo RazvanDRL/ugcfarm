@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { fal } from "@fal-ai/client";
 import { supabase } from '@/lib/supabase/admin/supabase';
+import { v4 as uuidv4 } from 'uuid';
+import { decode } from 'base64-arraybuffer'
 
 export async function POST(req: Request) {
     try {
@@ -15,15 +17,44 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
         }
 
-        const { human_image_url, garment_image_url } = await req.json()
+        const { human_image_url, garment_image_base64 } = await req.json()
 
         if (!human_image_url) {
             return NextResponse.json({ error: 'Human image URL is required' }, { status: 400 })
         }
 
-        if (!garment_image_url) {
+        if (!garment_image_base64) {
             return NextResponse.json({ error: 'Garment image URL is required' }, { status: 400 })
         }
+
+        // Extract content type from base64 string
+        const contentType = garment_image_base64.split(';')[0].split(':')[1];
+
+        // also remove the data:image/jpeg;base64, prefix
+        const imageData = garment_image_base64.split(',')[1];
+
+        const { data: tmp_data, error: tmp_error } = await supabase
+            .storage
+            .from('tmp')
+            .upload(`${Date.now()}`, decode(imageData), {
+                contentType: contentType,
+            })
+
+        if (tmp_error) {
+            return NextResponse.json({ error: 'Error uploading garment image' + tmp_error.message }, { status: 500 });
+        }
+
+        // Get public URL for the uploaded file
+        const { data: upload_signed_url, error: upload_signed_url_error } = await supabase
+            .storage
+            .from('tmp')
+            .createSignedUrl(tmp_data.path, 86400)
+
+        if (upload_signed_url_error) {
+            return NextResponse.json({ error: 'Error getting signed url' + upload_signed_url_error.message }, { status: 500 });
+        }
+
+        const garment_image_url = upload_signed_url.signedUrl
 
         const result = await fal.subscribe("fal-ai/kling/v1-5/kolors-virtual-try-on", {
             input: {
@@ -35,7 +66,44 @@ export async function POST(req: Request) {
 
         const url = result.data.image.url
 
-        return NextResponse.json({ url })
+        const id = uuidv4();
+
+        const { data: user_try_ons, error: user_try_ons_error } = await supabase
+            .from("user_try_ons")
+            .insert({
+                id: id,
+                user_id: user.id,
+                data: result.data,
+            });
+
+        if (user_try_ons_error) {
+            return NextResponse.json({ error: 'Error generating try-on' }, { status: 500 });
+        }
+
+        const blob = await fetch(url).then((r) => r.blob());
+
+        const { data: upload_data, error: upload_error } = await supabase.storage
+            .from("user_avatars")
+            .upload(`${user.id}/${id}.png`, blob, {
+                cacheControl: '3600',
+                upsert: false
+            });
+
+        if (upload_error) {
+            return NextResponse.json({ error: 'Error uploading try-on' }, { status: 500 });
+        }
+
+        const { data: signed_url, error: signed_url_error } = await supabase
+            .storage
+            .from('user_avatars')
+            .createSignedUrl(`${user.id}/${id}.png`, 86400);
+
+        if (signed_url_error) {
+            return NextResponse.json({ error: 'Error getting signed url' }, { status: 500 });
+        }
+
+        return NextResponse.json({ url: signed_url?.signedUrl });
+
     } catch (error) {
         console.error('Error generating speech:', error);
         return new NextResponse('Internal Server Error', { status: 500 });

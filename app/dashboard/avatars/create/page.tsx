@@ -332,7 +332,7 @@ export default function History() {
                                         height={270}
                                         className="object-cover"
                                     />
-                                    <div className="absolute inset-0 bg-gray-100 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:cursor-pointer group-hover:opacity-100 transition-opacity duration-300">
+                                    <div className="absolute inset-0 bg-gray-100 bg-opacity-70 flex flex-col gap-2 items-center justify-center opacity-0 group-hover:cursor-pointer group-hover:opacity-100 transition-opacity duration-300">
                                         <div className="flex space-x-2">
                                             <Button
                                                 variant="ghost"
@@ -351,6 +351,13 @@ export default function History() {
                                                 <Download className="w-5 h-5" />
                                             </Button>
                                         </div>
+                                        <Button
+                                            variant="ghost"
+                                            className='text-primary hover:text-primary bg-white cursor-pointer'
+                                            onClick={() => window.location.href = `/dashboard/avatars/try-on?avatar_url=${avatar}`}
+                                        >
+                                            Use
+                                        </Button>
                                     </div>
                                 </div>
                             ))}
