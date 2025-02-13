@@ -15,6 +15,26 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
+        // check if user has enough credits
+        const { data: credits, error: creditsError } = await supabase
+            .from('profiles')
+            .select('credits')
+            .eq('id', user.id)
+            .single()
+
+        if (creditsError || !credits) {
+            return NextResponse.json({ error: 'Insufficient credits' }, { status: 400 });
+        }
+
+        if (credits.credits < 0.2) {
+            return NextResponse.json({ error: 'Insufficient credits' }, { status: 400 });
+        }
+
+        await supabase
+            .from('profiles')
+            .update({ credits: credits.credits - 0.2 })
+            .eq('id', user.id)
+
         const { style, gender, age, body, hair, background } = await req.json();
 
         // Create different prompt texts based on the "style" selection.

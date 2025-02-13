@@ -88,7 +88,7 @@ export default function History() {
     }, [])
 
     const handleCreateAvatar = async () => {
-        if (!token) {
+        if (!token || !profile) {
             window.location.reload()
             return
         }
@@ -117,8 +117,15 @@ export default function History() {
             toast.error("Invalid background")
             return
         }
+
+        if (profile.credits < 0.2) {
+            toast.error('Insufficient credits')
+            return
+        }
+
         try {
             setIsGenerating(true)
+            setProfile(prev => prev ? { ...prev, credits: prev.credits - 0.2 } : null)
             const response = await fetch('/api/generate-avatar', {
                 method: 'POST',
                 headers: {

@@ -22,6 +22,26 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
         }
 
+        // check if user has enough credits
+        const { data: credits, error: creditsError } = await supabase
+            .from('profiles')
+            .select('credits')
+            .eq('id', user.id)
+            .single()
+
+        if (creditsError || !credits) {
+            return NextResponse.json({ error: 'Insufficient credits' }, { status: 400 })
+        }
+
+        if (credits.credits < 0.5) {
+            return NextResponse.json({ error: 'Insufficient credits' }, { status: 400 })
+        }
+
+        await supabase
+            .from('profiles')
+            .update({ credits: credits.credits - 0.5 })
+            .eq('id', user.id)
+
         const { video_url, prompt, voice } = await req.json()
 
         const SITE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_SITE_URL

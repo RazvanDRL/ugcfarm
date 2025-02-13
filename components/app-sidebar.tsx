@@ -124,15 +124,15 @@ export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sideb
                     <Link href="/#pricing">
                         <Button variant="outline" className="w-full bg-primary text-white border-none transition-all duration-300">
                             <PlusCircle className="w-5 h-5" />
-                            Add more videos
+                            Add more credits
                         </Button>
                     </Link>
 
                     <div className="flex items-center gap-4 px-4 py-3 rounded-lg bg-primary/10 border-2 border-primary/50">
                         <Video className="w-6 h-6 text-primary" />
                         <div className="flex flex-col gap-0.5">
-                            <p className="text-xs font-medium text-primary">Videos Available</p>
-                            <p className="text-sm font-semibold text-[#1a1a1a]">{user.credits} videos</p>
+                            <p className="text-xs font-medium text-primary">Credits Available</p>
+                            <p className="text-sm font-semibold text-[#1a1a1a]">{user.credits.toFixed(1)} credits</p>
                         </div>
                     </div>
                 </div>

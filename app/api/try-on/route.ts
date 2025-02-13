@@ -17,6 +17,26 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
         }
 
+        // check if user has enough credits
+        const { data: credits, error: creditsError } = await supabase
+            .from('profiles')
+            .select('credits')
+            .eq('id', user.id)
+            .single()
+
+        if (creditsError || !credits) {
+            return NextResponse.json({ error: 'Insufficient credits' }, { status: 400 })
+        }
+
+        if (credits.credits < 0.1) {
+            return NextResponse.json({ error: 'Insufficient credits' }, { status: 400 })
+        }
+
+        await supabase
+            .from('profiles')
+            .update({ credits: credits.credits - 0.1 })
+            .eq('id', user.id)
+
         const { human_image_url, garment_image_base64 } = await req.json()
 
         if (!human_image_url) {

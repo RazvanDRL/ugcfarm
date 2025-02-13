@@ -115,6 +115,18 @@ export default function History() {
             return
         }
 
+        if (!profile) {
+            toast.error('Failed to fetch profile')
+            return
+        }
+
+        if (profile.credits < 0.1) {
+            toast.error('Insufficient credits')
+            return
+        }
+
+        setProfile(prev => prev ? { ...prev, credits: prev.credits - 0.1 } : null)
+
         try {
             setIsGenerating(true)
 
