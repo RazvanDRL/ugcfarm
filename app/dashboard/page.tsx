@@ -1108,23 +1108,10 @@ export default function Page() {
 
     const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(e.target.value);
-
-        if (value < 12) {
-            setTextStyle(prev => ({
-                ...prev,
-                fontSize: 12,
-            }));
-        } else if (value > 100) {
-            setTextStyle(prev => ({
-                ...prev,
-                fontSize: 100,
-            }));
-        } else {
-            setTextStyle(prev => ({
-                ...prev,
-                fontSize: value,
-            }));
-        }
+        setTextStyle(prev => ({
+            ...prev,
+            fontSize: value,
+        }));
     }
 
     const handleVerticalAlignmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
