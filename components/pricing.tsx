@@ -202,6 +202,13 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
 
                 </div> */}
 
+                {/* Pay with crypto */}
+                <div className="mt-6 text-center">
+                    <Link href="/crypto">
+                        <h2 className={cn("text-lg font-mono text-muted-foreground hover:underline")}>or pay with crypto</h2>
+                    </Link>
+                </div>
+
                 <Link href="https://stripe.com/" rel="noopener noreferrer" target="_blank" className="flex items-center grayscale justify-center mt-4 h-10">
                     <Lock className="h-4 w-4 text-gray-400 mr-2" />
                     <span className="text-sm text-gray-500">Secured by</span>
