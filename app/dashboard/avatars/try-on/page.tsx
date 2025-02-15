@@ -129,16 +129,18 @@ export default function History() {
             // Fetch the image and convert to base64
             const response = await fetch(outfit)
             const blob = await response.blob()
-            const reader = new FileReader()
 
-            const base64 = await new Promise<string>((resolve, reject) => {
-                reader.onload = () => {
-                    const base64String = reader.result as string
-                    resolve(base64String)
-                }
-                reader.onerror = reject
-                reader.readAsDataURL(blob)
-            })
+            // Convert to greenscreen
+            const greenscreenBase64 = await convertToGreenscreen(blob);
+
+            console.log(greenscreenBase64)
+            // Original base64 for later use
+            const originalBase64 = await new Promise<string>((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result as string);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
 
             const tryOnResponse = await fetch('/api/try-on', {
                 method: 'POST',
@@ -148,7 +150,7 @@ export default function History() {
                 },
                 body: JSON.stringify({
                     human_image_url: avatar,
-                    garment_image_base64: base64
+                    garment_image_base64: greenscreenBase64
                 })
             })
 
@@ -208,6 +210,111 @@ export default function History() {
         },
         [handleFileChange],
     )
+
+    const convertToGreenscreen = async (imageBlob: Blob): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const img = new window.Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                const ctx = canvas.getContext('2d');
+
+                if (!ctx) {
+                    reject(new Error('Could not get canvas context'));
+                    return;
+                }
+
+                ctx.drawImage(img, 0, 0);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+
+                // Step 1: Convert to grayscale and detect edges
+                const edges = new Uint8Array(data.length / 4);
+                for (let i = 0; i < data.length; i += 4) {
+                    const gray = (data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114);
+                    edges[i / 4] = gray;
+                }
+
+                // Step 2: Simple Sobel edge detection
+                const width = canvas.width;
+                const threshold = 30;
+                const edgeMap = new Uint8Array(edges.length);
+
+                for (let y = 1; y < canvas.height - 1; y++) {
+                    for (let x = 1; x < width - 1; x++) {
+                        const idx = y * width + x;
+                        const gx =
+                            edges[idx - 1 - width] + 2 * edges[idx - 1] + edges[idx - 1 + width] -
+                            edges[idx + 1 - width] - 2 * edges[idx + 1] - edges[idx + 1 + width];
+                        const gy =
+                            edges[idx - width - 1] + 2 * edges[idx - width] + edges[idx - width + 1] -
+                            edges[idx + width - 1] - 2 * edges[idx + width] - edges[idx + width + 1];
+
+                        const gradient = Math.sqrt(gx * gx + gy * gy);
+                        edgeMap[idx] = gradient > threshold ? 255 : 0;
+                    }
+                }
+
+                // Step 3: Find the center of the image (likely where the garment is)
+                const centerX = Math.floor(width / 2);
+                const centerY = Math.floor(canvas.height / 2);
+
+                // Step 4: Flood fill from center (assuming garment is in center)
+                const queue: [number, number][] = [[centerX, centerY]];
+                const visited = new Set<number>();
+
+                while (queue.length > 0) {
+                    const [x, y] = queue.shift()!;
+                    const idx = y * width + x;
+
+                    if (visited.has(idx)) continue;
+                    visited.add(idx);
+
+                    // If not an edge, mark as garment (green) and continue flood
+                    if (edgeMap[idx] === 0) {
+                        const dataIdx = idx * 4;
+                        data[dataIdx] = 0;     // R
+                        data[dataIdx + 1] = 255; // G
+                        data[dataIdx + 2] = 0;   // B
+
+                        // Add neighbors to queue
+                        const neighbors = [
+                            [x + 1, y], [x - 1, y],
+                            [x, y + 1], [x, y - 1]
+                        ];
+
+                        for (const [nx, ny] of neighbors) {
+                            if (nx >= 0 && nx < width && ny >= 0 && ny < canvas.height) {
+                                queue.push([nx, ny]);
+                            }
+                        }
+                    }
+                }
+
+                ctx.putImageData(imageData, 0, 0);
+
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        reject(new Error('Could not create blob from canvas'));
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        if (typeof reader.result === 'string') {
+                            resolve(reader.result);
+                        } else {
+                            reject(new Error('Failed to read blob as data URL'));
+                        }
+                    };
+                    reader.onerror = reject;
+                    reader.readAsDataURL(blob);
+                }, 'image/png');
+            };
+            img.onerror = reject;
+            img.src = URL.createObjectURL(imageBlob);
+        });
+    };
 
     if (!profile || !user) {
         return <Loading />
