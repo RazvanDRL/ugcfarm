@@ -18,6 +18,15 @@ export function useImageUpload({ onUpload }: UseImageUploadProps = {}) {
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const file = event.target.files?.[0];
       if (file) {
+        // Check file size (10MB = 10 * 1024 * 1024 bytes)
+        if (file.size > 10 * 1024 * 1024) {
+          alert('File size must be less than 10MB');
+          if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+          }
+          return;
+        }
+
         setFileName(file.name);
         const url = URL.createObjectURL(file);
         setPreviewUrl(url);

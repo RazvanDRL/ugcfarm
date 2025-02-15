@@ -1237,6 +1237,10 @@ export default function Page() {
 
             // Update the sentences state with the new hooks
             setSentences(data.hooks)
+            setInputProps(prev => ({
+                ...prev,
+                text: data.hooks[0]
+            }))
             setIndex(0) // Reset to first hook
 
             // Set hook param with hookId from response

@@ -45,6 +45,11 @@ const data = {
             isActive: true,
         },
         {
+            title: "Generate Avatar",
+            url: "/dashboard/avatars",
+            icon: User,
+        },
+        {
             title: "Hook Library",
             url: "/dashboard/hooks/library",
             icon: BookCopy,

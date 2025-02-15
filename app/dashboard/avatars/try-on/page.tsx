@@ -48,10 +48,6 @@ export default function History() {
     useEffect(() => {
         async function fetchUser() {
             const { data: { user }, error } = await supabase.auth.getUser()
-            if (error) {
-                toast.error('Failed to fetch user')
-                throw new Error('Failed to fetch user')
-            }
 
             if (!user) {
                 toast.error('Please login to view your video history')
@@ -242,7 +238,13 @@ export default function History() {
                             </BreadcrumbItem>
                             <BreadcrumbSeparator className="hidden md:block" />
                             <BreadcrumbItem>
-                                <BreadcrumbPage>Create your own avatar</BreadcrumbPage>
+                                <BreadcrumbLink href="/dashboard/avatars">
+                                    Avatars
+                                </BreadcrumbLink>
+                            </BreadcrumbItem>
+                            <BreadcrumbSeparator className="hidden md:block" />
+                            <BreadcrumbItem>
+                                <BreadcrumbPage>Try on</BreadcrumbPage>
                             </BreadcrumbItem>
                         </BreadcrumbList>
                     </Breadcrumb>
@@ -334,7 +336,7 @@ export default function History() {
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                             <div className="col-span-4 w-screen max-w-3xl space-y-6 rounded-xl border border-border bg-card p-6 shadow-sm">
                                 <div className="space-y-2">
-                                    <h3 className="text-lg font-medium">Image Upload</h3>
+                                    <h3 className="text-lg font-medium">Image Upload<span className="text-xs text-muted-foreground">&nbsp;&nbsp;max 10MB</span></h3>
                                     <p className="text-sm text-muted-foreground">
                                         Supported formats: JPG, PNG, JPEG, WEBP
                                     </p>
