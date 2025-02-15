@@ -1323,6 +1323,25 @@ export default function Page() {
         }))
     }
 
+    const handleDemosUpdate = useCallback((newDemos: any[], newDemoVideos: string[]) => {
+        setDemos(newDemos);
+        setDemoVideos(newDemoVideos);
+        setDemoPage(1);
+
+        // If a demo was selected, reselect it to refresh the video
+        if (selectedDemoId > 0) {
+            // First reset
+            setSelectedDemoId(0);
+            resetDemo();
+
+            // Then reselect after a short delay to ensure state updates
+            setTimeout(() => {
+                setSelectedDemoId(1);
+                setDemo(1, newDemoVideos, token);
+            }, 100);
+        }
+    }, [selectedDemoId, token, resetDemo, setDemo]);
+
     if (!user || !profile) {
         return <Loading />
     }
@@ -1603,6 +1622,7 @@ export default function Page() {
                                         onPhotoSelect={onDemoSelect}
                                         currentPage={demoPage}
                                         token={token}
+                                        onDemosUpdate={handleDemosUpdate}
                                     />
                                 </div>
                             </div>

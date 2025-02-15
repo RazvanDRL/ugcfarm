@@ -4,6 +4,9 @@ import Image from "next/image"
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner"
 import { useUpload } from "@/hooks/use-upload";
+import { useCallback } from "react";
+import { supabase } from "@/lib/supabase/client/supabase";
+import { getSignedUrl } from "@/hooks/use-signed-url";
 
 interface Photo {
     id: number;
@@ -18,10 +21,55 @@ interface PhotoListProps {
     className?: string;
     currentPage: number;
     token: string;
+    onDemosUpdate: (demos: Photo[], demoVideos: string[]) => void;
 }
 
-export function DemoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage, token }: PhotoListProps) {
-    const { uploadFile, isUploading, uploadProgress } = useUpload(token, photos);
+export function DemoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage, token, onDemosUpdate }: PhotoListProps) {
+    const fetchDemos = useCallback(async () => {
+        if (!token) return;
+
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        let tempDemos: any[] = [];
+        let tempDemoVideos: string[] = [];
+
+        const { data: demos, error: demosError } = await supabase
+            .from('user_demos')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false });
+
+        if (demosError) {
+            toast.error('Failed to fetch demos');
+            return;
+        }
+
+        for (const [index, demo] of demos.entries()) {
+            tempDemoVideos.push(demo.key.split('/')[1]);
+            const url = await getSignedUrl(
+                demo.key.split('/')[1].replace('.mp4', '') + '-thumb.webp',
+                'upload-bucket',
+                token
+            );
+
+            tempDemos.push({
+                id: index + 1,
+                url: url,
+                alt: `Demo ${index + 1}`
+            });
+        }
+
+        // Call the callback with the new demos
+        onDemosUpdate(tempDemos, tempDemoVideos);
+    }, [token, onDemosUpdate, onPhotoSelect]);
+
+    const { uploadFile, isUploading, uploadProgress } = useUpload({
+        token,
+        photos,
+        onUploadSuccess: fetchDemos
+    });
+
     // Calculate pagination
     const itemsPerPage = 5;
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -41,20 +89,19 @@ export function DemoList({ photos, selectedPhotoId, onPhotoSelect, className, cu
         const file = event.target.files?.[0];
         if (!file) return;
 
-        // Check file type
         if (!file.type.startsWith('video/')) {
             toast.error('Please upload a video file');
             return;
         }
 
-        // Check file size (100MB limit)
         if (file.size > 100 * 1024 * 1024) {
             toast.error('File size should be less than 100MB');
             return;
         }
 
         try {
-            const key = await uploadFile(file);
+            await uploadFile(file);
+            // The fetchDemos callback will handle the selection
         } catch (error) {
             console.error('Upload failed:', error);
         }

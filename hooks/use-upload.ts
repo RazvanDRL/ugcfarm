@@ -11,6 +11,12 @@ interface Photo {
     alt: string;
 }
 
+interface UseUploadProps {
+    token: string;
+    photos: Photo[];
+    onUploadSuccess?: () => void;
+}
+
 const generateThumbnail = async (videoFile: File): Promise<File | undefined> => {
     console.log('generateThumbnail', videoFile);
     try {
@@ -71,7 +77,7 @@ const generateThumbnail = async (videoFile: File): Promise<File | undefined> => 
     }
 };
 
-export const useUpload = (token: string, photos: Photo[]) => {
+export const useUpload = ({ token, photos, onUploadSuccess }: UseUploadProps) => {
     const [isUploading, setIsUploading] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
 
@@ -192,12 +198,10 @@ export const useUpload = (token: string, photos: Photo[]) => {
 
             toast.success('Files uploaded successfully');
 
-
-            // Add a slight delay before refreshing to ensure the toast is visible
-            setTimeout(() => {
-                window.location.reload();
-            }, 1500);
-
+            // Call the callback instead of reloading
+            if (onUploadSuccess) {
+                onUploadSuccess();
+            }
 
             return { videoKey, thumbnailKey };
         } catch (error: any) {
