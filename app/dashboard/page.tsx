@@ -260,6 +260,7 @@ export default function Page() {
     const [index, setIndex] = useState(0)
     const [demoPage, setDemoPage] = useState(1)
     const [videoPage, setVideoPage] = useState(1)
+    const [avatarPage, setAvatarPage] = useState(1)
     const [sentences, setSentences] = useState([
         "Edit this hook 1",
         "Edit this hook 2",
@@ -268,6 +269,7 @@ export default function Page() {
         "Edit this hook 5",
     ])
     const [selectedPhotoId, setSelectedPhotoId] = useState<number>(3)
+    const [selectedAvatarId, setSelectedAvatarId] = useState<number>(1)
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
     const [loading, setLoading] = useState(false)
     const [textStyle, setTextStyle] = useState({
@@ -283,18 +285,19 @@ export default function Page() {
     const [video, setVideo] = useState<string>("")
     const [demos, setDemos] = useState<any[]>([])
     const [demoVideos, setDemoVideos] = useState<any[]>([])
+    const [avatarVideos, setAvatarVideos] = useState<any[]>([])
     const [isGenerating, setIsGenerating] = useState({
         audio: false,
         hook: false
     })
-    const [audio, setAudio] = useState<string>("")
+    const [library, setLibrary] = useState<"library" | "my_avatars">("library")
     const [prompt, setPrompt] = useState("")
     const [open, setOpen] = useState(false)
     const [inputProps, setInputProps] = useState<InputProps>(() => {
-        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
+        const hookDuration = Math.round((library === "library" ? vids.find(v => v.id === selectedPhotoId)?.duration : avatarVideos.find(v => v.id === selectedAvatarId)?.duration) || 5) * 30
         return {
             text: sentences[index],
-            videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
+            videoUrl: library === "library" ? vids.find(v => v.id === selectedPhotoId)?.url || "" : avatarVideos.find(v => v.id === selectedAvatarId)?.url || "",
             video_duration: hookDuration,
             textStyle,
             videoProps: {
@@ -374,6 +377,64 @@ export default function Page() {
         setDemos(tempDemos);
     }
 
+    async function fetchAvatars(user: User, access_token: string) {
+        if (!user) {
+            toast.error("No user found");
+            return;
+        }
+
+        if (avatarVideos.length > 0) {
+            console.log('avatarVideos is already populated')
+            return;
+        }
+
+        let temp: any[] = [];
+
+        const { data: avatar_videos, error: avatar_videos_error } = await supabase
+            .from('user_avatar_videos')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false });
+
+        if (avatar_videos_error) {
+            throw new Error('Failed to fetch avatar videos');
+        }
+
+        for (const [index, avatar_video] of avatar_videos.entries()) {
+            if (avatar_video.thumbnail) {
+                // get signed url from supabase storage
+                const { data: signed_url, error: signed_url_error } = await supabase
+                    .storage
+                    .from('user_avatars')
+                    .createSignedUrl(`${avatar_video.user_id}/${avatar_video.thumbnail}.jpg`, 86400);
+
+                if (signed_url_error) {
+                    throw new Error('Failed to fetch signed url');
+                }
+
+                const videoUrl = await getSignedUrl(avatar_video.id + '.mp4', 'upload-bucket', access_token)
+
+                // get metadata from video
+                const metadata = await parseMedia({
+                    src: videoUrl!,
+                    fields: {
+                        slowDurationInSeconds: true,
+                    },
+                });
+
+                temp.push({
+                    id: index + 1,
+                    url: signed_url?.signedUrl,
+                    videoUrl: videoUrl,
+                    duration: metadata.slowDurationInSeconds,
+                    alt: `Avatar Video ${index + 1}`
+                });
+            }
+        }
+        setAvatarVideos(temp);
+    }
+
+
     useEffect(() => {
         const getUser = async () => {
             const { data: { user } } = await supabase.auth.getUser()
@@ -399,6 +460,7 @@ export default function Page() {
                 const session = await supabase.auth.getSession()
                 if (session.data.session?.access_token) {
                     fetchDemos(user, session.data.session?.access_token)
+                    fetchAvatars(user, session.data.session?.access_token)
                     setToken(session.data.session?.access_token)
 
                     // Fetch the first demo video on load
@@ -480,12 +542,12 @@ export default function Page() {
     }, [state])
 
     useEffect(() => {
-        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
+        const hookDuration = Math.round((library === "library" ? vids.find(v => v.id === selectedPhotoId)?.duration : avatarVideos.find(v => v.id === selectedAvatarId)?.duration) || 5) * 30;
         const totalDuration = hookDuration + (demoDuration || 0);
 
         setInputProps({
             text: sentences[index],
-            videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
+            videoUrl: library === "library" ? vids.find(v => v.id === selectedPhotoId)?.url || "" : avatarVideos.find(v => v.id === selectedAvatarId)?.videoUrl || "",
             video_duration: totalDuration,
             textStyle,
             videoProps: {
@@ -499,7 +561,7 @@ export default function Page() {
             lip_sync: false,
             voice: "alice"
         });
-    }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration]);
+    }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration, selectedAvatarId, library]);
 
     // Modify the effect that handles demo initialization
     useEffect(() => {
@@ -973,6 +1035,19 @@ export default function Page() {
         // setSelectedDemoId(0)
     }
 
+    const onAvatarSelect = (id: number) => {
+        setSelectedAvatarId(id)
+        setInputProps(prev => ({
+            ...prev,
+            videoUrl: avatarVideos.find(v => v.id === id)?.videoUrl || "",
+            hook_duration: Math.round(avatarVideos.find(v => v.id === id)?.duration ?? 5) * 30,
+            total_duration: Math.round(avatarVideos.find(v => v.id === id)?.duration ?? 5) * 30 + demoDuration,
+        }))
+        // set the 
+        // resetDemo()
+        // setSelectedDemoId(0)
+    }
+
     const onDemoSelect = async (id: number) => {
         try {
             // If clicking the same demo, deselect it
@@ -1002,6 +1077,14 @@ export default function Page() {
         }
     }
 
+    const nextAvatarPage = () => {
+        if (avatarPage < Math.ceil(avatarVideos.length / 21)) {
+            setAvatarPage((prev) => prev + 1)
+        }
+    }
+
+
+
     const previousDemoPage = () => {
         if (demoPage > 1) {
             setDemoPage((prev) => prev - 1)
@@ -1011,6 +1094,12 @@ export default function Page() {
     const previousVideoPage = () => {
         if (videoPage > 1) {
             setVideoPage((prev) => prev - 1)
+        }
+    }
+
+    const previousAvatarPage = () => {
+        if (avatarPage > 1) {
+            setAvatarPage((prev) => prev - 1)
         }
     }
 
@@ -1572,26 +1661,58 @@ export default function Page() {
                                     <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
                                         <p className="text-base font-[500] text-[#1a1a1a]/60">
                                             2. Choose your UGC avatar
+                                            <button className={`font-mono ml-6 text-xs ${library === "library" ? "text-primary font-[600]" : "text-[#1a1a1a]/60"}`} onClick={() => setLibrary("library")}>
+                                                Library
+                                            </button>
+                                            <span className="text-xs text-[#1a1a1a]/60 px-2">|</span>
+                                            <button className={`font-mono text-xs ${library === "my_avatars" ? "text-primary font-[600]" : "text-[#1a1a1a]/60"}`} onClick={() => setLibrary("my_avatars")}>
+                                                My avatars
+                                            </button>
                                         </p>
                                         <div className="flex flex-row items-center gap-2">
-                                            <button className="text-[#1a1a1a]/50" onClick={previousVideoPage}>
+                                            <button className="text-[#1a1a1a]/50" onClick={library === "library" ? previousVideoPage : previousAvatarPage}>
                                                 <ChevronLeftIcon className="w-5 h-5" />
                                             </button>
                                             <span className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                {videoPage}/{Math.ceil(photos.length / 21)}
+                                                {library === "library" ?
+                                                    `${videoPage}/${Math.ceil(photos.length / 21)}` :
+                                                    `${avatarPage}/${Math.ceil(avatarVideos.length / 21)}`
+                                                }
                                             </span>
-                                            <button className="text-[#1a1a1a]/50" onClick={nextVideoPage}>
+                                            <button className="text-[#1a1a1a]/50" onClick={library === "library" ? nextVideoPage : nextAvatarPage}>
                                                 <ChevronRightIcon className="w-5 h-5" />
                                             </button>
                                         </div>
                                     </div>
-                                    <PhotoList
-                                        plan={profile.plan}
-                                        photos={photos}
-                                        selectedPhotoId={selectedPhotoId}
-                                        onPhotoSelect={onPhotoSelect}
-                                        currentPage={videoPage}
-                                    />
+                                    {library === "library" ? (
+                                        <PhotoList
+                                            plan={profile.plan}
+                                            photos={photos}
+                                            selectedPhotoId={selectedPhotoId}
+                                            onPhotoSelect={onPhotoSelect}
+                                            currentPage={videoPage}
+                                        />
+                                    ) : avatarVideos.length > 0 ? (
+                                        <PhotoList
+                                            plan={profile.plan}
+                                            photos={avatarVideos}
+                                            selectedPhotoId={selectedAvatarId}
+                                            onPhotoSelect={onAvatarSelect}
+                                            currentPage={avatarPage}
+                                        />
+                                    ) : (
+                                        <div className="flex flex-col items-center justify-center w-full py-8 space-y-4">
+                                            <p className="text-sm text-muted-foreground text-center">
+                                                You haven&apos;t generated any avatars yet.
+                                            </p>
+                                            <Button asChild>
+                                                <Link href="/dashboard/avatars">
+                                                    <WandSparkles className="w-4 h-4 mr-2" />
+                                                    Generate Avatar
+                                                </Link>
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 

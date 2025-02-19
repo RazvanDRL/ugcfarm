@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fal } from "@fal-ai/client";
 import { supabase } from '@/lib/supabase/admin/supabase';
+import { uploadToR2 } from '@/lib/upload';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req: Request) {
@@ -58,6 +59,8 @@ export async function POST(req: Request) {
 
         const prompt = `A video of a person ${action}`
 
+        const image_uuid = image_url.split('/').pop()?.split('.')[0];
+
         const result = await fal.subscribe("fal-ai/kling-video/v1.6/pro/image-to-video", {
             input: {
                 prompt,
@@ -70,44 +73,28 @@ export async function POST(req: Request) {
 
         const url = result.data.video.url;
 
-        return NextResponse.json({ url });
-        // const id = uuidv4();
+        console.log(result.data)
 
-        // const { data: user_avatars, error: user_avatars_error } = await supabase
-        //     .from("user_avatars")
-        //     .insert({
-        //         id: id,
-        //         user_id: user.id,
-        //         data: result.data,
-        //     });
+        const id = uuidv4();
 
-        // if (user_avatars_error) {
-        //     return NextResponse.json({ error: 'Error generating avatar' }, { status: 500 });
-        // }
+        const { data: user_avatars, error: user_avatars_error } = await supabase
+            .from("user_avatar_videos")
+            .insert({
+                id: id,
+                user_id: user.id,
+                thumbnail: image_uuid,
+                data: result.data,
+            });
 
-        // const blob = await fetch(url).then((r) => r.blob());
+        if (user_avatars_error) {
+            console.error(user_avatars_error)
+            return NextResponse.json({ error: 'Error generating avatar' }, { status: 500 });
+        }
 
-        // const { data: upload_data, error: upload_error } = await supabase.storage
-        //     .from("user_avatars")
-        //     .upload(`${user.id}/${id}.jpg`, blob, {
-        //         cacheControl: '3600',
-        //         upsert: false
-        //     });
+        const blob = await fetch(url).then((r) => r.blob());
 
-        // if (upload_error) {
-        //     return NextResponse.json({ error: 'Error uploading avatar' }, { status: 500 });
-        // }
-
-        // const { data: signed_url, error: signed_url_error } = await supabase
-        //     .storage
-        //     .from('user_avatars')
-        //     .createSignedUrl(`${user.id}/${id}.jpg`, 86400);
-
-        // if (signed_url_error) {
-        //     return NextResponse.json({ error: 'Error getting signed url' }, { status: 500 });
-        // }
-
-        // return NextResponse.json({ url: signed_url?.signedUrl });
+        const { key } = await uploadToR2(blob, `${user.id}/${id}.mp4`, 'video/mp4');
+        return NextResponse.json({ key: key });
     } catch (error) {
         console.error('Error generating avatar:', error);
         return new NextResponse('Internal Server Error', { status: 500 });
