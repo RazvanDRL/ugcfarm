@@ -252,7 +252,28 @@ export default function Page() {
             url: "https://ugcfarm.b-cdn.net/avatars/010.mp4",
             alt: "UGC Video 010",
             duration: 2.2,
+        }, {
+            id: 118,
+            url: "https://ugcfarm.b-cdn.net/avatars/grasu_1.mp4",
+            alt: "UGC Video grasu_1",
+            duration: 5,
+        }, {
+            id: 119,
+            url: "https://ugcfarm.b-cdn.net/avatars/grasu_2.mp4",
+            alt: "UGC Video grasu_2",
+            duration: 5,
+        }, {
+            id: 120,
+            url: "https://ugcfarm.b-cdn.net/avatars/grasu_3.mp4",
+            alt: "UGC Video grasu_3",
+            duration: 5,
+        }, {
+            id: 121,
+            url: "https://ugcfarm.b-cdn.net/avatars/grasu_4.mp4",
+            alt: "UGC Video grasu_4",
+            duration: 5,
         }
+
     ]
     const router = useRouter()
     const [user, setUser] = useState<User | null>(null)
@@ -1027,6 +1048,26 @@ export default function Page() {
             "url": "https://ugcfarm.b-cdn.net/photos/117.webp?class=dashboard",
             "alt": "UGC Avatar 117"
         },
+        {
+            "id": 118,
+            "url": "https://ugcfarm.b-cdn.net/photos/grasu_1.webp?class=dashboard",
+            "alt": "UGC Avatar 118"
+        },
+        {
+            "id": 119,
+            "url": "https://ugcfarm.b-cdn.net/photos/grasu_2.webp?class=dashboard",
+            "alt": "UGC Avatar 119"
+        },
+        {
+            "id": 120,
+            "url": "https://ugcfarm.b-cdn.net/photos/grasu_3.webp?class=dashboard",
+            "alt": "UGC Avatar 120"
+        },
+        {
+            "id": 121,
+            "url": "https://ugcfarm.b-cdn.net/photos/grasu_4.webp?class=dashboard",
+            "alt": "UGC Avatar 121"
+        },
     ]
 
     const onPhotoSelect = (id: number) => {
@@ -1082,8 +1123,6 @@ export default function Page() {
             setAvatarPage((prev) => prev + 1)
         }
     }
-
-
 
     const previousDemoPage = () => {
         if (demoPage > 1) {

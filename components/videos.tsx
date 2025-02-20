@@ -146,26 +146,29 @@ const vids = [
         url: "https://ugcfarm.b-cdn.net/avatars/010.mp4",
         alt: "UGC Video 010",
         duration: 2.2,
+    }, {
+        id: 118,
+        url: "https://ugcfarm.b-cdn.net/avatars/grasu_1.mp4",
+        alt: "UGC Video grasu_1",
+        duration: 5.1,
+    }, {
+        id: 119,
+        url: "https://ugcfarm.b-cdn.net/avatars/grasu_2.mp4",
+        alt: "UGC Video grasu_2",
+        duration: 5.1,
+    }, {
+        id: 120,
+        url: "https://ugcfarm.b-cdn.net/avatars/grasu_3.mp4",
+        alt: "UGC Video grasu_3",
+        duration: 5.1,
+    }, {
+        id: 121,
+        url: "https://ugcfarm.b-cdn.net/avatars/grasu_4.mp4",
+        alt: "UGC Video grasu_4",
+        duration: 5.1,
     }
+
 ]
-
-function getNumber(plan: string) {
-    if (plan === 'starter') {
-        return 9;
-    } else if (plan === 'creator') {
-        return 23;
-    }
-    return 10;
-}
-
-function getPage(plan: string) {
-    if (plan === 'starter') {
-        return 1;
-    } else if (plan === 'creator') {
-        return 2;
-    }
-    return 3;
-}
 
 export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage, plan }: PhotoListProps) {
     const itemsPerPage = 21;
@@ -189,7 +192,7 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                 const isLocked = plan === 'starter' ?
                     absoluteIndex > 9 || currentPage > 1 :
                     plan === 'creator' ?
-                        absoluteIndex > 22 || currentPage > 2 :
+                        absoluteIndex > 26 || currentPage > 2 :
                         absoluteIndex > 9 || currentPage > 3;
 
                 const PhotoElement = (
