@@ -563,12 +563,12 @@ export default function Page() {
     }, [state])
 
     useEffect(() => {
-        const hookDuration = Math.round((library === "library" ? vids.find(v => v.id === selectedPhotoId)?.duration : avatarVideos.find(v => v.id === selectedAvatarId)?.duration) || 5) * 30;
+        const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
         const totalDuration = hookDuration + (demoDuration || 0);
 
         setInputProps({
             text: sentences[index],
-            videoUrl: library === "library" ? vids.find(v => v.id === selectedPhotoId)?.url || "" : avatarVideos.find(v => v.id === selectedAvatarId)?.videoUrl || "",
+            videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
             video_duration: totalDuration,
             textStyle,
             videoProps: {
@@ -596,6 +596,18 @@ export default function Page() {
                 });
         }
     }, [selectedDemoId, isDemoInitialized, token, demoVideos, setDemo]);
+
+    // Add this useEffect to prevent updating videoUrl when there are no avatar videos
+    useEffect(() => {
+        if (library === "my_avatars" && avatarVideos.length > 0) {
+            setInputProps(prev => ({
+                ...prev,
+                videoUrl: avatarVideos.find(v => v.id === selectedAvatarId)?.videoUrl || "",
+                hook_duration: Math.round(avatarVideos.find(v => v.id === selectedAvatarId)?.duration ?? 5) * 30,
+                total_duration: Math.round(avatarVideos.find(v => v.id === selectedAvatarId)?.duration ?? 5) * 30 + demoDuration,
+            }));
+        }
+    }, [selectedAvatarId, library, avatarVideos, demoDuration]);
 
     const photos = [
         {
