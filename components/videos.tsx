@@ -150,22 +150,22 @@ const vids = [
         id: 118,
         url: "https://ugcfarm.b-cdn.net/avatars/grasu_1.mp4",
         alt: "UGC Video grasu_1",
-        duration: 5.1,
+        duration: 5,
     }, {
         id: 119,
         url: "https://ugcfarm.b-cdn.net/avatars/grasu_2.mp4",
         alt: "UGC Video grasu_2",
-        duration: 5.1,
+        duration: 4,
     }, {
         id: 120,
         url: "https://ugcfarm.b-cdn.net/avatars/grasu_3.mp4",
         alt: "UGC Video grasu_3",
-        duration: 5.1,
+        duration: 3,
     }, {
         id: 121,
         url: "https://ugcfarm.b-cdn.net/avatars/grasu_4.mp4",
         alt: "UGC Video grasu_4",
-        duration: 5.1,
+        duration: 4,
     }
 
 ]
