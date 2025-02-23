@@ -629,29 +629,9 @@ export default function Landing() {
                         <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
                             How it works
                         </h2>
-                        <div className="w-full bg-primary p-2 rounded-xl relative group">
-                            <video
-                                ref={videoRef}
-                                src="https://cdn.ugc.farm/founder.mp4"
-                                className="rounded-lg"
-                                loop
-                                playsInline
-                                controlsList="nodownload"
-                                disablePictureInPicture
-                            />
-                            <button
-                                className={cn(
-                                    "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full p-6 backdrop-blur-lg bg-primary/70 hover:bg-primary/90 transition-opacity duration-300",
-                                    isPlaying ? "opacity-0 group-hover:opacity-100" : "opacity-100"
-                                )}
-                                onClick={handlePlayPause}
-                            >
-                                {isPlaying ? (
-                                    <Pause className="h-20 w-20 text-white" fill="white" />
-                                ) : (
-                                    <Play className="h-20 w-20 text-white" fill="white" />
-                                )}
-                            </button>
+                        <div className="w-full aspect-video">
+                            <iframe className="rounded-lg w-full h-full" src="https://www.youtube.com/embed/HzXjI-P_nKY?si=ijWwN30LG3MRCHWN" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen>
+                            </iframe>
                         </div>
                         <Link href="/#pricing">
 
