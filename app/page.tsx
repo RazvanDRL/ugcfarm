@@ -26,24 +26,22 @@ import { toast } from "sonner";
 import { PurchaseNotification } from "@/components/purchase-notification";
 
 const withoutUGC = [{
-    title: "Traditional agencies",
+    title: "Other UGC platforms",
     list: [
-        "$80+ per video",
-        "3-day delivery time",
-        "Inconsistent quality",
-        "Communication barriers",
-        "Unscalable",
+        "not focused on ecommerce",
+        "can't wear your clothes",
+        "require video editing skills",
+        "annoying subscription",
     ]
 }]
 
 const withUGC = [{
-    title: "You with UGC Farm",
+    title: "UGC Farm",
     list: [
-        "From $0.73 per video",
-        "Instant delivery",
-        "Consistent brand voice",
-        "Zero-effort",
-        "Scalable",
+        "made for ecom",
+        "can wear AND talk about your product",
+        "NO video editing skills required",
+        "pay only for the videos you use",
     ]
 }]
 
@@ -532,7 +530,7 @@ export default function Landing() {
                                 ))}
                             </div>
                             <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
-                                68% of businesses get more sales with AI UGC
+                                Ads that show MY product
                             </p>
                         </div>
                         <div className="hidden md:flex flex-col items-center justify-center gap-1">
@@ -549,10 +547,10 @@ export default function Landing() {
 
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Turn Reels into Website Visitors
+                            Automated UGC for e-commerce brands
                         </h1>
                         <p className="text-lg md:text-xl font-[600] text-[#1a1a1a] opacity-60 text-center">
-                            Create 60+ videos from one product demo with AI UGC
+                            Create 60+ viral ads with AI UGC in minutes
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             {/* <MagneticButton> */}
@@ -655,6 +653,16 @@ export default function Landing() {
                                 )}
                             </button>
                         </div>
+                        <Link href="/#pricing">
+
+                            <Button
+                                variant="default"
+                                className="hover:scale-[1.05] transition-all duration-300"
+                            >
+                                Start now
+                            </Button>
+
+                        </Link>
                     </div>
 
                     {/* calculator */}
@@ -676,7 +684,7 @@ export default function Landing() {
                     {/* problem agitation */}
                     <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
                         <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            From complex to <span className="text-primary decoration-primary underline underline-offset-4 decoration-dashed">effortless</span> marketing
+                            Why choose us for your ecommerce brand?
                         </h2>
                         {/* 2 cards side by side */}
                         <div className="mt-16 flex flex-col sm:flex-row items-stretch justify-center gap-6 w-full">
