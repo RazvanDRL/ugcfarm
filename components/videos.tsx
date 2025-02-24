@@ -208,11 +208,13 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                         )}
                         onClick={() => !isLocked && onPhotoSelect(photo.id)}
                     >
-                        <img
+                        <Image
                             src={photo.url}
                             alt={photo.alt}
                             className="w-full h-full object-cover aspect-square"
                             draggable={false}
+                            width={100}
+                            height={100}
                         />
                         {isLocked && (
                             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">

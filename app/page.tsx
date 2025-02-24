@@ -393,13 +393,13 @@ const ReviewCard = ({
         >
             <div className="relative flex flex-col h-full">
                 <Image
-                    src={img_url + "?class=landing"}
+                    src={img_url}
                     alt="UGC content preview"
-                    width={135}
-                    height={240}
                     className="rounded-2xl border-4 border-white object-cover"
                     loading="eager"
                     priority={true}
+                    width={135}
+                    height={240}
                 />
             </div>
         </figure>

@@ -5,6 +5,8 @@ module.exports = withPlausibleProxy({
 	customDomain: "https://plausible.longtoshort.tech",
 })({
 	images: {
+		loader: 'custom',
+		loaderFile: './lib/loader.ts',
 		remotePatterns: [
 			{
 				protocol: 'https',

@@ -612,472 +612,472 @@ export default function Page() {
     const photos = [
         {
             "id": 1,
-            "url": "https://ugcfarm.b-cdn.net/photos/001.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/001.webp",
             "alt": "UGC Avatar 1"
         },
         {
             "id": 2,
-            "url": "https://ugcfarm.b-cdn.net/photos/002.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/002.webp",
             "alt": "UGC Avatar 2"
         },
         {
             "id": 3,
-            "url": "https://ugcfarm.b-cdn.net/photos/003.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/003.webp",
             "alt": "UGC Avatar 3"
         },
         {
             "id": 4,
-            "url": "https://ugcfarm.b-cdn.net/photos/004.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/004.webp",
             "alt": "UGC Avatar 4"
         },
         {
             "id": 5,
-            "url": "https://ugcfarm.b-cdn.net/photos/005.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/005.webp",
             "alt": "UGC Avatar 5"
         },
         {
             "id": 6,
-            "url": "https://ugcfarm.b-cdn.net/photos/006.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/006.webp",
             "alt": "UGC Avatar 6"
         },
         {
             "id": 7,
-            "url": "https://ugcfarm.b-cdn.net/photos/007.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/007.webp",
             "alt": "UGC Avatar 7"
         },
         {
             "id": 8,
-            "url": "https://ugcfarm.b-cdn.net/photos/008.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/008.webp",
             "alt": "UGC Avatar 8"
         },
         {
             "id": 9,
-            "url": "https://ugcfarm.b-cdn.net/photos/009.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/009.webp",
             "alt": "UGC Avatar 9"
         },
         {
             "id": 10,
-            "url": "https://ugcfarm.b-cdn.net/photos/010.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/010.webp",
             "alt": "UGC Avatar 10"
         },
         {
             "id": 11,
-            "url": "https://ugcfarm.b-cdn.net/photos/011.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/011.webp",
             "alt": "UGC Avatar 11"
         },
         {
             "id": 12,
-            "url": "https://ugcfarm.b-cdn.net/photos/012.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/012.webp",
             "alt": "UGC Avatar 12"
         },
         {
             "id": 13,
-            "url": "https://ugcfarm.b-cdn.net/photos/013.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/013.webp",
             "alt": "UGC Avatar 13"
         },
         {
             "id": 14,
-            "url": "https://ugcfarm.b-cdn.net/photos/014.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/014.webp",
             "alt": "UGC Avatar 14"
         },
         {
             "id": 15,
-            "url": "https://ugcfarm.b-cdn.net/photos/015.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/015.webp",
             "alt": "UGC Avatar 15"
         },
         {
             "id": 16,
-            "url": "https://ugcfarm.b-cdn.net/photos/016.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/016.webp",
             "alt": "UGC Avatar 16"
         },
         {
             "id": 17,
-            "url": "https://ugcfarm.b-cdn.net/photos/017.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/017.webp",
             "alt": "UGC Avatar 17"
         },
         {
             "id": 18,
-            "url": "https://ugcfarm.b-cdn.net/photos/018.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/018.webp",
             "alt": "UGC Avatar 18"
         },
         {
             "id": 19,
-            "url": "https://ugcfarm.b-cdn.net/photos/019.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/019.webp",
             "alt": "UGC Avatar 19"
         },
         {
             "id": 20,
-            "url": "https://ugcfarm.b-cdn.net/photos/020.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/020.webp",
             "alt": "UGC Avatar 20"
         },
         {
             "id": 21,
-            "url": "https://ugcfarm.b-cdn.net/photos/021.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/021.webp",
             "alt": "UGC Avatar 21"
         },
         {
             "id": 22,
-            "url": "https://ugcfarm.b-cdn.net/photos/022.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/022.webp",
             "alt": "UGC Avatar 22"
         },
         {
             "id": 23,
-            "url": "https://ugcfarm.b-cdn.net/photos/023.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/023.webp",
             "alt": "UGC Avatar 23"
         },
         {
             "id": 24,
-            "url": "https://ugcfarm.b-cdn.net/photos/024.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/024.webp",
             "alt": "UGC Avatar 24"
         },
         {
             "id": 25,
-            "url": "https://ugcfarm.b-cdn.net/photos/025.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/025.webp",
             "alt": "UGC Avatar 25"
         },
         {
             "id": 26,
-            "url": "https://ugcfarm.b-cdn.net/photos/026.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/026.webp",
             "alt": "UGC Avatar 26"
         },
         {
             "id": 27,
-            "url": "https://ugcfarm.b-cdn.net/photos/027.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/027.webp",
             "alt": "UGC Avatar 27"
         },
         {
             "id": 28,
-            "url": "https://ugcfarm.b-cdn.net/photos/028.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/028.webp",
             "alt": "UGC Avatar 28"
         },
         {
             "id": 29,
-            "url": "https://ugcfarm.b-cdn.net/photos/029.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/029.webp",
             "alt": "UGC Avatar 29"
         },
         {
             "id": 30,
-            "url": "https://ugcfarm.b-cdn.net/photos/030.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/030.webp",
             "alt": "UGC Avatar 30"
         },
         {
             "id": 32,
-            "url": "https://ugcfarm.b-cdn.net/photos/032.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/032.webp",
             "alt": "UGC Avatar 32"
         },
         {
             "id": 33,
-            "url": "https://ugcfarm.b-cdn.net/photos/033.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/033.webp",
             "alt": "UGC Avatar 33"
         },
         {
             "id": 34,
-            "url": "https://ugcfarm.b-cdn.net/photos/034.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/034.webp",
             "alt": "UGC Avatar 34"
         },
         {
             "id": 35,
-            "url": "https://ugcfarm.b-cdn.net/photos/035.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/035.webp",
             "alt": "UGC Avatar 35"
         },
         {
             "id": 36,
-            "url": "https://ugcfarm.b-cdn.net/photos/036.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/036.webp",
             "alt": "UGC Avatar 36"
         },
         {
             "id": 37,
-            "url": "https://ugcfarm.b-cdn.net/photos/037.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/037.webp",
             "alt": "UGC Avatar 37"
         },
         {
             "id": 38,
-            "url": "https://ugcfarm.b-cdn.net/photos/038.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/038.webp",
             "alt": "UGC Avatar 38"
         },
         {
             "id": 39,
-            "url": "https://ugcfarm.b-cdn.net/photos/039.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/039.webp",
             "alt": "UGC Avatar 39"
         },
         {
             "id": 40,
-            "url": "https://ugcfarm.b-cdn.net/photos/040.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/040.webp",
             "alt": "UGC Avatar 40"
         },
         {
             "id": 41,
-            "url": "https://ugcfarm.b-cdn.net/photos/041.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/041.webp",
             "alt": "UGC Avatar 41"
         },
         {
             "id": 42,
-            "url": "https://ugcfarm.b-cdn.net/photos/042.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/042.webp",
             "alt": "UGC Avatar 42"
         },
         {
             "id": 43,
-            "url": "https://ugcfarm.b-cdn.net/photos/043.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/043.webp",
             "alt": "UGC Avatar 43"
         },
         {
             "id": 64,
-            "url": "https://ugcfarm.b-cdn.net/photos/064.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/064.webp",
             "alt": "UGC Avatar 64"
         },
         {
             "id": 65,
-            "url": "https://ugcfarm.b-cdn.net/photos/065.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/065.webp",
             "alt": "UGC Avatar 65"
         },
         {
             "id": 66,
-            "url": "https://ugcfarm.b-cdn.net/photos/066.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/066.webp",
             "alt": "UGC Avatar 66"
         },
         {
             "id": 67,
-            "url": "https://ugcfarm.b-cdn.net/photos/067.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/067.webp",
             "alt": "UGC Avatar 67"
         },
         {
             "id": 68,
-            "url": "https://ugcfarm.b-cdn.net/photos/068.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/068.webp",
             "alt": "UGC Avatar 68"
         },
         {
             "id": 69,
-            "url": "https://ugcfarm.b-cdn.net/photos/069.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/069.webp",
             "alt": "UGC Avatar 69"
         },
         {
             "id": 70,
-            "url": "https://ugcfarm.b-cdn.net/photos/070.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/070.webp",
             "alt": "UGC Avatar 70"
         },
         {
             "id": 71,
-            "url": "https://ugcfarm.b-cdn.net/photos/071.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/071.webp",
             "alt": "UGC Avatar 71"
         },
         {
             "id": 72,
-            "url": "https://ugcfarm.b-cdn.net/photos/072.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/072.webp",
             "alt": "UGC Avatar 72"
         },
         {
             "id": 73,
-            "url": "https://ugcfarm.b-cdn.net/photos/073.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/073.webp",
             "alt": "UGC Avatar 73"
         },
         {
             "id": 74,
-            "url": "https://ugcfarm.b-cdn.net/photos/074.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/074.webp",
             "alt": "UGC Avatar 74"
         },
         {
             "id": 75,
-            "url": "https://ugcfarm.b-cdn.net/photos/075.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/075.webp",
             "alt": "UGC Avatar 75"
         },
         {
             "id": 76,
-            "url": "https://ugcfarm.b-cdn.net/photos/076.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/076.webp",
             "alt": "UGC Avatar 76"
         },
         {
             "id": 77,
-            "url": "https://ugcfarm.b-cdn.net/photos/077.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/077.webp",
             "alt": "UGC Avatar 77"
         },
         {
             "id": 78,
-            "url": "https://ugcfarm.b-cdn.net/photos/078.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/078.webp",
             "alt": "UGC Avatar 78"
         },
         {
             "id": 79,
-            "url": "https://ugcfarm.b-cdn.net/photos/079.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/079.webp",
             "alt": "UGC Avatar 79"
         },
         {
             "id": 80,
-            "url": "https://ugcfarm.b-cdn.net/photos/080.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/080.webp",
             "alt": "UGC Avatar 80"
         },
         {
             "id": 81,
-            "url": "https://ugcfarm.b-cdn.net/photos/081.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/081.webp",
             "alt": "UGC Avatar 81"
         },
         {
             "id": 82,
-            "url": "https://ugcfarm.b-cdn.net/photos/082.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/082.webp",
             "alt": "UGC Avatar 82"
         },
         {
             "id": 83,
-            "url": "https://ugcfarm.b-cdn.net/photos/083.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/083.webp",
             "alt": "UGC Avatar 83"
         },
         {
             "id": 86,
-            "url": "https://ugcfarm.b-cdn.net/photos/086.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/086.webp",
             "alt": "UGC Avatar 86"
         },
         {
             "id": 87,
-            "url": "https://ugcfarm.b-cdn.net/photos/087.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/087.webp",
             "alt": "UGC Avatar 87"
         },
         {
             "id": 88,
-            "url": "https://ugcfarm.b-cdn.net/photos/088.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/088.webp",
             "alt": "UGC Avatar 88"
         },
         {
             "id": 89,
-            "url": "https://ugcfarm.b-cdn.net/photos/089.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/089.webp",
             "alt": "UGC Avatar 89"
         },
         {
             "id": 90,
-            "url": "https://ugcfarm.b-cdn.net/photos/090.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/090.webp",
             "alt": "UGC Avatar 90"
         },
         {
             "id": 91,
-            "url": "https://ugcfarm.b-cdn.net/photos/091.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/091.webp",
             "alt": "UGC Avatar 91"
         },
         {
             "id": 92,
-            "url": "https://ugcfarm.b-cdn.net/photos/092.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/092.webp",
             "alt": "UGC Avatar 92"
         },
         {
             "id": 93,
-            "url": "https://ugcfarm.b-cdn.net/photos/093.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/093.webp",
             "alt": "UGC Avatar 93"
         },
         {
             "id": 94,
-            "url": "https://ugcfarm.b-cdn.net/photos/094.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/094.webp",
             "alt": "UGC Avatar 94"
         },
         {
             "id": 95,
-            "url": "https://ugcfarm.b-cdn.net/photos/095.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/095.webp",
             "alt": "UGC Avatar 95"
         },
         {
             "id": 96,
-            "url": "https://ugcfarm.b-cdn.net/photos/096.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/096.webp",
             "alt": "UGC Avatar 96"
         },
         {
             "id": 97,
-            "url": "https://ugcfarm.b-cdn.net/photos/097.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/097.webp",
             "alt": "UGC Avatar 97"
         },
         {
             "id": 98,
-            "url": "https://ugcfarm.b-cdn.net/photos/098.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/098.webp",
             "alt": "UGC Avatar 98"
         },
         {
             "id": 99,
-            "url": "https://ugcfarm.b-cdn.net/photos/099.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/099.webp",
             "alt": "UGC Avatar 99"
         },
         {
             "id": 100,
-            "url": "https://ugcfarm.b-cdn.net/photos/100.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/100.webp",
             "alt": "UGC Avatar 100"
         },
         {
             "id": 101,
-            "url": "https://ugcfarm.b-cdn.net/photos/101.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/101.webp",
             "alt": "UGC Avatar 101"
         },
         {
             "id": 102,
-            "url": "https://ugcfarm.b-cdn.net/photos/102.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/102.webp",
             "alt": "UGC Avatar 102"
         },
         {
             "id": 103,
-            "url": "https://ugcfarm.b-cdn.net/photos/103.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/103.webp",
             "alt": "UGC Avatar 103"
         },
         {
             "id": 104,
-            "url": "https://ugcfarm.b-cdn.net/photos/104.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/104.webp",
             "alt": "UGC Avatar 104"
         },
         {
             "id": 109,
-            "url": "https://ugcfarm.b-cdn.net/photos/109.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/109.webp",
             "alt": "UGC Avatar 109"
         },
         {
             "id": 110,
-            "url": "https://ugcfarm.b-cdn.net/photos/110.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/110.webp",
             "alt": "UGC Avatar 110"
         },
         {
             "id": 111,
-            "url": "https://ugcfarm.b-cdn.net/photos/111.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/111.webp",
             "alt": "UGC Avatar 111"
         },
         {
             "id": 112,
-            "url": "https://ugcfarm.b-cdn.net/photos/112.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/112.webp",
             "alt": "UGC Avatar 112"
         },
         {
             "id": 113,
-            "url": "https://ugcfarm.b-cdn.net/photos/113.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/113.webp",
             "alt": "UGC Avatar 113"
         },
         {
             "id": 114,
-            "url": "https://ugcfarm.b-cdn.net/photos/114.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/114.webp",
             "alt": "UGC Avatar 114"
         },
         {
             "id": 115,
-            "url": "https://ugcfarm.b-cdn.net/photos/115.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/115.webp",
             "alt": "UGC Avatar 115"
         },
         {
             "id": 116,
-            "url": "https://ugcfarm.b-cdn.net/photos/116.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/116.webp",
             "alt": "UGC Avatar 116"
         },
         {
             "id": 117,
-            "url": "https://ugcfarm.b-cdn.net/photos/117.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/117.webp",
             "alt": "UGC Avatar 117"
         },
         {
             "id": 118,
-            "url": "https://ugcfarm.b-cdn.net/photos/grasu_1.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/grasu_1.webp",
             "alt": "UGC Avatar 118"
         },
         {
             "id": 119,
-            "url": "https://ugcfarm.b-cdn.net/photos/grasu_2.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/grasu_2.webp",
             "alt": "UGC Avatar 119"
         },
         {
             "id": 120,
-            "url": "https://ugcfarm.b-cdn.net/photos/grasu_3.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/grasu_3.webp",
             "alt": "UGC Avatar 120"
         },
         {
             "id": 121,
-            "url": "https://ugcfarm.b-cdn.net/photos/grasu_4.webp?class=dashboard",
+            "url": "https://ugcfarm.b-cdn.net/photos/grasu_4.webp",
             "alt": "UGC Avatar 121"
         },
     ]
