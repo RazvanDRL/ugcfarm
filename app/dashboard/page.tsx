@@ -1535,6 +1535,10 @@ export default function Page() {
                         <div className="md:col-start-2 space-y-4 order-first md:order-last">
                             <div className="h-auto aspect-square rounded-xl bg-[#A4A4A4]/10 overflow-hidden">
                                 <div className="relative w-full h-full aspect-[9/16]">
+                                    {/* Add the preview badge */}
+                                    <div className="absolute top-2 right-2 bg-black/70 text-white text-xs font-medium px-2 py-1 rounded-md z-10">
+                                        Low Quality Preview
+                                    </div>
                                     <Player
                                         component={Main}
                                         inputProps={inputProps}
@@ -1546,7 +1550,7 @@ export default function Page() {
                                             height: '100%',
                                         }}
                                         controls
-                                        className="mx-auto h-full"
+                                        className="mx-auto h-full relative"
                                     />
                                 </div>
                             </div>
@@ -1585,10 +1589,15 @@ export default function Page() {
                                         )}
                                     </Button>
                                 ) : (
-                                    <Button onClick={createVideo} className="w-fit">
-                                        Create video
-                                        <ArrowRightIcon className="w-5 h-5" />
-                                    </Button>
+                                    <div className="flex flex-col text-right w-full justify-end">
+                                        <Button onClick={createVideo} className="w-fit mb-2 ml-auto">
+                                            Create video
+                                            <ArrowRightIcon className="w-5 h-5" />
+                                        </Button>
+                                        <span className="text-xs text-[#1a1a1a]/60 font-mono text-right">
+                                            rendered in full quality
+                                        </span>
+                                    </div>
                                 )}
                             </div>
 
