@@ -271,7 +271,7 @@ export default function Landing() {
                     </div>
 
                     {/* video from founder */}
-                    <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
+                    {/* <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
                         <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
                             How it works
                         </h2>
@@ -289,7 +289,7 @@ export default function Landing() {
                             </Button>
 
                         </Link>
-                    </div>
+                    </div> */}
 
                     {/* calculator */}
                     {/* <div className="flex flex-col items-center justify-center space-y-8 py-12">
