@@ -10,18 +10,24 @@ interface VideoPreviewProps {
 export function VideoPreview({ imageUrl, alt, rotation = 0, className = "" }: VideoPreviewProps) {
     return (
         <div
-            className={`relative w-[164px] shrink-0 aspect-[9/16] cursor-pointer group/container ${className}`}
+            className={`relative w-[164px] shrink-0 aspect-[9/16] cursor-pointer overflow-hidden ${className}`}
             style={{ transform: `rotate(${rotation}deg)` }}
         >
-            <div className="relative w-full h-full group/item hover:opacity-100 group-hover/container:opacity-50">
-                <Image
+            <div className="relative w-full h-full group/item transition-all duration-300 ease-in-out">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300 rounded-2xl z-10" />
+
+                <img
                     alt={alt}
                     src={imageUrl}
-                    fill
-                    className="rounded-2xl border-4 border-white shadow-lg object-cover"
+                    className="rounded-2xl border-4 border-white shadow-lg object-cover w-full h-full transition-transform duration-500 ease-out group-hover/item:scale-105"
                 />
-                <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-1" />
+
+                <div className="absolute inset-0 flex items-center justify-center z-20">
+                    {/* Play button circle with glow effect */}
+                    <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center opacity-0 group-hover/item:opacity-100 transition-all duration-300 ease-in-out shadow-[0_0_10px_rgba(255,255,255,0.7)] transform group-hover/item:scale-110">
+                        {/* Triangle play icon */}
+                        <div className="w-0 h-0 border-t-[8px] border-t-transparent border-l-[14px] border-l-primary border-b-[8px] border-b-transparent ml-1" />
+                    </div>
                 </div>
             </div>
         </div>

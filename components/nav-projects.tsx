@@ -38,17 +38,13 @@ export function NavProjects({
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Settings</SidebarGroupLabel>
+      <SidebarGroupLabel>Avatars</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               <a
                 href={item.url}
-                onClick={(e) => {
-                  e.preventDefault()
-                  alert('Available Soon')
-                }}
                 className="text-muted-foreground"
               >
                 <item.icon />

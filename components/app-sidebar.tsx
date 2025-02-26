@@ -11,8 +11,11 @@ import {
     PlusCircle,
     Send,
     Settings2,
+    Shirt,
     SquareTerminal,
+    SquareUserRound,
     User,
+    Users,
     Video,
 } from "lucide-react"
 
@@ -45,9 +48,9 @@ const data = {
             isActive: true,
         },
         {
-            title: "Generate Avatar",
+            title: "Avatar Studio",
             url: "/dashboard/avatars",
-            icon: User,
+            icon: Users,
         },
         {
             title: "Hook Library",
@@ -62,19 +65,19 @@ const data = {
     ],
     projects: [
         {
-            name: "Analytics",
-            url: "/dashboard/analytics",
-            icon: ChartArea,
+            name: "Generate Avatar",
+            url: "/dashboard/avatars/create",
+            icon: SquareUserRound,
         },
         {
-            name: "Schedule",
-            url: "/dashboard/schedule",
-            icon: Calendar,
+            name: "Try-on",
+            url: "/dashboard/try-on",
+            icon: Shirt,
         },
         {
-            name: "Auto-Post",
-            url: "/dashboard/auto-post",
-            icon: Send,
+            name: "Generate Video",
+            url: "/dashboard/avatars/create-video",
+            icon: Video,
         },
     ],
     navSecondary: [

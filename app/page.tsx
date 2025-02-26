@@ -6,24 +6,13 @@ import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
-import { ArrowRight, Smile, Frown, Star, ClipboardList, Upload, Zap, X, Play, Pause } from "lucide-react";
-import { ROICalculator } from "@/components/roi-calculator"
+import { ArrowRight, Smile, Frown, Star, X, Play, Wand2, MoveRight } from "lucide-react";
 import FlickeringGrid from "@/components/ui/flickering-grid";
-import { cn } from "@/lib/utils";
-import Marquee from "@/components/ui/marquee";
 import Image from "next/image";
-import Bento from "@/components/bento";
-import { MagneticButton } from "@/components/ui/magnetic-button";
 import { FAQ } from "@/components/faq";
 import { Card } from "@/components/ui/card"
 import { jsonLd } from './json-ld'
-import { metadata } from './metadata'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { useState, useEffect, useRef } from "react";
-import { supabase } from "@/lib/supabase/client/supabase";
-import { toast } from "sonner";
-import { PurchaseNotification } from "@/components/purchase-notification";
 
 const withoutUGC = [{
     title: "Other UGC platforms",
@@ -50,215 +39,9 @@ interface Review {
     rotation: number;
 }
 
-
-
 const reviews: Review[] = [
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/001.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/002.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/003.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/004.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/005.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/006.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/007.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/008.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/009.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/010.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/011.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/012.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/013.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/015.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/016.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/017.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/018.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/019.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/020.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/026.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/027.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/031.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/032.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/033.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/034.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/035.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/036.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/037.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/038.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/039.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/040.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/041.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/042.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/043.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/064.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/065.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/066.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/067.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/068.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/069.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/070.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/071.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/072.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/073.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/074.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/075.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/076.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/077.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/078.webp",
-        "rotation": 1
-    },
-    {
         "img_url": "https://ugcfarm.b-cdn.net/photos/079.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/080.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/081.webp",
         "rotation": -1
     },
     {
@@ -266,219 +49,74 @@ const reviews: Review[] = [
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/083.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/086.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/087.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/088.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/089.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/090.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/091.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/092.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/093.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/094.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/095.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/096.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/097.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/099.webp",
-        "rotation": -1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/100.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/101.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/102.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/109.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/110.webp",
-        "rotation": 0
-    },
-    {
         "img_url": "https://ugcfarm.b-cdn.net/photos/111.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/112.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/113.webp",
-        "rotation": 0
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/114.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/115.webp",
-        "rotation": 1
-    },
-    {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/116.webp",
-        "rotation": 0
+        "rotation": -2
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/117.webp",
-        "rotation": 1
-    }
-]
-
-// const factor = 1.5;
-
-const firstRow = reviews.slice(0, reviews.length / 2);
-const secondRow = reviews.slice(reviews.length / 2);
-
-const ReviewCard = ({
-    img_url,
-    rotation,
-}: Review) => {
-    return (
-        <figure
-            style={{
-                width: `135px`,
-                height: `240px`,
-                transform: `rotate(${rotation}deg)`,
-            }}
-            className={cn(
-                "relative aspect-[9/16] cursor-pointer rounded-2xl overflow-hidden hover:shadow-md border-4 border-white",
-            )}
-        >
-            <div className="relative flex flex-col h-full">
-                <Image
-                    src={img_url}
-                    alt="UGC content preview"
-                    className="rounded-2xl border-4 border-white object-cover"
-                    loading="eager"
-                    priority={true}
-                    width={135}
-                    height={240}
-                />
-            </div>
-        </figure>
-    );
-};
-
-const steps = [
-    {
-        title: "Choose Your Plan",
-        description: "Select how many videos you need per month based on your content strategy.",
-        icon: ClipboardList,
-        color: "bg-blue-500/10",
-        textColor: "text-blue-500"
+        "rotation": 2
     },
     {
-        title: "Input Your Details",
-        description: "Share your product info & target audience. Upload your own demo footage to use alongside generated content.",
-        icon: Upload,
-        color: "bg-green-500/10",
-        textColor: "text-green-500"
+        "img_url": "https://ugcfarm.b-cdn.net/photos/grasu_1.webp",
+        "rotation": -1
     },
     {
-        title: "Generate Content",
-        description: "Get instant, professional UGC videos in minutes - 100x faster than traditional methods.",
-        icon: Zap,
-        color: "bg-amber-500/10",
-        textColor: "text-amber-500"
-    }
+        "img_url": "https://ugcfarm.b-cdn.net/photos/grasu_2.webp",
+        "rotation": 0
+    },
 ]
 
 export default function Landing() {
     const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     const ref = params ? params.get('ref') : null;
-    const [showDialog, setShowDialog] = useState(false);
-    const [email, setEmail] = useState("");
     const [showCornerCard, setShowCornerCard] = useState(true);
     const [hasSubmittedEmail, setHasSubmittedEmail] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
+    const videoRefs = useRef<{ video1: HTMLVideoElement | null; video2: HTMLVideoElement | null }>({ video1: null, video2: null });
+    const [isVideosPlaying, setIsVideosPlaying] = useState(false);
+    const [videosEnded, setVideosEnded] = useState(false);
+
+    const handlePlayVideos = () => {
+        if (videoRefs.current.video1 && videoRefs.current.video2) {
+            // Reset videos if they were already played
+            if (videosEnded) {
+                videoRefs.current.video1.currentTime = 0;
+                videoRefs.current.video2.currentTime = 0;
+                setVideosEnded(false);
+            }
+
+            if (isVideosPlaying) {
+                videoRefs.current.video1.pause();
+                videoRefs.current.video2.pause();
+            } else {
+                videoRefs.current.video1.play();
+                videoRefs.current.video2.play();
+            }
+            setIsVideosPlaying(!isVideosPlaying);
+        }
+    };
 
     useEffect(() => {
-        // Check localStorage only after component mounts
-        const emailSubmitted = localStorage.getItem('ugcfarm_email_submitted');
-        setHasSubmittedEmail(!!emailSubmitted);
+        const video1 = videoRefs.current.video1;
+        const video2 = videoRefs.current.video2;
 
-        if (!emailSubmitted) {
-            const timer = setTimeout(() => {
-                setShowDialog(true);
-            }, 60000);
+        if (video1 && video2) {
+            const handleEnded = () => {
+                // Check if both videos have ended
+                if (video1.ended && video2.ended) {
+                    setVideosEnded(true);
+                    setIsVideosPlaying(false);
+                }
+            };
 
-            return () => clearTimeout(timer);
+            video1.addEventListener('ended', handleEnded);
+            video2.addEventListener('ended', handleEnded);
+
+            return () => {
+                video1.removeEventListener('ended', handleEnded);
+                video2.removeEventListener('ended', handleEnded);
+            };
         }
     }, []);
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        const { data, error } = await supabase
-            .from('free_videos')
-            .insert({ email });
-        if (error) {
-            console.error(error);
-        } else {
-            localStorage.setItem('ugcfarm_email_submitted', 'true');
-            setHasSubmittedEmail(true);
-            toast.success("You'll receive a video in your inbox shortly 🎉");
-            setShowDialog(false);
-        }
-    };
-
-    const handlePlayPause = () => {
-        if (videoRef.current) {
-            if (isPlaying) {
-                videoRef.current.pause();
-            } else {
-                videoRef.current.play();
-            }
-            setIsPlaying(!isPlaying);
-        }
-    };
 
     return (
         <>
@@ -487,8 +125,8 @@ export default function Landing() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
             />
             <Navbar />
-            <main className="mt-40 mb-20 px-8">
-                <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12">
+            <main className="mt-40 mb-20 px-8 overflow-x-hidden">
+                <div className="flex flex-col items-center justify-center mx-auto max-w-5xl space-y-12 overflow-x-hidden">
 
                     {/* social proof */}
                     <div className="flex w-full justify-around pb-4">
@@ -602,27 +240,35 @@ export default function Landing() {
                         />
                     </div> */}
 
-                    {/* marquee */}
-                    <div className="relative flex my-12 h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg -rotate-[7deg]">
-                        <Marquee pauseOnHover className="[--duration:20s]">
-                            {firstRow.map((review) => (
-                                <ReviewCard key={review.img_url} {...review} />
-                            ))}
-                        </Marquee>
-                        <Marquee reverse pauseOnHover className="[--duration:20s]">
-                            {secondRow.map((review) => (
-                                <ReviewCard key={review.img_url} {...review} />
-                            ))}
-                        </Marquee>
-                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-white dark:from-background"></div>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-white dark:from-background"></div>
-                    </div>
+                    {/* video demos */}
+                    <div className="relative flex h-auto w-full flex-col items-center justify-center rounded-lg my-8">
+                        {/* Left gradient overlay */}
+                        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-24 z-20 pointer-events-none bg-gradient-to-r from-white to-transparent"></div>
 
-                    <Link href="/demo">
-                        <ButtonSmall className="py-6 px-6 text-lg font-[600]">
-                            See demos&nbsp;&nbsp;&rarr;
-                        </ButtonSmall>
-                    </Link>
+                        <div className="flex py-8 rounded-xl flex-row items-center justify-center gap-4 md:gap-6 overflow-x-auto w-full no-scrollbar pb-4">
+                            {reviews.slice(0, 5).map((review, index) => (
+                                <div
+                                    key={index}
+                                    className={`min-w-[164px] max-w-[180px] flex-shrink-0 animate-in fade-in zoom-in group ${index % 2 === 0 ? 'md:mt-8' : 'md:mb-8'} ${index % 3 === 1 ? 'lg:scale-110 z-10' : 'z-0'}`}
+                                    style={{
+                                        animationDelay: `${index * 50}ms`,
+                                        animationDuration: '300ms',
+                                        transform: `translateY(${index % 2 === 0 ? '-8px' : '8px'})`,
+                                    }}
+                                >
+                                    <VideoPreview
+                                        imageUrl={review.img_url}
+                                        alt={`Preview ${index + 1}`}
+                                        rotation={review.rotation}
+                                        className="transition-all duration-300 hover:scale-110 hover:z-20 shadow-xl hover:shadow-2xl"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Right gradient overlay */}
+                        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-24 z-20 pointer-events-none bg-gradient-to-l from-white to-transparent"></div>
+                    </div>
 
                     {/* video from founder */}
                     <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
@@ -677,7 +323,7 @@ export default function Landing() {
                                     ))}
                                 </ul>
                             </div>
-                            <div className="flex flex-col items-top text-left justify-start p-6 sm:p-8 bg-green-50 rounded-xl w-full sm:w-1/2">
+                            <div className="flex flex-col items-top text-left justify-start p-6 sm:p-8 border-2 border-green-500 bg-green-50 rounded-xl w-full sm:w-1/2">
                                 <Smile className="w-8 h-8 sm:w-10 sm:h-10 text-green-500" />
                                 <h3 className="mt-4 text-lg sm:text-xl font-extrabold text-green-500">{withUGC[0].title}</h3>
                                 <ul className="mt-4 text-sm sm:text-base font-[600] text-green-700 list-disc list-inside">
@@ -690,39 +336,348 @@ export default function Landing() {
                     </div>
 
                     {/* features */}
-                    <Bento />
-
-                    {/* how it workss */}
-                    {/* <div className="flex flex-col items-center justify-center space-y-8 py-12">
-                        <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Generate Professional UGC<br />
-                            <span className="text-primary">100x Faster</span>
-                        </h2>
-                        <p className="text-xl font-[600] text-[#1a1a1a]/60 text-center max-w-2xl">
-                            Our AI-powered platform generates weeks worth of content in minutes
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-16">
-                            {steps.map((step, index) => (
-                                <Card
-                                    key={index}
-                                    className={cn(
-                                        "relative p-6 border-2 hover:scale-[1.02] transition-all duration-300",
-                                        "flex flex-col items-start space-y-4"
-                                    )}
-                                >
-                                    <div className={cn(
-                                        "p-3 rounded-lg",
-                                        step.color
-                                    )}>
-                                        <step.icon className={cn("w-6 h-6", step.textColor)} />
-                                    </div>
-                                    <h3 className="text-xl font-bold">{step.title}</h3>
-                                    <p className="text-[#1a1a1a]/60 font-[500]">{step.description}</p>
-                                </Card>
-                            ))}
+                    <div className="flex flex-col items-center justify-center space-y-12 py-16 w-full">
+                        <div className="text-center">
+                            {/* <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-2">HOW IT WORKS</p> */}
+                            <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center max-w-4xl">
+                                Create Viral AI Video Ads
+                            </h2>
                         </div>
-                    </div> */}
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-4">
+                            {/* Step 1 */}
+                            <div className="flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 h-full" style={{ animationDelay: '0ms', animationDuration: '600ms' }}>
+                                <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center mb-6">
+                                    <span className="text-2xl font-bold text-white">1</span>
+                                </div>
+                                <h3 className="text-xl font-bold mb-4 text-center">Choose Your AI Influencer</h3>
+                                <div className="bg-primary/10 rounded-lg p-8 w-full flex items-center justify-center mb-6 overflow-hidden flex-grow">
+                                    <div className="w-[95%] max-w-md items-center justify-center grid grid-cols-3 grid-rows-2 gap-2">
+                                        {/* Row 1 */}
+                                        <div className="outline outline-4 outline-primary relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
+                                            <Image
+                                                src={reviews[0].img_url}
+                                                alt="Female avatar option"
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
+
+                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
+                                            <Image
+                                                src={reviews[1].img_url}
+                                                alt="Male avatar option"
+                                                fill
+                                                className="object-cover"
+                                            />
+
+                                        </div>
+
+                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
+                                            <Image
+                                                src={reviews[2].img_url}
+                                                alt="Female avatar option"
+                                                fill
+                                                className="object-cover"
+                                            />
+
+                                        </div>
+
+                                        {/* Row 2 */}
+                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
+                                            <Image
+                                                src={reviews[3].img_url}
+                                                alt="Male avatar option"
+                                                fill
+                                                className="object-cover"
+                                            />
+
+                                        </div>
+
+                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
+                                            <Image
+                                                src={reviews[4].img_url}
+                                                alt="Female avatar option"
+                                                fill
+                                                className="object-cover"
+                                            />
+
+                                        </div>
+
+                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
+                                            <Image
+                                                src={reviews[5].img_url}
+                                                alt="Male avatar option"
+                                                fill
+                                                className="object-cover"
+                                            />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Step 2 */}
+                            <div className="flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 h-full" style={{ animationDelay: '150ms', animationDuration: '600ms' }}>
+                                <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center mb-6">
+                                    <span className="text-2xl font-bold text-white">2</span>
+                                </div>
+                                <h3 className="text-xl font-bold mb-4 text-center">Customize Your Hook</h3>
+                                <div className="bg-primary/10 rounded-lg p-6 w-full flex flex-col items-center justify-center mb-6 flex-grow">
+                                    <div className="w-full h-full bg-white rounded-lg p-4 flex flex-col">
+                                        <p className="font-semibold text-gray-800 mb-2">Hook</p>
+                                        <div className="relative flex-grow bg-gray-50 rounded-lg border border-gray-200 overflow-hidden">
+                                            <textarea
+                                                className="w-full h-full p-4 text-gray-600 bg-transparent outline-none resize-none min-h-[120px] focus:outline-none"
+                                                placeholder="Type your hook here"
+                                            />
+                                            <div className="absolute bottom-3 right-3">
+                                                <ButtonSmall
+                                                    className="bg-white hover:bg-gray-50 text-primary border border-gray-200 shadow-sm"
+                                                >
+                                                    <span className="flex items-center">
+                                                        <Wand2 className="w-4 h-4 mr-2 text-primary" />
+                                                        Generate with AI
+                                                    </span>
+                                                </ButtonSmall>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Step 3 */}
+                            <div className="flex flex-col items-center animate-in fade-in slide-in-from-bottom-4" style={{ animationDelay: '300ms', animationDuration: '600ms' }}>
+                                <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center mb-6">
+                                    <span className="text-2xl font-bold text-white">3</span>
+                                </div>
+                                <h3 className="text-xl font-bold mb-4 text-center">Generate & Perfect Your Video</h3>
+                                <div className="bg-primary/10 rounded-lg p-4 w-full flex items-center justify-center mb-6 overflow-hidden flex-grow">
+                                    <div className="max-w-[50%] max-h-[200px] shadow-xl overflow-hidden" style={{ transform: 'translateY(10%)' }}>
+                                        <div className="relative">
+                                            <div className="">
+                                                <Image
+                                                    src="/feature_3.png"
+                                                    alt="AI avatar"
+                                                    width={300}
+                                                    height={300}
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <Link href="/#pricing">
+                            <ButtonSmall
+                                variant="default"
+                                className="hover:scale-[1.05] transition-all duration-300 mt-4 px-10 py-8 text-2xl font-bold"
+                            >
+                                Try it now&nbsp;&nbsp;&rarr;
+                            </ButtonSmall>
+                        </Link>
+                    </div>
+
+                    {/* language support */}
+                    <div className="flex flex-col md:flex-row items-start justify-between gap-8 py-16 w-full">
+                        <div className="w-full md:w-1/2 space-y-6">
+                            <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a]">
+                                29 languages
+                            </h2>
+                            <p className="text-lg font-[600] text-[#1a1a1a] opacity-60">
+                                Break language barriers and scale your brand worldwide. Create UGC videos in any language to connect with customers on every continent.
+                            </p>
+                            <Link href="/#pricing">
+                                <ButtonSmall
+                                    variant="default"
+                                    className="hover:scale-[1.05] transition-all duration-300 font-bold mt-4"
+                                >
+                                    Get started&nbsp;&nbsp;&rarr;
+                                </ButtonSmall>
+                            </Link>
+                        </div>
+                        <div className="w-full md:w-1/2 bg-primary/5 p-6 rounded-xl">
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                {[
+                                    { flag: "🇳🇱", name: "Dutch" },
+                                    { flag: "🇪🇸", name: "Spanish" },
+                                    { flag: "🇫🇷", name: "French" },
+                                    { flag: "🇵🇹", name: "Portuguese" },
+                                    { flag: "🇮🇳", name: "Hindi" },
+                                    { flag: "🇦🇪", name: "Arabic" },
+                                    { flag: "🇩🇪", name: "German" },
+                                    { flag: "🇮🇹", name: "Italian" },
+                                    { flag: "🇯🇵", name: "Japanese" },
+                                ].map((lang, i) => (
+                                    <div
+                                        key={i}
+                                        className="flex items-center gap-2 p-3 bg-white rounded-lg border border-gray-100 shadow-sm animate-in fade-in"
+                                        style={{ animationDelay: `${i * 100}ms` }}
+                                    >
+                                        <span className="text-xl">{lang.flag}</span>
+                                        <span className="font-medium">{lang.name}</span>
+                                    </div>
+                                ))}
+                                <div className="flex items-center justify-center p-3 bg-primary/10 rounded-lg border border-primary/20 shadow-sm">
+                                    <span className="font-medium text-primary">+20 more</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* try on */}
+                    <div className="flex flex-col md:flex-row-reverse items-start justify-between gap-8 py-16 w-full">
+                        <div className="w-full md:w-1/2 space-y-6">
+                            <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a]">
+                                Dress AI with your clothes
+                            </h2>
+                            <p className="text-lg font-[600] text-[#1a1a1a] opacity-60">
+                                Display your product 100% with AI, our creators can now dress up in your brand's clothing.
+                            </p>
+                            <Link href="/#pricing">
+                                <ButtonSmall
+                                    variant="default"
+                                    className="hover:scale-[1.05] transition-all duration-300 font-bold mt-4"
+                                >
+                                    Try it now&nbsp;&nbsp;&rarr;
+                                </ButtonSmall>
+                            </Link>
+                        </div>
+                        <div className="w-full md:w-1/2 bg-primary/5 p-6 rounded-xl">
+                            <div className="grid grid-cols-3 gap-3">
+                                <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md">
+                                    <Image
+                                        src="https://ugcfarm.b-cdn.net/avatar.png"
+                                        alt="AI holding product"
+                                        width={300}
+                                        height={534}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div className="flex flex-col items-center justify-center">
+                                    {/* T-shirt/garment image */}
+                                    <div className="w-20 h-20 rounded-md overflow-hidden shadow-sm border-2 border-primary/20">
+                                        <Image
+                                            src="https://ugcfarm.b-cdn.net/garment.jpg"
+                                            alt="Garment to try on"
+                                            width={80}
+                                            height={80}
+                                            className="w-full h-full object-contain bg-[#F6F6F6]"
+                                        />
+                                    </div>
+                                    {/* Arrow */}
+                                    <MoveRight className="w-[60px] h-[60px] object-cover text-primary" />
+                                </div>
+                                <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md">
+                                    <Image
+                                        src="https://ugcfarm.b-cdn.net/avatar_dressed.png"
+                                        alt="AI holding product"
+                                        width={300}
+                                        height={534}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* lipsync */}
+                    <div className="flex flex-col md:flex-row items-start justify-between gap-8 py-16 w-full">
+                        <div className="w-full md:w-1/2 space-y-6">
+                            <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a]">
+                                Perfect lip sync technology
+                            </h2>
+                            <p className="text-lg font-[600] text-[#1a1a1a] opacity-60">
+                                Our AI perfectly synchronizes lips with your script in any language. Create natural-looking videos that connect with your audience on a deeper level.
+                            </p>
+                            <Link href="/#pricing">
+                                <ButtonSmall
+                                    variant="default"
+                                    className="hover:scale-[1.05] transition-all duration-300 font-bold mt-4"
+                                >
+                                    Get started&nbsp;&nbsp;&rarr;
+                                </ButtonSmall>
+                            </Link>
+                        </div>
+                        <div className="w-full md:w-1/2 bg-primary/5 p-6 rounded-xl">
+                            <div className="grid grid-cols-3 gap-3 relative">
+                                <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md relative">
+                                    <video
+                                        ref={el => { if (el) videoRefs.current.video1 = el }}
+                                        src="https://ugcfarm.b-cdn.net/avatars/010.mp4"
+                                        width={300}
+                                        height={534}
+                                        className="w-full h-full object-cover"
+                                        muted
+                                        playsInline
+                                    />
+                                </div>
+                                <div className="flex flex-col items-center justify-center">
+                                    {/* Arrow */}
+                                    <MoveRight className="w-[60px] h-[60px] object-cover text-primary" />
+                                </div>
+                                <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md relative">
+                                    <video
+                                        ref={el => { if (el) videoRefs.current.video2 = el }}
+                                        src="https://ugcfarm.b-cdn.net/010_lipsync.mp4"
+                                        width={300}
+                                        height={534}
+                                        className="w-full h-full object-cover"
+                                        playsInline
+                                    />
+                                </div>
+
+                                {/* Show Me button overlay */}
+                                {!isVideosPlaying && !videosEnded && (
+                                    <button
+                                        onClick={handlePlayVideos}
+                                        className="absolute inset-0 flex items-center justify-center bg-black/80 hover:bg-black/85 transition-colors z-10 col-span-3 rounded-lg"
+                                    >
+                                        <div className="relative group">
+                                            {/* Pulsing background effect */}
+                                            <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping opacity-75 group-hover:opacity-100"></div>
+                                            {/* Glow effect */}
+                                            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/60 rounded-full blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                            {/* Main button */}
+                                            <div className="relative bg-gradient-to-br from-primary to-primary/90 text-white font-bold py-4 px-8 rounded-full flex items-center gap-3 shadow-[0_0_15px_rgba(255,117,56,0.5)] transform hover:scale-105 transition-all duration-300 border border-primary/20">
+                                                <div className="relative">
+                                                    <div className="absolute inset-0 flex items-center justify-center animate-ping opacity-70">
+                                                        <Play className="w-6 h-6 fill-white" />
+                                                    </div>
+                                                    <Play className="w-6 h-6 fill-white" />
+                                                </div>
+                                                <span className="text-lg">Show Me the Magic</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                )}
+
+                                {/* Play Again button that appears after videos end */}
+                                {videosEnded && (
+                                    <button
+                                        onClick={handlePlayVideos}
+                                        className="absolute inset-0 flex items-center justify-center bg-black/80 hover:bg-black/85 transition-colors z-10 col-span-3 rounded-lg"
+                                    >
+                                        <div className="relative group">
+                                            {/* Subtle glow effect */}
+                                            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-primary/60 rounded-full blur-md opacity-70 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                            {/* Main button */}
+                                            <div className="relative bg-gradient-to-br from-primary to-primary/90 text-white font-bold py-4 px-8 rounded-full flex items-center gap-3 shadow-[0_0_15px_rgba(255,117,56,0.5)] transform hover:scale-105 transition-all duration-300 border border-primary/20">
+                                                <div className="relative">
+                                                    <Play className="w-6 h-6 fill-white" />
+                                                </div>
+                                                <span className="text-lg">Play Again</span>
+                                            </div>
+                                        </div>
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
 
                     {/* pricing */}
                     <Pricing id="pricing" className="w-full py-12 px-6 lg:px-0.5" referral={ref} />

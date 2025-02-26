@@ -5,13 +5,13 @@ module.exports = withPlausibleProxy({
 	customDomain: "https://plausible.longtoshort.tech",
 })({
 	images: {
-		loader: 'custom',
-		loaderFile: './lib/loader.ts',
+		// loader: 'custom',
+		// loaderFile: './lib/loader.ts',
 		remotePatterns: [
 			{
 				protocol: 'https',
 				hostname: 'ugcfarm.b-cdn.net',
-				pathname: '/photos/**',
+				pathname: '/**',
 			},
 			{
 				protocol: 'https',
