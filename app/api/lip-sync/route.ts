@@ -9,6 +9,10 @@ interface ExtendedLatentsyncInput {
     guidance_scale: number;
 }
 
+function decode(url: string) {
+    return url.replace('/avatars/', '/b1f096cf-7297-4d47-83f8-ca478330fce1/8d8e77a3-1def-4221-9abb-1e8e5917db58/d478e4cc-54e0-4aa4-962c-de1591a49546/')
+}
+
 export async function POST(req: Request) {
     try {
         const token = req.headers.get('Authorization')?.split(' ')[1]
@@ -42,7 +46,9 @@ export async function POST(req: Request) {
             .update({ credits: credits.credits - 0.5 })
             .eq('id', user.id)
 
-        const { video_url, prompt, voice } = await req.json()
+        let { video_url, prompt, voice } = await req.json()
+
+        video_url = decode(video_url);
 
         const SITE_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : process.env.NEXT_PUBLIC_SITE_URL
 

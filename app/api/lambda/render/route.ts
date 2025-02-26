@@ -11,6 +11,10 @@ import { RenderRequest } from "../../../../types/schema";
 import { supabase } from "@/lib/supabase/admin/supabase";
 import { parseMedia } from '@remotion/media-parser';
 
+function decode(url: string) {
+  return url.replace('/avatars/', '/b1f096cf-7297-4d47-83f8-ca478330fce1/8d8e77a3-1def-4221-9abb-1e8e5917db58/d478e4cc-54e0-4aa4-962c-de1591a49546/')
+}
+
 
 export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
   RenderRequest,
@@ -86,6 +90,8 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
 
       body.inputProps.hook_duration = hook_duration
       body.inputProps.videoUrl = video_data.url
+    } else {
+      body.inputProps.videoUrl = decode(body.inputProps.videoUrl)
     }
 
     // force width, force height from input props
