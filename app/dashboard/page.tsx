@@ -558,6 +558,14 @@ export default function Page() {
         if (state.status === "done") {
             getSignedUrl(inputProps.videoProps.uuid + '.mp4', 'output-bucket', token).then((url) => {
                 setVideo(url || "")
+
+                // Generate a new UUID for the next rendering to prevent conflicts
+                setInputProps(prev => ({
+                    ...prev,
+                    videoProps: {
+                        uuid: uuidv4()
+                    }
+                }))
             })
         }
     }, [state])

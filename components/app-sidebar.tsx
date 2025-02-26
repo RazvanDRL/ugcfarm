@@ -71,7 +71,7 @@ const data = {
         },
         {
             name: "Try-on",
-            url: "/dashboard/try-on",
+            url: "/dashboard/avatars/try-on",
             icon: Shirt,
         },
         {
