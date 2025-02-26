@@ -457,7 +457,7 @@ export default function Landing() {
                                         <div className="relative">
                                             <div className="">
                                                 <Image
-                                                    src="https://ugcfarm.b-cdn.net/feature_3.png"
+                                                    src="https://ugcfarm.b-cdn.net/feature_3.webp"
                                                     alt="AI avatar"
                                                     width={300}
                                                     height={300}
@@ -549,7 +549,7 @@ export default function Landing() {
                             <div className="grid grid-cols-3 gap-3">
                                 <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md">
                                     <Image
-                                        src="https://ugcfarm.b-cdn.net/avatar.png"
+                                        src="https://ugcfarm.b-cdn.net/avatar.webp"
                                         alt="AI holding product"
                                         width={300}
                                         height={534}
@@ -572,7 +572,7 @@ export default function Landing() {
                                 </div>
                                 <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md">
                                     <Image
-                                        src="https://ugcfarm.b-cdn.net/avatar_dressed.png"
+                                        src="https://ugcfarm.b-cdn.net/avatar_dressed.webp"
                                         alt="AI holding product"
                                         width={300}
                                         height={534}
