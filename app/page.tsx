@@ -534,7 +534,7 @@ export default function Landing() {
                                 Dress AI with your clothes
                             </h2>
                             <p className="text-lg font-[600] text-[#1a1a1a] opacity-60">
-                                Display your product 100% with AI, our creators can now dress up in your brand's clothing.
+                                Display your product 100% with AI, our creators can now dress up in your brand&apos;s clothing.
                             </p>
                             <Link href="/#pricing">
                                 <ButtonSmall
