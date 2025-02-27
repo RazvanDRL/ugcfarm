@@ -90,6 +90,7 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
 
       body.inputProps.hook_duration = hook_duration
       body.inputProps.videoUrl = video_data.url
+      body.inputProps.videoUrl = video_data.url
     } else {
       body.inputProps.videoUrl = decode(body.inputProps.videoUrl)
     }

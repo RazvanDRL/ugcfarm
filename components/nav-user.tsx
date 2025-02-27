@@ -92,7 +92,7 @@ export function NavUser({
               <Link href="/#pricing">
                 <DropdownMenuItem>
                   <Sparkles />
-                  Buy more videos
+                  Get more credits
                 </DropdownMenuItem>
               </Link>
 
