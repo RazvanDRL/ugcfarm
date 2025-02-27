@@ -67,20 +67,15 @@ export async function POST(req: Request) {
 
         console.log(data)
 
-        const { data: audio, error: audioError } = await supabase
-            .storage
-            .from('user_audios')
-            .createSignedUrl(data.audio.path, 3600)
-
         fal.config({
             credentials: process.env.FAL_KEY
         });
 
-        console.log(audio!.signedUrl, video_url)
+        console.log(data.url, video_url)
         const result = await fal.subscribe("fal-ai/latentsync", {
             input: {
                 video_url: video_url,
-                audio_url: audio!.signedUrl,
+                audio_url: data.url,
                 loop_mode: "pingpong"
             } as ExtendedLatentsyncInput,
             logs: true,

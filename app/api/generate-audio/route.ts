@@ -3,6 +3,18 @@ import { speak } from 'orate';
 import { elevenlabs } from 'orate/elevenlabs';
 import { supabase } from '@/lib/supabase/admin/supabase';
 import { v4 as uuidv4 } from 'uuid';
+import { uploadToR2 } from '@/lib/upload';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+const S3 = new S3Client({
+    region: 'auto',
+    endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    credentials: {
+        accessKeyId: process.env.CLOUDFLARE_AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.CLOUDFLARE_AWS_SECRET_ACCESS_KEY!,
+    },
+});
 
 const voices = {
     alice: "alice",
@@ -26,6 +38,7 @@ const voices = {
     sarah: "sarah",
     will: "will"
 } as const;
+
 
 export async function POST(req: Request) {
     try {
@@ -70,27 +83,26 @@ export async function POST(req: Request) {
             prompt: prompt
         });
 
-        // Get ArrayBuffer and convert to Node.js Buffer
-        const arrayBuffer = await speech.arrayBuffer();
-        const audioData = Buffer.from(arrayBuffer);
-
         const filename = `${uuidv4()}.mp3`;
 
-        const { data: audio, error: audioError } = await supabase
-            .storage
-            .from('user_audios')
-            .upload(`${user.id}/${filename}`, audioData, {
-                cacheControl: '3600',
-                upsert: false,
-                contentType: 'audio/mpeg'
-            })
+        await uploadToR2(speech, `${user.id}/${filename}`, "user-audios", "audio/mpeg")
 
-        if (audioError) {
-            return NextResponse.json({ error: 'Failed to insert audio into the database' }, { status: 500 })
+        try {
+            const url = await getSignedUrl(
+                S3,
+                new GetObjectCommand({
+                    Bucket: "user-audios",
+                    Key: `${user.id}/${filename}`,
+                }),
+                {
+                    expiresIn: 86400, // 1 day
+                }
+            );
+            return NextResponse.json({ url });
+        } catch (error: any) {
+            console.error('Error generating signed URL:', error);
+            return NextResponse.json({ error: error.message }, { status: 500 });
         }
-
-        return NextResponse.json({ audio: audio }, { status: 200 })
-
     } catch (error) {
         console.error('Error generating speech:', error);
         return new NextResponse('Internal Server Error', { status: 500 });

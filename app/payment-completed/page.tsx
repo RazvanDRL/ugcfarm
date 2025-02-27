@@ -51,7 +51,7 @@ export default function PaymentCompletedPage() {
                     </h1>
                     <p className="text-[#1a1a1a]/60 font-[500]">
                         Your purchase has been received. <br />
-                        You will receive an email with your a surprise.
+                        You will receive an email with a surprise.
                     </p>
                 </div>
 

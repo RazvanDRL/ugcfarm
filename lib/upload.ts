@@ -16,15 +16,16 @@ export interface UploadResult {
 }
 
 export async function uploadToR2(
-    file: File | Blob,
+    file: File | Blob | Buffer,
     key: string,
+    bucket: string = "upload-bucket",
     contentType?: string
 ): Promise<UploadResult> {
     try {
         const upload = new Upload({
             client: s3Client,
             params: {
-                Bucket: "upload-bucket",
+                Bucket: bucket,
                 Key: key,
                 Body: file,
                 ContentType: contentType || (file instanceof File ? file.type : 'application/octet-stream'),
