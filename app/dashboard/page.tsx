@@ -574,7 +574,8 @@ export default function Page() {
         const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
         const totalDuration = hookDuration + (demoDuration || 0);
 
-        setInputProps({
+        setInputProps(prev => ({
+            ...prev,
             text: sentences[index],
             videoUrl: vids.find(v => v.id === selectedPhotoId)?.url || "",
             video_duration: totalDuration,
@@ -587,9 +588,7 @@ export default function Page() {
                 duration: demoDuration
             } : null,
             hook_duration: hookDuration,
-            lip_sync: false,
-            voice: "alice"
-        });
+        }));
     }, [index, selectedPhotoId, textStyle, demoUrl, demoDuration, selectedAvatarId, library]);
 
     // Modify the effect that handles demo initialization
