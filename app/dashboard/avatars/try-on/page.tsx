@@ -94,15 +94,17 @@ export default function History() {
             throw new Error('Failed to fetch avatars')
         }
 
-        const { data: signed_url, error: signed_url_error } = await supabase.storage
-            .from('user_avatars')
-            .createSignedUrls(avatars.map(avatar => user_id + '/' + avatar.name), 86400)
+        if (avatars.length > 0) {
+            const { data: signed_url, error: signed_url_error } = await supabase.storage
+                .from('user_avatars')
+                .createSignedUrls(avatars.map(avatar => user_id + '/' + avatar.name), 86400)
 
-        if (signed_url_error) {
-            toast.error('Failed to fetch avatars')
-            throw new Error('Failed to fetch avatars')
+            if (signed_url_error) {
+                toast.error('Failed to fetch avatars')
+                throw new Error('Failed to fetch avatars')
+            }
+            setAvatars(signed_url.map(url => url.signedUrl))
         }
-        setAvatars(signed_url.map(url => url.signedUrl))
     }
 
     const createTryOn = async () => {
@@ -250,10 +252,10 @@ export default function History() {
                     </Breadcrumb>
                 </div>
             </header>
-            <div className="flex flex-col items-center max-w-5xl mx-auto justify-start min-h-[calc(100vh-84px)] px-8 lg:px-0">
+            <div className="flex flex-col items-center max-w-5xl mx-auto w-full justify-start min-h-[calc(100vh-84px)] px-8 lg:px-0">
                 <div className="w-full flex flex-col items-start justify-start mb-8">
                     <div className="flex flex-col items-start justify-start w-full">
-                        <div className="flex items-center gap-4 w-full">
+                        <div className="flex items-center gap-4 w-full mt-16">
                             <div className={cn(
                                 "flex-1 border-b-2 pb-4",
                                 !avatar ? "border-primary" : "border-muted"

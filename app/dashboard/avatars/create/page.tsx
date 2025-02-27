@@ -175,15 +175,17 @@ export default function History() {
             throw new Error('Failed to fetch avatars')
         }
 
-        const { data: signed_url, error: signed_url_error } = await supabase.storage
-            .from('user_avatars')
-            .createSignedUrls(avatars.map(avatar => user_id + '/' + avatar.name), 86400)
+        if (avatars.length > 0) {
+            const { data: signed_url, error: signed_url_error } = await supabase.storage
+                .from('user_avatars')
+                .createSignedUrls(avatars.map(avatar => user_id + '/' + avatar.name), 86400)
 
-        if (signed_url_error) {
-            toast.error('Failed to fetch avatars')
-            throw new Error('Failed to fetch avatars')
+            if (signed_url_error) {
+                toast.error('Failed to fetch avatars')
+                throw new Error('Failed to fetch avatars')
+            }
+            setAvatars(signed_url.map(url => url.signedUrl))
         }
-        setAvatars(signed_url.map(url => url.signedUrl))
     }
 
     const handleDownloadAvatar = async (avatarUrl: string) => {
