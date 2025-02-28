@@ -36,32 +36,39 @@ const withUGC = [{
 
 interface Review {
     img_url: string;
+    vid_url: string;
     rotation: number;
 }
 
 const reviews: Review[] = [
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/079.webp",
+        "vid_url": "https://ugcfarm.b-cdn.net/landing/1.mp4",
         "rotation": -1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/082.webp",
+        "vid_url": "https://ugcfarm.b-cdn.net/landing/2.mp4",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/111.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/112.webp",
+        "vid_url": "https://ugcfarm.b-cdn.net/landing/3.mp4",
         "rotation": -2
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/117.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/grasu_3.webp",
+        "vid_url": "https://ugcfarm.b-cdn.net/landing/4.mp4",
         "rotation": 2
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/grasu_1.webp",
+        "img_url": "https://ugcfarm.b-cdn.net/photos/036.webp",
+        "vid_url": "https://ugcfarm.b-cdn.net/landing/5.mp4",
         "rotation": -1
     },
     {
         "img_url": "https://ugcfarm.b-cdn.net/photos/grasu_2.webp",
+        "vid_url": "https://ugcfarm.b-cdn.net/landing/6.mp4",
         "rotation": 0
     },
 ]
@@ -258,9 +265,10 @@ export default function Landing() {
                                 >
                                     <VideoPreview
                                         imageUrl={review.img_url}
+                                        videoUrl={review.vid_url}
                                         alt={`Preview ${index + 1}`}
                                         rotation={review.rotation}
-                                        className="transition-all duration-300 hover:scale-110 hover:z-20 shadow-xl hover:shadow-2xl"
+                                        className="transition-all duration-300 hover:scale-110 hover:z-20 shadow-xl hover:shadow-2xl cursor-pointer"
                                     />
                                 </div>
                             ))}
