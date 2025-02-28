@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if the bucket is valid
-    if (bucket !== "output-bucket" && bucket !== "upload-bucket") {
+    if (bucket !== "output-bucket" && bucket !== "upload-bucket" && bucket !== "user-avatars") {
         return NextResponse.json({ error: 'Invalid bucket' }, { status: 400 });
     }
 

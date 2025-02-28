@@ -3,6 +3,18 @@ import { fal } from "@fal-ai/client";
 import { supabase } from '@/lib/supabase/admin/supabase';
 import { v4 as uuidv4 } from 'uuid';
 import { decode } from 'base64-arraybuffer'
+import { uploadToR2 } from '@/lib/upload';
+import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+
+const S3 = new S3Client({
+    region: 'auto',
+    endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    credentials: {
+        accessKeyId: process.env.CLOUDFLARE_AWS_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.CLOUDFLARE_AWS_SECRET_ACCESS_KEY!,
+    },
+});
 
 export async function POST(req: Request) {
     try {
@@ -102,30 +114,28 @@ export async function POST(req: Request) {
 
         const blob = await fetch(url).then((r) => r.blob());
 
-        const { data: upload_data, error: upload_error } = await supabase.storage
-            .from("user_avatars")
-            .upload(`${user.id}/${id}.png`, blob, {
-                cacheControl: '3600',
-                upsert: false
-            });
+        await uploadToR2(blob, `${user.id}/${id}.png`, "user-avatars", "image/png")
 
-        if (upload_error) {
-            return NextResponse.json({ error: 'Error uploading try-on' }, { status: 500 });
+        try {
+            const url = await getSignedUrl(
+                S3,
+                new GetObjectCommand({
+                    Bucket: "user-avatars",
+                    Key: `${user.id}/${id}.png`,
+                }),
+                {
+                    expiresIn: 86400, // 1 day
+                }
+            );
+            return NextResponse.json({ url });
+        } catch (error: any) {
+            console.error('Error generating signed URL:', error);
+            return NextResponse.json({ error: error.message }, { status: 500 });
         }
 
-        const { data: signed_url, error: signed_url_error } = await supabase
-            .storage
-            .from('user_avatars')
-            .createSignedUrl(`${user.id}/${id}.png`, 86400);
-
-        if (signed_url_error) {
-            return NextResponse.json({ error: 'Error getting signed url' }, { status: 500 });
-        }
-
-        return NextResponse.json({ url: signed_url?.signedUrl });
 
     } catch (error) {
-        console.error('Error generating speech:', error);
+        console.error('Error generating try-on:', error);
         return new NextResponse('Internal Server Error', { status: 500 });
     }
 }

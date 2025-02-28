@@ -28,6 +28,11 @@ module.exports = withPlausibleProxy({
 				hostname: 'yvxmlrehhemovqibmvqt.supabase.co',
 				pathname: '/storage/v1/object/sign/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'user-avatars.9383d8869beffb0a79674d2963166edf.r2.cloudflarestorage.com',
+				pathname: '/**',
+			},
 		],
 		formats: ['image/webp'],
 		minimumCacheTTL: 31536000, // 1 year

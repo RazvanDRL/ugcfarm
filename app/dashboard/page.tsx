@@ -424,14 +424,7 @@ export default function Page() {
         for (const [index, avatar_video] of avatar_videos.entries()) {
             if (avatar_video.thumbnail) {
                 // get signed url from supabase storage
-                const { data: signed_url, error: signed_url_error } = await supabase
-                    .storage
-                    .from('user_avatars')
-                    .createSignedUrl(`${avatar_video.user_id}/${avatar_video.thumbnail}.jpg`, 86400);
-
-                if (signed_url_error) {
-                    throw new Error('Failed to fetch signed url');
-                }
+                const signed_url = await getSignedUrl(avatar_video.thumbnail + '.jpg', 'user-avatars', access_token)
 
                 const videoUrl = await getSignedUrl(avatar_video.id + '.mp4', 'upload-bucket', access_token)
 
@@ -445,7 +438,7 @@ export default function Page() {
 
                 temp.push({
                     id: index + 1,
-                    url: signed_url?.signedUrl,
+                    url: signed_url,
                     videoUrl: videoUrl,
                     duration: metadata.slowDurationInSeconds,
                     alt: `Avatar Video ${index + 1}`

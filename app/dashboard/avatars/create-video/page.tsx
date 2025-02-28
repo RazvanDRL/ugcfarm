@@ -20,6 +20,7 @@ import { Download, Loader, Maximize2 } from 'lucide-react'
 import { TextShimmer } from '@/components/ui/text-shimmer'
 import Image from 'next/image'
 import { useQueryState } from 'nuqs'
+import { getSignedUrl } from '@/hooks/use-signed-url'
 
 const duration_options = ["5s", "10s"]
 const action_options = ["talking", "looking", "walking", "waving", "dancing", "smiling"]
@@ -69,7 +70,7 @@ export default function History() {
             const session = await supabase.auth.getSession()
             if (session.data.session?.access_token) {
                 setToken(session.data.session?.access_token)
-                fetchAvatars(user.id)
+                fetchAvatars(user.id, session.data.session?.access_token)
             } else {
                 toast.error("No access token found")
             }
@@ -137,14 +138,12 @@ export default function History() {
         }
     }
 
-    const fetchAvatars = async (user_id: string) => {
-        const { data: avatars, error: avatars_error } = await supabase.storage
+    const fetchAvatars = async (user_id: string, token: string) => {
+        const { data: avatars, error: avatars_error } = await supabase
             .from('user_avatars')
-            .list(`${user_id}`, {
-                // limit: 8,
-                // offset: 0,
-                sortBy: { column: 'updated_at', order: 'desc' },
-            })
+            .select('*')
+            .eq('user_id', user_id)
+            .order('created_at', { ascending: false })
 
         console.log(avatars)
 
@@ -154,15 +153,15 @@ export default function History() {
         }
 
         if (avatars.length > 0) {
-            const { data: signed_url, error: signed_url_error } = await supabase.storage
-                .from('user_avatars')
-                .createSignedUrls(avatars.map(avatar => user_id + '/' + avatar.name), 86400)
+            const signedUrls = await Promise.all(
+                avatars.map(async (avatar) => {
+                    const key = avatar.id + '.jpg';
+                    const signedUrl = await getSignedUrl(key, 'user-avatars', token);
+                    return signedUrl;
+                })
+            );
 
-            if (signed_url_error) {
-                toast.error('Failed to fetch avatars')
-                throw new Error('Failed to fetch avatars')
-            }
-            setAvatars(signed_url.map(url => url.signedUrl))
+            setAvatars(signedUrls.filter((url: string | null) => url !== null) as string[]);
         }
     }
 

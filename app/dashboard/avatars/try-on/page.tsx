@@ -23,6 +23,7 @@ import { ImagePlus, X, Upload, Trash2, Loader } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { TextShimmer } from '@/components/ui/text-shimmer'
 import { useRouter } from 'next/navigation'
+import { getSignedUrl } from '@/hooks/use-signed-url'
 
 export default function History() {
     const router = useRouter()
@@ -44,6 +45,7 @@ export default function History() {
     } = useImageUpload({
         onUpload: (url) => setOutfit(url),
     })
+    const [minResolution] = useState({ width: 512, height: 512 })
 
     useEffect(() => {
         async function fetchUser() {
@@ -71,7 +73,7 @@ export default function History() {
             const session = await supabase.auth.getSession()
             if (session.data.session?.access_token) {
                 setToken(session.data.session?.access_token)
-                fetchAvatars(user.id)
+                fetchAvatars(user.id, session.data.session?.access_token)
             } else {
                 toast.error("No access token found")
             }
@@ -80,14 +82,14 @@ export default function History() {
         fetchUser()
     }, [])
 
-    const fetchAvatars = async (user_id: string) => {
-        const { data: avatars, error: avatars_error } = await supabase.storage
+    const fetchAvatars = async (user_id: string, token: string) => {
+        const { data: avatars, error: avatars_error } = await supabase
             .from('user_avatars')
-            .list(`${user_id}`, {
-                // limit: 8,
-                // offset: 0,
-                sortBy: { column: 'updated_at', order: 'desc' },
-            })
+            .select('*')
+            .eq('user_id', user_id)
+            .order('created_at', { ascending: false })
+
+        console.log(avatars)
 
         if (avatars_error) {
             toast.error('Failed to fetch avatars')
@@ -95,18 +97,17 @@ export default function History() {
         }
 
         if (avatars.length > 0) {
-            const { data: signed_url, error: signed_url_error } = await supabase.storage
-                .from('user_avatars')
-                .createSignedUrls(avatars.map(avatar => user_id + '/' + avatar.name), 86400)
+            const signedUrls = await Promise.all(
+                avatars.map(async (avatar) => {
+                    const key = avatar.id + '.jpg';
+                    const signedUrl = await getSignedUrl(key, 'user-avatars', token);
+                    return signedUrl;
+                })
+            );
 
-            if (signed_url_error) {
-                toast.error('Failed to fetch avatars')
-                throw new Error('Failed to fetch avatars')
-            }
-            setAvatars(signed_url.map(url => url.signedUrl))
+            setAvatars(signedUrls.filter((url: string | null) => url !== null) as string[]);
         }
     }
-
     const createTryOn = async () => {
         if (!avatar || !outfit) {
             toast.error('Please select an avatar and upload an outfit')
@@ -192,20 +193,49 @@ export default function History() {
         setIsDragging(false)
     }
 
+    const validateImageResolution = (file: File): Promise<boolean> => {
+        return new Promise((resolve) => {
+            const img = document.createElement('img') as HTMLImageElement
+            img.onload = () => {
+                URL.revokeObjectURL(img.src)
+                if (img.width < minResolution.width || img.height < minResolution.height) {
+                    toast.error(`Image resolution too low. Minimum ${minResolution.width}x${minResolution.height}px required.`)
+                    resolve(false)
+                } else {
+                    resolve(true)
+                }
+            }
+            img.src = URL.createObjectURL(file)
+        })
+    }
+
+    const handleFileChangeWithValidation = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (file) {
+            const isValid = await validateImageResolution(file)
+            if (isValid) {
+                handleFileChange(e)
+            }
+        }
+    }
+
     const handleDrop = useCallback(
-        (e: React.DragEvent<HTMLDivElement>) => {
+        async (e: React.DragEvent<HTMLDivElement>) => {
             e.preventDefault()
             e.stopPropagation()
             setIsDragging(false)
 
             const file = e.dataTransfer.files?.[0]
             if (file && file.type.startsWith("image/")) {
-                const fakeEvent = {
-                    target: {
-                        files: [file],
-                    },
-                } as unknown as React.ChangeEvent<HTMLInputElement>
-                handleFileChange(fakeEvent)
+                const isValid = await validateImageResolution(file)
+                if (isValid) {
+                    const fakeEvent = {
+                        target: {
+                            files: [file],
+                        },
+                    } as unknown as React.ChangeEvent<HTMLInputElement>
+                    handleFileChange(fakeEvent)
+                }
             }
         },
         [handleFileChange],
@@ -342,6 +372,17 @@ export default function History() {
                                     <p className="text-sm text-muted-foreground">
                                         Supported formats: JPG, PNG, JPEG, WEBP
                                     </p>
+                                    <p className="text-sm text-muted-foreground">
+                                        Minimum resolution: {minResolution.width}x{minResolution.height}px
+                                    </p>
+                                    <label htmlFor="avatar" className="font-mono text-sm text-muted-foreground">
+                                        Example:
+                                    </label>
+                                    <img
+                                        src={"https://yvxmlrehhemovqibmvqt.supabase.co/storage/v1/object/sign/tmp/1740512566423?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0bXAvMTc0MDUxMjU2NjQyMyIsImlhdCI6MTc0MDczMjk1NywiZXhwIjoxNzcyMjY4OTU3fQ.R-YCyvww02lgLlEU6vg1AzZfmGGYYo0t9goinTNpVMw"}
+                                        alt="Avatar"
+                                        className="w-full h-full object-cover max-w-16 rounded-md"
+                                    />
                                 </div>
 
                                 <Input
@@ -349,7 +390,7 @@ export default function History() {
                                     accept=".png, .jpg, .jpeg, .webp"
                                     className="hidden"
                                     ref={fileInputRef}
-                                    onChange={handleFileChange}
+                                    onChange={handleFileChangeWithValidation}
                                 />
 
                                 {!previewUrl ? (
