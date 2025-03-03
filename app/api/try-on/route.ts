@@ -51,6 +51,7 @@ export async function POST(req: Request) {
 
         const { human_image_url, garment_image_base64 } = await req.json()
 
+
         if (!human_image_url) {
             return NextResponse.json({ error: 'Human image URL is required' }, { status: 400 })
         }
@@ -102,6 +103,14 @@ export async function POST(req: Request) {
 
         const { data: user_try_ons, error: user_try_ons_error } = await supabase
             .from("user_try_ons")
+            .insert({
+                id: id,
+                user_id: user.id,
+                data: result.data,
+            });
+
+        const { data: user_avatar, error: user_avatar_error } = await supabase
+            .from("user_avatars")
             .insert({
                 id: id,
                 user_id: user.id,

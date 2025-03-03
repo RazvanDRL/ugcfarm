@@ -1227,6 +1227,7 @@ export default function Page() {
                     video_id: inputProps.videoProps.uuid,
                     prompt: sentences[index],
                     text_style: textStyle,
+                    inputs: inputProps,
                 })
 
             if (error) {

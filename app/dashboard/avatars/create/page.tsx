@@ -177,7 +177,7 @@ export default function History() {
         if (avatars.length > 0) {
             const signedUrls = await Promise.all(
                 avatars.map(async (avatar) => {
-                    const key = avatar.id + '.jpg';
+                    const key = avatar.data.seed !== undefined ? avatar.id + '.jpg' : avatar.id + '.png';
                     const signedUrl = await getSignedUrl(key, 'user-avatars', token);
                     return signedUrl;
                 })
