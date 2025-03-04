@@ -93,7 +93,7 @@ export async function POST(req: Request) {
 
         const blob = await fetch(url).then((r) => r.blob());
 
-        const { key } = await uploadToR2(blob, `${user.id}/${id}.mp4`, 'video/mp4');
+        const { key } = await uploadToR2(blob, `${user.id}/${id}.mp4`, 'output-bucket', 'video/mp4');
         return NextResponse.json({ key: key });
     } catch (error) {
         console.error('Error generating avatar:', error);
