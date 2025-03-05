@@ -280,7 +280,7 @@ export default function History() {
                                 </TextShimmer>
                             </Button>
                             <label className='text-[10px] font-mono text-muted-foreground/70'>
-                                This will take 4 minutes, you can safely leave this page
+                                Could take up to 15 minutes, you can safely leave this page
                             </label>
                         </div>
                     ) : (
