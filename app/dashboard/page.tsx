@@ -424,9 +424,25 @@ export default function Page() {
         for (const [index, avatar_video] of avatar_videos.entries()) {
             if (avatar_video.thumbnail) {
                 // get signed url from supabase storage
-                const signed_url = await getSignedUrl(avatar_video.thumbnail + '.jpg', 'user-avatars', access_token)
+                const { data: thumbnail, error: thumbnailError } = await supabase
+                    .from("user_avatars")
+                    .select("*")
+                    .eq("id", avatar_video.thumbnail)
+                    .single()
 
-                const videoUrl = await getSignedUrl(avatar_video.id + '.mp4', 'upload-bucket', access_token)
+                if (thumbnailError) {
+                    throw new Error('Failed to fetch avatar video');
+                }
+
+
+
+                const ext = thumbnail.data.seed === undefined ? '.png' : '.jpg'
+
+                const signed_url = await getSignedUrl(avatar_video.thumbnail + ext, 'user-avatars', access_token)
+                console.log(signed_url)
+
+                const videoUrl = await getSignedUrl(avatar_video.id + '.mp4', 'output-bucket', access_token)
+                console.log(videoUrl)
 
                 // get metadata from video
                 const metadata = await parseMedia({
