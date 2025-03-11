@@ -18,21 +18,27 @@ import Options from '@/components/options'
 import { Button } from '@/components/ui/button'
 import { Download, Loader, Maximize2 } from 'lucide-react'
 import { TextShimmer } from '@/components/ui/text-shimmer'
-import Image from 'next/image'
 import { getSignedUrl } from "@/hooks/use-signed-url"
 
 const style_options = ["selfie", "whole body"]
 const gender_options = ["female", "male"]
 const age_options = ["young", "adult", "middle-aged", "senior", "elderly"]
-const body_options = ["slim", "curvy", "athletic"]
+const body_options = ["slim", "petite", "curvy", "tall", "muscular"]
+const skin_tone_options = ["light", "tan", "dark"]
 const hair_options = ["long", "short", "curly"]
-const background_options = ["city", "nature", "beach", "mountains", "forest", "desert", "snow", "space", "underwater", "indoor", "outdoor"]
+const pose_options = ["standing", "sitting", "lying down", "posing"]
+const background_options = [
+    "city", "nature", "beach", "mountains", "forest", "desert", "snow", "space", "indoor", "outdoor",
+    "boutique", "runway", "studio", "street style", "office", "evening venue",
+]
 
 const default_avatar = {
     style: style_options[0],
     gender: gender_options[0],
     age: age_options[0],
     body: body_options[0],
+    skin_tone: skin_tone_options[0],
+    pose: pose_options[0],
     hair: hair_options[0],
     background: background_options[0]
 }
@@ -46,6 +52,8 @@ export default function History() {
     const [selectedGender, setSelectedGender] = useState<string>(default_avatar.gender)
     const [selectedAge, setSelectedAge] = useState<string>(default_avatar.age)
     const [selectedBody, setSelectedBody] = useState<string>(default_avatar.body)
+    const [selectedSkinTone, setSelectedSkinTone] = useState<string>(default_avatar.skin_tone)
+    const [selectedPose, setSelectedPose] = useState<string>(default_avatar.pose)
     const [selectedHair, setSelectedHair] = useState<string>(default_avatar.hair)
     const [selectedBackground, setSelectedBackground] = useState<string>(default_avatar.background)
     const [avatars, setAvatars] = useState<string[]>([])
@@ -110,6 +118,16 @@ export default function History() {
             toast.error("Invalid body")
             return
         }
+
+        if (!skin_tone_options.includes(selectedSkinTone) && selectedSkinTone !== '') {
+            toast.error("Invalid skin tone")
+            return
+        }
+
+        if (!pose_options.includes(selectedPose) && selectedPose !== '') {
+            toast.error("Invalid pose")
+            return
+        }
         if (!hair_options.includes(selectedHair) && selectedHair !== '') {
             toast.error("Invalid hair")
             return
@@ -138,6 +156,8 @@ export default function History() {
                     gender: selectedGender,
                     age: selectedAge,
                     body: selectedBody,
+                    skin_tone: selectedSkinTone,
+                    pose: selectedPose,
                     hair: selectedHair,
                     background: selectedBackground
                 })
@@ -288,6 +308,24 @@ export default function History() {
                             disabled={isGenerating}
                             onOptionChange={(option) => setSelectedBody(prev => prev === option ? '' : option)}
                             selectedOption={selectedBody}
+                        />
+
+                        {/* SKIN TONE */}
+                        <Options
+                            label="skin tone"
+                            options={skin_tone_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedSkinTone(prev => prev === option ? '' : option)}
+                            selectedOption={selectedSkinTone}
+                        />
+
+                        {/* POSE */}
+                        <Options
+                            label="pose"
+                            options={pose_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedPose(prev => prev === option ? '' : option)}
+                            selectedOption={selectedPose}
                         />
 
                         {/* HAIR */}

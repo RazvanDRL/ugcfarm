@@ -47,13 +47,13 @@ export async function POST(req: Request) {
             .update({ credits: credits.credits - 0.2 })
             .eq('id', user.id)
 
-        const { style, gender, age, body, hair, background } = await req.json();
+        const { style, gender, age, body, skin_tone, pose, hair, background } = await req.json();
 
         // Create different prompt texts based on the "style" selection.
         const prompt =
             style === "selfie"
-                ? `Close-up portrait of a ${age} ${gender} vlogging with a ${hair} hair style and ${body} body type, shot from a high-quality front-facing camera perspective. ${gender === "female" ? "She" : "He"} is on a ${background} with natural sunset lighting that illuminates ${gender === "female" ? "her" : "his"} face for a warm, flattering glow. Professional vlog-style framing with ${gender === "female" ? "her" : "his"} face positioned slightly off-center, showcasing shoulders and upper body. Shot on iPhone 15 Pro, portrait mode, f/2.8 aperture. Cinematic color grading with rich, urban tones.`
-                : `Full-body shot of a ${age} ${gender} with a ${hair} hair style and ${body} body type, captured from a high-quality camera perspective. ${gender === "female" ? "She" : "He"} is on a ${background} with natural sunset lighting that beautifully highlights the entire figure from head to toe, ensuring a complete view of the body. Shot on iPhone 15 Pro, portrait mode, f/2.8 aperture. Cinematic color grading with rich, urban tones.`;
+                ? `Close-up portrait of a ${age} ${gender} with ${skin_tone} skin tone vlogging with a ${hair} hair style and ${body} body type, shot from a high-quality front-facing camera perspective. ${gender === "female" ? "She" : "He"} is ${pose} on a ${background} with natural sunset lighting that illuminates ${gender === "female" ? "her" : "his"} face for a warm, flattering glow. Professional vlog-style framing with ${gender === "female" ? "her" : "his"} face positioned slightly off-center, showcasing shoulders and upper body. Shot on iPhone 15 Pro, portrait mode, f/2.8 aperture. Cinematic color grading with rich, urban tones.`
+                : `Full-body shot of a ${age} ${gender} with ${skin_tone} skin tone and a ${hair} hair style and ${body} body type, ${pose} and captured from a high-quality camera perspective. ${gender === "female" ? "She" : "He"} is on a ${background} with natural sunset lighting that beautifully highlights the entire figure from head to toe, ensuring a complete view of the body. Shot on iPhone 15 Pro, portrait mode, f/2.8 aperture. Cinematic color grading with rich, urban tones.`;
 
         const result = await fal.subscribe("fal-ai/flux-pro/v1.1-ultra", {
             input: {
