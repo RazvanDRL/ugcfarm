@@ -272,8 +272,43 @@ export default function Page() {
             url: "https://ugcfarm.b-cdn.net/avatars/grasu_4.mp4",
             alt: "UGC Video grasu_4",
             duration: 4,
+        },
+        {
+            id: 123,
+            url: "https://ugcfarm.b-cdn.net/avatars/123.mp4",
+            alt: "UGC Video 123",
+            duration: 2.833333,
+        }, {
+            id: 122,
+            url: "https://ugcfarm.b-cdn.net/avatars/122.mp4",
+            alt: "UGC Video 122",
+            duration: 3.033333,
+        }, {
+            id: 125,
+            url: "https://ugcfarm.b-cdn.net/avatars/125.mp4",
+            alt: "UGC Video 125",
+            duration: 2.533333,
+        }, {
+            id: 124,
+            url: "https://ugcfarm.b-cdn.net/avatars/124.mp4",
+            alt: "UGC Video 124",
+            duration: 2.733333,
+        }, {
+            id: 126,
+            url: "https://ugcfarm.b-cdn.net/avatars/126.mp4",
+            alt: "UGC Video 126",
+            duration: 2.1,
+        }, {
+            id: 127,
+            url: "https://ugcfarm.b-cdn.net/avatars/127.mp4",
+            alt: "UGC Video 127",
+            duration: 2.233333,
+        }, {
+            id: 128,
+            url: "https://ugcfarm.b-cdn.net/avatars/128.mp4",
+            alt: "UGC Video 128",
+            duration: 2.1,
         }
-
     ]
     const router = useRouter()
     const [user, setUser] = useState<User | null>(null)
@@ -1095,6 +1130,41 @@ export default function Page() {
             "id": 121,
             "url": "https://ugcfarm.b-cdn.net/photos/grasu_4.webp",
             "alt": "UGC Avatar 121"
+        },
+        {
+            "id": 122,
+            "url": "https://ugcfarm.b-cdn.net/photos/122.webp",
+            "alt": "UGC Avatar 122"
+        },
+        {
+            "id": 123,
+            "url": "https://ugcfarm.b-cdn.net/photos/123.webp",
+            "alt": "UGC Avatar 123"
+        },
+        {
+            "id": 124,
+            "url": "https://ugcfarm.b-cdn.net/photos/124.webp",
+            "alt": "UGC Avatar 124"
+        },
+        {
+            "id": 125,
+            "url": "https://ugcfarm.b-cdn.net/photos/125.webp",
+            "alt": "UGC Avatar 125"
+        },
+        {
+            "id": 126,
+            "url": "https://ugcfarm.b-cdn.net/photos/126.webp",
+            "alt": "UGC Avatar 126"
+        },
+        {
+            "id": 127,
+            "url": "https://ugcfarm.b-cdn.net/photos/127.webp",
+            "alt": "UGC Avatar 127"
+        },
+        {
+            "id": 128,
+            "url": "https://ugcfarm.b-cdn.net/photos/128.webp",
+            "alt": "UGC Avatar 128"
         },
     ]
 

@@ -166,8 +166,43 @@ const vids = [
         url: "https://ugcfarm.b-cdn.net/avatars/grasu_4.mp4",
         alt: "UGC Video grasu_4",
         duration: 4,
+    },
+    {
+        id: 123,
+        url: "https://ugcfarm.b-cdn.net/avatars/123.mp4",
+        alt: "UGC Video 123",
+        duration: 2.833333,
+    }, {
+        id: 122,
+        url: "https://ugcfarm.b-cdn.net/avatars/122.mp4",
+        alt: "UGC Video 122",
+        duration: 3.033333,
+    }, {
+        id: 125,
+        url: "https://ugcfarm.b-cdn.net/avatars/125.mp4",
+        alt: "UGC Video 125",
+        duration: 2.533333,
+    }, {
+        id: 124,
+        url: "https://ugcfarm.b-cdn.net/avatars/124.mp4",
+        alt: "UGC Video 124",
+        duration: 2.733333,
+    }, {
+        id: 126,
+        url: "https://ugcfarm.b-cdn.net/avatars/126.mp4",
+        alt: "UGC Video 126",
+        duration: 2.1,
+    }, {
+        id: 127,
+        url: "https://ugcfarm.b-cdn.net/avatars/127.mp4",
+        alt: "UGC Video 127",
+        duration: 2.233333,
+    }, {
+        id: 128,
+        url: "https://ugcfarm.b-cdn.net/avatars/128.mp4",
+        alt: "UGC Video 128",
+        duration: 2.1,
     }
-
 ]
 
 export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, currentPage, plan }: PhotoListProps) {
@@ -192,7 +227,7 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
                 const isLocked = plan === 'starter' ?
                     absoluteIndex > 9 || currentPage > 1 :
                     plan === 'creator' ?
-                        absoluteIndex > 26 || currentPage > 2 :
+                        absoluteIndex > 33 || currentPage > 2 :
                         absoluteIndex > 9 || currentPage > 3;
 
                 const PhotoElement = (
