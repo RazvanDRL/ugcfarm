@@ -33,6 +33,11 @@ module.exports = withPlausibleProxy({
 				hostname: 'user-avatars.9383d8869beffb0a79674d2963166edf.r2.cloudflarestorage.com',
 				pathname: '/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'captions-cdn.xyz',
+				pathname: '/**',
+			},
 		],
 		formats: ['image/webp'],
 		minimumCacheTTL: 31536000, // 1 year

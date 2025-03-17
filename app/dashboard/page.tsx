@@ -57,7 +57,9 @@ import { parseMedia } from '@remotion/media-parser';
 import { Slider } from "@/components/ui/slider"
 import Loading from "@/components/loading"
 import { useDemoVideo } from "@/hooks/use-demo-video"
-
+import { vids } from "@/constants"
+import transformed_creators from "@/transformed_creators.json"
+import transformed_vids from "@/transformed_vids.json"
 const voices = {
     alice: "alice",
     aria: "aria",
@@ -131,185 +133,6 @@ interface InputProps {
 }
 
 export default function Page() {
-    const vids = [
-        {
-            id: 20,
-            url: "https://ugcfarm.b-cdn.net/avatars/020.mp4",
-            alt: "UGC Video 020",
-            duration: 2.2,
-        }, {
-            id: 36,
-            url: "https://ugcfarm.b-cdn.net/avatars/036.mp4",
-            alt: "UGC Video 036",
-            duration: 2.433333,
-        }, {
-            id: 32,
-            url: "https://ugcfarm.b-cdn.net/avatars/032.mp4",
-            alt: "UGC Video 032",
-            duration: 3,
-        }, {
-            id: 31,
-            url: "https://ugcfarm.b-cdn.net/avatars/031.mp4",
-            alt: "UGC Video 031",
-            duration: 3.1,
-        }, {
-            id: 18,
-            url: "https://ugcfarm.b-cdn.net/avatars/018.mp4",
-            alt: "UGC Video 018",
-            duration: 3.9,
-        }, {
-            id: 80,
-            url: "https://ugcfarm.b-cdn.net/avatars/080.mp4",
-            alt: "UGC Video 080",
-            duration: 3,
-        }, {
-            id: 82,
-            url: "https://ugcfarm.b-cdn.net/avatars/082.mp4",
-            alt: "UGC Video 082",
-            duration: 3.4,
-        }, {
-            id: 79,
-            url: "https://ugcfarm.b-cdn.net/avatars/079.mp4",
-            alt: "UGC Video 079",
-            duration: 5.1,
-        }, {
-            id: 116,
-            url: "https://ugcfarm.b-cdn.net/avatars/116.mp4",
-            alt: "UGC Video 116",
-            duration: 3,
-        }, {
-            id: 117,
-            url: "https://ugcfarm.b-cdn.net/avatars/117.mp4",
-            alt: "UGC Video 117",
-            duration: 4,
-        }, {
-            id: 101,
-            url: "https://ugcfarm.b-cdn.net/avatars/101.mp4",
-            alt: "UGC Video 101",
-            duration: 2.6,
-        }, {
-            id: 115,
-            url: "https://ugcfarm.b-cdn.net/avatars/115.mp4",
-            alt: "UGC Video 115",
-            duration: 2.666667,
-        }, {
-            id: 114,
-            url: "https://ugcfarm.b-cdn.net/avatars/114.mp4",
-            alt: "UGC Video 114",
-            duration: 3.1,
-        }, {
-            id: 64,
-            url: "https://ugcfarm.b-cdn.net/avatars/064.mp4",
-            alt: "UGC Video 064",
-            duration: 3.733333,
-        }, {
-            id: 111,
-            url: "https://ugcfarm.b-cdn.net/avatars/111.mp4",
-            alt: "UGC Video 111",
-            duration: 4.233333,
-        }, {
-            id: 113,
-            url: "https://ugcfarm.b-cdn.net/avatars/113.mp4",
-            alt: "UGC Video 113",
-            duration: 3.1,
-        }, {
-            id: 112,
-            url: "https://ugcfarm.b-cdn.net/avatars/112.mp4",
-            alt: "UGC Video 112",
-            duration: 3.033333,
-        }, {
-            id: 66,
-            url: "https://ugcfarm.b-cdn.net/avatars/066.mp4",
-            alt: "UGC Video 066",
-            duration: 3.833333,
-        }, {
-            id: 15,
-            url: "https://ugcfarm.b-cdn.net/avatars/015.mp4",
-            alt: "UGC Video 015",
-            duration: 2.866667,
-        }, {
-            id: 3,
-            url: "https://ugcfarm.b-cdn.net/avatars/003.mp4",
-            alt: "UGC Video 003",
-            duration: 3.033333,
-        }, {
-            id: 17,
-            url: "https://ugcfarm.b-cdn.net/avatars/017.mp4",
-            alt: "UGC Video 017",
-            duration: 2.733333,
-        }, {
-            id: 7,
-            url: "https://ugcfarm.b-cdn.net/avatars/007.mp4",
-            alt: "UGC Video 007",
-            duration: 5.1,
-        }, {
-            id: 12,
-            url: "https://ugcfarm.b-cdn.net/avatars/012.mp4",
-            alt: "UGC Video 012",
-            duration: 2.766667,
-        }, {
-            id: 10,
-            url: "https://ugcfarm.b-cdn.net/avatars/010.mp4",
-            alt: "UGC Video 010",
-            duration: 2.2,
-        }, {
-            id: 118,
-            url: "https://ugcfarm.b-cdn.net/avatars/grasu_1.mp4",
-            alt: "UGC Video grasu_1",
-            duration: 5,
-        }, {
-            id: 119,
-            url: "https://ugcfarm.b-cdn.net/avatars/grasu_2.mp4",
-            alt: "UGC Video grasu_2",
-            duration: 4,
-        }, {
-            id: 120,
-            url: "https://ugcfarm.b-cdn.net/avatars/grasu_3.mp4",
-            alt: "UGC Video grasu_3",
-            duration: 3,
-        }, {
-            id: 121,
-            url: "https://ugcfarm.b-cdn.net/avatars/grasu_4.mp4",
-            alt: "UGC Video grasu_4",
-            duration: 4,
-        },
-        {
-            id: 123,
-            url: "https://ugcfarm.b-cdn.net/avatars/123.mp4",
-            alt: "UGC Video 123",
-            duration: 2.833333,
-        }, {
-            id: 122,
-            url: "https://ugcfarm.b-cdn.net/avatars/122.mp4",
-            alt: "UGC Video 122",
-            duration: 3.033333,
-        }, {
-            id: 125,
-            url: "https://ugcfarm.b-cdn.net/avatars/125.mp4",
-            alt: "UGC Video 125",
-            duration: 2.533333,
-        }, {
-            id: 124,
-            url: "https://ugcfarm.b-cdn.net/avatars/124.mp4",
-            alt: "UGC Video 124",
-            duration: 2.733333,
-        }, {
-            id: 126,
-            url: "https://ugcfarm.b-cdn.net/avatars/126.mp4",
-            alt: "UGC Video 126",
-            duration: 2.1,
-        }, {
-            id: 127,
-            url: "https://ugcfarm.b-cdn.net/avatars/127.mp4",
-            alt: "UGC Video 127",
-            duration: 2.233333,
-        }, {
-            id: 128,
-            url: "https://ugcfarm.b-cdn.net/avatars/128.mp4",
-            alt: "UGC Video 128",
-            duration: 2.1,
-        }
-    ]
     const router = useRouter()
     const [user, setUser] = useState<User | null>(null)
     const [profile, setProfile] = useState<Profile | null>(null)
@@ -373,6 +196,10 @@ export default function Page() {
         resetDemo
     } = useDemoVideo();
     const [isDemoInitialized, setIsDemoInitialized] = useState(false);
+    const [isLocal, setIsLocal] = useState(false);
+    const [operationId, setOperationId] = useState<string | null>(null);
+    const [progress, setProgress] = useState<number>(0);
+    const [completed_video, setCompletedVideo] = useState<string | null>(null);
 
     async function fetchVideo(id: string, access_token: string, bucket: string) {
         try {
@@ -598,6 +425,54 @@ export default function Page() {
         getUser()
     }, [])
 
+    // check if avatar is local or not
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const local = urlParams.get('local');
+
+        if (local === "true") {
+            setIsLocal(true)
+        }
+
+        const operationId = urlParams.get('operationId');
+        if (operationId) {
+            setOperationId(operationId)
+        }
+    }, [])
+
+    // if operationId is set, fetch the video from the creator
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const operationId_param = urlParams.get('operationId');
+
+        let o_id = operationId_param || operationId;
+
+        if (o_id) {
+            const fetchStatus = async () => {
+                const data = await fetch(`/api/creator/poll?operationId=${o_id}`)
+                const json = await data.json()
+
+                console.log(json.progress)
+
+                setProgress(json.progress)
+                if (json.state === "COMPLETE") {
+                    clearInterval(intervalId)
+                    setCompletedVideo(json.url)
+                }
+            }
+
+            // Call it once immediately
+            fetchStatus()
+
+            // Set up interval to call it every second
+            const intervalId = setInterval(fetchStatus, 3000)
+
+            // Clean up the interval when component unmounts
+            return () => clearInterval(intervalId)
+        }
+    }, [operationId])
+
     useEffect(() => {
         if (state.status === "done") {
             getSignedUrl(inputProps.videoProps.uuid + '.mp4', 'output-bucket', token).then((url) => {
@@ -615,6 +490,19 @@ export default function Page() {
     }, [state])
 
     useEffect(() => {
+        if (selectedPhotoId >= 129) {
+            setInputProps(prev => ({
+                ...prev,
+                text: "Hatz",
+                videoUrl: transformed_vids.find(v => v.id === selectedPhotoId)?.url || "",
+                video_duration: 125,
+                hook_duration: 125,
+                demos: null,
+                textStyle,
+            }));
+            return;
+        }
+
         const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
         const totalDuration = hookDuration + (demoDuration || 0);
 
@@ -661,517 +549,621 @@ export default function Page() {
     }, [selectedAvatarId, library, avatarVideos, demoDuration]);
 
     const photos = [
+        ...transformed_creators,
         {
             "id": 1,
             "url": "https://ugcfarm.b-cdn.net/photos/001.webp",
-            "alt": "UGC Avatar 1"
+            "alt": "UGC Avatar 1",
+            "name": "UGC Avatar 1"
         },
         {
             "id": 2,
             "url": "https://ugcfarm.b-cdn.net/photos/002.webp",
-            "alt": "UGC Avatar 2"
+            "alt": "UGC Avatar 2",
+            "name": "UGC Avatar 2"
         },
         {
             "id": 3,
             "url": "https://ugcfarm.b-cdn.net/photos/003.webp",
-            "alt": "UGC Avatar 3"
+            "alt": "UGC Avatar 3",
+            "name": "UGC Avatar 3"
         },
         {
             "id": 4,
             "url": "https://ugcfarm.b-cdn.net/photos/004.webp",
-            "alt": "UGC Avatar 4"
+            "alt": "UGC Avatar 4",
+            "name": "UGC Avatar 4"
         },
         {
             "id": 5,
             "url": "https://ugcfarm.b-cdn.net/photos/005.webp",
-            "alt": "UGC Avatar 5"
+            "alt": "UGC Avatar 5",
+            "name": "UGC Avatar 5"
         },
         {
             "id": 6,
             "url": "https://ugcfarm.b-cdn.net/photos/006.webp",
-            "alt": "UGC Avatar 6"
+            "alt": "UGC Avatar 6",
+            "name": "UGC Avatar 6"
         },
         {
             "id": 7,
             "url": "https://ugcfarm.b-cdn.net/photos/007.webp",
-            "alt": "UGC Avatar 7"
+            "alt": "UGC Avatar 7",
+            "name": "UGC Avatar 7"
         },
         {
             "id": 8,
             "url": "https://ugcfarm.b-cdn.net/photos/008.webp",
-            "alt": "UGC Avatar 8"
+            "alt": "UGC Avatar 8",
+            "name": "UGC Avatar 8"
         },
         {
             "id": 9,
             "url": "https://ugcfarm.b-cdn.net/photos/009.webp",
-            "alt": "UGC Avatar 9"
+            "alt": "UGC Avatar 9",
+            "name": "UGC Avatar 9"
         },
         {
             "id": 10,
             "url": "https://ugcfarm.b-cdn.net/photos/010.webp",
-            "alt": "UGC Avatar 10"
+            "alt": "UGC Avatar 10",
+            "name": "UGC Avatar 10"
         },
         {
             "id": 11,
             "url": "https://ugcfarm.b-cdn.net/photos/011.webp",
-            "alt": "UGC Avatar 11"
+            "alt": "UGC Avatar 11",
+            "name": "UGC Avatar 11"
         },
         {
             "id": 12,
             "url": "https://ugcfarm.b-cdn.net/photos/012.webp",
-            "alt": "UGC Avatar 12"
+            "alt": "UGC Avatar 12",
+            "name": "UGC Avatar 12"
         },
         {
             "id": 13,
             "url": "https://ugcfarm.b-cdn.net/photos/013.webp",
-            "alt": "UGC Avatar 13"
+            "alt": "UGC Avatar 13",
+            "name": "UGC Avatar 13"
         },
         {
             "id": 14,
             "url": "https://ugcfarm.b-cdn.net/photos/014.webp",
-            "alt": "UGC Avatar 14"
+            "alt": "UGC Avatar 14",
+            "name": "UGC Avatar 14"
         },
         {
             "id": 15,
             "url": "https://ugcfarm.b-cdn.net/photos/015.webp",
-            "alt": "UGC Avatar 15"
+            "alt": "UGC Avatar 15",
+            "name": "UGC Avatar 15"
         },
         {
             "id": 16,
             "url": "https://ugcfarm.b-cdn.net/photos/016.webp",
-            "alt": "UGC Avatar 16"
+            "alt": "UGC Avatar 16",
+            "name": "UGC Avatar 16"
         },
         {
             "id": 17,
             "url": "https://ugcfarm.b-cdn.net/photos/017.webp",
-            "alt": "UGC Avatar 17"
+            "alt": "UGC Avatar 17",
+            "name": "UGC Avatar 17"
         },
         {
             "id": 18,
             "url": "https://ugcfarm.b-cdn.net/photos/018.webp",
-            "alt": "UGC Avatar 18"
+            "alt": "UGC Avatar 18",
+            "name": "UGC Avatar 18"
         },
         {
             "id": 19,
             "url": "https://ugcfarm.b-cdn.net/photos/019.webp",
-            "alt": "UGC Avatar 19"
+            "alt": "UGC Avatar 19",
+            "name": "UGC Avatar 19"
         },
         {
             "id": 20,
             "url": "https://ugcfarm.b-cdn.net/photos/020.webp",
-            "alt": "UGC Avatar 20"
+            "alt": "UGC Avatar 20",
+            "name": "UGC Avatar 20"
         },
         {
             "id": 21,
             "url": "https://ugcfarm.b-cdn.net/photos/021.webp",
-            "alt": "UGC Avatar 21"
+            "alt": "UGC Avatar 21",
+            "name": "UGC Avatar 21"
         },
         {
             "id": 22,
             "url": "https://ugcfarm.b-cdn.net/photos/022.webp",
-            "alt": "UGC Avatar 22"
+            "alt": "UGC Avatar 22",
+            "name": "UGC Avatar 22"
         },
         {
             "id": 23,
             "url": "https://ugcfarm.b-cdn.net/photos/023.webp",
-            "alt": "UGC Avatar 23"
+            "alt": "UGC Avatar 23",
+            "name": "UGC Avatar 23"
         },
         {
             "id": 24,
             "url": "https://ugcfarm.b-cdn.net/photos/024.webp",
-            "alt": "UGC Avatar 24"
+            "alt": "UGC Avatar 24",
+            "name": "UGC Avatar 24"
         },
         {
             "id": 25,
             "url": "https://ugcfarm.b-cdn.net/photos/025.webp",
-            "alt": "UGC Avatar 25"
+            "alt": "UGC Avatar 25",
+            "name": "UGC Avatar 25"
         },
         {
             "id": 26,
             "url": "https://ugcfarm.b-cdn.net/photos/026.webp",
-            "alt": "UGC Avatar 26"
+            "alt": "UGC Avatar 26",
+            "name": "UGC Avatar 26"
         },
         {
             "id": 27,
             "url": "https://ugcfarm.b-cdn.net/photos/027.webp",
-            "alt": "UGC Avatar 27"
+            "alt": "UGC Avatar 27",
+            "name": "UGC Avatar 27"
         },
         {
             "id": 28,
             "url": "https://ugcfarm.b-cdn.net/photos/028.webp",
-            "alt": "UGC Avatar 28"
+            "alt": "UGC Avatar 28",
+            "name": "UGC Avatar 28"
         },
         {
             "id": 29,
             "url": "https://ugcfarm.b-cdn.net/photos/029.webp",
-            "alt": "UGC Avatar 29"
+            "alt": "UGC Avatar 29",
+            "name": "UGC Avatar 29"
         },
         {
             "id": 30,
             "url": "https://ugcfarm.b-cdn.net/photos/030.webp",
-            "alt": "UGC Avatar 30"
+            "alt": "UGC Avatar 30",
+            "name": "UGC Avatar 30"
         },
         {
             "id": 32,
             "url": "https://ugcfarm.b-cdn.net/photos/032.webp",
-            "alt": "UGC Avatar 32"
+            "alt": "UGC Avatar 32",
+            "name": "UGC Avatar 32"
         },
         {
             "id": 33,
             "url": "https://ugcfarm.b-cdn.net/photos/033.webp",
-            "alt": "UGC Avatar 33"
+            "alt": "UGC Avatar 33",
+            "name": "UGC Avatar 33"
         },
         {
             "id": 34,
             "url": "https://ugcfarm.b-cdn.net/photos/034.webp",
-            "alt": "UGC Avatar 34"
+            "alt": "UGC Avatar 34",
+            "name": "UGC Avatar 34"
         },
         {
             "id": 35,
             "url": "https://ugcfarm.b-cdn.net/photos/035.webp",
-            "alt": "UGC Avatar 35"
+            "alt": "UGC Avatar 35",
+            "name": "UGC Avatar 35"
         },
         {
             "id": 36,
             "url": "https://ugcfarm.b-cdn.net/photos/036.webp",
-            "alt": "UGC Avatar 36"
+            "alt": "UGC Avatar 36",
+            "name": "UGC Avatar 36"
         },
         {
             "id": 37,
             "url": "https://ugcfarm.b-cdn.net/photos/037.webp",
-            "alt": "UGC Avatar 37"
+            "alt": "UGC Avatar 37",
+            "name": "UGC Avatar 37"
         },
         {
             "id": 38,
             "url": "https://ugcfarm.b-cdn.net/photos/038.webp",
-            "alt": "UGC Avatar 38"
+            "alt": "UGC Avatar 38",
+            "name": "UGC Avatar 38"
         },
         {
             "id": 39,
             "url": "https://ugcfarm.b-cdn.net/photos/039.webp",
-            "alt": "UGC Avatar 39"
+            "alt": "UGC Avatar 39",
+            "name": "UGC Avatar 39"
         },
         {
             "id": 40,
             "url": "https://ugcfarm.b-cdn.net/photos/040.webp",
-            "alt": "UGC Avatar 40"
+            "alt": "UGC Avatar 40",
+            "name": "UGC Avatar 40"
         },
         {
             "id": 41,
             "url": "https://ugcfarm.b-cdn.net/photos/041.webp",
-            "alt": "UGC Avatar 41"
+            "alt": "UGC Avatar 41",
+            "name": "UGC Avatar 41"
         },
         {
             "id": 42,
             "url": "https://ugcfarm.b-cdn.net/photos/042.webp",
-            "alt": "UGC Avatar 42"
+            "alt": "UGC Avatar 42",
+            "name": "UGC Avatar 42"
         },
         {
             "id": 43,
             "url": "https://ugcfarm.b-cdn.net/photos/043.webp",
-            "alt": "UGC Avatar 43"
+            "alt": "UGC Avatar 43",
+            "name": "UGC Avatar 43"
         },
         {
             "id": 64,
             "url": "https://ugcfarm.b-cdn.net/photos/064.webp",
-            "alt": "UGC Avatar 64"
+            "alt": "UGC Avatar 64",
+            "name": "UGC Avatar 64"
         },
         {
             "id": 65,
             "url": "https://ugcfarm.b-cdn.net/photos/065.webp",
-            "alt": "UGC Avatar 65"
+            "alt": "UGC Avatar 65",
+            "name": "UGC Avatar 65"
         },
         {
             "id": 66,
             "url": "https://ugcfarm.b-cdn.net/photos/066.webp",
-            "alt": "UGC Avatar 66"
+            "alt": "UGC Avatar 66",
+            "name": "UGC Avatar 66"
         },
         {
             "id": 67,
             "url": "https://ugcfarm.b-cdn.net/photos/067.webp",
-            "alt": "UGC Avatar 67"
+            "alt": "UGC Avatar 67",
+            "name": "UGC Avatar 67"
         },
         {
             "id": 68,
             "url": "https://ugcfarm.b-cdn.net/photos/068.webp",
-            "alt": "UGC Avatar 68"
+            "alt": "UGC Avatar 68",
+            "name": "UGC Avatar 68"
         },
         {
             "id": 69,
             "url": "https://ugcfarm.b-cdn.net/photos/069.webp",
-            "alt": "UGC Avatar 69"
+            "alt": "UGC Avatar 69",
+            "name": "UGC Avatar 69"
         },
         {
             "id": 70,
             "url": "https://ugcfarm.b-cdn.net/photos/070.webp",
-            "alt": "UGC Avatar 70"
+            "alt": "UGC Avatar 70",
+            "name": "UGC Avatar 70"
         },
         {
             "id": 71,
             "url": "https://ugcfarm.b-cdn.net/photos/071.webp",
-            "alt": "UGC Avatar 71"
+            "alt": "UGC Avatar 71",
+            "name": "UGC Avatar 71"
         },
         {
             "id": 72,
             "url": "https://ugcfarm.b-cdn.net/photos/072.webp",
-            "alt": "UGC Avatar 72"
+            "alt": "UGC Avatar 72",
+            "name": "UGC Avatar 72"
         },
         {
             "id": 73,
             "url": "https://ugcfarm.b-cdn.net/photos/073.webp",
-            "alt": "UGC Avatar 73"
+            "alt": "UGC Avatar 73",
+            "name": "UGC Avatar 73"
         },
         {
             "id": 74,
             "url": "https://ugcfarm.b-cdn.net/photos/074.webp",
-            "alt": "UGC Avatar 74"
+            "alt": "UGC Avatar 74",
+            "name": "UGC Avatar 74"
         },
         {
             "id": 75,
             "url": "https://ugcfarm.b-cdn.net/photos/075.webp",
-            "alt": "UGC Avatar 75"
+            "alt": "UGC Avatar 75",
+            "name": "UGC Avatar 75"
         },
         {
             "id": 76,
             "url": "https://ugcfarm.b-cdn.net/photos/076.webp",
-            "alt": "UGC Avatar 76"
+            "alt": "UGC Avatar 76",
+            "name": "UGC Avatar 76"
         },
         {
             "id": 77,
             "url": "https://ugcfarm.b-cdn.net/photos/077.webp",
-            "alt": "UGC Avatar 77"
+            "alt": "UGC Avatar 77",
+            "name": "UGC Avatar 77"
         },
         {
             "id": 78,
             "url": "https://ugcfarm.b-cdn.net/photos/078.webp",
-            "alt": "UGC Avatar 78"
+            "alt": "UGC Avatar 78",
+            "name": "UGC Avatar 78"
         },
         {
             "id": 79,
             "url": "https://ugcfarm.b-cdn.net/photos/079.webp",
-            "alt": "UGC Avatar 79"
+            "alt": "UGC Avatar 79",
+            "name": "UGC Avatar 79"
         },
         {
             "id": 80,
             "url": "https://ugcfarm.b-cdn.net/photos/080.webp",
-            "alt": "UGC Avatar 80"
+            "alt": "UGC Avatar 80",
+            "name": "UGC Avatar 80"
         },
         {
             "id": 81,
             "url": "https://ugcfarm.b-cdn.net/photos/081.webp",
-            "alt": "UGC Avatar 81"
+            "alt": "UGC Avatar 81",
+            "name": "UGC Avatar 81"
         },
         {
             "id": 82,
             "url": "https://ugcfarm.b-cdn.net/photos/082.webp",
-            "alt": "UGC Avatar 82"
+            "alt": "UGC Avatar 82",
+            "name": "UGC Avatar 82"
         },
         {
             "id": 83,
             "url": "https://ugcfarm.b-cdn.net/photos/083.webp",
-            "alt": "UGC Avatar 83"
+            "alt": "UGC Avatar 83",
+            "name": "UGC Avatar 83"
         },
         {
             "id": 86,
             "url": "https://ugcfarm.b-cdn.net/photos/086.webp",
-            "alt": "UGC Avatar 86"
+            "alt": "UGC Avatar 86",
+            "name": "UGC Avatar 86"
         },
         {
             "id": 87,
             "url": "https://ugcfarm.b-cdn.net/photos/087.webp",
-            "alt": "UGC Avatar 87"
+            "alt": "UGC Avatar 87",
+            "name": "UGC Avatar 87"
         },
         {
             "id": 88,
             "url": "https://ugcfarm.b-cdn.net/photos/088.webp",
-            "alt": "UGC Avatar 88"
+            "alt": "UGC Avatar 88",
+            "name": "UGC Avatar 88"
         },
         {
             "id": 89,
             "url": "https://ugcfarm.b-cdn.net/photos/089.webp",
-            "alt": "UGC Avatar 89"
+            "alt": "UGC Avatar 89",
+            "name": "UGC Avatar 89"
         },
         {
             "id": 90,
             "url": "https://ugcfarm.b-cdn.net/photos/090.webp",
-            "alt": "UGC Avatar 90"
+            "alt": "UGC Avatar 90",
+            "name": "UGC Avatar 90"
         },
         {
             "id": 91,
             "url": "https://ugcfarm.b-cdn.net/photos/091.webp",
-            "alt": "UGC Avatar 91"
+            "alt": "UGC Avatar 91",
+            "name": "UGC Avatar 91"
         },
         {
             "id": 92,
             "url": "https://ugcfarm.b-cdn.net/photos/092.webp",
-            "alt": "UGC Avatar 92"
+            "alt": "UGC Avatar 92",
+            "name": "UGC Avatar 92"
         },
         {
             "id": 93,
             "url": "https://ugcfarm.b-cdn.net/photos/093.webp",
-            "alt": "UGC Avatar 93"
+            "alt": "UGC Avatar 93",
+            "name": "UGC Avatar 93"
         },
         {
             "id": 94,
             "url": "https://ugcfarm.b-cdn.net/photos/094.webp",
-            "alt": "UGC Avatar 94"
+            "alt": "UGC Avatar 94",
+            "name": "UGC Avatar 94"
         },
         {
             "id": 95,
             "url": "https://ugcfarm.b-cdn.net/photos/095.webp",
-            "alt": "UGC Avatar 95"
+            "alt": "UGC Avatar 95",
+            "name": "UGC Avatar 95"
         },
         {
             "id": 96,
             "url": "https://ugcfarm.b-cdn.net/photos/096.webp",
-            "alt": "UGC Avatar 96"
+            "alt": "UGC Avatar 96",
+            "name": "UGC Avatar 96"
         },
         {
             "id": 97,
             "url": "https://ugcfarm.b-cdn.net/photos/097.webp",
-            "alt": "UGC Avatar 97"
+            "alt": "UGC Avatar 97",
+            "name": "UGC Avatar 97"
         },
         {
             "id": 98,
             "url": "https://ugcfarm.b-cdn.net/photos/098.webp",
-            "alt": "UGC Avatar 98"
+            "alt": "UGC Avatar 98",
+            "name": "UGC Avatar 98"
         },
         {
             "id": 99,
             "url": "https://ugcfarm.b-cdn.net/photos/099.webp",
-            "alt": "UGC Avatar 99"
+            "alt": "UGC Avatar 99",
+            "name": "UGC Avatar 99"
         },
         {
             "id": 100,
             "url": "https://ugcfarm.b-cdn.net/photos/100.webp",
-            "alt": "UGC Avatar 100"
+            "alt": "UGC Avatar 100",
+            "name": "UGC Avatar 100"
         },
         {
             "id": 101,
             "url": "https://ugcfarm.b-cdn.net/photos/101.webp",
-            "alt": "UGC Avatar 101"
+            "alt": "UGC Avatar 101",
+            "name": "UGC Avatar 101"
         },
         {
             "id": 102,
             "url": "https://ugcfarm.b-cdn.net/photos/102.webp",
-            "alt": "UGC Avatar 102"
+            "alt": "UGC Avatar 102",
+            "name": "UGC Avatar 102"
         },
         {
             "id": 103,
             "url": "https://ugcfarm.b-cdn.net/photos/103.webp",
-            "alt": "UGC Avatar 103"
+            "alt": "UGC Avatar 103",
+            "name": "UGC Avatar 103"
         },
         {
             "id": 104,
             "url": "https://ugcfarm.b-cdn.net/photos/104.webp",
-            "alt": "UGC Avatar 104"
+            "alt": "UGC Avatar 104",
+            "name": "UGC Avatar 104"
         },
         {
             "id": 109,
             "url": "https://ugcfarm.b-cdn.net/photos/109.webp",
-            "alt": "UGC Avatar 109"
+            "alt": "UGC Avatar 109",
+            "name": "UGC Avatar 109"
         },
         {
             "id": 110,
             "url": "https://ugcfarm.b-cdn.net/photos/110.webp",
-            "alt": "UGC Avatar 110"
+            "alt": "UGC Avatar 110",
+            "name": "UGC Avatar 110"
         },
         {
             "id": 111,
             "url": "https://ugcfarm.b-cdn.net/photos/111.webp",
-            "alt": "UGC Avatar 111"
+            "alt": "UGC Avatar 111",
+            "name": "UGC Avatar 111"
         },
         {
             "id": 112,
             "url": "https://ugcfarm.b-cdn.net/photos/112.webp",
-            "alt": "UGC Avatar 112"
+            "alt": "UGC Avatar 112",
+            "name": "UGC Avatar 112"
         },
         {
             "id": 113,
             "url": "https://ugcfarm.b-cdn.net/photos/113.webp",
-            "alt": "UGC Avatar 113"
+            "alt": "UGC Avatar 113",
+            "name": "UGC Avatar 113"
         },
         {
             "id": 114,
             "url": "https://ugcfarm.b-cdn.net/photos/114.webp",
-            "alt": "UGC Avatar 114"
+            "alt": "UGC Avatar 114",
+            "name": "UGC Avatar 114"
         },
         {
             "id": 115,
             "url": "https://ugcfarm.b-cdn.net/photos/115.webp",
-            "alt": "UGC Avatar 115"
+            "alt": "UGC Avatar 115",
+            "name": "UGC Avatar 115"
         },
         {
             "id": 116,
             "url": "https://ugcfarm.b-cdn.net/photos/116.webp",
-            "alt": "UGC Avatar 116"
+            "alt": "UGC Avatar 116",
+            "name": "UGC Avatar 116"
         },
         {
             "id": 117,
             "url": "https://ugcfarm.b-cdn.net/photos/117.webp",
-            "alt": "UGC Avatar 117"
+            "alt": "UGC Avatar 117",
+            "name": "UGC Avatar 117"
         },
         {
             "id": 118,
             "url": "https://ugcfarm.b-cdn.net/photos/grasu_1.webp",
-            "alt": "UGC Avatar 118"
+            "alt": "UGC Avatar 118",
+            "name": "UGC Avatar 118"
         },
         {
             "id": 119,
             "url": "https://ugcfarm.b-cdn.net/photos/grasu_2.webp",
-            "alt": "UGC Avatar 119"
+            "alt": "UGC Avatar 119",
+            "name": "UGC Avatar 119"
         },
         {
             "id": 120,
             "url": "https://ugcfarm.b-cdn.net/photos/grasu_3.webp",
-            "alt": "UGC Avatar 120"
+            "alt": "UGC Avatar 120",
+            "name": "UGC Avatar 120"
         },
         {
             "id": 121,
             "url": "https://ugcfarm.b-cdn.net/photos/grasu_4.webp",
-            "alt": "UGC Avatar 121"
+            "alt": "UGC Avatar 121",
+            "name": "UGC Avatar 121"
         },
         {
             "id": 122,
             "url": "https://ugcfarm.b-cdn.net/photos/122.webp",
-            "alt": "UGC Avatar 122"
+            "alt": "UGC Avatar 122",
+            "name": "UGC Avatar 122"
         },
         {
             "id": 123,
             "url": "https://ugcfarm.b-cdn.net/photos/123.webp",
-            "alt": "UGC Avatar 123"
+            "alt": "UGC Avatar 123",
+            "name": "UGC Avatar 123"
         },
         {
             "id": 124,
             "url": "https://ugcfarm.b-cdn.net/photos/124.webp",
-            "alt": "UGC Avatar 124"
+            "alt": "UGC Avatar 124",
+            "name": "UGC Avatar 124"
         },
         {
             "id": 125,
             "url": "https://ugcfarm.b-cdn.net/photos/125.webp",
-            "alt": "UGC Avatar 125"
+            "alt": "UGC Avatar 125",
+            "name": "UGC Avatar 125"
         },
         {
             "id": 126,
             "url": "https://ugcfarm.b-cdn.net/photos/126.webp",
-            "alt": "UGC Avatar 126"
+            "alt": "UGC Avatar 126",
+            "name": "UGC Avatar 126"
         },
         {
             "id": 127,
             "url": "https://ugcfarm.b-cdn.net/photos/127.webp",
-            "alt": "UGC Avatar 127"
+            "alt": "UGC Avatar 127",
+            "name": "UGC Avatar 127"
         },
         {
             "id": 128,
             "url": "https://ugcfarm.b-cdn.net/photos/128.webp",
-            "alt": "UGC Avatar 128"
+            "alt": "UGC Avatar 128",
+            "name": "UGC Avatar 128"
         },
     ]
 
     const onPhotoSelect = (id: number) => {
+        if (id > 129) {
+            setIsLocal(true)
+            window.history.replaceState({}, '', `${window.location.pathname}?local=true`)
+        }
         setSelectedPhotoId(id)
-        // resetDemo()
-        // setSelectedDemoId(0)
     }
 
     const onAvatarSelect = (id: number) => {
@@ -1182,7 +1174,6 @@ export default function Page() {
             hook_duration: Math.round(avatarVideos.find(v => v.id === id)?.duration ?? 5) * 30,
             total_duration: Math.round(avatarVideos.find(v => v.id === id)?.duration ?? 5) * 30 + demoDuration,
         }))
-        // set the 
         // resetDemo()
         // setSelectedDemoId(0)
     }
@@ -1304,16 +1295,18 @@ export default function Page() {
 
         setLoading(true);
 
+        let id = uuidv4();
+
         try {
             // insert the video into the database
             const { data, error } = await supabase
                 .from('video_history')
                 .insert({
                     user_id: user.id,
-                    video_id: inputProps.videoProps.uuid,
+                    video_id: !isLocal ? inputProps.videoProps.uuid : id,
                     prompt: sentences[index],
-                    text_style: textStyle,
-                    inputs: inputProps,
+                    text_style: !isLocal ? textStyle : null,
+                    inputs: !isLocal ? inputProps : null,
                 })
 
             if (error) {
@@ -1324,7 +1317,32 @@ export default function Page() {
                 }
                 throw new Error('Failed to insert video into database');
             } else {
-                await renderMedia();
+                if (!isLocal) {
+                    await renderMedia();
+                } else {
+                    // make a fetch request to the local server
+                    const photo = photos.find(p => p.id === selectedPhotoId)?.name;
+
+                    const response = await fetch('/api/creator/submit', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            videoId: id,
+                            script: sentences[index],
+                            creatorName: photo
+                        })
+                    })
+
+                    if (!response.ok) {
+                        toast.error('Failed to submit video to creator')
+                    }
+
+                    const data = await response.json()
+
+                    setOperationId(data.operationId)
+                    const params = new URLSearchParams(window.location.search)
+                    params.set('operationId', data.operationId)
+                    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
+                }
             }
         } catch (error) {
             console.error("Error rendering video:", error);
@@ -1622,7 +1640,7 @@ export default function Page() {
                                         component={Main}
                                         inputProps={inputProps}
                                         durationInFrames={inputProps.video_duration}
-                                        fps={30}
+                                        fps={isLocal ? 25 : 30}
                                         compositionWidth={1080}
                                         compositionHeight={1920}
                                         style={{
@@ -1642,7 +1660,8 @@ export default function Page() {
                                         </Button>
                                     </Link>
                                 )} */}
-                                {state.status === "done" ? (
+
+                                {state.status === "done" && !operationId ? (
                                     <>
                                         <Button variant="outline" className="w-fit" onClick={() => toast.success("Video downloaded")} asChild>
                                             <a href={video} download>
@@ -1655,7 +1674,7 @@ export default function Page() {
                                             <ArrowRightIcon className="w-5 h-5" />
                                         </Button>
                                     </>
-                                ) : loading ? (
+                                ) : loading && !operationId ? (
                                     <Button variant="outline" className="w-fit">
                                         <Loader className="w-5 h-5 animate-spin" />
                                         <TextShimmer className='font-mono text-sm' duration={2}>
@@ -1667,7 +1686,7 @@ export default function Page() {
                                             </div>
                                         )}
                                     </Button>
-                                ) : (
+                                ) : !operationId && (
                                     <div className="flex flex-col text-right w-full justify-end">
                                         <Button onClick={createVideo} className="w-fit mb-2 ml-auto">
                                             Create video
@@ -1678,51 +1697,76 @@ export default function Page() {
                                         </span>
                                     </div>
                                 )}
+
+                                {operationId && (
+                                    <Button variant="outline" className="w-fit">
+                                        <Loader className="w-5 h-5 animate-spin" />
+                                        <TextShimmer className='font-mono text-sm' duration={2}>
+                                            Generating video...
+                                        </TextShimmer>
+                                        {progress > 0 && (
+                                            <div className="text-sm font-[500] text-[#1a1a1a]/60">
+                                                {progress}%
+                                            </div>
+                                        )}
+                                    </Button>
+                                )}
+
+                                {completed_video && (
+                                    <Button variant="outline" className="w-fit" onClick={() => toast.success("Video downloaded")} asChild>
+                                        <a href={completed_video} download="avatar-video.mp4" target="_blank" rel="noopener noreferrer">
+                                            Download video
+                                            <DownloadIcon className="w-5 h-5 ml-2" />
+                                        </a>
+                                    </Button>
+                                )}
                             </div>
 
                             {/* Lip Sync Settings */}
-                            <div className="flex flex-row items-center gap-2">
-                                <div className={`h-fit transition-all duration-1000 ease-in-out ${inputProps.lip_sync ? 'w-full' : 'w-fit'} rounded-xl bg-[#A4A4A4]/10`}>
-                                    <div className="flex flex-col items-start p-6">
-                                        <div className={`flex flex-row items-center justify-between transition-all duration-300 ease-in-out ${inputProps.lip_sync ? 'w-full mb-6 md:mb-4' : 'w-fit'} gap-4`}>
-                                            <div className="flex flex-row items-center gap-4">
-                                                <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                                    Lip Sync settings {inputProps.lip_sync ? <span className="text-primary font-[600]"> - ON</span> : ''}
-                                                </p>
+                            {selectedPhotoId < 129 && (
+                                <div className="flex flex-row items-center gap-2">
+                                    <div className={`h-fit transition-all duration-1000 ease-in-out ${inputProps.lip_sync ? 'w-full' : 'w-fit'} rounded-xl bg-[#A4A4A4]/10`}>
+                                        <div className="flex flex-col items-start p-6">
+                                            <div className={`flex flex-row items-center justify-between transition-all duration-300 ease-in-out ${inputProps.lip_sync ? 'w-full mb-6 md:mb-4' : 'w-fit'} gap-4`}>
+                                                <div className="flex flex-row items-center gap-4">
+                                                    <p className="text-base font-[500] text-[#1a1a1a]/60">
+                                                        Lip Sync settings {inputProps.lip_sync ? <span className="text-primary font-[600]"> - ON</span> : ''}
+                                                    </p>
+                                                </div>
+                                                <div className="text-sm font-[500] text-[#1a1a1a]/60">
+                                                    <Switch
+                                                        checked={inputProps.lip_sync}
+                                                        onCheckedChange={handleLipSyncChange}
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                <Switch
-                                                    checked={inputProps.lip_sync}
-                                                    onCheckedChange={handleLipSyncChange}
-                                                />
-                                            </div>
+                                            {inputProps.lip_sync && (
+                                                <div className="w-full">
+                                                    <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                        Avatar Voice
+                                                    </label>
+                                                    <Select
+                                                        value={inputProps.voice}
+                                                        onValueChange={(value) => setInputProps(prev => ({ ...prev, voice: value }))}
+                                                    >
+                                                        <SelectTrigger className="w-[180px] bg-background font-[500] truncate">
+                                                            <SelectValue placeholder="Select voice" />
+                                                        </SelectTrigger>
+                                                        <SelectContent className="w-[180px] bg-background font-[500]">
+                                                            {Object.keys(voices).map((voice) => (
+                                                                <SelectItem key={voice} value={voice}>
+                                                                    <span className="capitalize">{voice}</span>
+                                                                </SelectItem>
+                                                            ))}
+                                                        </SelectContent>
+                                                    </Select>
+                                                    <audio src={voice_demos[inputProps.voice as keyof typeof voice_demos]} autoPlay controls className="border-primary/10 border-2 rounded-full mt-2" />
+                                                </div>
+                                            )}
                                         </div>
-                                        {inputProps.lip_sync && (
-                                            <div className="w-full">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Avatar Voice
-                                                </label>
-                                                <Select
-                                                    value={inputProps.voice}
-                                                    onValueChange={(value) => setInputProps(prev => ({ ...prev, voice: value }))}
-                                                >
-                                                    <SelectTrigger className="w-[180px] bg-background font-[500] truncate">
-                                                        <SelectValue placeholder="Select voice" />
-                                                    </SelectTrigger>
-                                                    <SelectContent className="w-[180px] bg-background font-[500]">
-                                                        {Object.keys(voices).map((voice) => (
-                                                            <SelectItem key={voice} value={voice}>
-                                                                <span className="capitalize">{voice}</span>
-                                                            </SelectItem>
-                                                        ))}
-                                                    </SelectContent>
-                                                </Select>
-                                                <audio src={voice_demos[inputProps.voice as keyof typeof voice_demos]} autoPlay controls className="border-primary/10 border-2 rounded-full mt-2" />
-                                            </div>
-                                        )}
                                     </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                         <div className="flex flex-col gap-4 order-last md:order-first">
                             {/* 1. Choose a hook */}
@@ -1816,6 +1860,15 @@ export default function Page() {
                                                 My avatars
                                             </button>
                                         </p>
+                                        {/* CHECKPOINT */}
+
+
+
+
+
+
+
+
                                         <div className="flex flex-row items-center gap-2">
                                             <button className="text-[#1a1a1a]/50" onClick={library === "library" ? previousVideoPage : previousAvatarPage}>
                                                 <ChevronLeftIcon className="w-5 h-5" />
@@ -1863,262 +1916,283 @@ export default function Page() {
                                 </div>
                             </div>
 
+                            {selectedPhotoId >= 129 && (
+                                <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                    <div className="flex flex-col items-start p-6">
+                                        <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
+                                            <p className="text-base font-[500] text-[#1a1a1a]/60">
+                                                3. Lip Sync Settings
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center space-x-2">
+                                            <Switch checked={true} />
+                                            <Label className="text-sm text-[#1a1a1a]/60">
+                                                The lip sync is always activated for this model
+                                            </Label>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
                             {/* 3. Demo */}
-                            <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
-                                <div className="flex flex-col items-start p-6">
-                                    <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
-                                        <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                            3. Choose your video <span className="text-xs opacity-80 font-[500]">(optional)</span>{selectedDemoId === 0 ? <span className="text-xs text-primary font-[500]"> - no video selected</span> : ''}
-                                        </p>
-                                        {demos.length > 0 &&
-                                            <div className="flex flex-row items-center gap-2">
-                                                <button className="text-[#1a1a1a]/50" onClick={previousDemoPage}>
-                                                    <ChevronLeftIcon className="w-5 h-5" />
-                                                </button>
-                                                <span className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                    {demoPage}/{Math.ceil(demos.length / 5)}
-                                                </span>
-                                                <button className="text-[#1a1a1a]/50" onClick={nextDemoPage}>
-                                                    <ChevronRightIcon className="w-5 h-5" />
-                                                </button>
-                                            </div>
-                                        }
+                            {selectedPhotoId < 129 && (
+                                <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                    <div className="flex flex-col items-start p-6">
+                                        <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
+                                            <p className="text-base font-[500] text-[#1a1a1a]/60">
+                                                3. Choose your video <span className="text-xs opacity-80 font-[500]">(optional)</span>{selectedDemoId === 0 ? <span className="text-xs text-primary font-[500]"> - no video selected</span> : ''}
+                                            </p>
+                                            {demos.length > 0 &&
+                                                <div className="flex flex-row items-center gap-2">
+                                                    <button className="text-[#1a1a1a]/50" onClick={previousDemoPage}>
+                                                        <ChevronLeftIcon className="w-5 h-5" />
+                                                    </button>
+                                                    <span className="text-sm font-[500] text-[#1a1a1a]/60">
+                                                        {demoPage}/{Math.ceil(demos.length / 5)}
+                                                    </span>
+                                                    <button className="text-[#1a1a1a]/50" onClick={nextDemoPage}>
+                                                        <ChevronRightIcon className="w-5 h-5" />
+                                                    </button>
+                                                </div>
+                                            }
+                                        </div>
+                                        <DemoList
+                                            photos={demos}
+                                            selectedPhotoId={selectedDemoId}
+                                            onPhotoSelect={onDemoSelect}
+                                            currentPage={demoPage}
+                                            token={token}
+                                            onDemosUpdate={handleDemosUpdate}
+                                        />
                                     </div>
-                                    <DemoList
-                                        photos={demos}
-                                        selectedPhotoId={selectedDemoId}
-                                        onPhotoSelect={onDemoSelect}
-                                        currentPage={demoPage}
-                                        token={token}
-                                        onDemosUpdate={handleDemosUpdate}
-                                    />
                                 </div>
-                            </div>
-
+                            )}
                             {/* 4. Text Settings */}
-                            <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
-                                <div className="flex flex-col items-start p-6">
-                                    <div className="flex flex-row items-center justify-between w-full">
-                                        <p className="text-base font-[500] text-[#1a1a1a]/60 mb-4">
-                                            4. Text Settings
-                                        </p>
-                                    </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                                        {/* FONT SIZE */}
-                                        <div className="flex flex-col items-start">
-                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                Font Size
-                                            </label>
-                                            <div className="relative w-full">
-                                                <Input
-                                                    type="number"
-                                                    value={textStyle.fontSize}
-                                                    min={12}
-                                                    max={100}
-                                                    step={1}
-                                                    className="w-full bg-background pl-3 pr-8 font-[500]"
-                                                    onChange={handleFontSizeChange}
-                                                />
-                                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                                                    px
-                                                </span>
+                            {selectedPhotoId < 129 && (
+                                <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                    <div className="flex flex-col items-start p-6">
+                                        <div className="flex flex-row items-center justify-between w-full">
+                                            <p className="text-base font-[500] text-[#1a1a1a]/60 mb-4">
+                                                4. Text Settings
+                                            </p>
+                                        </div>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                                            {/* FONT SIZE */}
+                                            <div className="flex flex-col items-start">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Font Size
+                                                </label>
+                                                <div className="relative w-full">
+                                                    <Input
+                                                        type="number"
+                                                        value={textStyle.fontSize}
+                                                        min={12}
+                                                        max={100}
+                                                        step={1}
+                                                        className="w-full bg-background pl-3 pr-8 font-[500]"
+                                                        onChange={handleFontSizeChange}
+                                                    />
+                                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                                        px
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        {/* FONT WEIGHT */}
-                                        <div className="flex flex-col items-start">
-                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                Font Weight
-                                            </label>
-                                            <Select
-                                                value={textStyle.fontWeight.toString()}
-                                                onValueChange={handleFontWeightChange}
-                                                disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika" || textStyle.fontFamily === "TikTok"}
-                                            >
-                                                <SelectTrigger className="w-full bg-background font-[500] truncate">
-                                                    <SelectValue placeholder="Select weight" />
-                                                </SelectTrigger>
-                                                <SelectContent className="bg-background font-[500]">
-                                                    <SelectItem value="100" className="truncate">Thin (100)</SelectItem>
-                                                    <SelectItem value="200" className="truncate">Extra Light (200)</SelectItem>
-                                                    <SelectItem value="300" className="truncate">Light (300)</SelectItem>
-                                                    <SelectItem value="400" className="truncate">Regular (400)</SelectItem>
-                                                    <SelectItem value="500" className="truncate">Medium (500)</SelectItem>
-                                                    <SelectItem value="600" className="truncate">Semi Bold (600)</SelectItem>
-                                                    <SelectItem value="700" className="truncate">Bold (700)</SelectItem>
-                                                    <SelectItem value="800" className="truncate">Extra Bold (800)</SelectItem>
-                                                    <SelectItem value="900" className="truncate">Black (900)</SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        </div>
-
-                                        {/* FONT FAMILY */}
-                                        <div className="flex flex-col items-start">
-                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                Font Family
-                                            </label>
-                                            <Select
-                                                value={textStyle.fontFamily}
-                                                onValueChange={handleFontFamilyChange}
-                                            >
-                                                <SelectTrigger className="w-full bg-background font-[500] truncate">
-                                                    <SelectValue placeholder="Select font" />
-                                                </SelectTrigger>
-                                                <SelectContent className="bg-background font-[500]">
-                                                    <SelectItem value="TikTok" className="truncate">TikTok Font</SelectItem>
-                                                    <SelectItem value="Montserrat" className="truncate">Montserrat</SelectItem>
-                                                    <SelectItem value="Inter" className="truncate">Inter</SelectItem>
-                                                    <SelectItem value="Komika" className="truncate">MrBeast Font</SelectItem>
-                                                    <SelectItem value="TheBoldFont" className="truncate">Alex Hormozi Font</SelectItem>
-                                                </SelectContent>
-                                            </Select>
-                                        </div>
-
-                                        {/* TEXT COLOR */}
-                                        <div className="flex flex-col items-start">
-                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                Text Color
-                                            </label>
-                                            <div className="w-full">
-                                                <ColorPicker
-                                                    value={textStyle.textColor}
-                                                    onChange={(c) => {
-                                                        setTextStyle(prev => ({
-                                                            ...prev,
-                                                            textColor: c.toHexString(),
-                                                        }))
-                                                    }}
-                                                    showText
-                                                    allowClear
-                                                    className="p-[0.325rem] hover:border-primary/80" />
-                                            </div>
-                                        </div>
-
-                                        {/* STROKE COLOR */}
-                                        <div className="flex flex-col items-start">
-                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                Stroke Color
-                                            </label>
-                                            <div className="w-full">
-                                                <ColorPicker
-                                                    defaultValue="#000"
-                                                    showText
-                                                    allowClear
-                                                    className="p-[0.325rem] hover:border-primary/80"
-                                                    onChange={(c) => {
-                                                        setTextStyle(prev => ({
-                                                            ...prev,
-                                                            strokeColor: c.toHexString(),
-                                                        }))
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        {/* SHADOW COLOR */}
-                                        <div className="flex flex-col items-start">
-                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                Shadow Color
-                                            </label>
-                                            <div className="w-full">
-                                                <ColorPicker
-                                                    defaultValue="#000"
-                                                    showText
-                                                    allowClear
-                                                    className="p-[0.325rem] hover:border-primary/80"
-                                                    onChange={(c) => {
-                                                        setTextStyle(prev => ({
-                                                            ...prev,
-                                                            shadowColor: c.toHexString(),
-                                                        }))
-                                                    }}
-                                                />
-                                            </div>
-                                        </div>
-
-                                        {/* UPPERCASE */}
-                                        <div className="flex flex-col items-start">
-                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                Uppercase
-                                            </label>
-                                            <Switch
-                                                checked={textStyle.uppercase || textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
-                                                disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
-                                                onCheckedChange={handleUppercaseChange}
-                                            />
-                                        </div>
-
-                                        {/* VERTICAL ALIGNMENT */}
-                                        <div className="flex flex-col items-start">
-                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                Vertical Alignment
-                                            </label>
-                                            {/* make a slider for vertical alignment and below it 3 settings for top, center, bottom*/}
-                                            {/* complete  */}
-                                            <div className="w-full space-y-3">
-                                                <Input
-                                                    type="number"
-                                                    value={textStyle.verticalAlignment}
-                                                    min={10}
-                                                    max={90}
-                                                    onChange={handleVerticalAlignmentChange}
-                                                    className="w-full bg-background pl-3 font-[500]"
-                                                />
-                                                <Slider
-                                                    defaultValue={[50]}
-                                                    max={90}
-                                                    min={10}
-                                                    step={1}
-                                                    value={[textStyle.verticalAlignment]}
-                                                    onValueChange={(e) =>
-                                                        setTextStyle((prev) => ({
-                                                            ...prev,
-                                                            verticalAlignment: e[0]
-                                                        }))
-                                                    } />
-                                            </div>
-                                            <div className="flex flex-row items-center justify-between w-full mt-2">
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="hover:bg-background"
-                                                    onClick={() => setTextStyle((prev) => ({
-                                                        ...prev,
-                                                        verticalAlignment: 20
-                                                    }))}
+                                            {/* FONT WEIGHT */}
+                                            <div className="flex flex-col items-start">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Font Weight
+                                                </label>
+                                                <Select
+                                                    value={textStyle.fontWeight.toString()}
+                                                    onValueChange={handleFontWeightChange}
+                                                    disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika" || textStyle.fontFamily === "TikTok"}
                                                 >
+                                                    <SelectTrigger className="w-full bg-background font-[500] truncate">
+                                                        <SelectValue placeholder="Select weight" />
+                                                    </SelectTrigger>
+                                                    <SelectContent className="bg-background font-[500]">
+                                                        <SelectItem value="100" className="truncate">Thin (100)</SelectItem>
+                                                        <SelectItem value="200" className="truncate">Extra Light (200)</SelectItem>
+                                                        <SelectItem value="300" className="truncate">Light (300)</SelectItem>
+                                                        <SelectItem value="400" className="truncate">Regular (400)</SelectItem>
+                                                        <SelectItem value="500" className="truncate">Medium (500)</SelectItem>
+                                                        <SelectItem value="600" className="truncate">Semi Bold (600)</SelectItem>
+                                                        <SelectItem value="700" className="truncate">Bold (700)</SelectItem>
+                                                        <SelectItem value="800" className="truncate">Extra Bold (800)</SelectItem>
+                                                        <SelectItem value="900" className="truncate">Black (900)</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
 
-                                                    <AlignVerticalJustifyEnd className="w-4 h-4" />
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="hover:bg-background"
-                                                    onClick={() => setTextStyle((prev) => ({
-                                                        ...prev,
-                                                        verticalAlignment: 50
-                                                    }))}
+                                            {/* FONT FAMILY */}
+                                            <div className="flex flex-col items-start">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Font Family
+                                                </label>
+                                                <Select
+                                                    value={textStyle.fontFamily}
+                                                    onValueChange={handleFontFamilyChange}
                                                 >
+                                                    <SelectTrigger className="w-full bg-background font-[500] truncate">
+                                                        <SelectValue placeholder="Select font" />
+                                                    </SelectTrigger>
+                                                    <SelectContent className="bg-background font-[500]">
+                                                        <SelectItem value="TikTok" className="truncate">TikTok Font</SelectItem>
+                                                        <SelectItem value="Montserrat" className="truncate">Montserrat</SelectItem>
+                                                        <SelectItem value="Inter" className="truncate">Inter</SelectItem>
+                                                        <SelectItem value="Komika" className="truncate">MrBeast Font</SelectItem>
+                                                        <SelectItem value="TheBoldFont" className="truncate">Alex Hormozi Font</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
 
-                                                    <AlignVerticalJustifyCenter className="w-4 h-4" />
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="hover:bg-background"
-                                                    onClick={() => setTextStyle((prev) => ({
-                                                        ...prev,
-                                                        verticalAlignment: 80
-                                                    }))}
-                                                >
+                                            {/* TEXT COLOR */}
+                                            <div className="flex flex-col items-start">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Text Color
+                                                </label>
+                                                <div className="w-full">
+                                                    <ColorPicker
+                                                        value={textStyle.textColor}
+                                                        onChange={(c) => {
+                                                            setTextStyle(prev => ({
+                                                                ...prev,
+                                                                textColor: c.toHexString(),
+                                                            }))
+                                                        }}
+                                                        showText
+                                                        allowClear
+                                                        className="p-[0.325rem] hover:border-primary/80" />
+                                                </div>
+                                            </div>
 
-                                                    <AlignVerticalJustifyStart className="w-4 h-4" />
-                                                </Button>
+                                            {/* STROKE COLOR */}
+                                            <div className="flex flex-col items-start">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Stroke Color
+                                                </label>
+                                                <div className="w-full">
+                                                    <ColorPicker
+                                                        defaultValue="#000"
+                                                        showText
+                                                        allowClear
+                                                        className="p-[0.325rem] hover:border-primary/80"
+                                                        onChange={(c) => {
+                                                            setTextStyle(prev => ({
+                                                                ...prev,
+                                                                strokeColor: c.toHexString(),
+                                                            }))
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            {/* SHADOW COLOR */}
+                                            <div className="flex flex-col items-start">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Shadow Color
+                                                </label>
+                                                <div className="w-full">
+                                                    <ColorPicker
+                                                        defaultValue="#000"
+                                                        showText
+                                                        allowClear
+                                                        className="p-[0.325rem] hover:border-primary/80"
+                                                        onChange={(c) => {
+                                                            setTextStyle(prev => ({
+                                                                ...prev,
+                                                                shadowColor: c.toHexString(),
+                                                            }))
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            {/* UPPERCASE */}
+                                            <div className="flex flex-col items-start">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Uppercase
+                                                </label>
+                                                <Switch
+                                                    checked={textStyle.uppercase || textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
+                                                    disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
+                                                    onCheckedChange={handleUppercaseChange}
+                                                />
+                                            </div>
+
+                                            {/* VERTICAL ALIGNMENT */}
+                                            <div className="flex flex-col items-start">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Vertical Alignment
+                                                </label>
+                                                {/* make a slider for vertical alignment and below it 3 settings for top, center, bottom*/}
+                                                {/* complete  */}
+                                                <div className="w-full space-y-3">
+                                                    <Input
+                                                        type="number"
+                                                        value={textStyle.verticalAlignment}
+                                                        min={10}
+                                                        max={90}
+                                                        onChange={handleVerticalAlignmentChange}
+                                                        className="w-full bg-background pl-3 font-[500]"
+                                                    />
+                                                    <Slider
+                                                        defaultValue={[50]}
+                                                        max={90}
+                                                        min={10}
+                                                        step={1}
+                                                        value={[textStyle.verticalAlignment]}
+                                                        onValueChange={(e) =>
+                                                            setTextStyle((prev) => ({
+                                                                ...prev,
+                                                                verticalAlignment: e[0]
+                                                            }))
+                                                        } />
+                                                </div>
+                                                <div className="flex flex-row items-center justify-between w-full mt-2">
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="hover:bg-background"
+                                                        onClick={() => setTextStyle((prev) => ({
+                                                            ...prev,
+                                                            verticalAlignment: 20
+                                                        }))}
+                                                    >
+
+                                                        <AlignVerticalJustifyEnd className="w-4 h-4" />
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="hover:bg-background"
+                                                        onClick={() => setTextStyle((prev) => ({
+                                                            ...prev,
+                                                            verticalAlignment: 50
+                                                        }))}
+                                                    >
+
+                                                        <AlignVerticalJustifyCenter className="w-4 h-4" />
+                                                    </Button>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="hover:bg-background"
+                                                        onClick={() => setTextStyle((prev) => ({
+                                                            ...prev,
+                                                            verticalAlignment: 80
+                                                        }))}
+                                                    >
+
+                                                        <AlignVerticalJustifyStart className="w-4 h-4" />
+                                                    </Button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
                 </div>

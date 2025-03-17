@@ -12,6 +12,7 @@ interface Photo {
     id: number;
     url: string;
     alt: string;
+    name?: string;
 }
 
 interface PhotoListProps {
