@@ -60,7 +60,7 @@ export async function POST(req: Request) {
                 prompt,
                 num_images: 1,
                 enable_safety_checker: true,
-                safety_tolerance: "4",
+                safety_tolerance: "3",
                 output_format: "jpeg",
                 aspect_ratio: "9:16",
                 raw: true
