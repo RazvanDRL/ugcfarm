@@ -6,6 +6,8 @@ async function main() {
     }).then((res: any) => {
         let txs = res.data.filter((tx: any) => tx.refunded === false);
 
+        console.log(txs.length);
+
         // Create an object to track counts by amount
         const amountCounts: Record<number, number> = {};
         const totalTransactions = txs.length;
