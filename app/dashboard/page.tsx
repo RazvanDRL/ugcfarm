@@ -425,40 +425,17 @@ export default function Page() {
         getUser()
     }, [])
 
-    // check if avatar is local or not
-
-    useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const local = urlParams.get('local');
-
-        if (local === "true") {
-            setIsLocal(true)
-        }
-
-        const operationId = urlParams.get('operationId');
-        if (operationId) {
-            setOperationId(operationId)
-        }
-    }, [])
-
     // if operationId is set, fetch the video from the creator
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const operationId_param = urlParams.get('operationId');
-
-        let o_id = operationId_param || operationId;
-
-        if (o_id) {
+        if (operationId) {
             const fetchStatus = async () => {
-                const data = await fetch(`/api/creator/poll?operationId=${o_id}`)
+                const data = await fetch(`/api/creator/poll?operationId=${operationId}`)
                 const json = await data.json()
-
-                console.log(json.progress)
-
                 setProgress(json.progress)
                 if (json.state === "COMPLETE") {
                     clearInterval(intervalId)
                     setCompletedVideo(json.url)
+                    setOperationId(null)
                 }
             }
 
@@ -493,7 +470,7 @@ export default function Page() {
         if (selectedPhotoId >= 129) {
             setInputProps(prev => ({
                 ...prev,
-                text: "Hatz",
+                text: sentences[index],
                 videoUrl: transformed_vids.find(v => v.id === selectedPhotoId)?.url || "",
                 video_duration: 125,
                 hook_duration: 125,
@@ -1161,7 +1138,6 @@ export default function Page() {
     const onPhotoSelect = (id: number) => {
         if (id > 129) {
             setIsLocal(true)
-            window.history.replaceState({}, '', `${window.location.pathname}?local=true`)
         }
         setSelectedPhotoId(id)
     }
@@ -1339,9 +1315,6 @@ export default function Page() {
                     const data = await response.json()
 
                     setOperationId(data.operationId)
-                    const params = new URLSearchParams(window.location.search)
-                    params.set('operationId', data.operationId)
-                    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
                 }
             }
         } catch (error) {
@@ -1686,7 +1659,7 @@ export default function Page() {
                                             </div>
                                         )}
                                     </Button>
-                                ) : !operationId && (
+                                ) : !operationId && !completed_video && (
                                     <div className="flex flex-col text-right w-full justify-end">
                                         <Button onClick={createVideo} className="w-fit mb-2 ml-auto">
                                             Create video
