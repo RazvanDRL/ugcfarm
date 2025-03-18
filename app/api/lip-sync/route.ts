@@ -2,13 +2,6 @@ import { NextResponse } from 'next/server';
 import { fal } from "@fal-ai/client";
 import { supabase } from '@/lib/supabase/admin/supabase';
 
-interface ExtendedLatentsyncInput {
-    video_url: string;
-    audio_url: string;
-    loop_mode: "pingpong" | "loop" | "none";
-    guidance_scale: number;
-}
-
 function decode(url: string) {
     return url.replace('/avatars/', '/b1f096cf-7297-4d47-83f8-ca478330fce1/8d8e77a3-1def-4221-9abb-1e8e5917db58/d478e4cc-54e0-4aa4-962c-de1591a49546/')
 }
@@ -71,17 +64,19 @@ export async function POST(req: Request) {
             credentials: process.env.FAL_KEY
         });
 
-        console.log(data.url, video_url)
-        const result = await fal.subscribe("fal-ai/latentsync", {
+        const result = await fal.subscribe("fal-ai/sync-lipsync", {
             input: {
+                model: "lipsync-1.9.0-beta",
                 video_url: video_url,
                 audio_url: data.url,
-                loop_mode: "pingpong"
-            } as ExtendedLatentsyncInput,
+                sync_mode: "bounce"
+            },
             logs: true,
         });
 
         const url = result.data.video.url
+
+        console.log(url)
 
         return NextResponse.json({ url })
     } catch (error) {

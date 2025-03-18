@@ -431,6 +431,7 @@ export default function Page() {
             const fetchStatus = async () => {
                 const data = await fetch(`/api/creator/poll?operationId=${operationId}`)
                 const json = await data.json()
+                console.log(json)
                 setProgress(json.progress)
                 if (json.state === "COMPLETE") {
                     clearInterval(intervalId)

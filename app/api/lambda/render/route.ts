@@ -79,6 +79,8 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
 
       const video_data = await response.json()
 
+      console.log(video_data)
+
       const metadata = await parseMedia({
         src: video_data.url,
         fields: {
@@ -86,10 +88,12 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
         },
       });
 
-      let hook_duration = Math.round(metadata.slowDurationInSeconds * 30)
+      console.log(metadata)
 
+      let hook_duration = Math.round(metadata.slowDurationInSeconds * 30)
+      body.inputProps.video_duration = body.inputProps.video_duration - body.inputProps.hook_duration;
+      body.inputProps.video_duration = body.inputProps.video_duration + hook_duration;
       body.inputProps.hook_duration = hook_duration
-      body.inputProps.videoUrl = video_data.url
       body.inputProps.videoUrl = video_data.url
     } else {
       body.inputProps.videoUrl = decode(body.inputProps.videoUrl)
