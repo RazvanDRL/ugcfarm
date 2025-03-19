@@ -1302,6 +1302,10 @@ export default function Page() {
 
                     const response = await fetch('/api/creator/submit', {
                         method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
                         body: JSON.stringify({
                             videoId: id,
                             script: sentences[index],

@@ -76,8 +76,6 @@ const reviews: Review[] = [
 export default function Landing() {
     const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     const ref = params ? params.get('ref') : null;
-    const [showCornerCard, setShowCornerCard] = useState(true);
-    const [hasSubmittedEmail, setHasSubmittedEmail] = useState(false);
     const videoRefs = useRef<{ video1: HTMLVideoElement | null; video2: HTMLVideoElement | null }>({ video1: null, video2: null });
     const [isVideosPlaying, setIsVideosPlaying] = useState(false);
     const [videosEnded, setVideosEnded] = useState(false);
@@ -727,42 +725,6 @@ export default function Landing() {
             </main >
             <Footer />
             {/* <PurchaseNotification /> */}
-
-            {/* Corner Card */}
-            {showCornerCard && !hasSubmittedEmail && (
-                <Card className="hidden md:block fixed bottom-20 right-4 p-4 w-[300px] shadow-lg z-50 animate-in slide-in-from-right">
-                    <div className="flex justify-between items-start mb-3">
-                        <h3 className="text-lg font-bold text-[#1a1a1a]">
-                            Get a <span className="text-primary font-black">FREE</span> UGC Video
-                        </h3>
-                        <button
-                            onClick={() => setShowCornerCard(false)}
-                            className="text-gray-500 hover:text-gray-700 transition-colors"
-                        >
-                            <X className="h-4 w-4" />
-                        </button>
-                    </div>
-                    <p className="text-sm text-[#1a1a1a]/60 mb-4">
-                        Login to receive a free professional UGC video for your brand.
-                    </p>
-                    {/* <form onSubmit={handleSubmit} className="space-y-3"> */}
-                    {/* <Input
-                            type="email"
-                            placeholder="you@example.com"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            className="placeholder:font-[500]"
-                        /> */}
-                    <Link href="/login">
-                        <ButtonSmall type="submit" className="w-full font-[600] text-sm">
-                            Get my free video&nbsp;&nbsp;&rarr;
-                        </ButtonSmall>
-                    </Link>
-                    {/* </form> */}
-                </Card>
-            )}
-
             {/* <Dialog open={showDialog && !hasSubmittedEmail} onOpenChange={setShowDialog}>
                 <DialogContent className="sm:max-w-md gap-8">
                     <DialogHeader>
