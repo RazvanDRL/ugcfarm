@@ -26,7 +26,7 @@ const age_options = ["young", "adult", "middle-aged", "senior", "elderly"]
 const body_options = ["slim", "petite", "curvy", "tall", "muscular"]
 const skin_tone_options = ["light", "tan", "dark"]
 const hair_options = ["long", "short", "curly"]
-const pose_options = ["standing", "sitting", "lying down", "posing"]
+const pose_options = ["standing", "sitting", "posing"]
 const background_options = [
     "city", "nature", "beach", "mountains", "forest", "desert", "snow", "space", "indoor", "outdoor",
     "boutique", "runway", "studio", "street style", "office", "evening venue",

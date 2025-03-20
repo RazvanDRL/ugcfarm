@@ -1918,7 +1918,7 @@ export default function Page() {
                                     <div className="flex flex-col items-start p-6">
                                         <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
                                             <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                                3. Choose your video <span className="text-xs opacity-80 font-[500]">(optional)</span>{selectedDemoId === 0 ? <span className="text-xs text-primary font-[500]"> - no video selected</span> : ''}
+                                                3. Choose your product video <span className="text-xs opacity-80 font-[500]">(optional)</span>{selectedDemoId === 0 ? <span className="text-xs text-primary font-[500]"> - no video selected</span> : ''}
                                             </p>
                                             {demos.length > 0 &&
                                                 <div className="flex flex-row items-center gap-2">
