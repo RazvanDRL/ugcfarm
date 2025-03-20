@@ -15,7 +15,7 @@ export const metadata: Metadata = {
         locale: "en_US",
         images: [
             {
-                url: "https://ugc.farm/og-image.png", // Create this image
+                url: "https://ugc.farm/opengraph-image.png", // Create this image
                 width: 1200,
                 height: 630,
                 alt: "UGC Farm FAQ and Help Center",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "UGC Farm FAQ - Get Quick Answers to Common Questions",
         description: "Find answers to common questions about UGC Farm's services, content creation, and platform features.",
-        images: ["https://ugc.farm/og-image.png"],
+        images: ["https://ugc.farm/opengraph-image.png"],
     },
     alternates: {
         canonical: "https://ugc.farm/faq",

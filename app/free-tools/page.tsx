@@ -22,7 +22,7 @@ export const metadata: Metadata = {
         locale: "en_US",
         images: [
             {
-                url: "https://ugc.farm/og-image.png", // Add your actual OG image path
+                url: "https://ugc.farm/opengraph-image.png", // Add your actual OG image path
                 width: 1200,
                 height: 630,
                 alt: "UGC Farm Free AI Writing Tools",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Free AI Writing Tools | UGC Farm",
         description: "Boost your content creation with our free AI writing tools. Designed for modern creators and marketers.",
-        images: ["https://ugc.farm/og-image.png"], // Same as OG image
+        images: ["https://ugc.farm/opengraph-image.png"], // Same as OG image
     },
     keywords: "AI writing tools, free AI tools, content creation, UGC Farm, writing assistant, AI content",
     robots: {

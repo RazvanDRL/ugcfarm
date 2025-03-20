@@ -43,7 +43,7 @@ export const metadata: Metadata = {
         locale: "en_US",
         images: [
             {
-                url: "https://ugc.farm/og-image.png", // Create this image
+                url: "https://ugc.farm/opengraph-image.png", // Create this image
                 width: 1200,
                 height: 630,
                 alt: "UGC Farm Platform Overview",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "How UGC Farm Works - Generate Content 100x Faster",
         description: "Discover how our AI-powered platform revolutionizes UGC creation. Create professional, authentic content in minutes instead of weeks.",
-        images: ["https://ugc.farm/og-image.png"],
+        images: ["https://ugc.farm/opengraph-image.png"],
     },
     alternates: {
         canonical: "https://ugc.farm/how-it-works",

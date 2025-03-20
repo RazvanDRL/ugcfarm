@@ -37,7 +37,7 @@ export const metadata: Metadata = {
         locale: "en_US",
         images: [
             {
-                url: "/og-image.png",
+                url: "/opengraph-image.png",
                 width: 1200,
                 height: 630,
                 alt: "AI Marketing Plan Generator Tool",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Free Marketing Plan Generator | AI-Powered Business Strategy Tool",
         description: "Generate comprehensive, data-driven marketing plans instantly. Transform your business strategy with AI.",
-        images: ["/og-image.png"],
+        images: ["/opengraph-image.png"],
     },
     alternates: {
         canonical: "https://ugc.farm/free-tools/marketing-plan-generator",

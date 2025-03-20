@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/og-image.png", // Create an engaging blog homepage OG image
+        url: "/opengraph-image.png", // Create an engaging blog homepage OG image
         width: 1200,
         height: 630,
         alt: "UGC Farm Blog - Expert Tips for Creators",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "UGC Creator Blog | Expert Tips & Strategies",
     description: "Expert advice, tips, and strategies for UGC creators. Learn how to create better content, grow your business, and increase your earnings.",
-    images: ["/og-image.png"],
+    images: ["/opengraph-image.png"],
   },
   alternates: {
     canonical: "https://ugc.farm/blogs",

@@ -17,7 +17,7 @@ export const metadata = {
         url: "https://ugc.farm/affiliates",
         images: [
             {
-                url: "/og-image.png",
+                url: "/opengraph-image.png",
                 width: 1200,
                 height: 630,
                 alt: "UGC Farm Affiliate Program",
@@ -28,7 +28,7 @@ export const metadata = {
         card: "summary_large_image",
         title: "Join UGC Farm's Affiliate Program - Earn Up to 40% Commission",
         description: "Partner with UGC Farm and earn generous commissions for every referral. Benefit from lifetime tracking, instant payouts, and exclusive affiliate perks.",
-        images: ["/og-image.png"],
+        images: ["/opengraph-image.png"],
     },
     alternates: {
         canonical: "https://ugc.farm/affiliates",

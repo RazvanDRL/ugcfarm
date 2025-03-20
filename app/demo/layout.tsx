@@ -10,7 +10,7 @@ export const metadata: Metadata = {
         url: 'https://ugc.farm/demo',
         images: [
             {
-                url: '/og-image.png', // Make sure to add this image to your public folder
+                url: '/opengraph-image.png', // Make sure to add this image to your public folder
                 width: 1200,
                 height: 630,
                 alt: 'UGC Farm Demo Videos',
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: 'Demo Videos | UGC Farm',
         description: 'Watch how brands are using UGC Farm to create converting content. See real examples of user-generated content created through our platform.',
-        images: ['/og-image.png'], // Make sure to add this image to your public folder
+        images: ['/opengraph-image.png'], // Make sure to add this image to your public folder
     },
 }
 

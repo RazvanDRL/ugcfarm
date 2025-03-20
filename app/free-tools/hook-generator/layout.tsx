@@ -39,7 +39,7 @@ export const metadata: Metadata = {
         locale: "en_US",
         images: [
             {
-                url: "/og-image.png", // Create a custom OG image
+                url: "/opengraph-image.png", // Create a custom OG image
                 width: 1200,
                 height: 630,
                 alt: "Social Media Hook Generator Tool",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Free Social Media Hook Generator | Create Converting Hooks",
         description: "Generate scroll-stopping hooks for Facebook, Instagram, and TikTok that drive traffic and sales.",
-        images: ["/og-image.png"],
+        images: ["/opengraph-image.png"],
     },
     alternates: {
         canonical: "https://ugc.farm/free-tools/hook-generator",

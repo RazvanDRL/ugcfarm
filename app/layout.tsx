@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "UGC Farm - Automated UGC Content Creation Platform",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     // site: "@ugcfarm",
     images: [
       {
-        url: "/og-image.png",
+        url: "/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "UGC Farm - Automated UGC Content Creation Platform",

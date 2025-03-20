@@ -15,7 +15,7 @@ export const jsonLd = {
                 "target": "https://ugc.farm/search?q={search_term_string}",
                 "query-input": "required name=search_term_string"
             },
-            "image": "/og-image.png"
+            "image": "/opengraph-image.png"
         },
         {
             "@type": "Organization",
