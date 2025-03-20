@@ -13,6 +13,7 @@ import { FAQ } from "@/components/faq";
 import { Card } from "@/components/ui/card"
 import { jsonLd } from './json-ld'
 import { useState, useEffect, useRef } from "react";
+import { PurchaseNotification } from "@/components/purchase-notification";
 
 const withoutUGC = [{
     title: "Other UGC platforms",
@@ -724,7 +725,7 @@ export default function Landing() {
                 </div>
             </main >
             <Footer />
-            {/* <PurchaseNotification /> */}
+            <PurchaseNotification />
             {/* <Dialog open={showDialog && !hasSubmittedEmail} onOpenChange={setShowDialog}>
                 <DialogContent className="sm:max-w-md gap-8">
                     <DialogHeader>

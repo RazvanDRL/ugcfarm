@@ -7,7 +7,7 @@ export function DiscountBanner() {
             <Link href="#pricing" className="font-[800] text-xs md:text-base hover:underline flex items-center gap-2">
                 <Sparkles className="h-4 w-4" />
                 <span>
-                    Launch Offer: Save $50 on Creator Plan
+                    Launch Offer: Up to 60% off on all plans
                 </span>
             </Link>
         </div>

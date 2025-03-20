@@ -4,45 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { cn } from "@/lib/utils";
 import { CheckCircle2 } from "lucide-react";
 import Image from 'next/image';
-
-interface PurchaseNotification {
-    name: string;
-    product: string;
-    timestamp: number;
-}
-
-const purchases: PurchaseNotification[] = [
-    {
-        name: "David R.",
-        product: "Creator Plan",
-        timestamp: 1738087200000
-    },
-    {
-        name: "Lucas M.",
-        product: "Starter Plan",
-        timestamp: 1738051200000
-    },
-    {
-        name: "Sara M.",
-        product: "Starter Plan",
-        timestamp: 1737979200000
-    },
-    {
-        name: "Lloyd P.",
-        product: "Creator Plan",
-        timestamp: 1737975600000
-    },
-    {
-        name: "Dylan T.",
-        product: "Starter Plan",
-        timestamp: 1737943200000
-    },
-    {
-        name: "Aleksandr I.",
-        product: "Starter Plan",
-        timestamp: 1737887290432
-    },
-];
+import purchases from '@/purchases.json';
+import { Purchase } from '@/genPurchases';
 
 const calculateHoursAgo = (timestamp: number): number => {
     const now = Date.now();
@@ -51,7 +14,7 @@ const calculateHoursAgo = (timestamp: number): number => {
 };
 
 export function PurchaseNotification() {
-    const [currentPurchase, setCurrentPurchase] = useState<PurchaseNotification | null>(null);
+    const [currentPurchase, setCurrentPurchase] = useState<Purchase | null>(null);
     const [isVisible, setIsVisible] = useState(false);
     const [shownPurchases, setShownPurchases] = useState<number[]>([]);
 
@@ -80,13 +43,13 @@ export function PurchaseNotification() {
                 setTimeout(() => {
                     currentIndex = (currentIndex + 1) % purchases.length;
                 }, 300);
-            }, 5000);
+            }, 3000);
         };
 
         const initialTimeout = setTimeout(() => {
             showNotification();
-            intervalId = setInterval(showNotification, 6000);
-        }, 30000);
+            intervalId = setInterval(showNotification, 2000);
+        }, 5000);
 
         return () => {
             clearTimeout(initialTimeout);
