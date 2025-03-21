@@ -60,9 +60,9 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
             popular: false
         },
         {
-            title: "Creator",
+            title: "Scale your store",
             emoji: "🚀",
-            description: "All you need to get started",
+            description: "All you need to scale your store",
             price: !referral ? 49 : (49 * 0.7).toFixed(2),
             originalPrice: 99,
             features: [
@@ -70,19 +70,19 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                 "$0.98 per video",
                 "Lip Sync",
                 "Try-on clothes",
-                "190+ UGC avatars",
+                "330+ UGC avatars",
                 "Custom avatars",
                 "Viral Hook Generator",
                 <Link key="affiliate_essential" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
             ],
-            cta: "Get Started",
+            cta: "Scale Now",
             paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_2,
             popular: true
         },
         {
-            title: "Business",
+            title: "Agency",
             emoji: "🏆",
-            description: "Perfect for businesses",
+            description: "Perfect for agencies",
             price: !referral ? 139 : (139 * 0.7).toFixed(2),
             originalPrice: 199,
             features: [
@@ -90,12 +90,12 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                 "$0.73 per video",
                 "Lip Sync",
                 "Try-on clothes",
-                "190+ UGC avatars",
+                "330+ UGC avatars",
                 "Custom avatars",
                 "Viral Hook Generator",
                 <Link key="affiliate_essential" href="/affiliates" className='hover:underline'>Affiliate program</Link>,
             ],
-            cta: "Scale Now",
+            cta: "Get Started",
             paymentLink: process.env.NEXT_PUBLIC_STRIPE_LINK_ID_3,
             popular: false
         }
@@ -198,14 +198,6 @@ const Pricing: React.FC<PricingProps> = ({ id, className, user, referral }) => {
                     </Link>
 
                 </div> */}
-
-                {/* Pay with crypto */}
-                <div className="mt-6 text-center">
-                    <Link href="/crypto">
-                        <h2 className={cn("text-lg font-mono text-muted-foreground hover:underline")}>or pay with crypto</h2>
-                    </Link>
-                </div>
-
                 <Link href="https://stripe.com/" rel="noopener noreferrer" target="_blank" className="flex items-center grayscale justify-center mt-4 h-10">
                     <Lock className="h-4 w-4 text-gray-400 mr-2" />
                     <span className="text-sm text-gray-500">Secured by</span>

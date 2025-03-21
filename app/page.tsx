@@ -16,22 +16,22 @@ import { useState, useEffect, useRef } from "react";
 import { PurchaseNotification } from "@/components/purchase-notification";
 
 const withoutUGC = [{
-    title: "Other UGC platforms",
+    title: "Traditional UGC",
     list: [
-        "not focused on ecommerce",
-        "can't wear your clothes",
-        "require video editing skills",
-        "annoying subscription",
+        "expensive to scale ($50-$90/video)",
+        "takes 3-5 days to complete",
+        "can't control the quality",
+        "risk unwanted drama",
     ]
 }]
 
 const withUGC = [{
     title: "UGC Farm",
     list: [
-        "made for ecom",
-        "can wear AND talk about your product",
-        "NO video editing skills required",
-        "pay only for the videos you use",
+        "scalable (~ $1/video)",
+        "done in a 5 clicks",
+        "tweak anything to your liking",
+        "no creator drama",
     ]
 }]
 
@@ -80,6 +80,7 @@ export default function Landing() {
     const videoRefs = useRef<{ video1: HTMLVideoElement | null; video2: HTMLVideoElement | null }>({ video1: null, video2: null });
     const [isVideosPlaying, setIsVideosPlaying] = useState(false);
     const [videosEnded, setVideosEnded] = useState(false);
+    const [userCountry, setUserCountry] = useState<{ country_flag: string, country_name: string, language: string | null } | null>(null);
 
     const handlePlayVideos = () => {
         if (videoRefs.current.video1 && videoRefs.current.video2) {
@@ -124,6 +125,34 @@ export default function Landing() {
         }
     }, []);
 
+    // fetch user country
+    useEffect(() => {
+        const fetchUserCountry = async () => {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch location data');
+                }
+                const data = await response.json();
+                const displayNames = new Intl.DisplayNames(['en'], { type: 'language' });
+                const languageName = data.languages ? displayNames.of(data.languages.split(',')[0]) : null;
+
+                setUserCountry({
+                    country_flag: `https://purecatamphetamine.github.io/country-flag-icons/3x2/${data.country}.svg`,
+                    country_name: data.country_name,
+                    language: languageName || data.country_name
+                });
+            } catch (error) {
+                console.error('Error fetching user country:', error);
+            }
+        };
+
+        // Only run in browser environment
+        if (typeof window !== 'undefined') {
+            fetchUserCountry();
+        }
+    }, []);
+
     return (
         <>
             <script
@@ -157,44 +186,30 @@ export default function Landing() {
                                 <span className="text-primary">5 stars</span> from 100+ customers
                             </p>
                         </div> */}
-                        <div className="flex flex-col items-center justify-center gap-1">
-                            <div className="flex items-center justify-center gap-[0.5px]">
-                                {[...Array(5)].map((_, index) => (
-                                    <Star key={index} className="w-4 h-4 fill-primary text-primary" />
-                                ))}
+                        {[
+                            { text: "Got a 43% better CPC", className: "flex" },
+                            { text: "AI UGC that shows my product", className: "hidden md:flex" },
+                            { text: "Perfect for my ad creatives", className: "hidden md:flex" }
+                        ].map((review, reviewIndex) => (
+                            <div key={reviewIndex} className={`${review.className} flex-col items-center justify-center gap-1`}>
+                                <div className="flex items-center justify-center gap-[0.5px]">
+                                    {[...Array(5)].map((_, index) => (
+                                        <Star key={index} className="w-4 h-4 fill-primary text-primary" />
+                                    ))}
+                                </div>
+                                <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
+                                    {review.text}
+                                </p>
                             </div>
-                            <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
-                                No subscription required
-                            </p>
-                        </div>
-                        <div className="hidden md:flex flex-col items-center justify-center gap-1">
-                            <div className="flex items-center justify-center gap-[0.5px]">
-                                {[...Array(5)].map((_, index) => (
-                                    <Star key={index} className="w-4 h-4 fill-primary text-primary" />
-                                ))}
-                            </div>
-                            <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
-                                Ads that show MY product
-                            </p>
-                        </div>
-                        <div className="hidden md:flex flex-col items-center justify-center gap-1">
-                            <div className="flex items-center justify-center gap-[0.5px]">
-                                {[...Array(5)].map((_, index) => (
-                                    <Star key={index} className="w-4 h-4 fill-primary text-primary" />
-                                ))}
-                            </div>
-                            <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
-                                All languages supported
-                            </p>
-                        </div>
+                        ))}
                     </div>
 
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Automated UGC for e-commerce brands
+                            From Product to UGC Video in 5 Clicks
                         </h1>
                         <p className="text-lg md:text-xl font-[600] text-[#1a1a1a] opacity-60 text-center">
-                            Create 60+ viral ads with AI UGC in minutes
+                            No Creator Drama. No Waiting Times. Perfect for Clothing Stores.
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             {/* <MagneticButton> */}
@@ -204,7 +219,7 @@ export default function Landing() {
                                     variant="default"
                                     className="hover:scale-[1.05] transition-all duration-300"
                                 >
-                                    Start now
+                                    Start creating
                                 </Button>
 
                             </Link>
@@ -317,7 +332,7 @@ export default function Landing() {
                     {/* problem agitation */}
                     <div className="flex flex-col items-center justify-center space-y-8 py-12 w-full">
                         <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            Why choose us for your ecommerce brand?
+                            Why choose us for your store?
                         </h2>
                         {/* 2 cards side by side */}
                         <div className="mt-16 flex flex-col sm:flex-row items-stretch justify-center gap-6 w-full">
@@ -340,6 +355,16 @@ export default function Landing() {
                                 </ul>
                             </div>
                         </div>
+
+                        {/* CTA */}
+                        <Link href="/#pricing" className="pt-12">
+                            <Button
+                                variant="default"
+                                className="hover:scale-[1.05] transition-all duration-300"
+                            >
+                                Try it now&nbsp;&nbsp;&rarr;
+                            </Button>
+                        </Link>
                     </div>
 
                     {/* features */}
@@ -493,6 +518,12 @@ export default function Landing() {
                             <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a]">
                                 29 languages
                             </h2>
+                            <span className="text-base font-[600] flex items-center gap-2">
+                                &rarr;&nbsp;&nbsp;yes, even in<span className="underline">{userCountry?.language || userCountry?.country_name + " language"}</span>
+                                {userCountry?.country_flag && (
+                                    <img src={userCountry?.country_flag} alt={userCountry?.language || userCountry?.country_name} className="w-6 h-4 inline-block rounded-[2px]" />
+                                )}
+                            </span>
                             <p className="text-lg font-[600] text-[#1a1a1a] opacity-60">
                                 Break language barriers and scale your brand worldwide. Create UGC videos in any language to connect with customers on every continent.
                             </p>
@@ -538,10 +569,10 @@ export default function Landing() {
                     <div className="flex flex-col md:flex-row-reverse items-start justify-between gap-8 py-16 w-full">
                         <div className="w-full md:w-1/2 space-y-6">
                             <h2 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a]">
-                                Dress AI with your clothes
+                                Dress models with your products
                             </h2>
                             <p className="text-lg font-[600] text-[#1a1a1a] opacity-60">
-                                Display your product 100% with AI, our creators can now dress up in your brand&apos;s clothing.
+                                Simply Drag & Drop your item and a model of your choice will wear it in a static photo, or actual video
                             </p>
                             <Link href="/#pricing">
                                 <ButtonSmall
@@ -712,11 +743,11 @@ export default function Landing() {
                         />
                         <div className="absolute inset-0 flex flex-col items-center space-y-8 justify-center z-10">
                             <h2 className="text-4xl md:text-5xl text-primary font-[900] text-center">
-                                Ready to get started?
+                                Get better results, faster.
                             </h2>
                             <Link href="/#pricing">
                                 <Button variant="default" className="hover:scale-[1.05] hover:bg-primary/90 bg-primary text-background transition-all duration-300">
-                                    Start now
+                                    Start Creating Today
                                     <ArrowRight />
                                 </Button>
                             </Link>

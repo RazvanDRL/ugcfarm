@@ -12,34 +12,41 @@ interface FAQ {
 }
 
 export const faq: FAQ[] = [
-
+    {
+        category: "Business Questions",
+        question: "I'm already spending a lot on ads. How will this actually save me money?",
+        answer: "Traditional UGC can cost hundreds of dollars per video, and you're often stuck with what you get. With UGC.Farm, you pay only for the videos you use, and you have complete control over the creative process. Many of our users see a significant drop in their cost-per-click (CPC) and a better return on their ad spend. Think of it as getting more, higher-quality content for a fraction of the cost."
+    },
+    {
+        category: "Product Questions",
+        question: "AI-generated videos...will they look fake or robotic? My brand is important to me.",
+        answer: "We understand! That's why we use cutting-edge AI technology to create realistic, engaging videos. The lip-syncing is precise, and the \"try-on\" feature lets you showcase your products on the models. You can see examples on our site – we're confident you'll be impressed. Plus, you can always tweak the script and choose the model that best fits your brand."
+    },
+    {
+        category: "Getting Started",
+        question: "I'm not a video editor. How easy is this to actually use?",
+        answer: "It's designed to be super simple. You don't need any video editing skills. It's basically a few clicks: choose your model, add your product image or link, customize the script (or use our AI generator), and generate your video. We've had users create dozens of videos in minutes."
+    },
+    {
+        category: "Product Questions",
+        question: "What if I don't like the video? Am I stuck with it?",
+        answer: "Absolutely not! You have complete control. You can regenerate videos with different models, scripts, or hooks until you're happy."
+    },
+    {
+        category: "Product Questions",
+        question: "How does the \"try-on\" feature work? Do I need professional photos of my products?",
+        answer: "You don't need professional photos. A clear image of your product (even a simple one taken with your phone) is usually enough. The AI will realistically \"dress\" the model in your clothing. It works best with simple designs, but we're constantly improving the technology."
+    },
+    {
+        category: "Business Questions",
+        question: "How does this compare to other AI video tools?",
+        answer: "Many other tools are either focused on general video creation or require significant editing. UGC.Farm is specifically designed for clothing stores and e-commerce brands looking to create UGC-style ads quickly and affordably. The \"try-on\" feature is a key differentiator, and our pricing is designed to be flexible and cost-effective."
+    },
     {
         category: "Getting Started",
         question: "Is this a subscription?",
         answer: "No, this is a one-time payment. You pay for what you need, when you need it. You can top-up your account with more videos at any time."
     },
-    // Getting Started
-    {
-        category: "Getting Started",
-        question: "How does UGC.FARM generate Reels content?",
-        answer: "Our AI technology analyzes thousands of high-performing Reel videos to generate scroll-stopping hooks specifically for your brand. Each hook is crafted using proven patterns that drive engagement and conversions."
-    },
-    {
-        category: "Getting Started",
-        question: "What makes UGC.FARM different from traditional UGC creators?",
-        answer: "Unlike traditional UGC creators who charge from $1500/month with 3-5 days wait times, UGC.FARM generates professional content instantly at a fraction of the cost. Our AI-powered platform ensures consistent quality and unlimited revisions without the hassle of managing creators."
-    },
-    {
-        category: "Getting Started",
-        question: "Can I see examples of UGC.FARM videos?",
-        answer: "Yes! Check out our demo section to see real examples of AI-generated UGC videos across different industries and niches. Each example showcases our platform's capability to create authentic, converting content."
-    },
-    // Business Questions
-    {
-        category: "Business Questions",
-        question: "How is UGC.Farm different from reel.farm and other UGC automation tools?",
-        answer: "While platforms like reel.farm focus primarily on TikTok automation, UGC.Farm was built specifically for store owners who need to drive website traffic across multiple platforms."
-    }
 ];
 
 export function FAQ() {

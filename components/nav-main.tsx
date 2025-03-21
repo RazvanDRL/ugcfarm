@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ArrowUpRight, ChevronRight, type LucideIcon } from "lucide-react"
 import { supabase } from "@/lib/supabase/client/supabase"
 import {
   Collapsible,
@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
+import Link from "next/link"
 
 export function NavMain({
   items,
@@ -96,7 +97,7 @@ export function NavMain({
   return (
     <SidebarGroup>
       {/* FEEDBACK BUTTON */}
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      {/* <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogTrigger asChild>
           <Button variant="outline" className="w-full bg-primary text-primary-foreground">
             GET 3 CREDITS FREE
@@ -129,7 +130,12 @@ export function NavMain({
             </Button>
           </DialogFooter>
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
+      <Button variant="outline" className="w-full" asChild>
+        <Link href="https://insigh.to/b/ugc-farm" target="_blank">
+          <span className="flex items-center gap-1">Suggest a feature <ArrowUpRight className="w-4 h-4" /></span>
+        </Link>
+      </Button>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (

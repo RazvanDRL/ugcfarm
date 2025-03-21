@@ -38,6 +38,9 @@ export function Footer() {
                             Quick Links
                         </p>
                         <nav className="flex flex-col space-y-3">
+                            <Link href="/crypto" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
+                                Pay with crypto
+                            </Link>
                             <Link href="/#pricing" className="text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:underline transition-colors font-medium">
                                 Pricing
                             </Link>
