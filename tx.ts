@@ -6,8 +6,6 @@ async function main() {
     }).then((res: any) => {
         let txs = res.data.filter((tx: any) => tx.refunded === false);
 
-        console.log(txs.length);
-
         // Create an object to track counts by amount
         const amountCounts: Record<number, number> = {};
         const totalTransactions = txs.length;
@@ -15,6 +13,7 @@ async function main() {
         // Count transactions by amount
         for (const transaction of txs) {
             const amount = transaction.amount / 100; // Convert from cents to dollars/main currency
+            console.log(transaction.billing_details);
             amountCounts[amount] = (amountCounts[amount] || 0) + 1;
         }
 

@@ -74,6 +74,16 @@ const reviews: Review[] = [
     },
 ]
 
+const to_quote = (text: React.ReactNode) => {
+    return (
+        <span>
+            <span className="font-bold opacity-50">“</span>
+            {text}
+            <span className="font-bold opacity-50">”</span>
+        </span>
+    )
+}
+
 export default function Landing() {
     const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
     const ref = params ? params.get('ref') : null;
@@ -134,6 +144,7 @@ export default function Landing() {
                     throw new Error('Failed to fetch location data');
                 }
                 const data = await response.json();
+                console.log(data);
                 const displayNames = new Intl.DisplayNames(['en'], { type: 'language' });
                 const languageName = data.languages ? displayNames.of(data.languages.split(',')[0]) : null;
 
@@ -187,9 +198,9 @@ export default function Landing() {
                             </p>
                         </div> */}
                         {[
-                            { text: "Got a 43% better CPC", className: "flex" },
-                            { text: "AI UGC that shows my product", className: "hidden md:flex" },
-                            { text: "Perfect for my ad creatives", className: "hidden md:flex" }
+                            { text: to_quote(<span>Got a <span className="bg-primary/20 rounded-sm p-0.5">43% better CPC</span></span>), className: "flex" },
+                            { text: to_quote("AI UGC that shows my product"), className: "hidden md:flex" },
+                            { text: to_quote("Perfect for my ad creatives"), className: "hidden md:flex" }
                         ].map((review, reviewIndex) => (
                             <div key={reviewIndex} className={`${review.className} flex-col items-center justify-center gap-1`}>
                                 <div className="flex items-center justify-center gap-[0.5px]">
@@ -197,7 +208,7 @@ export default function Landing() {
                                         <Star key={index} className="w-4 h-4 fill-primary text-primary" />
                                     ))}
                                 </div>
-                                <p className="text-base font-[600] text-[#1a1a1a] opacity-60 text-center">
+                                <p className="text-base font-[600] text-[#1a1a1a]/75 text-center">
                                     {review.text}
                                 </p>
                             </div>
@@ -728,6 +739,65 @@ export default function Landing() {
                         </h2>
                         <FAQ />
                     </div>
+
+                    {/* <div className="flex flex-col items-center justify-center rounded-md gap-8 py-12 w-full bg-primary/5">
+                        <img
+                            src="https://placehold.co/1000"
+                            alt="Avatar"
+                            className="w-28 h-28 rounded-full"
+                        />
+                        <h2 className="text-xl md:text-2xl font-[900] text-[#1a1a1a] text-center">
+                            Hi, it's Arthur from UGC Farm
+                        </h2>
+
+                        <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto">
+                            <strong>{"I used to hate marketing."}</strong>
+                            <br /><br />
+                            {"Creating landing pages, writing emails, recording videos — everything felt like torture."}
+                            <br /><br />
+                            {"It was a naive mistake."}
+                            <br /><br />
+                            {"I did everything from scratch myself. I tried to work harder, not smarter."}
+                            <br /><br />
+                            {"As a result, I got tired quickly. And instead of 10 marketing tasks, I only finished 2."}
+                            <br /><br />
+                            <strong>{"AI fixed that."}</strong>
+                            <br /><br />
+                            {"I went from anxious 'I don't have enough time' to calm 'I focus on what matters.'"}
+                            <br /><br />
+                            {"That’s why I built FounderPal. "}
+                            <strong>{"An AI marketing platform that is available 24/7 to GROW your business."}</strong>
+                            <br /><br />
+                            {"It understands your context. It knows what’s working in your industry. It is made for Founders like you."}
+                            <br /><br />
+                            {"FounderPal will save you 100+ hours of marketing procrastination EVERY MONTH."}
+                            <br /><br />
+                            <strong>{"Tired of hating marketing?"}</strong>
+                            <br /><br />
+                            {"Get an AI marketing partner today."}
+                        </p>
+
+                        <Link href="/#pricing">
+                            <ButtonSmall
+                                variant="default"
+                                className="hover:scale-[1.05] transition-all duration-300 font-bold mt-4"
+                            >
+                                Get started&nbsp;&nbsp;&rarr;
+                            </ButtonSmall>
+                        </Link>
+
+                        <div className="flex flex-row gap-4">
+                            <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto">
+                                "FounderPal is a game-changer for me. It saves me so much time and effort."
+                            </p>
+                            <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto bg-primary/50">
+                                "FounderPal is a game-changer for me. It saves me so much time and effort."
+                            </p>
+                            <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto">
+                                "FounderPal is a game-changer for me. It saves me so much time and effort."
+                            </p>
+                        </div>
+                    </div> */}
 
                     {/* cta */}
                     <div className="py-12 size-[300px] rounded-lg w-full bg-background overflow-hidden border relative">
