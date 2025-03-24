@@ -379,7 +379,7 @@ export default function History() {
                                         Example:
                                     </label>
                                     <img
-                                        src={"https://yvxmlrehhemovqibmvqt.supabase.co/storage/v1/object/sign/tmp/1740512566423?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJ0bXAvMTc0MDUxMjU2NjQyMyIsImlhdCI6MTc0MDczMjk1NywiZXhwIjoxNzcyMjY4OTU3fQ.R-YCyvww02lgLlEU6vg1AzZfmGGYYo0t9goinTNpVMw"}
+                                        src={"https://ugcfarm.b-cdn.net/garment.jpg"}
                                         alt="Avatar"
                                         className="w-full h-full object-cover max-w-16 rounded-md"
                                     />
