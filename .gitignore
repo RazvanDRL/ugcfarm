@@ -10,6 +10,9 @@
 !.yarn/releases
 !.yarn/versions
 /downloads
+/downloads/*
+/downloads_thumbs
+/downloads_thumbs/*
 
 # testing
 /coverage
