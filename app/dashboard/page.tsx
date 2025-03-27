@@ -147,7 +147,7 @@ export default function Page() {
         "Edit this hook 4",
         "Edit this hook 5",
     ])
-    const [selectedPhotoId, setSelectedPhotoId] = useState<number>(3)
+    const [selectedPhotoId, setSelectedPhotoId] = useState<number>(129)
     const [selectedAvatarId, setSelectedAvatarId] = useState<number>(1)
     const [selectedDemoId, setSelectedDemoId] = useState<number>(1)
     const [loading, setLoading] = useState(false)

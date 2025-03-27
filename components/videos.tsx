@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/tooltip"
 import Link from "next/link";
 import { sleep } from "openai/core.mjs";
-import { vids } from "@/constants";
+import { vids, c_vids } from "@/constants";
 
 interface Photo {
     id: number;
@@ -32,14 +32,16 @@ export function PhotoList({ photos, selectedPhotoId, onPhotoSelect, className, c
     const startIndex = (currentPage - 1) * itemsPerPage;
 
     // Create sets of video IDs for efficient lookup
+    const cVidIds = new Set(c_vids.map(vid => vid.id));
     const vidIds = new Set(vids.map(vid => vid.id));
 
-    // Split photos into two groups
-    const matchingPhotos = photos.filter(photo => vidIds.has(photo.id));
-    const remainingPhotos = photos.filter(photo => !vidIds.has(photo.id));
+    // Split photos into three groups
+    const matchingCVids = photos.filter(photo => cVidIds.has(photo.id));
+    const matchingVids = photos.filter(photo => vidIds.has(photo.id) && !cVidIds.has(photo.id));
+    const remainingPhotos = photos.filter(photo => !vidIds.has(photo.id) && !cVidIds.has(photo.id));
 
     // Combine the groups and paginate
-    const sortedPhotos = [...matchingPhotos, ...remainingPhotos];
+    const sortedPhotos = [...matchingCVids, ...matchingVids, ...remainingPhotos];
     const paginatedPhotos = sortedPhotos.slice(startIndex, startIndex + itemsPerPage);
 
     return (
