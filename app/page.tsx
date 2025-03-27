@@ -198,9 +198,9 @@ export default function Landing() {
                             </p>
                         </div> */}
                         {[
-                            { text: to_quote(<span>Got a <span className="bg-primary/20 rounded-sm p-0.5">43% better CPC</span></span>), className: "flex" },
-                            { text: to_quote("AI UGC that shows my product"), className: "hidden md:flex" },
-                            { text: to_quote("Perfect for my ad creatives"), className: "hidden md:flex" }
+                            { text: to_quote(<span>Got a 43% better CPC</span>), className: "flex" },
+                            { text: to_quote("Helps me create On-Brand content in just a few clicks"), className: "hidden md:flex" },
+                            { text: to_quote("AI UGC that shows my product"), className: "hidden md:flex" }
                         ].map((review, reviewIndex) => (
                             <div key={reviewIndex} className={`${review.className} flex-col items-center justify-center gap-1`}>
                                 <div className="flex items-center justify-center gap-[0.5px]">
@@ -217,10 +217,10 @@ export default function Landing() {
 
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                            From Product to UGC Video in 5 Clicks
+                        Reduce Content Creation Costs by 1000%
                         </h1>
                         <p className="text-lg md:text-xl font-[600] text-[#1a1a1a] opacity-60 text-center">
-                            No Creator Drama. No Waiting Times. Perfect for Clothing Stores.
+                        No wasted time. No wasted money. Perfect for online clothing stores.
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             {/* <MagneticButton> */}
