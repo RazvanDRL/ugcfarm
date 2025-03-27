@@ -43,33 +43,33 @@ interface Review {
 
 const reviews: Review[] = [
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/079.webp",
-        "vid_url": "https://ugcfarm.b-cdn.net/landing/1.mp4",
+        "img_url": "https://cdn.ugc.farm/photos/079.webp",
+        "vid_url": "https://cdn.ugc.farm/landing/1.mp4",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/082.webp",
-        "vid_url": "https://ugcfarm.b-cdn.net/landing/2.mp4",
+        "img_url": "https://cdn.ugc.farm/photos/082.webp",
+        "vid_url": "https://cdn.ugc.farm/landing/2.mp4",
         "rotation": 0
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/112.webp",
-        "vid_url": "https://ugcfarm.b-cdn.net/landing/3.mp4",
+        "img_url": "https://cdn.ugc.farm/photos/112.webp",
+        "vid_url": "https://cdn.ugc.farm/landing/3.mp4",
         "rotation": -2
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/grasu_3.webp",
-        "vid_url": "https://ugcfarm.b-cdn.net/landing/4.mp4",
+        "img_url": "https://cdn.ugc.farm/photos/grasu_3.webp",
+        "vid_url": "https://cdn.ugc.farm/landing/4.mp4",
         "rotation": 2
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/036.webp",
-        "vid_url": "https://ugcfarm.b-cdn.net/landing/5.mp4",
+        "img_url": "https://cdn.ugc.farm/photos/036.webp",
+        "vid_url": "https://cdn.ugc.farm/landing/5.mp4",
         "rotation": -1
     },
     {
-        "img_url": "https://ugcfarm.b-cdn.net/photos/grasu_2.webp",
-        "vid_url": "https://ugcfarm.b-cdn.net/landing/6.mp4",
+        "img_url": "https://cdn.ugc.farm/photos/grasu_2.webp",
+        "vid_url": "https://cdn.ugc.farm/landing/6.mp4",
         "rotation": 0
     },
 ]
@@ -217,10 +217,10 @@ export default function Landing() {
 
                     <div className="flex flex-col items-center justify-center space-y-8">
                         <h1 className="text-4xl md:text-5xl font-[900] text-[#1a1a1a] text-center">
-                        Reduce Content Creation Costs by 1000%
+                            Reduce Content Creation Costs by 1000%
                         </h1>
                         <p className="text-lg md:text-xl font-[600] text-[#1a1a1a] opacity-60 text-center">
-                        No wasted time. No wasted money. Perfect for online clothing stores.
+                            No wasted time. No wasted money. Perfect for online clothing stores.
                         </p>
                         <div className="flex flex-col items-center justify-center space-y-2">
                             {/* <MagneticButton> */}
@@ -500,7 +500,7 @@ export default function Landing() {
                                         <div className="relative">
                                             <div className="">
                                                 <Image
-                                                    src="https://ugcfarm.b-cdn.net/feature_3.webp"
+                                                    src="https://cdn.ugc.farm/feature_3.webp"
                                                     alt="AI avatar"
                                                     width={300}
                                                     height={300}
@@ -598,7 +598,7 @@ export default function Landing() {
                             <div className="grid grid-cols-3 gap-3">
                                 <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md">
                                     <Image
-                                        src="https://ugcfarm.b-cdn.net/avatar.webp"
+                                        src="https://cdn.ugc.farm/avatar.webp"
                                         alt="AI holding product"
                                         width={300}
                                         height={534}
@@ -609,7 +609,7 @@ export default function Landing() {
                                     {/* T-shirt/garment image */}
                                     <div className="w-20 h-20 rounded-md overflow-hidden shadow-sm border-2 border-primary/20">
                                         <Image
-                                            src="https://ugcfarm.b-cdn.net/garment.jpg"
+                                            src="https://cdn.ugc.farm/garment.jpg"
                                             alt="Garment to try on"
                                             width={80}
                                             height={80}
@@ -621,7 +621,7 @@ export default function Landing() {
                                 </div>
                                 <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md">
                                     <Image
-                                        src="https://ugcfarm.b-cdn.net/avatar_dressed.webp"
+                                        src="https://cdn.ugc.farm/avatar_dressed.webp"
                                         alt="AI holding product"
                                         width={300}
                                         height={534}
@@ -655,7 +655,7 @@ export default function Landing() {
                                 <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md relative">
                                     <video
                                         ref={el => { if (el) videoRefs.current.video1 = el }}
-                                        src="https://ugcfarm.b-cdn.net/avatars/010.mp4"
+                                        src="https://cdn.ugc.farm/avatars/010.mp4"
                                         width={300}
                                         height={534}
                                         className="w-full h-full object-cover"
@@ -670,7 +670,7 @@ export default function Landing() {
                                 <div className="aspect-[9/16] rounded-lg overflow-hidden shadow-md relative">
                                     <video
                                         ref={el => { if (el) videoRefs.current.video2 = el }}
-                                        src="https://ugcfarm.b-cdn.net/010_lipsync.mp4"
+                                        src="https://cdn.ugc.farm/010_lipsync.mp4"
                                         width={300}
                                         height={534}
                                         className="w-full h-full object-cover"

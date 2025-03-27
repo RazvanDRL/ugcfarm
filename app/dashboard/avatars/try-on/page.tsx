@@ -379,7 +379,7 @@ export default function History() {
                                         Example:
                                     </label>
                                     <img
-                                        src={"https://ugcfarm.b-cdn.net/garment.jpg"}
+                                        src={"https://cdn.ugc.farm/garment.jpg"}
                                         alt="Avatar"
                                         className="w-full h-full object-cover max-w-16 rounded-md"
                                     />

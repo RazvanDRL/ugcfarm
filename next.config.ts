@@ -15,6 +15,11 @@ module.exports = withPlausibleProxy({
 			},
 			{
 				protocol: 'https',
+				hostname: 'cdn.ugc.farm',
+				pathname: '/**',
+			},
+			{
+				protocol: 'https',
 				hostname: 'pbs.twimg.com',
 				pathname: '/profile_images/**',
 			},
