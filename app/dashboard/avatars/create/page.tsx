@@ -31,6 +31,7 @@ const background_options = [
     "city", "nature", "beach", "mountains", "forest", "desert", "snow", "space", "indoor", "outdoor",
     "boutique", "runway", "studio", "street style", "office", "evening venue",
 ]
+const nsfw_options = ["on", "off"]
 
 const default_avatar = {
     style: style_options[0],
@@ -40,7 +41,8 @@ const default_avatar = {
     skin_tone: skin_tone_options[0],
     pose: pose_options[0],
     hair: hair_options[0],
-    background: background_options[0]
+    background: background_options[0],
+    nsfw: nsfw_options[0]
 }
 
 export default function History() {
@@ -56,6 +58,7 @@ export default function History() {
     const [selectedPose, setSelectedPose] = useState<string>(default_avatar.pose)
     const [selectedHair, setSelectedHair] = useState<string>(default_avatar.hair)
     const [selectedBackground, setSelectedBackground] = useState<string>(default_avatar.background)
+    const [selectedNsfw, setSelectedNsfw] = useState<string>(default_avatar.nsfw)
     const [avatars, setAvatars] = useState<string[]>([])
 
     useEffect(() => {
@@ -137,6 +140,11 @@ export default function History() {
             return
         }
 
+        if (!nsfw_options.includes(selectedNsfw) && selectedNsfw !== '') {
+            toast.error("Invalid nsfw")
+            return
+        }
+
         if (profile.credits < 0.2) {
             toast.error('Insufficient credits')
             return
@@ -159,7 +167,8 @@ export default function History() {
                     skin_tone: selectedSkinTone,
                     pose: selectedPose,
                     hair: selectedHair,
-                    background: selectedBackground
+                    background: selectedBackground,
+                    nsfw: selectedNsfw
                 })
             })
 
@@ -326,6 +335,15 @@ export default function History() {
                             disabled={isGenerating}
                             onOptionChange={(option) => setSelectedBackground(prev => prev === option ? '' : option)}
                             selectedOption={selectedBackground}
+                        />
+
+                        {/* NSFW */}
+                        <Options
+                            label={<span>nsfw filter {selectedNsfw === "on" ? <span className='text-green-500'> - enabled</span> : <span className='text-red-500'> - disabled</span>}</span>}
+                            options={nsfw_options}
+                            disabled={isGenerating}
+                            onOptionChange={(option) => setSelectedNsfw(prev => prev === option ? '' : option)}
+                            selectedOption={selectedNsfw}
                         />
                     </div>
                     {isGenerating ? (

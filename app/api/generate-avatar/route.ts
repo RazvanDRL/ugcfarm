@@ -47,7 +47,7 @@ export async function POST(req: Request) {
             .update({ credits: credits.credits - 0.2 })
             .eq('id', user.id)
 
-        const { style, gender, age, body, skin_tone, pose, hair, background } = await req.json();
+        const { style, gender, age, body, skin_tone, pose, hair, background, nsfw } = await req.json();
 
         // Create different prompt texts based on the "style" selection.
         const prompt =
@@ -59,8 +59,8 @@ export async function POST(req: Request) {
             input: {
                 prompt,
                 num_images: 1,
-                enable_safety_checker: true,
-                safety_tolerance: "4",
+                enable_safety_checker: nsfw === "off" ? false : true,
+                safety_tolerance: nsfw === "off" ? "6" : "3",
                 output_format: "jpeg",
                 aspect_ratio: "9:16",
                 raw: true

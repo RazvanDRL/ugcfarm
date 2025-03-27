@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 interface OptionsProps {
-    label: string;
+    label: string | React.ReactNode;
     options: string[];
     onOptionChange: (option: string) => void;
     className?: string;
