@@ -59,12 +59,14 @@ export async function POST(req: Request) {
 
         const prompt = `A video of a person ${action}`
 
-        const image_uuid = image_url.split('/').pop()?.split('.')[0];
+        const image = decodeURIComponent(image_url);
+
+        const image_uuid = image.split('/').pop()?.split('.')[0];
 
         const result = await fal.subscribe("fal-ai/kling-video/v1.6/pro/image-to-video", {
             input: {
                 prompt,
-                image_url: image_url,
+                image_url: image,
                 duration: duration_seconds,
                 aspect_ratio: "9:16",
             },

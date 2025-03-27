@@ -347,7 +347,7 @@ export default function History() {
                                             <Button
                                                 variant="ghost"
                                                 className='text-primary hover:text-primary bg-white cursor-pointer'
-                                                onClick={() => setAvatar(avatar)}
+                                                onClick={() => setAvatar(encodeURIComponent(avatar))}
                                             >
                                                 Select
                                             </Button>

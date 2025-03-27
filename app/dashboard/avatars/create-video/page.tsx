@@ -165,24 +165,6 @@ export default function History() {
         }
     }
 
-    const handleDownloadAvatar = async (avatarUrl: string) => {
-        try {
-            const response = await fetch(avatarUrl);
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `avatar-${Date.now()}.png`;
-            document.body.appendChild(a);
-            a.click();
-            window.URL.revokeObjectURL(url);
-            document.body.removeChild(a);
-            toast.success('Avatar downloaded successfully');
-        } catch (error) {
-            toast.error('Failed to download avatar');
-        }
-    };
-
     if (!profile || !user) {
         return <Loading />
     }
@@ -247,7 +229,7 @@ export default function History() {
                             </p>
                             {image_url ? (
                                 <Image
-                                    src={image_url}
+                                    src={decodeURIComponent(image_url)}
                                     alt="avatar"
                                     width={90}
                                     height={160}
@@ -323,7 +305,7 @@ export default function History() {
                                                 variant="ghost"
                                                 size="icon"
                                                 className='text-primary hover:text-primary bg-white cursor-pointer'
-                                                onClick={() => handleDownloadAvatar(avatar)}
+                                                onClick={() => window.open("/api/download?url=" + encodeURIComponent(avatar), '_blank')}
                                             >
                                                 <Download className="w-5 h-5" />
                                             </Button>
@@ -332,7 +314,7 @@ export default function History() {
                                             variant="ghost"
                                             className="text-primary hover:text-primary bg-white cursor-pointer"
                                             onClick={() => {
-                                                setImageUrl(avatar);
+                                                setImageUrl(encodeURIComponent(avatar));
                                                 window.scrollTo({ top: 0, behavior: 'smooth' });
                                             }}
                                         >

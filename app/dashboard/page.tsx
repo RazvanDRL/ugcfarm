@@ -201,28 +201,6 @@ export default function Page() {
     const [progress, setProgress] = useState<number>(0);
     const [completed_video, setCompletedVideo] = useState<string | null>(null);
 
-    async function fetchVideo(id: string, access_token: string, bucket: string) {
-        try {
-            const response = await fetch(`/api/generate-signed-url`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${access_token}`,
-                },
-                body: JSON.stringify({ key: `${id}.mp4`, bucket: bucket }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch signed URL');
-            }
-
-            const data = await response.json();
-            return data.url;
-        } catch (error) {
-            console.error('Error fetching video:', error);
-        }
-    }
-
     async function fetchDemos(user: User, access_token: string) {
         if (!user) {
             toast.error("No user found");
@@ -260,6 +238,19 @@ export default function Page() {
         setDemos(tempDemos);
     }
 
+    const preloadVideo = (url: string) => {
+        return new Promise((resolve, reject) => {
+            const video = document.createElement('video');
+            video.preload = 'auto';
+            video.src = url;
+            video.muted = true;
+            video.onloadeddata = () => resolve(url);
+            video.onerror = (err) => reject(err);
+            // Start loading the video
+            video.load();
+        });
+    };
+
     async function fetchAvatars(user: User, access_token: string) {
         if (!user) {
             toast.error("No user found");
@@ -272,6 +263,7 @@ export default function Page() {
         }
 
         let temp: any[] = [];
+        const preloadPromises: Promise<any>[] = [];
 
         const { data: avatar_videos, error: avatar_videos_error } = await supabase
             .from('user_avatar_videos')
@@ -296,8 +288,6 @@ export default function Page() {
                     throw new Error('Failed to fetch avatar video');
                 }
 
-
-
                 const ext = thumbnail.data.seed === undefined ? '.png' : '.jpg'
 
                 const signed_url = await getSignedUrl(avatar_video.thumbnail + ext, 'user-avatars', access_token)
@@ -305,6 +295,11 @@ export default function Page() {
 
                 const videoUrl = await getSignedUrl(avatar_video.id + '.mp4', 'output-bucket', access_token)
                 console.log(videoUrl)
+
+                // Preload the video
+                if (videoUrl) {
+                    preloadPromises.push(preloadVideo(videoUrl));
+                }
 
                 // get metadata from video
                 const metadata = await parseMedia({
@@ -323,9 +318,18 @@ export default function Page() {
                 });
             }
         }
-        setAvatarVideos(temp);
-    }
 
+        // Set the avatar videos first, then handle preloading in the background
+        setAvatarVideos(temp);
+
+        // You can optionally await all preloads or let them continue in background
+        try {
+            await Promise.allSettled(preloadPromises);
+            console.log('All avatar videos preloaded successfully');
+        } catch (error) {
+            console.error('Some videos failed to preload:', error);
+        }
+    }
 
     useEffect(() => {
         const getUser = async () => {

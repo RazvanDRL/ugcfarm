@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { fal } from "@fal-ai/client";
 import { supabase } from '@/lib/supabase/admin/supabase';
 import { v4 as uuidv4 } from 'uuid';
-import { decode } from 'base64-arraybuffer'
 import { uploadToR2 } from '@/lib/upload';
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
@@ -60,42 +59,23 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: 'Garment image URL is required' }, { status: 400 })
         }
 
-        // Extract content type from base64 string
-        const contentType = garment_image_base64.split(';')[0].split(':')[1];
-
-        // also remove the data:image/jpeg;base64, prefix
-        const imageData = garment_image_base64.split(',')[1];
-
-        const { data: tmp_data, error: tmp_error } = await supabase
-            .storage
-            .from('tmp')
-            .upload(`${Date.now()}`, decode(imageData), {
-                contentType: contentType,
-            })
-
-        if (tmp_error) {
-            return NextResponse.json({ error: 'Error uploading garment image' + tmp_error.message }, { status: 500 });
-        }
-
-        // Get public URL for the uploaded file
-        const { data: upload_signed_url, error: upload_signed_url_error } = await supabase
-            .storage
-            .from('tmp')
-            .createSignedUrl(tmp_data.path, 86400)
-
-        if (upload_signed_url_error) {
-            return NextResponse.json({ error: 'Error getting signed url' + upload_signed_url_error.message }, { status: 500 });
-        }
-
-        const garment_image_url = upload_signed_url.signedUrl
+        const garment_image_base64_2 = garment_image_base64.split(',')[1]
 
         const result = await fal.subscribe("fal-ai/kling/v1-5/kolors-virtual-try-on", {
             input: {
-                human_image_url: human_image_url,
-                garment_image_url: garment_image_url
+                human_image_url: decodeURIComponent(human_image_url),
+                garment_image_url: garment_image_base64_2
             },
             logs: true,
         });
+
+        if ('detail' in result && result.detail) {
+            return NextResponse.json({ error: result.detail }, { status: 500 })
+        }
+
+        if (!result.data) {
+            return NextResponse.json({ error: 'No data returned from try-on service' }, { status: 500 })
+        }
 
         const url = result.data.image.url
 
