@@ -375,13 +375,16 @@ export default function Page() {
                         if (url) {
                             const metadata = await parseMedia({
                                 src: url,
+                                acknowledgeRemotionLicense: true,
                                 fields: {
                                     slowDurationInSeconds: true,
                                 },
                             });
 
-                            const hookDuration = Math.round((vids.find(v => v.id === selectedPhotoId)?.duration || 5) * 30);
+                            const hookDuration = 125;
                             const demoDuration = Math.round(metadata.slowDurationInSeconds * 30);
+
+                            console.log(hookDuration, demoDuration)
 
                             setInputProps(prev => ({
                                 ...prev,
@@ -473,13 +476,20 @@ export default function Page() {
 
     useEffect(() => {
         if (selectedPhotoId >= 129) {
+            const totalDuration = 125 + (demoDuration || 0);
             setInputProps(prev => ({
                 ...prev,
                 text: sentences[index],
                 videoUrl: transformed_vids.find(v => v.id === selectedPhotoId)?.url || "",
-                video_duration: 125,
                 hook_duration: 125,
-                demos: null,
+                videoProps: {
+                    uuid: uuidv4()
+                },
+                video_duration: totalDuration,
+                demos: demoUrl ? {
+                    url: demoUrl,
+                    duration: demoDuration
+                } : null,
                 textStyle,
             }));
             return;
@@ -1675,7 +1685,7 @@ export default function Page() {
                                             <ArrowRightIcon className="w-5 h-5" />
                                         </Button>
                                         <span className="text-xs text-[#1a1a1a]/60 font-mono text-right">
-                                            rendered in full quality
+                                            rendered in 4k
                                         </span>
                                     </div>
                                 )}
@@ -1705,50 +1715,56 @@ export default function Page() {
                             </div>
 
                             {/* Lip Sync Settings */}
-                            {selectedPhotoId < 129 && (
-                                <div className="flex flex-row items-center gap-2">
-                                    <div className={`h-fit transition-all duration-1000 ease-in-out ${inputProps.lip_sync ? 'w-full' : 'w-fit'} rounded-xl bg-[#A4A4A4]/10`}>
-                                        <div className="flex flex-col items-start p-6">
-                                            <div className={`flex flex-row items-center justify-between transition-all duration-300 ease-in-out ${inputProps.lip_sync ? 'w-full mb-6 md:mb-4' : 'w-fit'} gap-4`}>
-                                                <div className="flex flex-row items-center gap-4">
-                                                    <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                                        Lip Sync settings {inputProps.lip_sync ? <span className="text-primary font-[600]"> - ON</span> : ''}
-                                                    </p>
-                                                </div>
-                                                <div className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                    <Switch
-                                                        checked={inputProps.lip_sync}
-                                                        onCheckedChange={handleLipSyncChange}
-                                                    />
-                                                </div>
+                            <div className="flex flex-row items-center gap-2">
+                                <div className={`h-fit transition-all duration-1000 ease-in-out ${inputProps.lip_sync ? 'w-full' : 'w-fit'} rounded-xl bg-[#A4A4A4]/10`}>
+                                    <div className="flex flex-col items-start p-6">
+                                        <div className={`flex flex-row items-center justify-between transition-all duration-300 ease-in-out ${inputProps.lip_sync ? 'w-full mb-6 md:mb-4' : 'w-fit'} gap-4`}>
+                                            <div className="flex flex-row items-center gap-4">
+                                                <p className="text-base font-[500] text-[#1a1a1a]/60">
+                                                    Lip Sync settings {inputProps.lip_sync ? <span className="text-primary font-[600]"> - ON</span> : ''}
+                                                </p>
                                             </div>
-                                            {inputProps.lip_sync && (
-                                                <div className="w-full">
-                                                    <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                        Avatar Voice
-                                                    </label>
-                                                    <Select
-                                                        value={inputProps.voice}
-                                                        onValueChange={(value) => setInputProps(prev => ({ ...prev, voice: value }))}
-                                                    >
-                                                        <SelectTrigger className="w-[180px] bg-background font-[500] truncate">
-                                                            <SelectValue placeholder="Select voice" />
-                                                        </SelectTrigger>
-                                                        <SelectContent className="w-[180px] bg-background font-[500]">
-                                                            {Object.keys(voices).map((voice) => (
-                                                                <SelectItem key={voice} value={voice}>
-                                                                    <span className="capitalize">{voice}</span>
-                                                                </SelectItem>
-                                                            ))}
-                                                        </SelectContent>
-                                                    </Select>
-                                                    <audio src={voice_demos[inputProps.voice as keyof typeof voice_demos]} autoPlay controls className="border-primary/10 border-2 rounded-full mt-2" />
-                                                </div>
-                                            )}
+                                            <div className="text-sm font-[500] text-[#1a1a1a]/60">
+                                                <Switch
+                                                    checked={inputProps.lip_sync || selectedPhotoId >= 129}
+                                                    onCheckedChange={handleLipSyncChange}
+                                                />
+                                            </div>
                                         </div>
+                                        {inputProps.lip_sync && selectedPhotoId < 129 && (
+                                            <div className="w-full">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                    Avatar Voice
+                                                </label>
+                                                <Select
+                                                    value={inputProps.voice}
+                                                    onValueChange={(value) => setInputProps(prev => ({ ...prev, voice: value }))}
+                                                >
+                                                    <SelectTrigger className="w-[180px] bg-background font-[500] truncate">
+                                                        <SelectValue placeholder="Select voice" />
+                                                    </SelectTrigger>
+                                                    <SelectContent className="w-[180px] bg-background font-[500]">
+                                                        {Object.keys(voices).map((voice) => (
+                                                            <SelectItem key={voice} value={voice}>
+                                                                <span className="capitalize">{voice}</span>
+                                                            </SelectItem>
+                                                        ))}
+                                                    </SelectContent>
+                                                </Select>
+                                                <audio src={voice_demos[inputProps.voice as keyof typeof voice_demos]} autoPlay controls className="border-primary/10 border-2 rounded-full mt-2" />
+                                            </div>
+                                        )}
+
+                                        {selectedPhotoId >= 129 && (
+                                            <div className="w-full mt-2">
+                                                <label className="text-sm font-[500] text-[#1a1a1a]/50 mb-1">
+                                                    For this avatar, you can&apos;t disable lip sync.
+                                                </label>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
-                            )}
+                            </div>
                         </div>
                         <div className="flex flex-col gap-4 order-last md:order-first">
                             {/* 1. Choose a hook */}
@@ -1898,283 +1914,262 @@ export default function Page() {
                                 </div>
                             </div>
 
-                            {selectedPhotoId >= 129 && (
-                                <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
-                                    <div className="flex flex-col items-start p-6">
-                                        <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
-                                            <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                                3. Lip Sync Settings
-                                            </p>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <Switch checked={true} />
-                                            <Label className="text-sm text-[#1a1a1a]/60">
-                                                The lip sync is always activated for this model
-                                            </Label>
-                                        </div>
-                                    </div>
-                                </div>
-                            )}
-
                             {/* 3. Demo */}
-                            {selectedPhotoId < 129 && (
-                                <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
-                                    <div className="flex flex-col items-start p-6">
-                                        <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
-                                            <p className="text-base font-[500] text-[#1a1a1a]/60">
-                                                3. Choose your product video <span className="text-xs opacity-80 font-[500]">(optional)</span>{selectedDemoId === 0 ? <span className="text-xs text-primary font-[500]"> - no video selected</span> : ''}
-                                            </p>
-                                            {demos.length > 0 &&
-                                                <div className="flex flex-row items-center gap-2">
-                                                    <button className="text-[#1a1a1a]/50" onClick={previousDemoPage}>
-                                                        <ChevronLeftIcon className="w-5 h-5" />
-                                                    </button>
-                                                    <span className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                        {demoPage}/{Math.ceil(demos.length / 5)}
-                                                    </span>
-                                                    <button className="text-[#1a1a1a]/50" onClick={nextDemoPage}>
-                                                        <ChevronRightIcon className="w-5 h-5" />
-                                                    </button>
-                                                </div>
-                                            }
-                                        </div>
-                                        <DemoList
-                                            photos={demos}
-                                            selectedPhotoId={selectedDemoId}
-                                            onPhotoSelect={onDemoSelect}
-                                            currentPage={demoPage}
-                                            token={token}
-                                            onDemosUpdate={handleDemosUpdate}
-                                        />
+                            <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                <div className="flex flex-col items-start p-6">
+                                    <div className="flex flex-row items-center justify-between w-full mb-6 md:mb-4">
+                                        <p className="text-base font-[500] text-[#1a1a1a]/60">
+                                            3. Choose your product video <span className="text-xs opacity-80 font-[500]">(optional)</span>{selectedDemoId === 0 ? <span className="text-xs text-primary font-[500]"> - no video selected</span> : ''}
+                                        </p>
+                                        {demos.length > 0 &&
+                                            <div className="flex flex-row items-center gap-2">
+                                                <button className="text-[#1a1a1a]/50" onClick={previousDemoPage}>
+                                                    <ChevronLeftIcon className="w-5 h-5" />
+                                                </button>
+                                                <span className="text-sm font-[500] text-[#1a1a1a]/60">
+                                                    {demoPage}/{Math.ceil(demos.length / 5)}
+                                                </span>
+                                                <button className="text-[#1a1a1a]/50" onClick={nextDemoPage}>
+                                                    <ChevronRightIcon className="w-5 h-5" />
+                                                </button>
+                                            </div>
+                                        }
                                     </div>
+                                    <DemoList
+                                        photos={demos}
+                                        selectedPhotoId={selectedDemoId}
+                                        onPhotoSelect={onDemoSelect}
+                                        currentPage={demoPage}
+                                        token={token}
+                                        onDemosUpdate={handleDemosUpdate}
+                                    />
                                 </div>
-                            )}
+                            </div>
+
                             {/* 4. Text Settings */}
-                            {selectedPhotoId < 129 && (
-                                <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
-                                    <div className="flex flex-col items-start p-6">
-                                        <div className="flex flex-row items-center justify-between w-full">
-                                            <p className="text-base font-[500] text-[#1a1a1a]/60 mb-4">
-                                                4. Text Settings
-                                            </p>
+                            <div className="h-fit w-full rounded-xl bg-[#A4A4A4]/10">
+                                <div className="flex flex-col items-start p-6">
+                                    <div className="flex flex-row items-center justify-between w-full">
+                                        <p className="text-base font-[500] text-[#1a1a1a]/60 mb-4">
+                                            4. Text Settings
+                                        </p>
+                                    </div>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+                                        {/* FONT SIZE */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Font Size
+                                            </label>
+                                            <div className="relative w-full">
+                                                <Input
+                                                    type="number"
+                                                    value={textStyle.fontSize}
+                                                    min={12}
+                                                    max={100}
+                                                    step={1}
+                                                    className="w-full bg-background pl-3 pr-8 font-[500]"
+                                                    onChange={handleFontSizeChange}
+                                                />
+                                                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                                                    px
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-                                            {/* FONT SIZE */}
-                                            <div className="flex flex-col items-start">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Font Size
-                                                </label>
-                                                <div className="relative w-full">
-                                                    <Input
-                                                        type="number"
-                                                        value={textStyle.fontSize}
-                                                        min={12}
-                                                        max={100}
-                                                        step={1}
-                                                        className="w-full bg-background pl-3 pr-8 font-[500]"
-                                                        onChange={handleFontSizeChange}
-                                                    />
-                                                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-                                                        px
-                                                    </span>
-                                                </div>
-                                            </div>
 
-                                            {/* FONT WEIGHT */}
-                                            <div className="flex flex-col items-start">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Font Weight
-                                                </label>
-                                                <Select
-                                                    value={textStyle.fontWeight.toString()}
-                                                    onValueChange={handleFontWeightChange}
-                                                    disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika" || textStyle.fontFamily === "TikTok"}
-                                                >
-                                                    <SelectTrigger className="w-full bg-background font-[500] truncate">
-                                                        <SelectValue placeholder="Select weight" />
-                                                    </SelectTrigger>
-                                                    <SelectContent className="bg-background font-[500]">
-                                                        <SelectItem value="100" className="truncate">Thin (100)</SelectItem>
-                                                        <SelectItem value="200" className="truncate">Extra Light (200)</SelectItem>
-                                                        <SelectItem value="300" className="truncate">Light (300)</SelectItem>
-                                                        <SelectItem value="400" className="truncate">Regular (400)</SelectItem>
-                                                        <SelectItem value="500" className="truncate">Medium (500)</SelectItem>
-                                                        <SelectItem value="600" className="truncate">Semi Bold (600)</SelectItem>
-                                                        <SelectItem value="700" className="truncate">Bold (700)</SelectItem>
-                                                        <SelectItem value="800" className="truncate">Extra Bold (800)</SelectItem>
-                                                        <SelectItem value="900" className="truncate">Black (900)</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
+                                        {/* FONT WEIGHT */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Font Weight
+                                            </label>
+                                            <Select
+                                                value={textStyle.fontWeight.toString()}
+                                                onValueChange={handleFontWeightChange}
+                                                disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika" || textStyle.fontFamily === "TikTok"}
+                                            >
+                                                <SelectTrigger className="w-full bg-background font-[500] truncate">
+                                                    <SelectValue placeholder="Select weight" />
+                                                </SelectTrigger>
+                                                <SelectContent className="bg-background font-[500]">
+                                                    <SelectItem value="100" className="truncate">Thin (100)</SelectItem>
+                                                    <SelectItem value="200" className="truncate">Extra Light (200)</SelectItem>
+                                                    <SelectItem value="300" className="truncate">Light (300)</SelectItem>
+                                                    <SelectItem value="400" className="truncate">Regular (400)</SelectItem>
+                                                    <SelectItem value="500" className="truncate">Medium (500)</SelectItem>
+                                                    <SelectItem value="600" className="truncate">Semi Bold (600)</SelectItem>
+                                                    <SelectItem value="700" className="truncate">Bold (700)</SelectItem>
+                                                    <SelectItem value="800" className="truncate">Extra Bold (800)</SelectItem>
+                                                    <SelectItem value="900" className="truncate">Black (900)</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
 
-                                            {/* FONT FAMILY */}
-                                            <div className="flex flex-col items-start">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Font Family
-                                                </label>
-                                                <Select
-                                                    value={textStyle.fontFamily}
-                                                    onValueChange={handleFontFamilyChange}
-                                                >
-                                                    <SelectTrigger className="w-full bg-background font-[500] truncate">
-                                                        <SelectValue placeholder="Select font" />
-                                                    </SelectTrigger>
-                                                    <SelectContent className="bg-background font-[500]">
-                                                        <SelectItem value="TikTok" className="truncate">TikTok Font</SelectItem>
-                                                        <SelectItem value="Montserrat" className="truncate">Montserrat</SelectItem>
-                                                        <SelectItem value="Inter" className="truncate">Inter</SelectItem>
-                                                        <SelectItem value="Komika" className="truncate">MrBeast Font</SelectItem>
-                                                        <SelectItem value="TheBoldFont" className="truncate">Alex Hormozi Font</SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
+                                        {/* FONT FAMILY */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Font Family
+                                            </label>
+                                            <Select
+                                                value={textStyle.fontFamily}
+                                                onValueChange={handleFontFamilyChange}
+                                            >
+                                                <SelectTrigger className="w-full bg-background font-[500] truncate">
+                                                    <SelectValue placeholder="Select font" />
+                                                </SelectTrigger>
+                                                <SelectContent className="bg-background font-[500]">
+                                                    <SelectItem value="TikTok" className="truncate">TikTok Font</SelectItem>
+                                                    <SelectItem value="Montserrat" className="truncate">Montserrat</SelectItem>
+                                                    <SelectItem value="Inter" className="truncate">Inter</SelectItem>
+                                                    <SelectItem value="Komika" className="truncate">MrBeast Font</SelectItem>
+                                                    <SelectItem value="TheBoldFont" className="truncate">Alex Hormozi Font</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                        </div>
 
-                                            {/* TEXT COLOR */}
-                                            <div className="flex flex-col items-start">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Text Color
-                                                </label>
-                                                <div className="w-full">
-                                                    <ColorPicker
-                                                        value={textStyle.textColor}
-                                                        onChange={(c) => {
-                                                            setTextStyle(prev => ({
-                                                                ...prev,
-                                                                textColor: c.toHexString(),
-                                                            }))
-                                                        }}
-                                                        showText
-                                                        allowClear
-                                                        className="p-[0.325rem] hover:border-primary/80" />
-                                                </div>
+                                        {/* TEXT COLOR */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Text Color
+                                            </label>
+                                            <div className="w-full">
+                                                <ColorPicker
+                                                    value={textStyle.textColor}
+                                                    onChange={(c) => {
+                                                        setTextStyle(prev => ({
+                                                            ...prev,
+                                                            textColor: c.toHexString(),
+                                                        }))
+                                                    }}
+                                                    showText
+                                                    allowClear
+                                                    className="p-[0.325rem] hover:border-primary/80" />
                                             </div>
+                                        </div>
 
-                                            {/* STROKE COLOR */}
-                                            <div className="flex flex-col items-start">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Stroke Color
-                                                </label>
-                                                <div className="w-full">
-                                                    <ColorPicker
-                                                        defaultValue="#000"
-                                                        showText
-                                                        allowClear
-                                                        className="p-[0.325rem] hover:border-primary/80"
-                                                        onChange={(c) => {
-                                                            setTextStyle(prev => ({
-                                                                ...prev,
-                                                                strokeColor: c.toHexString(),
-                                                            }))
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            {/* SHADOW COLOR */}
-                                            <div className="flex flex-col items-start">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Shadow Color
-                                                </label>
-                                                <div className="w-full">
-                                                    <ColorPicker
-                                                        defaultValue="#000"
-                                                        showText
-                                                        allowClear
-                                                        className="p-[0.325rem] hover:border-primary/80"
-                                                        onChange={(c) => {
-                                                            setTextStyle(prev => ({
-                                                                ...prev,
-                                                                shadowColor: c.toHexString(),
-                                                            }))
-                                                        }}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            {/* UPPERCASE */}
-                                            <div className="flex flex-col items-start">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Uppercase
-                                                </label>
-                                                <Switch
-                                                    checked={textStyle.uppercase || textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
-                                                    disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
-                                                    onCheckedChange={handleUppercaseChange}
+                                        {/* STROKE COLOR */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Stroke Color
+                                            </label>
+                                            <div className="w-full">
+                                                <ColorPicker
+                                                    defaultValue="#000"
+                                                    showText
+                                                    allowClear
+                                                    className="p-[0.325rem] hover:border-primary/80"
+                                                    onChange={(c) => {
+                                                        setTextStyle(prev => ({
+                                                            ...prev,
+                                                            strokeColor: c.toHexString(),
+                                                        }))
+                                                    }}
                                                 />
                                             </div>
+                                        </div>
 
-                                            {/* VERTICAL ALIGNMENT */}
-                                            <div className="flex flex-col items-start">
-                                                <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
-                                                    Vertical Alignment
-                                                </label>
-                                                {/* make a slider for vertical alignment and below it 3 settings for top, center, bottom*/}
-                                                {/* complete  */}
-                                                <div className="w-full space-y-3">
-                                                    <Input
-                                                        type="number"
-                                                        value={textStyle.verticalAlignment}
-                                                        min={10}
-                                                        max={90}
-                                                        onChange={handleVerticalAlignmentChange}
-                                                        className="w-full bg-background pl-3 font-[500]"
-                                                    />
-                                                    <Slider
-                                                        defaultValue={[50]}
-                                                        max={90}
-                                                        min={10}
-                                                        step={1}
-                                                        value={[textStyle.verticalAlignment]}
-                                                        onValueChange={(e) =>
-                                                            setTextStyle((prev) => ({
-                                                                ...prev,
-                                                                verticalAlignment: e[0]
-                                                            }))
-                                                        } />
-                                                </div>
-                                                <div className="flex flex-row items-center justify-between w-full mt-2">
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="hover:bg-background"
-                                                        onClick={() => setTextStyle((prev) => ({
+                                        {/* SHADOW COLOR */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Shadow Color
+                                            </label>
+                                            <div className="w-full">
+                                                <ColorPicker
+                                                    defaultValue="#000"
+                                                    showText
+                                                    allowClear
+                                                    className="p-[0.325rem] hover:border-primary/80"
+                                                    onChange={(c) => {
+                                                        setTextStyle(prev => ({
                                                             ...prev,
-                                                            verticalAlignment: 20
-                                                        }))}
-                                                    >
+                                                            shadowColor: c.toHexString(),
+                                                        }))
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
 
-                                                        <AlignVerticalJustifyEnd className="w-4 h-4" />
-                                                    </Button>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="hover:bg-background"
-                                                        onClick={() => setTextStyle((prev) => ({
+                                        {/* UPPERCASE */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Uppercase
+                                            </label>
+                                            <Switch
+                                                checked={textStyle.uppercase || textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
+                                                disabled={textStyle.fontFamily === "TheBoldFont" || textStyle.fontFamily === "Komika"}
+                                                onCheckedChange={handleUppercaseChange}
+                                            />
+                                        </div>
+
+                                        {/* VERTICAL ALIGNMENT */}
+                                        <div className="flex flex-col items-start">
+                                            <label className="text-sm font-[500] text-[#1a1a1a]/60 mb-1">
+                                                Vertical Alignment
+                                            </label>
+                                            {/* make a slider for vertical alignment and below it 3 settings for top, center, bottom*/}
+                                            {/* complete  */}
+                                            <div className="w-full space-y-3">
+                                                <Input
+                                                    type="number"
+                                                    value={textStyle.verticalAlignment}
+                                                    min={10}
+                                                    max={90}
+                                                    onChange={handleVerticalAlignmentChange}
+                                                    className="w-full bg-background pl-3 font-[500]"
+                                                />
+                                                <Slider
+                                                    defaultValue={[50]}
+                                                    max={90}
+                                                    min={10}
+                                                    step={1}
+                                                    value={[textStyle.verticalAlignment]}
+                                                    onValueChange={(e) =>
+                                                        setTextStyle((prev) => ({
                                                             ...prev,
-                                                            verticalAlignment: 50
-                                                        }))}
-                                                    >
+                                                            verticalAlignment: e[0]
+                                                        }))
+                                                    } />
+                                            </div>
+                                            <div className="flex flex-row items-center justify-between w-full mt-2">
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="hover:bg-background"
+                                                    onClick={() => setTextStyle((prev) => ({
+                                                        ...prev,
+                                                        verticalAlignment: 20
+                                                    }))}
+                                                >
 
-                                                        <AlignVerticalJustifyCenter className="w-4 h-4" />
-                                                    </Button>
-                                                    <Button
-                                                        variant="ghost"
-                                                        size="icon"
-                                                        className="hover:bg-background"
-                                                        onClick={() => setTextStyle((prev) => ({
-                                                            ...prev,
-                                                            verticalAlignment: 80
-                                                        }))}
-                                                    >
+                                                    <AlignVerticalJustifyEnd className="w-4 h-4" />
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="hover:bg-background"
+                                                    onClick={() => setTextStyle((prev) => ({
+                                                        ...prev,
+                                                        verticalAlignment: 50
+                                                    }))}
+                                                >
 
-                                                        <AlignVerticalJustifyStart className="w-4 h-4" />
-                                                    </Button>
-                                                </div>
+                                                    <AlignVerticalJustifyCenter className="w-4 h-4" />
+                                                </Button>
+                                                <Button
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="hover:bg-background"
+                                                    onClick={() => setTextStyle((prev) => ({
+                                                        ...prev,
+                                                        verticalAlignment: 80
+                                                    }))}
+                                                >
+
+                                                    <AlignVerticalJustifyStart className="w-4 h-4" />
+                                                </Button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            )}
+                            </div>
                         </div>
                     </div>
                 </div>
