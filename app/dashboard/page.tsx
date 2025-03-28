@@ -196,10 +196,6 @@ export default function Page() {
         resetDemo
     } = useDemoVideo();
     const [isDemoInitialized, setIsDemoInitialized] = useState(false);
-    const [isLocal, setIsLocal] = useState(false);
-    const [operationId, setOperationId] = useState<string | null>(null);
-    const [progress, setProgress] = useState<number>(0);
-    const [completed_video, setCompletedVideo] = useState<string | null>(null);
 
     async function fetchDemos(user: User, access_token: string) {
         if (!user) {
@@ -431,32 +427,6 @@ export default function Page() {
 
         getUser()
     }, [])
-
-    // if operationId is set, fetch the video from the creator
-    useEffect(() => {
-        if (operationId) {
-            const fetchStatus = async () => {
-                const data = await fetch(`/api/creator/poll?operationId=${operationId}`)
-                const json = await data.json()
-                console.log(json)
-                setProgress(json.progress)
-                if (json.state === "COMPLETE") {
-                    clearInterval(intervalId)
-                    setCompletedVideo(json.url)
-                    setOperationId(null)
-                }
-            }
-
-            // Call it once immediately
-            fetchStatus()
-
-            // Set up interval to call it every second
-            const intervalId = setInterval(fetchStatus, 3000)
-
-            // Clean up the interval when component unmounts
-            return () => clearInterval(intervalId)
-        }
-    }, [operationId])
 
     useEffect(() => {
         if (state.status === "done") {
@@ -1151,9 +1121,6 @@ export default function Page() {
     ]
 
     const onPhotoSelect = (id: number) => {
-        if (id > 129) {
-            setIsLocal(true)
-        }
         setSelectedPhotoId(id)
     }
 
@@ -1286,18 +1253,16 @@ export default function Page() {
 
         setLoading(true);
 
-        let id = uuidv4();
-
         try {
             // insert the video into the database
             const { data, error } = await supabase
                 .from('video_history')
                 .insert({
                     user_id: user.id,
-                    video_id: !isLocal ? inputProps.videoProps.uuid : id,
+                    video_id: inputProps.videoProps.uuid,
                     prompt: sentences[index],
-                    text_style: !isLocal ? textStyle : null,
-                    inputs: !isLocal ? inputProps : null,
+                    text_style: textStyle,
+                    inputs: inputProps,
                 })
 
             if (error) {
@@ -1308,33 +1273,7 @@ export default function Page() {
                 }
                 throw new Error('Failed to insert video into database');
             } else {
-                if (!isLocal) {
-                    await renderMedia();
-                } else {
-                    // make a fetch request to the local server
-                    const photo = photos.find(p => p.id === selectedPhotoId)?.name;
-
-                    const response = await fetch('/api/creator/submit', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify({
-                            videoId: id,
-                            script: sentences[index],
-                            creatorName: photo
-                        })
-                    })
-
-                    if (!response.ok) {
-                        toast.error('Failed to submit video to creator')
-                    }
-
-                    const data = await response.json()
-
-                    setOperationId(data.operationId)
-                }
+                await renderMedia();
             }
         } catch (error) {
             console.error("Error rendering video:", error);
@@ -1632,7 +1571,7 @@ export default function Page() {
                                         component={Main}
                                         inputProps={inputProps}
                                         durationInFrames={inputProps.video_duration}
-                                        fps={isLocal ? 25 : 30}
+                                        fps={selectedPhotoId >= 129 ? 25 : 30}
                                         compositionWidth={1080}
                                         compositionHeight={1920}
                                         style={{
@@ -1644,16 +1583,7 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className="flex flex-row gap-6 items-center justify-end w-full">
-                                {/* {video && state.status !== "invoking" && state.status !== "rendering" && state.status !== "done" && (
-                                    <Link href={video}>
-                                        <Button variant="outline" onClick={() => toast.success("Video downloaded")} className="w-fit">
-                                            Download video
-                                            <DownloadIcon className="w-5 h-5" />
-                                        </Button>
-                                    </Link>
-                                )} */}
-
-                                {state.status === "done" && !operationId ? (
+                                {state.status === "done" ? (
                                     <>
                                         <Button variant="outline" className="w-fit" onClick={() => toast.success("Video downloaded")} asChild>
                                             <a href={video} download>
@@ -1666,7 +1596,7 @@ export default function Page() {
                                             <ArrowRightIcon className="w-5 h-5" />
                                         </Button>
                                     </>
-                                ) : loading && !operationId ? (
+                                ) : loading ? (
                                     <Button variant="outline" className="w-fit">
                                         <Loader className="w-5 h-5 animate-spin" />
                                         <TextShimmer className='font-mono text-sm' duration={2}>
@@ -1678,38 +1608,10 @@ export default function Page() {
                                             </div>
                                         )}
                                     </Button>
-                                ) : !operationId && !completed_video && (
-                                    <div className="flex flex-col text-right w-full justify-end">
-                                        <Button onClick={createVideo} className="w-fit mb-2 ml-auto">
-                                            Create video
-                                            <ArrowRightIcon className="w-5 h-5" />
-                                        </Button>
-                                        <span className="text-xs text-[#1a1a1a]/60 font-mono text-right">
-                                            rendered in 4k
-                                        </span>
-                                    </div>
-                                )}
-
-                                {operationId && (
-                                    <Button variant="outline" className="w-fit">
-                                        <Loader className="w-5 h-5 animate-spin" />
-                                        <TextShimmer className='font-mono text-sm' duration={2}>
-                                            Generating video...
-                                        </TextShimmer>
-                                        {progress > 0 && (
-                                            <div className="text-sm font-[500] text-[#1a1a1a]/60">
-                                                {progress}%
-                                            </div>
-                                        )}
-                                    </Button>
-                                )}
-
-                                {completed_video && (
-                                    <Button variant="outline" className="w-fit" onClick={() => toast.success("Video downloaded")} asChild>
-                                        <a href={completed_video} download="avatar-video.mp4" target="_blank" rel="noopener noreferrer">
-                                            Download video
-                                            <DownloadIcon className="w-5 h-5 ml-2" />
-                                        </a>
+                                ) : (
+                                    <Button onClick={createVideo} className="w-fit">
+                                        Create video
+                                        <ArrowRightIcon className="w-5 h-5 ml-2" />
                                     </Button>
                                 )}
                             </div>

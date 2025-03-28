@@ -106,6 +106,8 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
     } else if (Number.parseInt(videoId) >= 129) {
       const video = transformed_vids.find(v => v.url === body.inputProps.videoUrl);
 
+      console.log(video)
+
       if (!video) {
         throw new TypeError('video not found');
       }
@@ -122,6 +124,7 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
 
       const operationId = data.operationId;
 
+      console.log(data);
 
       if (!operationId) {
         throw new TypeError('operationId not found');
@@ -129,10 +132,13 @@ export const POST = executeApi<RenderMediaOnLambdaOutput, typeof RenderRequest>(
 
       // keep polling the creator until it's done
       let pollData;
+
       do {
         await new Promise(resolve => setTimeout(resolve, 3000));
         const response = await fetch(`${SITE_URL}/api/creator/poll?operationId=${operationId}`);
         pollData = await response.json();
+
+        console.log(pollData);
 
         if (pollData.state as STATE === 'COMPLETE') {
           body.inputProps.videoUrl = pollData.url;
