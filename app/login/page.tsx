@@ -29,7 +29,7 @@ export default function LoginPage() {
             const { data: { user }, error } = await supabase.auth.getUser();
 
             if (user && !error) {
-                router.push(`/dashboard/onboarding`);
+                router.push(`/dashboard`);
             }
         }
         checkUser();
@@ -56,7 +56,7 @@ export default function LoginPage() {
             const { data, error } = await supabase.auth.signInWithOtp({
                 email: email,
                 options: {
-                    emailRedirectTo: `${window.location.origin}/dashboard/onboarding`
+                    emailRedirectTo: `${window.location.origin}/dashboard`
                 },
             });
 
@@ -76,7 +76,7 @@ export default function LoginPage() {
         setIsLoading(prev => ({ ...prev, [provider]: true }));
 
         // const redirect = decodeURIComponent(new URLSearchParams(window.location.search).get("redirect") || "/dashboard")
-        let redirect = "/dashboard/onboarding"
+        let redirect = "/dashboard"
 
         const { data, error } = await supabase.auth.signInWithOAuth({
             provider: provider,

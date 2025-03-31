@@ -5,6 +5,7 @@ import {
     BookCopy,
     Calendar,
     ChartArea,
+    FileVideo2,
     HelpCircle,
     History,
     LifeBuoy,
@@ -46,6 +47,11 @@ const data = {
             url: "/dashboard",
             icon: Video,
             isActive: true,
+        },
+        {
+            title: "Create hooks",
+            url: "/dashboard/create-hook",
+            icon: FileVideo2,
         },
         {
             title: "Avatar Studio",
