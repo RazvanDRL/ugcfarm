@@ -444,7 +444,7 @@ export default function Landing() {
                                         <div className="relative">
                                             <div className="">
                                                 <Image
-                                                    src="https://cdn.ugc.farm/feature_3.webp"
+                                                    src="https://ugcfarm.b-cdn.net/Group%201.png"
                                                     alt="AI avatar"
                                                     width={300}
                                                     height={300}
