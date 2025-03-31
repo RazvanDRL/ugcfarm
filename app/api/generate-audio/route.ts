@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { speak } from 'orate';
-import { elevenlabs } from 'orate/elevenlabs';
+import { ElevenLabs } from 'orate/elevenlabs';
 import { supabase } from '@/lib/supabase/admin/supabase';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadToR2 } from '@/lib/upload';
@@ -79,7 +79,7 @@ export async function POST(req: Request) {
 
         // Generate the speech audio using the ElevenLabs TTS model.
         const speech = await speak({
-            model: elevenlabs.tts('multilingual_v2', voice),
+            model: new ElevenLabs().tts('eleven_multilingual_v2', voice),
             prompt: prompt
         });
 

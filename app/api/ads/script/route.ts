@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     const { product_name, product_description } = await request.json();
 
     const { object } = await generateObject({
-        model: google('gemini-2.0-pro-exp-02-05'),
+        model: google('gemini-2.5-pro-exp-03-25'),
         system: systemPrompt.trim(),
         schema: requestSchema,
         prompt: `CONTEXT: ${JSON.stringify({ product_name, product_description, script_types })}`,

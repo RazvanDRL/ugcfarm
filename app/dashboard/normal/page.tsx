@@ -148,7 +148,7 @@ export default function Page() {
                         <Tabs defaultValue="Video History">
                             <TabsList>
                                 <TabsTrigger value="Video History">Video History</TabsTrigger>
-                                <TabsTrigger value="Video Transcript">Video Transcript</TabsTrigger>
+                                <TabsTrigger value="Avatar History">Avatar History</TabsTrigger>
                                 <TabsTrigger value="Video Captions">Video Captions</TabsTrigger>
                             </TabsList>
                         </Tabs>

@@ -66,7 +66,7 @@ ${category ? `Category: ${category}` : ''}
 Goal: ${intent}`
 
         const result = await generateObject({
-            model: google('gemini-2.0-flash', { structuredOutputs: true }),
+            model: google('gemini-2.5-pro-exp-03-25', { structuredOutputs: true }),
             prompt: userPrompt,
             system: systemPrompt,
             schema: z.object({

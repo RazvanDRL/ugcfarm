@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     const text = r.text;
 
     const { object } = await generateObject({
-        model: google('gemini-2.0-pro-exp-02-05'),
+        model: google('gemini-2.5-pro-exp-03-25'),
         system: systemPrompt,
         schema: requestSchema,
         prompt: `CONTEXT: ${JSON.stringify({ title, description, headings, text, language })}`,
