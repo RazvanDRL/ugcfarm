@@ -6,7 +6,7 @@ import Link from "next/link";
 import { VideoPreview } from "@/components/video-preview";
 import { Footer } from "@/components/footer";
 import Pricing from "@/components/pricing";
-import { ArrowRight, Smile, Frown, Star, X, Play, Wand2, MoveRight } from "lucide-react";
+import { ArrowRight, Smile, Frown, Star, X, Play, Wand2, MoveRight, Send } from "lucide-react";
 import FlickeringGrid from "@/components/ui/flickering-grid";
 import Image from "next/image";
 import { FAQ } from "@/components/faq";
@@ -14,6 +14,7 @@ import { Card } from "@/components/ui/card"
 import { jsonLd } from './json-ld'
 import { useState, useEffect, useRef } from "react";
 import { PurchaseNotification } from "@/components/purchase-notification";
+import { Input } from "@/components/ui/input";
 
 const withoutUGC = [{
     title: "Traditional UGC",
@@ -393,70 +394,26 @@ export default function Landing() {
                                 <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center mb-6">
                                     <span className="text-2xl font-bold text-white">1</span>
                                 </div>
-                                <h3 className="text-xl font-bold mb-4 text-center">Choose Your AI Influencer</h3>
+                                <h3 className="text-xl font-bold mb-4 text-center">Drop your product link</h3>
                                 <div className="bg-primary/10 rounded-lg p-8 w-full flex items-center justify-center mb-6 overflow-hidden flex-grow">
-                                    <div className="w-[95%] max-w-md items-center justify-center grid grid-cols-3 grid-rows-2 gap-2">
-                                        {/* Row 1 */}
-                                        <div className="outline outline-4 outline-primary relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
-                                            <Image
-                                                src={reviews[0].img_url}
-                                                alt="Female avatar option"
-                                                fill
-                                                className="object-cover"
+                                    <p className="">
+                                        <label htmlFor="product-url" className="text-sm font-[500] text-gray-600">Product</label>
+                                        <div className="flex gap-2">
+                                            <Input
+                                                id="product-url"
+                                                placeholder="Enter your product url"
+                                                className="w-full bg-white"
+                                                required
+                                                type="url"
                                             />
+                                            <Button
+                                                size="icon"
+                                                className="w-12"
+                                            >
+                                                <Send className="w-4 h-4 text-white p-1" />
+                                            </Button>
                                         </div>
-
-                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
-                                            <Image
-                                                src={reviews[1].img_url}
-                                                alt="Male avatar option"
-                                                fill
-                                                className="object-cover"
-                                            />
-
-                                        </div>
-
-                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
-                                            <Image
-                                                src={reviews[2].img_url}
-                                                alt="Female avatar option"
-                                                fill
-                                                className="object-cover"
-                                            />
-
-                                        </div>
-
-                                        {/* Row 2 */}
-                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
-                                            <Image
-                                                src={reviews[3].img_url}
-                                                alt="Male avatar option"
-                                                fill
-                                                className="object-cover"
-                                            />
-
-                                        </div>
-
-                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
-                                            <Image
-                                                src={reviews[4].img_url}
-                                                alt="Female avatar option"
-                                                fill
-                                                className="object-cover"
-                                            />
-
-                                        </div>
-
-                                        <div className="opacity-50 relative aspect-square bg-white rounded-lg overflow-hidden group cursor-pointer">
-                                            <Image
-                                                src={reviews[5].img_url}
-                                                alt="Male avatar option"
-                                                fill
-                                                className="object-cover"
-                                            />
-
-                                        </div>
-                                    </div>
+                                    </p>
                                 </div>
                             </div>
 
@@ -465,25 +422,12 @@ export default function Landing() {
                                 <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center mb-6">
                                     <span className="text-2xl font-bold text-white">2</span>
                                 </div>
-                                <h3 className="text-xl font-bold mb-4 text-center">Customize Your Hook</h3>
+                                <h3 className="text-xl font-bold mb-4 text-center">Choose your script</h3>
                                 <div className="bg-primary/10 rounded-lg p-6 w-full flex flex-col items-center justify-center mb-6 flex-grow">
-                                    <div className="w-full h-full bg-white rounded-lg p-4 flex flex-col">
-                                        <p className="font-semibold text-gray-800 mb-2">Hook</p>
-                                        <div className="relative flex-grow bg-gray-50 rounded-lg border border-gray-200 overflow-hidden">
-                                            <textarea
-                                                className="w-full h-full p-4 text-gray-600 bg-transparent outline-none resize-none min-h-[120px] focus:outline-none"
-                                                placeholder="Type your hook here"
-                                            />
-                                            <div className="absolute bottom-3 right-3">
-                                                <ButtonSmall
-                                                    className="bg-white hover:bg-gray-50 text-primary border border-gray-200 shadow-sm"
-                                                >
-                                                    <span className="flex items-center">
-                                                        <Wand2 className="w-4 h-4 mr-2 text-primary" />
-                                                        Generate with AI
-                                                    </span>
-                                                </ButtonSmall>
-                                            </div>
+                                    <div className="flex flex-col items-center justify-center gap-4 w-full">
+                                        <div className="w-full bg-white rounded-lg p-4 flex flex-col shadow-sm hover:shadow-md transition-shadow cursor-pointer">
+                                            <p className="font-semibold text-gray-800 mb-2 flex items-center justify-between">Problem-Solution Hook <span className="text-sm text-primary lowercase">Selected</span></p>
+                                            <p className="text-sm text-gray-600">Highlight a pain point and show how your product solves it</p>
                                         </div>
                                     </div>
                                 </div>
@@ -494,7 +438,7 @@ export default function Landing() {
                                 <div className="w-16 h-16 rounded-lg bg-primary flex items-center justify-center mb-6">
                                     <span className="text-2xl font-bold text-white">3</span>
                                 </div>
-                                <h3 className="text-xl font-bold mb-4 text-center">Generate & Perfect Your Video</h3>
+                                <h3 className="text-xl font-bold mb-4 text-center">Get Your Perfect Video</h3>
                                 <div className="bg-primary/10 rounded-lg p-4 w-full flex items-center justify-center mb-6 overflow-hidden flex-grow">
                                     <div className="max-w-[50%] max-h-[200px] shadow-xl overflow-hidden" style={{ transform: 'translateY(10%)' }}>
                                         <div className="relative">
