@@ -49,7 +49,7 @@ const data = {
             isActive: true,
         },
         {
-            title: "Create hooks",
+            title: "Create UGC hooks",
             url: "/dashboard/create-hook",
             icon: FileVideo2,
         },

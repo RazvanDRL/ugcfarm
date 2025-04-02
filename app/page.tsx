@@ -684,6 +684,7 @@ export default function Landing() {
                         <FAQ />
                     </div>
 
+                    {/* founder letter */}
                     {/* <div className="flex flex-col items-center justify-center rounded-md gap-8 py-12 w-full bg-primary/5">
                         <img
                             src="https://placehold.co/1000"
@@ -695,52 +696,28 @@ export default function Landing() {
                         </h2>
 
                         <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto">
-                            <strong>{"I used to hate marketing."}</strong>
+                            {"Does it sound familiar?"}
                             <br /><br />
-                            {"Creating landing pages, writing emails, recording videos — everything felt like torture."}
+                            {"You want to collaborate with an influencer, but you know unwanted drama is coming."}
                             <br /><br />
-                            {"It was a naive mistake."}
+                            {"Either they aren't available, editing takes longer, or something \"unexpected\" happenes."}
                             <br /><br />
-                            {"I did everything from scratch myself. I tried to work harder, not smarter."}
+                            {"You end up with a mediocre video, at a high price, that often doesn't even work well!"}
                             <br /><br />
-                            {"As a result, I got tired quickly. And instead of 10 marketing tasks, I only finished 2."}
+                            {"We've been through all of that..."}
                             <br /><br />
-                            <strong>{"AI fixed that."}</strong>
+                            {"Then we thought: Why let someone who doesn't understand our vision, our reasons for starting, or the time we've invested, communicate "}<em>{"our"}</em>{" message?"}
                             <br /><br />
-                            {"I went from anxious 'I don't have enough time' to calm 'I focus on what matters.'"}
+                            {"It's time to take back control, to stop wasting money on people who don't care about you or your needs!"}
                             <br /><br />
-                            {"That’s why I built FounderPal. "}
-                            <strong>{"An AI marketing platform that is available 24/7 to GROW your business."}</strong>
+                            {"Create UGC content "}<em>{"your"}</em>{" way, share "}<em>{"your"}</em>{" message with your audience, all at a lower cost and on "}<em>{"your"}</em>{" schedule."}
                             <br /><br />
-                            {"It understands your context. It knows what’s working in your industry. It is made for Founders like you."}
+                            {"You're the captain, the one who started it all. You're the one who can make it better and more profitable."}
                             <br /><br />
-                            {"FounderPal will save you 100+ hours of marketing procrastination EVERY MONTH."}
+                            {"We're just giving you the tools to do it."}
                             <br /><br />
-                            <strong>{"Tired of hating marketing?"}</strong>
-                            <br /><br />
-                            {"Get an AI marketing partner today."}
+                            {"So, are you ready to take control, or will you let others decide for you?"}
                         </p>
-
-                        <Link href="/#pricing">
-                            <ButtonSmall
-                                variant="default"
-                                className="hover:scale-[1.05] transition-all duration-300 font-bold mt-4"
-                            >
-                                Get started&nbsp;&nbsp;&rarr;
-                            </ButtonSmall>
-                        </Link>
-
-                        <div className="flex flex-row gap-4">
-                            <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto">
-                                "FounderPal is a game-changer for me. It saves me so much time and effort."
-                            </p>
-                            <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto bg-primary/50">
-                                "FounderPal is a game-changer for me. It saves me so much time and effort."
-                            </p>
-                            <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto">
-                                "FounderPal is a game-changer for me. It saves me so much time and effort."
-                            </p>
-                        </div>
                     </div> */}
 
                     {/* cta */}
