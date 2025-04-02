@@ -685,9 +685,9 @@ export default function Landing() {
                     </div>
 
                     {/* founder letter */}
-                    {/* <div className="flex flex-col items-center justify-center rounded-md gap-8 py-12 w-full bg-primary/5">
+                    <div className="flex flex-col items-center justify-center rounded-md gap-8 py-12 w-full bg-primary/5">
                         <img
-                            src="https://placehold.co/1000"
+                            src="https://ugcfarm.b-cdn.net/arthur.png"
                             alt="Avatar"
                             className="w-28 h-28 rounded-full"
                         />
@@ -718,7 +718,7 @@ export default function Landing() {
                             <br /><br />
                             {"So, are you ready to take control, or will you let others decide for you?"}
                         </p>
-                    </div> */}
+                    </div>
 
                     {/* cta */}
                     <div className="py-12 size-[300px] rounded-lg w-full bg-background overflow-hidden border relative">
