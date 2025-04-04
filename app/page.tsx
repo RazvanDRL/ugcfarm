@@ -692,7 +692,7 @@ export default function Landing() {
                             className="w-28 h-28 rounded-full"
                         />
                         <h2 className="text-xl md:text-2xl font-[900] text-[#1a1a1a] text-center">
-                            Hi, it's Arthur from UGC Farm
+                            Hi, {"it's"} Arthur from UGC Farm
                         </h2>
 
                         <p className="text-lg font-[450] text-black/80 max-w-xl mx-auto">
