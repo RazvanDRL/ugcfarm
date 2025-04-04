@@ -34,6 +34,9 @@ const creators = transformed_creators.map((creator) => ({
     alt: creator.alt,
 }))
 
+interface OnboardingData {
+    product_link: string
+}
 
 export default function Page() {
     const router = useRouter()
@@ -45,6 +48,7 @@ export default function Page() {
     const [step, setStep] = useState<number>(1)
     const [selectedCreator, setSelectedCreator] = useState<number | null>(null)
     const [currentPage, setCurrentPage] = useState<number>(1)
+    const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(null)
 
     const creatorsPerPage = 9
     const totalPages = Math.ceil(creators.length / creatorsPerPage)
@@ -74,6 +78,15 @@ export default function Page() {
 
                 if (profile.plan === null) {
                     router.replace('/#pricing')
+                }
+
+                const { data: onboardingData } = await supabase
+                    .from("onboarding")
+                    .select("*")
+                    .eq("user_id", user.id)
+
+                if (onboardingData && onboardingData.length > 0) {
+                    setOnboardingData(onboardingData[0])
                 }
 
                 setProfile(profile)
@@ -132,12 +145,13 @@ export default function Page() {
 
                             {step === 1 && !success && (
                                 <div className="flex flex-col gap-2">
+                                    <h1 className="text-2xl font-semibold mb-8 text-[#1a1a1a]/90">Generate an ad for your product</h1>
                                     <label htmlFor="product-url">Product URL</label>
                                     <div className="flex gap-2">
                                         <Input
                                             id="product-url"
                                             placeholder="Enter your product url"
-                                            value={text}
+                                            value={onboardingData?.product_link || text}
                                             className="w-full"
                                             required
                                             type="url"
@@ -246,7 +260,7 @@ export default function Page() {
                                 </div>
                             )}
 
-                            {success&& profile.email && (
+                            {success && profile.email && (
                                 <div className="flex flex-col gap-2 p-2 bg-green-500 text-white rounded-md font-[500]">
                                     <p>
                                         This will take up to 30 minutes to process. You will receive it on your mail at <span className="underline">{profile.email}</span>
