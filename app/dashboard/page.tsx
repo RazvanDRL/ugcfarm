@@ -246,10 +246,10 @@ export default function Page() {
                                 </div>
                             )}
 
-                            {success && (
+                            {success&& profile.email && (
                                 <div className="flex flex-col gap-2 p-2 bg-green-500 text-white rounded-md font-[500]">
                                     <p>
-                                        This will take up to 30 minutes to process.
+                                        This will take up to 30 minutes to process. You will receive it on your mail at <span className="text-blue-300 underline">{profile.email}</span>
                                     </p>
                                 </div>
                             )}
